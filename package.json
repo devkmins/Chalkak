@@ -4,9 +4,12 @@
   "description": "",
   "scripts": {
     "start:client": "cd client && npm start",
-    "start:server": "npx nodemon --exec ts-node ./server/server.ts"
+    "start:server": "npx nodemon --exec ts-node ./server/init.ts"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/morgan": "^1.9.4"
+  }
 }
