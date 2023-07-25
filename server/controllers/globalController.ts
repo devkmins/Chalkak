@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
+import Post from "../models/Post";
 
-export const home = (req: Request, res: Response) => res.send("Home");
+export const home = async (req: Request, res: Response) => {
+  const posts = await Post.find({});
+  return res.json(posts);
+};
 
 export const getJoin = (req: Request, res: Response) => res.send("Join");
 
