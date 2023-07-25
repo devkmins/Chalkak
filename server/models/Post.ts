@@ -12,14 +12,14 @@ interface IPost {
 }
 
 const postSchema = new mongoose.Schema({
-  title: String,
-  description: String,
-  fileUrl: String,
-  createdAt: Date,
-  tags: [{ type: String }],
-  owner: { type: mongoose.Schema.Types.ObjectId },
+  title: { type: String, required: true, trim: true, maxLength: 75 },
+  description: { type: String, required: true, trim: true, minLength: 1 },
+  fileUrl: { type: String, required: true },
+  createdAt: { type: Date, required: true, default: Date.now },
+  hashtags: [{ type: String, trim: true }],
+  //owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
   thumbnail: String,
-  views: Number,
+  views: { type: Number, default: 0, required: true },
 });
 
 const Post = mongoose.model<IPost>("Post", postSchema);
