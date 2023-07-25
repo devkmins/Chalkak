@@ -12,6 +12,7 @@ const logger = morgan("dev");
 
 app.use(logger);
 app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use("/", globalRouter);
