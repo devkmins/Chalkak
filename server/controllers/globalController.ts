@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Post from "../models/Post";
 import User from "../models/User";
+import bcrypt from "bcrypt";
 
 export const home = async (req: Request, res: Response) => {
   const posts = await Post.find({});
@@ -38,6 +39,19 @@ export const postJoin = async (req: Request, res: Response) => {
   }
 };
 
-export const postLogin = (req: Request, res: Response) => res.send("Login");
+export const postLogin = async (req: Request, res: Response) => {
+  const { id, password } = req.body;
+  const user = await User.findOne({ id });
+
+  if (!user) {
+    return res.status(400).json({ error: "loginIdError" });
+  }
+
+  const comparePassword = await bcrypt.compare(password, user.password);
+
+  if (!comparePassword) {
+    return res.status(400).json({ error: "loginPasswordError" });
+  }
+};
 
 export const search = (req: Request, res: Response) => res.send("Search");
