@@ -16,6 +16,7 @@ function Posts() {
   return (
     <div>
       <Link to={"/join"}>Join</Link>
+      <Link to={"/login"}>Login</Link>
       <CreatePost />
       {data.map((post: any) => (
         <div
