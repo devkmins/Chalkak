@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import CreatePost from "./CreatePost";
 import EditPost from "./EditPost";
 import DeletePost from "./DeletePost";
+import { Link } from "react-router-dom";
 
 function Posts() {
   const { data, isLoading, isError } = useQuery("getData", () =>
@@ -14,6 +15,7 @@ function Posts() {
 
   return (
     <div>
+      <Link to={"/join"}>Join</Link>
       <CreatePost />
       {data.map((post: any) => (
         <div
