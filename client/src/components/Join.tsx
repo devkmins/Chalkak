@@ -7,7 +7,7 @@ function Join() {
 
   const [formData, setFormData] = useState({
     name: "",
-    username: "",
+    id: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -53,10 +53,10 @@ function Join() {
           required
         />
         <input
-          name="username"
+          name="id"
           type="text"
-          placeholder="username"
-          value={formData.username}
+          placeholder="id"
+          value={formData.id}
           onChange={handleChange}
           required
         />

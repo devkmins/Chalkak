@@ -8,20 +8,20 @@ export const home = async (req: Request, res: Response) => {
 };
 
 export const postJoin = async (req: Request, res: Response) => {
-  const { name, email, username, password, confirmPassword } = req.body;
-  const existUsername = await User.exists({ username });
+  const { name, email, id, password, confirmPassword } = req.body;
+  const existId = await User.exists({ id });
   const existEmail = await User.exists({ email });
 
   if (password !== confirmPassword) {
     return res.status(400).json({ error: "passwordConfirmError" });
   }
 
-  if (existUsername && existEmail) {
+  if (existId && existEmail) {
     return res.status(400).json({
-      error: ["usernameExistError", "emailExistError"],
+      error: ["idExistError", "emailExistError"],
     });
-  } else if (existUsername) {
-    return res.status(400).json({ error: "usernameExistError" });
+  } else if (existId) {
+    return res.status(400).json({ error: "idExistError" });
   } else if (existEmail) {
     return res.status(400).json({ error: "emailExistError" });
   }
@@ -29,7 +29,7 @@ export const postJoin = async (req: Request, res: Response) => {
   try {
     const newUser = await User.create({
       name,
-      username,
+      id,
       email,
       password,
     });
