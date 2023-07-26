@@ -17,9 +17,8 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   socialOnly: { type: Boolean, default: false },
-  images: [{ type: String }],
-  avatarUrl: String,
-  totalViews: Number,
+  profileImage: String,
+  totalViews: { type: Number, ref: "Post" },
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
 });
 
