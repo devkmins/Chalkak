@@ -1,16 +1,5 @@
 import mongoose, { Types } from "mongoose";
 
-interface IPost {
-  title: String;
-  description: String;
-  fileUrl: String;
-  createdAt: Date;
-  tags: String[];
-  owner: Types.ObjectId;
-  thumbnail: String;
-  views: Number;
-}
-
 const postSchema = new mongoose.Schema({
   title: { type: String, required: true, trim: true, maxLength: 75 },
   description: { type: String, required: true, trim: true, minLength: 1 },
@@ -22,6 +11,6 @@ const postSchema = new mongoose.Schema({
   views: { type: Number, default: 0, required: true },
 });
 
-const Post = mongoose.model<IPost>("Post", postSchema);
+const Post = mongoose.model("Post", postSchema);
 
 export default Post;
