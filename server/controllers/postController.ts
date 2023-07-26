@@ -10,10 +10,6 @@ export const watch = async (req: Request, res: Response) => {
   return res.send("watch");
 };
 
-export const getUpload = (req: Request, res: Response) => {
-  res.send("Upload");
-};
-
 export const postUpload = async (req: Request, res: Response) => {
   const { title, description, hashtags } = req.body;
 
@@ -31,10 +27,6 @@ export const postUpload = async (req: Request, res: Response) => {
   }
 };
 
-export const getPostEdit = (req: Request, res: Response) => {
-  res.send("hi");
-};
-
 export const patchPostEdit = async (req: Request, res: Response) => {
   const postId = req.params.pid;
   const { title, description, hashtags } = req.body;
@@ -45,7 +37,7 @@ export const patchPostEdit = async (req: Request, res: Response) => {
   });
 };
 
-export const deletePost = async (req: Request, res: Response) => {
+export const postDelete = async (req: Request, res: Response) => {
   const postId = req.params.pid;
   await Post.findByIdAndDelete(postId);
 };
