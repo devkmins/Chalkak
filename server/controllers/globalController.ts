@@ -38,8 +38,6 @@ export const postJoin = async (req: Request, res: Response) => {
   }
 };
 
-export const getLogin = (req: Request, res: Response) => res.send("Login");
-
 export const postLogin = (req: Request, res: Response) => res.send("Login");
 
 export const search = (req: Request, res: Response) => res.send("Search");
