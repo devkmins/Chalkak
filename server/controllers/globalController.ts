@@ -9,42 +9,45 @@ export const home = async (req: Request, res: Response) => {
 };
 
 export const postJoin = async (req: Request, res: Response) => {
-  const { name, email, id, password, confirmPassword } = req.body;
-  const existId = await User.exists({ id });
+  const { name, email, username, password, confirmPassword } = req.body;
+  const existUsername = await User.exists({ username });
   const existEmail = await User.exists({ email });
 
   if (password !== confirmPassword) {
     return res.status(400).json({ error: "passwordConfirmError" });
   }
 
-  if (existId && existEmail) {
+  if (existUsername && existEmail) {
     return res.status(400).json({
-      error: ["idExistError", "emailExistError"],
+      error: ["usernameExistError", "emailExistError"],
     });
-  } else if (existId) {
-    return res.status(400).json({ error: "idExistError" });
+  } else if (existUsername) {
+    return res.status(400).json({ error: "usernameExistError" });
   } else if (existEmail) {
     return res.status(400).json({ error: "emailExistError" });
   }
 
   try {
-    const newUser = await User.create({
+    await User.create({
       name,
-      id,
+      username,
       email,
       password,
     });
+    return res
+      .status(200)
+      .json({ message: "회원가입이 성공적으로 완료되었습니다." });
   } catch (error) {
-    return res.status(400);
+    return res.status(400).json({ error: "회원가입에 실패했습니다." });
   }
 };
 
 export const postLogin = async (req: Request, res: Response) => {
-  const { id, password } = req.body;
-  const user = await User.findOne({ id });
+  const { username, password } = req.body;
+  const user = await User.findOne({ username });
 
   if (!user) {
-    return res.status(400).json({ error: "loginIdError" });
+    return res.status(400).json({ error: "loginUsernameError" });
   }
 
   const comparePassword = await bcrypt.compare(password, user.password);
@@ -52,6 +55,8 @@ export const postLogin = async (req: Request, res: Response) => {
   if (!comparePassword) {
     return res.status(400).json({ error: "loginPasswordError" });
   }
+
+  return res.status(200).json({ message: "로그인이 완료되었습니다." });
 };
 
 export const search = (req: Request, res: Response) => res.send("Search");
