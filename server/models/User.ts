@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  id: { type: String, required: true, unique: true },
+  username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   socialOnly: { type: Boolean, default: false },
@@ -12,11 +12,11 @@ const userSchema = new mongoose.Schema({
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
 });
 
-const User = mongoose.model("User", userSchema);
-
 userSchema.pre("save", async function () {
   if (this.isModified("password"))
     this.password = await bcrypt.hash(this.password, 5);
 });
+
+const User = mongoose.model("User", userSchema);
 
 export default User;
