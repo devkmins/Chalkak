@@ -7,18 +7,18 @@ function Join() {
 
   const [formData, setFormData] = useState({
     name: "",
-    id: "",
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
 
-  const [error, setError] = useState();
+  const [error, setError] = useState("");
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
-    const response = await axios
+    await axios
       .post("http://localhost:4000/join", formData)
       .then((response) => navigate("/"))
       .catch((error) => setError(error.response.data.error));
@@ -26,6 +26,7 @@ function Join() {
 
   const handleChange = (event: any) => {
     const { name, value } = event.target;
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
@@ -53,10 +54,10 @@ function Join() {
           required
         />
         <input
-          name="id"
+          name="username"
           type="text"
-          placeholder="id"
-          value={formData.id}
+          placeholder="username"
+          value={formData.username}
           onChange={handleChange}
           required
         />
