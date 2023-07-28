@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-mongoose.connect("mongodb://127.0.0.1:27017/chalkak", {});
+mongoose.connect(process.env.DB_URL as string, {});
 
 const db = mongoose.connection;
 
