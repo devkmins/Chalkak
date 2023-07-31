@@ -15,7 +15,12 @@ const app = express();
 const logger = morgan("dev");
 
 app.use(logger);
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
