@@ -5,6 +5,7 @@ import Join from "./components/Join";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
 import { RecoilRoot } from "recoil";
+import Logout from "./components/Logout";
 
 const queryClient = new QueryClient();
 
@@ -17,6 +18,7 @@ function App() {
             <Route path="/" element={<Posts />}></Route>
             <Route path="/join" element={<Join />}></Route>
             <Route path="/login" element={<Login />}></Route>
+            <Route path="/logout" element={<Logout />}></Route>
           </Routes>
         </RecoilRoot>
       </QueryClientProvider>
