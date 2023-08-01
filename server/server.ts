@@ -6,6 +6,7 @@ import "dotenv/config";
 
 import session from "express-session";
 import MongoStore from "connect-mongo";
+import cookieParser from "cookie-parser";
 
 import globalRouter from "./routes/globalRouter";
 import userRouter from "./routes/userRouter";
@@ -36,6 +37,7 @@ app.use(
     store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
   })
 );
+app.use(cookieParser());
 
 app.use("/", globalRouter);
 app.use("/user", userRouter);
