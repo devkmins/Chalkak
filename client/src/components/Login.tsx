@@ -10,13 +10,13 @@ function Login() {
     password: "",
   });
 
-  const [error, setError] = useState();
+  const [error, setError] = useState(false);
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
     await axios
-      .post("http://localhost:4000/login", formData)
+      .post("http://localhost:4000/login", formData, { withCredentials: true })
       .then((response) => navigate("/"))
       .catch((error) => setError(error.response.data.error));
   };
