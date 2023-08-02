@@ -18,7 +18,7 @@ function App() {
             <Route path="/" element={<Posts />}></Route>
             <Route path="/join" element={<Join />}></Route>
             <Route path="/login" element={<Login />}></Route>
-            <Route path="/logout" element={<Logout />}></Route>
+            <Route path="/user/logout" element={<Logout />}></Route>
           </Routes>
         </RecoilRoot>
       </QueryClientProvider>
