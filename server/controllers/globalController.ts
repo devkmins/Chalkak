@@ -77,7 +77,10 @@ export const postLogin = async (req: Request, res: Response) => {
   (req.session as CustomSessionData).loggedIn = true;
   (req.session as CustomSessionData).user = userSessionData;
 
-  return res.status(200).send("Login");
+  return res.status(200).send({
+    loggedIn: (req.session as CustomSessionData).loggedIn,
+    user: (req.session as CustomSessionData).user,
+  });
 };
 
 export const search = (req: Request, res: Response) => res.send("Search");
