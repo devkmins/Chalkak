@@ -32,6 +32,7 @@ function Posts() {
     <div>
       {loggedIn ? (
         <>
+          {sessionData ? <h2>안녕하세요 {sessionData?.name}님.</h2> : ""}
           <Link to={"/user/logout"}>Logout</Link>
           <CreatePost />
         </>
