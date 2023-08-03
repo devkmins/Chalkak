@@ -27,7 +27,7 @@ export const postUpload = async (req: Request, res: Response) => {
   }
 };
 
-export const patchPostEdit = async (req: Request, res: Response) => {
+export const putPostEdit = async (req: Request, res: Response) => {
   const postId = req.params.pid;
   const { title, description, hashtags } = req.body;
   await Post.findByIdAndUpdate(postId, {
