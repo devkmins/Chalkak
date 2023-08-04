@@ -9,7 +9,7 @@ export const logout = (req: Request, res: Response) => {
     if (error) {
       return res.send("error");
     } else {
-      return res.clearCookie("connect.sid").send("Logout");
+      return res.send("Logout");
     }
   });
 };
