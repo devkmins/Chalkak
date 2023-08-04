@@ -18,5 +18,8 @@ export const getUserEdit = (req: Request, res: Response) => res.send("Edit");
 
 export const postUserEdit = (req: Request, res: Response) => res.send("Edit");
 
+export const changePassword = (req: Request, res: Response) =>
+  res.send("Change");
+
 export const deleteAccount = (req: Request, res: Response) =>
   res.send("Delete Account");
