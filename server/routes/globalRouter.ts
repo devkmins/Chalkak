@@ -14,9 +14,8 @@ globalRouter.get("/", home);
 globalRouter.post("/join", publicOnlyMiddleware, postJoin);
 globalRouter
   .route("/login")
-  .all(publicOnlyMiddleware)
   .get(getLogin)
-  .post(postLogin);
+  .post(publicOnlyMiddleware, postLogin);
 globalRouter.get("/search", search);
 
 export default globalRouter;
