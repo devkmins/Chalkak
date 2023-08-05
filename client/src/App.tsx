@@ -4,23 +4,31 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import Join from "./components/Join";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
-import { RecoilRoot } from "recoil";
+import { useRecoilValue } from "recoil";
 import Logout from "./components/Logout";
+import { loggedInState } from "./atoms/atoms";
 
 const queryClient = new QueryClient();
 
 function App() {
+  const loggedIn = useRecoilValue(loggedInState);
+
   return (
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <RecoilRoot>
-          <Routes>
-            <Route path="/" element={<Posts />}></Route>
-            <Route path="/join" element={<Join />}></Route>
-            <Route path="/login" element={<Login />}></Route>
-            <Route path="/user/logout" element={<Logout />}></Route>
-          </Routes>
-        </RecoilRoot>
+        <Routes>
+          <Route path="/" element={<Posts />} />
+          {loggedIn ? (
+            <>
+              <Route path="/user/logout" element={<Logout />} />
+            </>
+          ) : (
+            <>
+              <Route path="/join" element={<Join />} />
+              <Route path="/login" element={<Login />} />
+            </>
+          )}
+        </Routes>
       </QueryClientProvider>
     </BrowserRouter>
   );
