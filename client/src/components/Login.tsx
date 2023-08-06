@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useGetLoginData from "../hooks/useGetLoginData";
 
 function Login() {
   const navigate = useNavigate();
@@ -28,6 +29,8 @@ function Login() {
       [name]: value,
     }));
   };
+
+  useGetLoginData();
 
   return (
     <>

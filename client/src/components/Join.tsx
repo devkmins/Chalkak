@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useGetLoginData from "../hooks/useGetLoginData";
 
 function Join() {
   const navigate = useNavigate();
@@ -32,6 +33,8 @@ function Join() {
       [name]: value,
     }));
   };
+
+  useGetLoginData();
 
   return (
     <>

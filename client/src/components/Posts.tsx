@@ -4,26 +4,19 @@ import CreatePost from "./CreatePost";
 import EditPost from "./EditPost";
 import DeletePost from "./DeletePost";
 import { Link } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { loggedInState, sessionState } from "../atoms/atoms";
-import { useEffect } from "react";
+import { useRecoilValue } from "recoil";
+import { loggedInState, sessionState } from "../atoms";
+import useGetLoginData from "../hooks/useGetLoginData";
 
 function Posts() {
   const { data, isLoading, isError } = useQuery("getData", () =>
     axios.get("http://localhost:4000/").then((response) => response.data)
   );
 
-  const [loggedIn, setLoggedIn] = useRecoilState(loggedInState);
-  const [sessionData, setSessionData] = useRecoilState(sessionState);
+  const loggedIn = useRecoilValue(loggedInState);
+  const sessionData = useRecoilValue(sessionState);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:4000/login", { withCredentials: true })
-      .then((response) => {
-        setLoggedIn(response.data.loggedIn);
-        setSessionData(response.data.user);
-      });
-  }, []);
+  useGetLoginData();
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error occurred.</div>;
