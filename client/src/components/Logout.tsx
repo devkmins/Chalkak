@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { loggedInState, sessionState } from "../atoms/atoms";
+import { loggedInState, sessionState } from "../atoms";
 import { useCookies } from "react-cookie";
 
 function Logout() {
