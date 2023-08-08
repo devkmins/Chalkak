@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useGetLoginData from "../hooks/useGetLoginData";
 import CryptoJS from "crypto-js";
 
 function Login() {
@@ -37,8 +36,6 @@ function Login() {
       [name]: value,
     }));
   };
-
-  useGetLoginData();
 
   return (
     <>

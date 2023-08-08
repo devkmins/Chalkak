@@ -77,6 +77,8 @@ export const postLogin = async (req: Request, res: Response) => {
   (req.session as CustomSessionData).loggedIn = true;
   (req.session as CustomSessionData).user = userSessionData;
 
+  res.cookie("loggedIn", (req.session as CustomSessionData).loggedIn);
+
   return res.status(200).send({
     loggedIn: (req.session as CustomSessionData).loggedIn,
     user: (req.session as CustomSessionData).user,

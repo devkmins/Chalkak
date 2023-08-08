@@ -9,7 +9,7 @@ function Logout() {
   const navigate = useNavigate();
   const setLoggedIn = useSetRecoilState(loggedInState);
   const setSessionData = useSetRecoilState(sessionState);
-  const [, , removeCookie] = useCookies(["connect.sid"]);
+  const [, , removeCookie] = useCookies(["connect.sid", "loggedIn"]);
 
   const logout = async () => {
     await axios
@@ -23,6 +23,7 @@ function Logout() {
           socialOnly: false,
         });
         removeCookie("connect.sid");
+        removeCookie("loggedIn");
         navigate("/");
       });
   };

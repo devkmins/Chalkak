@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useGetLoginData from "../hooks/useGetLoginData";
 import CryptoJS from "crypto-js";
 
 function Join() {
@@ -40,8 +39,6 @@ function Join() {
       [name]: value,
     }));
   };
-
-  useGetLoginData();
 
   return (
     <>
