@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useGetLoginData from "../hooks/useGetLoginData";
+import CryptoJS from "crypto-js";
 
 function Join() {
   const navigate = useNavigate();
@@ -19,8 +20,14 @@ function Join() {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
+    const hashedFormData = {
+      ...formData,
+      password: CryptoJS.SHA256(formData.password).toString(),
+      confirmPassword: CryptoJS.SHA256(formData.confirmPassword).toString(),
+    };
+
     await axios
-      .post("http://localhost:4000/join", formData)
+      .post("http://localhost:4000/join", hashedFormData)
       .then((response) => navigate("/"))
       .catch((error) => setError(error.response.data.error));
   };

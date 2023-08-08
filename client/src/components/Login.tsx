@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useGetLoginData from "../hooks/useGetLoginData";
+import CryptoJS from "crypto-js";
 
 function Login() {
   const navigate = useNavigate();
@@ -16,8 +17,15 @@ function Login() {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
+    const hashedFormData = {
+      ...formData,
+      password: CryptoJS.SHA256(formData.password).toString(),
+    };
+
     await axios
-      .post("http://localhost:4000/login", formData, { withCredentials: true })
+      .post("http://localhost:4000/login", hashedFormData, {
+        withCredentials: true,
+      })
       .then((response) => navigate("/"))
       .catch((error) => setError(error.response.data.error));
   };
