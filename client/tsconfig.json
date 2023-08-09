@@ -16,5 +16,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "express.d.ts", "server"]
+  "include": ["src", "session.d.ts", "server"]
 }
