@@ -14,7 +14,8 @@ function CreatePost() {
     try {
       const response = await axios.post(
         "http://localhost:4000/post/upload",
-        formData
+        formData,
+        { withCredentials: true }
       );
     } catch (error) {
       console.error("Error:", error);

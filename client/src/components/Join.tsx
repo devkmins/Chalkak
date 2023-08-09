@@ -26,7 +26,9 @@ function Join() {
     };
 
     await axios
-      .post("http://localhost:4000/join", hashedFormData)
+      .post("http://localhost:4000/join", hashedFormData, {
+        withCredentials: true,
+      })
       .then((response) => navigate("/"))
       .catch((error) => setError(error.response.data.error));
   };

@@ -20,7 +20,8 @@ function EditPost({ postId }: any) {
     try {
       const response = await axios.patch(
         `http://localhost:4000/post/${postId}/edit`,
-        formData
+        formData,
+        { withCredentials: true }
       );
     } catch (error) {
       console.error("Error:", error);

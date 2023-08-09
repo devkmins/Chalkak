@@ -4,7 +4,8 @@ function DeletePost({ postId }: any) {
   const onClick = async () => {
     try {
       const response = await axios.delete(
-        `http://localhost:4000/post/${postId}/delete`
+        `http://localhost:4000/post/${postId}/delete`,
+        { withCredentials: true }
       );
     } catch (error) {
       console.error("Error:", error);
