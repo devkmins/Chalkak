@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import Post from "../models/Post";
 import User from "../models/User";
 import bcrypt from "bcrypt";
-import { CustomSessionData } from "../types/express";
+import { CustomSession } from "../types/session";
 
 export const home = async (req: Request, res: Response) => {
   const posts = await Post.find({});
@@ -44,10 +44,12 @@ export const postJoin = async (req: Request, res: Response) => {
 };
 
 export const getLogin = (req: Request, res: Response) => {
-  if ((req.session as CustomSessionData).loggedIn) {
+  const session = req.session as CustomSession;
+
+  if (session.loggedIn) {
     return res.send({
-      loggedIn: (req.session as CustomSessionData).loggedIn,
-      user: (req.session as CustomSessionData).user,
+      loggedIn: session.loggedIn,
+      user: session.user,
     });
   }
 };
@@ -72,16 +74,19 @@ export const postLogin = async (req: Request, res: Response) => {
     username: user.username,
     socialOnly: user.socialOnly,
     profileImage: user.profileImage,
+    _id: user._id,
   };
 
-  (req.session as CustomSessionData).loggedIn = true;
-  (req.session as CustomSessionData).user = userSessionData;
+  const session = req.session as CustomSession;
 
-  res.cookie("loggedIn", (req.session as CustomSessionData).loggedIn);
+  session.loggedIn = true;
+  session.user = userSessionData;
+
+  res.cookie("loggedIn", session.loggedIn);
 
   return res.status(200).send({
-    loggedIn: (req.session as CustomSessionData).loggedIn,
-    user: (req.session as CustomSessionData).user,
+    loggedIn: session.loggedIn,
+    user: session.user,
   });
 };
 

@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import Post from "../models/Post";
+import { CustomSession } from "../types/session";
+import mongoose from "mongoose";
 
 export const watch = async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -11,6 +13,8 @@ export const watch = async (req: Request, res: Response) => {
 };
 
 export const postUpload = async (req: Request, res: Response) => {
+  const session = req.session as CustomSession;
+  const userId = session.user?._id;
   const { title, description, hashtags } = req.body;
 
   try {
@@ -19,7 +23,7 @@ export const postUpload = async (req: Request, res: Response) => {
       description,
       fileUrl: "example",
       hashtags,
-      //owner: userObjectId,
+      owner: userId,
     });
   } catch (error) {
     console.log(error);

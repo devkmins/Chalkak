@@ -1,11 +1,14 @@
 import { Request, Response } from "express";
+import { CustomSession } from "../types/session";
 
 export const see = (req: Request, res: Response) => {
   return res.send("user");
 };
 
 export const logout = (req: Request, res: Response) => {
-  req.session.destroy((error) => {
+  const session = req.session as CustomSession;
+
+  session.destroy((error) => {
     if (error) {
       return res.send("error");
     } else {
