@@ -15,17 +15,6 @@ import postRouter from "./routes/postRouter";
 const app = express();
 const logger = morgan("dev");
 
-app.use(logger);
-app.use(
-  cors({
-    origin: ["http://localhost:3000"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
 app.use(
   session({
     secret: process.env.COOKIE_SECRET as string,
@@ -39,6 +28,17 @@ app.use(
   })
 );
 app.use(cookieParser());
+
+app.use(logger);
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use("/", globalRouter);
 app.use("/user", userRouter);
