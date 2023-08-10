@@ -1,12 +1,12 @@
 import { NextFunction } from "express";
-import { CustomSessionData } from "../types/express";
+import { CustomSession } from "../types/session";
 
 export const protectorMiddleware = (
   req: Express.Request,
   res: Express.Response,
   next: NextFunction
 ) => {
-  if ((req.session as CustomSessionData).loggedIn) {
+  if ((req.session as CustomSession).loggedIn) {
     return next();
   } else {
     const error = new Error("Login first");
@@ -19,7 +19,7 @@ export const publicOnlyMiddleware = (
   res: Express.Response,
   next: NextFunction
 ) => {
-  if (!(req.session as CustomSessionData).loggedIn) {
+  if (!(req.session as CustomSession).loggedIn) {
     return next();
   } else {
     const error = new Error("Not authorized");
