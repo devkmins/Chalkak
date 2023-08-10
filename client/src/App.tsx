@@ -5,13 +5,13 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
 import { useCookies } from "react-cookie";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { loggedInState, sessionState } from "./atoms";
 
 function App() {
   const [cookies, ,] = useCookies(["loggedIn", "user"]);
   const [loggedIn, setLoggedIn] = useRecoilState(loggedInState);
-  const [sessionData, setSessionData] = useRecoilState(sessionState);
+  const setSessionData = useSetRecoilState(sessionState);
 
   useEffect(() => {
     if (cookies.loggedIn) {
