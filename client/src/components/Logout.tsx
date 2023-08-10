@@ -27,6 +27,7 @@ function Logout() {
           username: "",
           name: "",
           socialOnly: false,
+          _id: "",
         });
         removeCookie("connect.sid");
         removeCookie("loggedIn");
