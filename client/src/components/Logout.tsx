@@ -17,7 +17,7 @@ function Logout() {
 
   const logout = async () => {
     await axios
-      .post("http://localhost:4000/user/logout", "", {
+      .post("http://localhost:4000/user/logout", "Logout", {
         withCredentials: true,
       })
       .then(() => {
