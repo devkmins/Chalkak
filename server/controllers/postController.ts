@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import Post from "../models/Post";
 import { CustomSession } from "../types/session";
-import mongoose from "mongoose";
 
 export const watch = async (req: Request, res: Response) => {
   const { id } = req.params;
