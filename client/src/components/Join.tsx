@@ -2,6 +2,9 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
+import { useCookies } from "react-cookie";
+import { useSetRecoilState } from "recoil";
+import { loggedInState, sessionState } from "../atoms";
 
 function Join() {
   const navigate = useNavigate();
@@ -16,20 +19,44 @@ function Join() {
 
   const [error, setError] = useState("");
 
+  const [, setCookie] = useCookies(["loggedIn", "user"]);
+
+  const setLoggedIn = useSetRecoilState(loggedInState);
+  const setSessionData = useSetRecoilState(sessionState);
+
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
-    const hashedFormData = {
+    const hashedJoinFormData = {
       ...formData,
       password: CryptoJS.SHA256(formData.password).toString(),
       confirmPassword: CryptoJS.SHA256(formData.confirmPassword).toString(),
     };
 
-    await axios
-      .post("http://localhost:4000/join", hashedFormData, {
+    const { username, password } = formData;
+
+    const hashedLoginFormData = {
+      username,
+      password: CryptoJS.SHA256(formData.password).toString(),
+    };
+
+    const join = await axios
+      .post("http://localhost:4000/join", hashedJoinFormData, {
         withCredentials: true,
       })
-      .then((response) => navigate("/"))
+      .catch((error) => setError(error.response.data.error));
+
+    const login = await axios
+      .post("http://localhost:4000/login", hashedLoginFormData, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        setCookie("loggedIn", true);
+        setCookie("user", response.data.user);
+        setLoggedIn(true);
+        setSessionData(response.data.user);
+        navigate("/");
+      })
       .catch((error) => setError(error.response.data.error));
   };
 
