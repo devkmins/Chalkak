@@ -31,8 +31,16 @@ export const postUpload = async (req: Request, res: Response) => {
 };
 
 export const putPostEdit = async (req: Request, res: Response) => {
+  const session = req.session as CustomSession;
+  const userId = session.user?._id;
   const postId = req.params.pid;
   const { title, description, hashtags } = req.body;
+  const post = await Post.findById(postId);
+
+  if (post?.owner.toString() !== userId) {
+    return res.status(403).send({ error: "권한이 없습니다." });
+  }
+
   await Post.findByIdAndUpdate(postId, {
     title,
     description,
@@ -41,6 +49,14 @@ export const putPostEdit = async (req: Request, res: Response) => {
 };
 
 export const postDelete = async (req: Request, res: Response) => {
+  const session = req.session as CustomSession;
+  const userId = session.user?._id;
   const postId = req.params.pid;
+  const post = await Post.findById(postId);
+
+  if (post?.owner.toString() !== userId) {
+    return res.status(403).send({ error: "권한이 없습니다." });
+  }
+
   await Post.findByIdAndDelete(postId);
 };

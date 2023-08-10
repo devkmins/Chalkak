@@ -42,8 +42,14 @@ function Posts() {
           <h5>{post.hashtags}</h5>
           <h5>{post.createdAt}</h5>
           <span>{post.views}</span>
-          <EditPost postId={post._id} />
-          <DeletePost postId={post._id} />
+          {sessionData._id === post.owner ? (
+            <>
+              <EditPost postId={post._id} />
+              <DeletePost postId={post._id} />
+            </>
+          ) : (
+            ""
+          )}
         </div>
       ))}
     </div>
