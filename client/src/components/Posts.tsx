@@ -6,14 +6,11 @@ import DeletePost from "./DeletePost";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { loggedInState, sessionState } from "../atoms";
-import { useCookies } from "react-cookie";
 
 function Posts() {
   const { data, isLoading, isError } = useQuery("getData", () =>
     axios.get("http://localhost:4000/").then((response) => response.data)
   );
-
-  const [cookies, ,] = useCookies(["loggedIn"]);
 
   const loggedIn = useRecoilValue(loggedInState);
   const sessionData = useRecoilValue(sessionState);
@@ -23,7 +20,7 @@ function Posts() {
 
   return (
     <div>
-      {cookies.loggedIn ? (
+      {loggedIn ? (
         <>
           {sessionData ? <h2>안녕하세요 {sessionData?.name}님.</h2> : ""}
           <Link to={"/user/logout"}>Logout</Link>

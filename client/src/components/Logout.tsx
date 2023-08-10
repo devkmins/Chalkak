@@ -9,11 +9,17 @@ function Logout() {
   const navigate = useNavigate();
   const setLoggedIn = useSetRecoilState(loggedInState);
   const setSessionData = useSetRecoilState(sessionState);
-  const [, , removeCookie] = useCookies(["connect.sid", "loggedIn"]);
+  const [cookies, , removeCookie] = useCookies([
+    "connect.sid",
+    "loggedIn",
+    "user",
+  ]);
 
   const logout = async () => {
     await axios
-      .post("http://localhost:4000/user/logout", { withCredentials: true })
+      .post("http://localhost:4000/user/logout", "", {
+        withCredentials: true,
+      })
       .then(() => {
         setLoggedIn(false);
         setSessionData({
@@ -24,13 +30,14 @@ function Logout() {
         });
         removeCookie("connect.sid");
         removeCookie("loggedIn");
+        removeCookie("user");
         navigate("/");
       });
   };
 
   useEffect(() => {
     logout();
-  }, []);
+  });
 
   return null;
 }

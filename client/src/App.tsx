@@ -1,19 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Posts from "./components/Posts";
 import Join from "./components/Join";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
 import { useCookies } from "react-cookie";
+import { useRecoilState } from "recoil";
+import { loggedInState, sessionState } from "./atoms";
 
 function App() {
-  const [cookies, ,] = useCookies(["loggedIn"]);
+  const [cookies, ,] = useCookies(["loggedIn", "user"]);
+  const [loggedIn, setLoggedIn] = useRecoilState(loggedInState);
+  const [sessionData, setSessionData] = useRecoilState(sessionState);
+
+  useEffect(() => {
+    if (cookies.loggedIn) {
+      setLoggedIn(true);
+      setSessionData(cookies.user);
+    }
+  }, []);
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Posts />} />
-        {cookies.loggedIn ? (
+        {loggedIn ? (
           <>
             <Route path="/join" element={<Navigate to="/" />} />
             <Route path="/login" element={<Navigate to="/" />} />
@@ -23,7 +34,7 @@ function App() {
           <>
             <Route path="/join" element={<Join />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/user/logout" element={<Navigate to="/login" />} />
+            <Route path="/user/logout" element={<Navigate to="/" />} />
           </>
         )}
       </Routes>
