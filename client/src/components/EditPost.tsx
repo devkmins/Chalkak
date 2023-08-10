@@ -18,7 +18,7 @@ function EditPost({ postId }: any) {
     event.preventDefault();
 
     try {
-      const response = await axios.patch(
+      const response = await axios.put(
         `http://localhost:4000/post/${postId}/edit`,
         formData,
         { withCredentials: true }
