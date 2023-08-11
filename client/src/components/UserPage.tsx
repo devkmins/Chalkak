@@ -1,14 +1,14 @@
 import axios from "axios";
 import { useQuery } from "react-query";
-import { useRecoilValue } from "recoil";
-import { sessionState } from "../atoms";
+import { useLocation } from "react-router-dom";
 
 function UserPage() {
-  const sessionData = useRecoilValue(sessionState);
+  const location = useLocation();
+  const postOwner = location.state;
 
   const { data, isLoading, isError } = useQuery("data", () =>
     axios
-      .get(`http://localhost:4000/user/${sessionData.username}`, {
+      .get(`http://localhost:4000/user/${postOwner}`, {
         withCredentials: true,
       })
       .then((response) => response.data)
