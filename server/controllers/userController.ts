@@ -3,9 +3,9 @@ import { CustomSession } from "../types/session";
 import User from "../models/User";
 
 export const see = async (req: Request, res: Response) => {
-  const session = req.session as CustomSession;
-  const userId = session.user?._id;
-  const userPosts = await User.findById(userId).populate({
+  const username = req.params.uid;
+  const user = await User.findOne({ username });
+  const userPosts = await user?.populate({
     path: "posts",
     populate: {
       path: "owner",
