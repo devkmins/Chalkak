@@ -7,7 +7,7 @@ import Logout from "./components/Logout";
 import { useCookies } from "react-cookie";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { loggedInState, sessionState } from "./atoms";
-import MyPage from "./components/MyPage";
+import UserPage from "./components/UserPage";
 
 function App() {
   const [cookies, ,] = useCookies(["loggedIn", "user"]);
@@ -25,12 +25,12 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Posts />} />
+        <Route path="/user/:id" element={<UserPage />} />
         {loggedIn ? (
           <>
             <Route path="/join" element={<Navigate to="/" />} />
             <Route path="/login" element={<Navigate to="/" />} />
             <Route path="/user/logout" element={<Logout />} />
-            <Route path="/user/my-page" element={<MyPage />} />
           </>
         ) : (
           <>
