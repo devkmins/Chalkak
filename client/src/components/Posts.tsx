@@ -24,7 +24,7 @@ function Posts() {
         <>
           {sessionData ? <h2>안녕하세요 {sessionData?.name}님.</h2> : ""}
           <Link to={"/user/logout"}>Logout</Link>
-          <Link to={"/user/my-page"}>My Page</Link>
+          <Link to={`/user/${sessionData.username}`}>My Profile</Link>
           <CreatePost />
         </>
       ) : (
@@ -42,8 +42,12 @@ function Posts() {
           <h4>: {post.description}</h4>
           <h5>{post.hashtags}</h5>
           <h5>{post.createdAt}</h5>
+          <Link to={`/user/${post.owner.username}`} state={post.owner.username}>
+            {post.owner.username}
+          </Link>
+          <br />
           <span>{post.views}</span>
-          {sessionData._id === post.owner ? (
+          {sessionData._id === post.owner._id ? (
             <>
               <EditPost postId={post._id} />
               <DeletePost postId={post._id} />
