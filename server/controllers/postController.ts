@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Post from "../models/Post";
 import { CustomSession } from "../types/session";
+import User from "../models/User";
 
 export const watch = async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -24,6 +25,15 @@ export const postUpload = async (req: Request, res: Response) => {
       hashtags,
       owner: userId,
     });
+
+    newPost.save();
+
+    const user = await User.findById(userId);
+
+    if (user) {
+      user?.posts.push(newPost._id);
+      user?.save();
+    }
   } catch (error) {
     console.log(error);
     return res.status(400).send("404");
