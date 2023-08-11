@@ -5,6 +5,8 @@ export const see = (req: Request, res: Response) => {
   return res.send("user");
 };
 
+export const myPage = (req: Request, res: Response) => {};
+
 export const logout = (req: Request, res: Response) => {
   const session = req.session as CustomSession;
 

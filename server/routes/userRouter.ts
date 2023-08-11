@@ -6,11 +6,13 @@ import {
   postUserEdit,
   deleteAccount,
   changePassword,
+  myPage,
 } from "../controllers/userController";
 import { protectorMiddleware } from "../middlewares";
 
 const userRouter = express.Router();
 
+userRouter.get("/my-page", protectorMiddleware, myPage);
 userRouter.post("/logout", protectorMiddleware, logout);
 userRouter
   .route("/edit")

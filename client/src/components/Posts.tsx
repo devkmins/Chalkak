@@ -24,6 +24,7 @@ function Posts() {
         <>
           {sessionData ? <h2>안녕하세요 {sessionData?.name}님.</h2> : ""}
           <Link to={"/user/logout"}>Logout</Link>
+          <Link to={"/user/my-page"}>My Page</Link>
           <CreatePost />
         </>
       ) : (
