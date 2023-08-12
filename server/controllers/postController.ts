@@ -40,7 +40,7 @@ export const postUpload = async (req: Request, res: Response) => {
   }
 };
 
-export const putPostEdit = async (req: Request, res: Response) => {
+export const postEdit = async (req: Request, res: Response) => {
   const session = req.session as CustomSession;
   const userId = session.user?._id;
   const postId = req.params.pid;
