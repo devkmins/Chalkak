@@ -11,6 +11,7 @@ import cookieParser from "cookie-parser";
 import globalRouter from "./routes/globalRouter";
 import userRouter from "./routes/userRouter";
 import postRouter from "./routes/postRouter";
+import accountRouter from "./routes/accountRouter";
 
 const app = express();
 const logger = morgan("dev");
@@ -43,5 +44,6 @@ app.use(express.json());
 app.use("/", globalRouter);
 app.use("/user", userRouter);
 app.use("/post", postRouter);
+app.use("/account", accountRouter);
 
 export default app;
