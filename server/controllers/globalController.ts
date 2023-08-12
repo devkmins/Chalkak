@@ -5,8 +5,7 @@ import bcrypt from "bcrypt";
 import { CustomSession } from "../types/session";
 
 export const home = async (req: Request, res: Response) => {
-  const posts = await Post.find({}).populate("owner", "username");
-  console.log(posts);
+  const posts = await Post.find({}).populate("owner", "username name");
 
   return res.json(posts);
 };
