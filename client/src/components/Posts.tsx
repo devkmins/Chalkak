@@ -43,7 +43,7 @@ function Posts() {
           <h5>{post.hashtags}</h5>
           <h5>{post.createdAt}</h5>
           <Link to={`/user/${post.owner.username}`} state={post.owner.username}>
-            {post.owner.username}
+            {post.owner.name}
           </Link>
           <br />
           <span>{post.views}</span>
