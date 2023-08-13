@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import User from "../models/User";
 import { CustomSession } from "../types/session";
+import bcrypt from "bcrypt";
 
 export const editProfile = async (req: Request, res: Response) => {
   const { name: newName, email: newEmail, username: newUsername } = req.body;
@@ -29,4 +30,27 @@ export const editProfile = async (req: Request, res: Response) => {
 
 export const closeAccount = (req: Request, res: Response) => {};
 
-export const changePassword = (req: Request, res: Response) => {};
+export const changePassword = async (req: Request, res: Response) => {
+  const { currentPassword, newPassword, newConfirmPassword } = req.body;
+  const session = req.session as CustomSession;
+  const username = session.user?.username;
+  const user = await User.findOne({ username });
+
+  if (newPassword === newConfirmPassword && user) {
+    const comparePassword = await bcrypt.compare(
+      currentPassword,
+      user?.password
+    );
+
+    if (comparePassword) {
+      if (user.isModified("password")) {
+        const hashedPassword = await bcrypt.hash(newPassword, 5);
+        user.password = hashedPassword;
+      } else {
+        user.password = newPassword;
+      }
+
+      await user.save();
+    }
+  }
+};
