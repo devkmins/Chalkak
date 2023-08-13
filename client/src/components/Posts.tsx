@@ -24,7 +24,11 @@ function Posts() {
         <>
           {sessionData ? <h2>안녕하세요 {sessionData?.name}님.</h2> : ""}
           <Link to={"/user/logout"}>Logout</Link>
-          <Link to={`/user/${sessionData.username}`}>My Profile</Link>
+          <Link
+            to={`/user/${sessionData.username}`}
+            state={sessionData.username}>
+            My Profile
+          </Link>
           <CreatePost />
         </>
       ) : (
