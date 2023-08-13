@@ -1,9 +1,11 @@
+import { Link } from "react-router-dom";
+
 function Account() {
   return (
     <>
-      <div>프로필 수정</div>
-      <div>비밀번호 변경</div>
-      <div>회원탈퇴</div>
+      <Link to={"/account"}>프로필 수정</Link>
+      <Link to={"/account/password"}>비밀번호 변경</Link>
+      <Link to={"/account/close"}>회원탈퇴</Link>
     </>
   );
 }
