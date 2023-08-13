@@ -53,4 +53,6 @@ export const changePassword = async (req: Request, res: Response) => {
       await user.save();
     }
   }
+
+  return res.status(200).send("Good");
 };
