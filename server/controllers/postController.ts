@@ -6,10 +6,12 @@ import User from "../models/User";
 export const watch = async (req: Request, res: Response) => {
   const { id } = req.params;
   const post = await Post.findById(id);
+
   if (!post) {
     return res.status(404).send("404");
   }
-  return res.send("watch");
+
+  return res.status(200);
 };
 
 export const postUpload = async (req: Request, res: Response) => {
@@ -26,18 +28,20 @@ export const postUpload = async (req: Request, res: Response) => {
       owner: userId,
     });
 
-    newPost.save();
+    await newPost.save();
 
     const user = await User.findById(userId);
 
     if (user) {
       user?.posts.push(newPost._id);
-      user?.save();
+      await user?.save();
     }
   } catch (error) {
     console.log(error);
     return res.status(400).send("404");
   }
+
+  return res.status(200);
 };
 
 export const postEdit = async (req: Request, res: Response) => {
@@ -56,6 +60,8 @@ export const postEdit = async (req: Request, res: Response) => {
     description,
     hashtags,
   });
+
+  return res.status(200);
 };
 
 export const postDelete = async (req: Request, res: Response) => {
@@ -69,4 +75,6 @@ export const postDelete = async (req: Request, res: Response) => {
   }
 
   await Post.findByIdAndDelete(postId);
+
+  return res.status(200);
 };
