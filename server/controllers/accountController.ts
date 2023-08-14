@@ -43,12 +43,7 @@ export const changePassword = async (req: Request, res: Response) => {
     );
 
     if (comparePassword) {
-      if (user.isModified("password")) {
-        const hashedPassword = await bcrypt.hash(newPassword, 5);
-        user.password = hashedPassword;
-      } else {
-        user.password = newPassword;
-      }
+      user.password = newPassword;
 
       await user.save();
     }
