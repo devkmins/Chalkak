@@ -1,7 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function CreatePost() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -17,6 +20,8 @@ function CreatePost() {
         formData,
         { withCredentials: true }
       );
+
+      navigate("/");
     } catch (error) {
       console.error("Error:", error);
     }
