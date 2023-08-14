@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useQuery } from "react-query";
-import CreatePost from "./CreatePost";
 import EditPost from "./EditPost";
 import DeletePost from "./DeletePost";
 import { Link } from "react-router-dom";
@@ -26,7 +25,7 @@ function Posts() {
             state={sessionData.username}>
             My Profile
           </Link>
-          <CreatePost />
+          <Link to={"/post/upload"}>Upload</Link>
         </>
       ) : (
         <>
