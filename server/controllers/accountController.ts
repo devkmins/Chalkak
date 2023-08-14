@@ -45,7 +45,7 @@ export const closeAccount = async (req: Request, res: Response) => {
     if (comparePassword) {
       const posts = user.posts;
 
-      posts.forEach(async (post) => await Post.findByIdAndDelete(post));
+      await Post.deleteMany({ _id: { $in: posts } });
 
       session.destroy((error) => {
         if (error) {
