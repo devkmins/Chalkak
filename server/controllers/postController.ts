@@ -41,7 +41,7 @@ export const postUpload = async (req: Request, res: Response) => {
     return res.status(400).send("404");
   }
 
-  return res.status(200);
+  return res.status(200).json();
 };
 
 export const postEdit = async (req: Request, res: Response) => {
