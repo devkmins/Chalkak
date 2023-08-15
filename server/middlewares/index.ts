@@ -1,5 +1,6 @@
 import { NextFunction } from "express";
 import { CustomSession } from "../types/session";
+import multer from "multer";
 
 export const protectorMiddleware = (
   req: Express.Request,
@@ -26,3 +27,8 @@ export const publicOnlyMiddleware = (
     return next(error);
   }
 };
+
+export const imageUpload = multer({
+  dest: "uploads/images/",
+  limits: { fileSize: 15000000 },
+});
