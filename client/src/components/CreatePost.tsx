@@ -1,8 +1,13 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Image } from "./UploadImage";
 
-function CreatePost() {
+interface Props {
+  images: Image[];
+}
+
+function CreatePost({ images }: Props) {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -17,7 +22,7 @@ function CreatePost() {
     try {
       const response = await axios.post(
         "http://localhost:4000/post/upload",
-        formData,
+        { formData, images },
         { withCredentials: true }
       );
 
