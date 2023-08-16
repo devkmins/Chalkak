@@ -20,10 +20,12 @@ function UploadImage() {
     }
   };
 
+  const onBtnClick = () => {};
+
   const onDrop = (acceptedFiles: any) => {
     acceptedFiles.map((img: any) => {
       if (images.length < 10) {
-        const url = URL.createObjectURL(img);
+        const url = URL.createObjectURL(img); // 일시적인 URL이라서 서버에 저장 X, 렌더링하는 용
         setData((prev) => {
           return [...prev, url];
         });
@@ -51,11 +53,7 @@ function UploadImage() {
   return (
     <>
       {next ? (
-        data ? (
-          data.map((img) => <img src={img} key={img} alt="" />)
-        ) : (
-          <CreatePost images={images} />
-        )
+        <CreatePost images={images} />
       ) : (
         <>
           <Dropzone
@@ -73,6 +71,16 @@ function UploadImage() {
             )}
           </Dropzone>
           <button onClick={onClick}>{images.length} 사진 제출</button>
+          <div>
+            {data
+              ? data.map((img) => (
+                  <div key={img}>
+                    <img src={img} alt="" />
+                    <button onClick={onBtnClick}>X</button>
+                  </div>
+                ))
+              : ""}
+          </div>
         </>
       )}
     </>
