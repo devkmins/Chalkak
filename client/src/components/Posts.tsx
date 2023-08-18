@@ -39,6 +39,13 @@ function Posts() {
             <div
               key={post._id}
               style={{ border: "1px solid black", width: "250px" }}>
+              {post.fileUrl.map((img: any) => (
+                <img
+                  key={img.path}
+                  alt=""
+                  src={`http://localhost:4000/${img.path}`}
+                />
+              ))}
               <h2>{post.title}</h2>
               <h4>: {post.description}</h4>
               <h5>{post.hashtags}</h5>
