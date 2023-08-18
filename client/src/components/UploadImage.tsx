@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CreatePost from "./CreatePost";
 import Dropzone from "react-dropzone";
+import axios from "axios";
 
 export interface Image {
   path: string;
@@ -10,50 +11,65 @@ export interface Image {
 }
 
 function UploadImage() {
-  const [images, setImages] = useState<Image[]>([]);
-  const [next, setNext] = useState(false);
+  const [images, setImages] = useState<File[]>([]);
   const [data, setData] = useState<string[]>([]);
+  const [postId, setPostId] = useState("");
+  const [next, setNext] = useState(false);
 
-  const onClick = () => {
+  const onClick = async () => {
     if (images.length > 0) {
       setNext(true);
+
+      const imagesFormData = new FormData();
+
+      images.forEach((img) => {
+        const blob = new Blob([JSON.stringify(images)], {
+          type: "application/json",
+        });
+        imagesFormData.append("images[]", img);
+      });
+
+      const responseImages = await axios.post(
+        "http://localhost:4000/post/upload/images",
+        imagesFormData,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      setPostId(responseImages.data);
     }
   };
 
   const onBtnClick = () => {};
 
   const onDrop = (acceptedFiles: any) => {
-    acceptedFiles.map((img: any) => {
-      if (images.length < 10) {
+    if (images.length < 10) {
+      acceptedFiles.forEach((img: any) => {
         const url = URL.createObjectURL(img); // 일시적인 URL이라서 서버에 저장 X, 렌더링하는 용
+
         setData((prev) => {
-          return [...prev, url];
+          const newUrls = [...prev, url];
+
+          return newUrls;
         });
 
         setImages((prev) => {
-          const objImg = Object(img);
-          const newImage = {
-            path: objImg.path,
-            name: objImg.name,
-            size: objImg.size,
-            type: objImg.type,
-          };
-          const newImages = [...prev, newImage];
+          const newImages = [...prev, img];
 
           return newImages;
         });
-      }
-
-      return null;
-    });
+      });
+    }
   };
-
-  //console.log(data);
 
   return (
     <>
       {next ? (
-        <CreatePost images={images} />
+        <CreatePost postId={postId} />
       ) : (
         <>
           <Dropzone
