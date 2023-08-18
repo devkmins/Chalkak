@@ -41,6 +41,8 @@ app.use(
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use("/uploads", express.static("uploads"));
+
 app.use("/", globalRouter);
 app.use("/user", userRouter);
 app.use("/post", postRouter);
