@@ -15,7 +15,7 @@ function UploadImage() {
       const formData = new FormData();
 
       images.forEach((img) => {
-        formData.append("images[]", img);
+        formData.append("images", img);
       });
 
       setImagesFormData(formData);
