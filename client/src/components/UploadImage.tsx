@@ -15,9 +15,6 @@ function UploadImage() {
       const formData = new FormData();
 
       images.forEach((img) => {
-        const blob = new Blob([JSON.stringify(images)], {
-          type: "application/json",
-        });
         formData.append("images[]", img);
       });
 
