@@ -2,11 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-interface Prop {
-  postId: string;
-}
-
-function CreatePost({ postId }: Prop) {
+function CreatePost({ images }: any) {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -19,6 +15,19 @@ function CreatePost({ postId }: Prop) {
     event.preventDefault();
 
     try {
+      const responseImages = await axios.post(
+        "http://localhost:4000/post/upload/images",
+        images,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      const postId = responseImages.data;
+
       const responseForm = await axios.post(
         "http://localhost:4000/post/upload",
         { formData, postId },
