@@ -9,6 +9,7 @@ const postSchema = new mongoose.Schema({
   owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
   thumbnail: String,
   views: { type: Number, default: 0, required: true },
+  imgUploaded: { type: Boolean, default: false },
 });
 
 const Post = mongoose.model("Post", postSchema);
