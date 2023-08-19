@@ -22,7 +22,15 @@ function UploadImage() {
     }
   };
 
-  const onBtnClick = () => {};
+  const removeClick = (img: string) => {
+    setData((prev) => {
+      const newData = [...prev];
+      const index = newData.indexOf(String(img));
+      newData.splice(index, 1);
+
+      return newData;
+    });
+  };
 
   const onDrop = (acceptedFiles: any) => {
     if (images.length < 10) {
@@ -70,7 +78,7 @@ function UploadImage() {
               ? data.map((img) => (
                   <div key={img}>
                     <img src={img} alt="" />
-                    <button onClick={onBtnClick}>X</button>
+                    <button onClick={() => removeClick(img)}>X</button>
                   </div>
                 ))
               : ""}
