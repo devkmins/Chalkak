@@ -1,46 +1,27 @@
 import { useState } from "react";
 import CreatePost from "./CreatePost";
 import Dropzone from "react-dropzone";
-import axios from "axios";
-
-export interface Image {
-  path: string;
-  name: string;
-  size: number;
-  type: string;
-}
 
 function UploadImage() {
   const [images, setImages] = useState<File[]>([]);
+  const [imagesFormData, setImagesFormData] = useState(new FormData());
   const [data, setData] = useState<string[]>([]);
-  const [postId, setPostId] = useState("");
   const [next, setNext] = useState(false);
 
   const onClick = async () => {
     if (images.length > 0) {
       setNext(true);
 
-      const imagesFormData = new FormData();
+      const formData = new FormData();
 
       images.forEach((img) => {
         const blob = new Blob([JSON.stringify(images)], {
           type: "application/json",
         });
-        imagesFormData.append("images[]", img);
+        formData.append("images[]", img);
       });
 
-      const responseImages = await axios.post(
-        "http://localhost:4000/post/upload/images",
-        imagesFormData,
-        {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-
-      setPostId(responseImages.data);
+      setImagesFormData(formData);
     }
   };
 
@@ -69,7 +50,7 @@ function UploadImage() {
   return (
     <>
       {next ? (
-        <CreatePost postId={postId} />
+        <CreatePost images={imagesFormData} />
       ) : (
         <>
           <Dropzone
