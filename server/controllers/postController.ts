@@ -40,17 +40,12 @@ export const postUpload = async (req: Request, res: Response) => {
 export const imagesUpload = async (req: Request, res: Response) => {
   const session = req.session as CustomSession;
   const userId = session.user?._id;
-  let paths;
-
-  if (Array.isArray(req.files)) {
-    paths = req.files?.filter((data) => data.path);
-  }
 
   try {
     const newPost = await Post.create({
       title: "Default",
       description: "Default",
-      fileUrl: paths,
+      fileUrl: req.files,
       hashtags: "",
       owner: userId,
     });
