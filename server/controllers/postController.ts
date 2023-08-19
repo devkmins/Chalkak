@@ -31,6 +31,7 @@ export const postUpload = async (req: Request, res: Response) => {
     title,
     description,
     hashtags,
+    imgUploaded: true,
   });
 
   return res.status(200).json();
