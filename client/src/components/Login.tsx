@@ -34,7 +34,6 @@ function Login() {
         withCredentials: true,
       })
       .then((response) => {
-        setCookie("loggedIn", true);
         setLoggedIn(true);
         setSessionData(response.data.user);
         navigate("/");
