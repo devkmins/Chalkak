@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import Post from "../models/Post";
 import { CustomSession } from "../types/session";
 import User from "../models/User";
+import fs from "fs";
 import multer from "multer";
 import path from "path";
 
@@ -94,6 +95,10 @@ export const postDelete = async (req: Request, res: Response) => {
   if (post?.owner.toString() !== userId) {
     return res.status(403).send({ error: "권한이 없습니다." });
   }
+
+  post?.fileUrl.map((file) => {
+    fs.unlink(`${file.path}`, (error) => {});
+  });
 
   await Post.findByIdAndDelete(postId);
 
