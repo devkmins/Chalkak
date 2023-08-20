@@ -52,7 +52,6 @@ function Join() {
       })
       .then((response) => {
         setCookie("loggedIn", true);
-        setCookie("user", response.data.user);
         setLoggedIn(true);
         setSessionData(response.data.user);
         navigate("/");
