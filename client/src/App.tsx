@@ -12,17 +12,22 @@ import Account from "./components/Account";
 import ChangePassword from "./components/ChangePassword";
 import CloseAccount from "./components/CloseAccount";
 import UploadImage from "./components/UploadImage";
+import useGetLoginData from "./hooks/useGetLoginData";
+import axios from "axios";
 
 function App() {
-  const [cookies, ,] = useCookies(["loggedIn", "user"]);
   const [loggedIn, setLoggedIn] = useRecoilState(loggedInState);
   const setSessionData = useSetRecoilState(sessionState);
 
   useEffect(() => {
-    if (cookies.loggedIn) {
-      setLoggedIn(true);
-      setSessionData(cookies.user);
-    }
+    axios
+      .get("http://localhost:4000/login", {
+        withCredentials: true,
+      })
+      .then((response) => {
+        setLoggedIn(response.data.loggedIn);
+        setSessionData(response.data.user);
+      });
   }, []);
 
   return (
