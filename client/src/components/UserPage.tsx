@@ -30,9 +30,18 @@ function UserPage() {
         <>
           <div>{data.name}</div>
           {data.posts.map((post: any) => (
-            <div key={post._id}>
-              <span>{post.title}</span>
-            </div>
+            <>
+              {post.fileUrl.map((img: any) => (
+                <img
+                  key={img.path}
+                  alt=""
+                  src={`http://localhost:4000/${img.path}`}
+                />
+              ))}
+              <div key={post._id}>
+                <span>{post.title}</span>
+              </div>
+            </>
           ))}
         </>
       ) : (
