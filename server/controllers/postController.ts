@@ -7,14 +7,14 @@ import multer from "multer";
 import path from "path";
 
 export const watch = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const post = await Post.findById(id);
+  const { pid } = req.params;
+  const post = await Post.findById(pid);
 
   if (!post) {
     return res.status(404).send("404");
   }
 
-  return res.status(200);
+  return res.status(200).json(post);
 };
 
 export const postUpload = async (req: Request, res: Response) => {
