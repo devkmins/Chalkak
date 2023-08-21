@@ -4,7 +4,6 @@ import Join from "./components/Join";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
-import { useCookies } from "react-cookie";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { loggedInState, sessionState } from "./atoms";
 import UserPage from "./components/UserPage";
@@ -12,8 +11,8 @@ import Account from "./components/Account";
 import ChangePassword from "./components/ChangePassword";
 import CloseAccount from "./components/CloseAccount";
 import UploadImage from "./components/UploadImage";
-import useGetLoginData from "./hooks/useGetLoginData";
 import axios from "axios";
+import DetailPost from "./components/DetailPost";
 
 function App() {
   const [loggedIn, setLoggedIn] = useRecoilState(loggedInState);
@@ -35,6 +34,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Posts />} />
         <Route path="/user/:id" element={<UserPage />} />
+        <Route path="/post/:id" element={<DetailPost />} />
         {loggedIn ? (
           <>
             <Route path="/join" element={<Navigate to="/" />} />
