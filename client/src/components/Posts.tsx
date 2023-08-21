@@ -1,7 +1,5 @@
 import axios from "axios";
 import { useQuery } from "react-query";
-import EditPost from "./EditPost";
-import DeletePost from "./DeletePost";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { loggedInState, sessionState } from "../atoms";
@@ -40,7 +38,7 @@ function Posts() {
         </>
       )}
 
-      {data
+      {Array.isArray(data)
         ? data.map((post: any) => (
             <StyledLink to={`/post/${post._id}`} key={post._id}>
               <div style={{ border: "1px solid black", maxWidth: "250px" }}>
@@ -57,14 +55,6 @@ function Posts() {
                   state={post.owner.username}>
                   {post.owner.name}
                 </Link>
-                {sessionData._id === post.owner._id ? (
-                  <>
-                    <EditPost postId={post._id} />
-                    <DeletePost postId={post._id} />
-                  </>
-                ) : (
-                  ""
-                )}
               </div>
             </StyledLink>
           ))
