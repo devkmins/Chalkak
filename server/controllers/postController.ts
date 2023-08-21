@@ -80,10 +80,11 @@ export const postEdit = async (req: Request, res: Response) => {
   await Post.findByIdAndUpdate(postId, {
     title,
     description,
+    fileUrl: post?.fileUrl,
     hashtags,
   });
 
-  return res.status(200);
+  return res.status(200).json();
 };
 
 export const postDelete = async (req: Request, res: Response) => {
@@ -102,5 +103,5 @@ export const postDelete = async (req: Request, res: Response) => {
 
   await Post.findByIdAndDelete(postId);
 
-  return res.status(200);
+  return res.status(200).json();
 };
