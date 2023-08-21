@@ -30,7 +30,7 @@ function UserPage() {
         <>
           <div>{data.name}</div>
           {data.posts.map((post: any) => (
-            <>
+            <div key={post._id}>
               {post.fileUrl.map((img: any) => (
                 <img
                   key={img.path}
@@ -38,10 +38,10 @@ function UserPage() {
                   src={`http://localhost:4000/${img.path}`}
                 />
               ))}
-              <div key={post._id}>
+              <div>
                 <span>{post.title}</span>
               </div>
-            </>
+            </div>
           ))}
         </>
       ) : (
