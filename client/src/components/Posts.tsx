@@ -40,7 +40,10 @@ function Posts() {
 
       {Array.isArray(data)
         ? data.map((post: any) => (
-            <StyledLink to={`/post/${post._id}`} key={post._id}>
+            <StyledLink
+              to={`/post/${post.title}`}
+              key={post._id}
+              state={post._id}>
               <div style={{ border: "1px solid black", maxWidth: "250px" }}>
                 {post.fileUrl.map((img: any) => (
                   <img
