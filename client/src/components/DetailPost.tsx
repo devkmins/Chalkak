@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useQuery } from "react-query";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { sessionState } from "../atoms";
 import EditPost from "./EditPost";
