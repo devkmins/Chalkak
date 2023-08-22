@@ -86,6 +86,20 @@ export const postEdit = async (req: Request, res: Response) => {
   return res.status(200).json();
 };
 
+export const postViews = async (req: Request, res: Response) => {
+  const postId = req.params.pid;
+  const { views } = req.body;
+  const post = await Post.findById(postId);
+
+  if (views) {
+    await Post.findByIdAndUpdate(postId, {
+      views,
+    });
+  }
+
+  return res.status(200).json();
+};
+
 export const postDelete = async (req: Request, res: Response) => {
   const session = req.session as CustomSession;
   const userId = session.user?._id;
