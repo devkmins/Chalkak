@@ -8,7 +8,7 @@ const postSchema = new mongoose.Schema({
   hashtags: [{ type: String, trim: true }],
   owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
   thumbnail: String,
-  views: { type: Number, default: 0, required: true },
+  views: { type: Number, default: 1, required: true },
 });
 
 const Post = mongoose.model("Post", postSchema);
