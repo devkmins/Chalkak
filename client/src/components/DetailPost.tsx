@@ -1,14 +1,14 @@
 import axios from "axios";
 import { useQuery } from "react-query";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { sessionState } from "../atoms";
 import EditPost from "./EditPost";
 import DeletePost from "./DeletePost";
 
 function DetailPost() {
-  const params = useParams();
-  const postId = params.id;
+  const location = useLocation();
+  const postId = location.state;
 
   const sessionData = useRecoilValue(sessionState);
 
