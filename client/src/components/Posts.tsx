@@ -40,11 +40,10 @@ function Posts() {
 
       {Array.isArray(data)
         ? data.map((post: any) => (
-            <StyledLink
-              to={`/post/${post.title}`}
+            <div
               key={post._id}
-              state={post._id}>
-              <div style={{ border: "1px solid black", maxWidth: "250px" }}>
+              style={{ border: "1px solid black", maxWidth: "250px" }}>
+              <StyledLink to={`/post/${post.title}`} state={post._id}>
                 {post.fileUrl.map((img: any) => (
                   <img
                     key={img.path}
@@ -52,14 +51,14 @@ function Posts() {
                     src={`http://localhost:4000/${img.path}`}
                   />
                 ))}
-                <br />
-                <Link
-                  to={`/user/${post.owner.username}`}
-                  state={post.owner.username}>
-                  {post.owner.name}
-                </Link>
-              </div>
-            </StyledLink>
+              </StyledLink>
+              <br />
+              <Link
+                to={`/user/${post.owner.username}`}
+                state={post.owner.username}>
+                {post.owner.name}
+              </Link>
+            </div>
           ))
         : ""}
     </div>
