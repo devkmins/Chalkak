@@ -36,7 +36,6 @@ function DetailPost() {
             <h4>{data.createdAt}</h4>
             <h4>{data.views}</h4>
           </div>
-          <Link to="/">HOme</Link>
           {sessionData._id === data.owner ? (
             <>
               <EditPost postId={data._id} />
