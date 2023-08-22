@@ -80,7 +80,6 @@ export const postEdit = async (req: Request, res: Response) => {
   await Post.findByIdAndUpdate(postId, {
     title,
     description,
-    fileUrl: post?.fileUrl,
     hashtags,
   });
 
