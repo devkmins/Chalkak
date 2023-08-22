@@ -91,6 +91,7 @@ export const postDelete = async (req: Request, res: Response) => {
   const userId = session.user?._id;
   const postId = req.params.pid;
   const post = await Post.findById(postId);
+  const user = await User.findById(userId);
 
   if (post?.owner.toString() !== userId) {
     return res.status(403).send({ error: "권한이 없습니다." });
@@ -99,6 +100,13 @@ export const postDelete = async (req: Request, res: Response) => {
   post?.fileUrl.map((file) => {
     fs.unlink(`${file.path}`, (error) => {});
   });
+
+  user?.posts.splice(
+    user.posts.findIndex((post) => post._id.toString() === postId),
+    1
+  );
+
+  await user?.save();
 
   await Post.findByIdAndDelete(postId);
 
