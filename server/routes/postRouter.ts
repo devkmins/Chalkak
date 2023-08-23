@@ -6,6 +6,7 @@ import {
   postDelete,
   imagesUpload,
   postViews,
+  postLikes,
 } from "../controllers/postController";
 import { imageUpload, protectorMiddleware } from "../middlewares";
 
@@ -20,6 +21,7 @@ postRouter.post(
 postRouter.post("/upload", postUpload);
 postRouter.put("/:pid([0-9a-f]{24})/edit", postEdit);
 postRouter.put("/:pid([0-9a-f]{24})/views", postViews);
+postRouter.put("/:pid([0-9a-f]{24})/likes", postLikes);
 postRouter.delete("/:pid([0-9a-f]{24})/delete", postDelete);
 
 export default postRouter;
