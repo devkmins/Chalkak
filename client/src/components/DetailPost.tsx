@@ -32,11 +32,11 @@ function DetailPost() {
   };
 
   useEffect(() => {
-    if (data.views) {
+    if (data?.views) {
       const views = Number(data.views) + 1;
       request(views);
     }
-  }, [data.views]);
+  }, [data?.views]);
 
   return (
     <>
