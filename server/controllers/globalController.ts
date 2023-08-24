@@ -91,4 +91,21 @@ export const postLogin = async (req: Request, res: Response) => {
   });
 };
 
-export const search = (req: Request, res: Response) => res.send("Search");
+export const search = async (req: Request, res: Response) => {
+  const { keyword } = req.params;
+
+  try {
+    const posts = await Post.find({
+      $or: [
+        { title: { $regex: keyword, $options: "i" } }, // i 옵션: 대소문자 무시
+        { description: { $regex: keyword, $options: "i" } },
+        { hashtags: { $regex: keyword, $options: "i" } },
+      ],
+    }).populate("owner");
+
+    return res.status(200).json(posts);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "검색 중 오류가 발생했습니다." });
+  }
+};
