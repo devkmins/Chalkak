@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { loggedInState, sessionState } from "../atoms";
 import styled from "styled-components";
+import SearchPost from "./SearchPost";
 
 const StyledLink = styled(Link)`
   display: flex;
@@ -37,6 +38,8 @@ function Posts() {
           <Link to={"/login"}>Login</Link>
         </>
       )}
+
+      <SearchPost />
 
       {Array.isArray(data)
         ? data.map((post: any) => (
