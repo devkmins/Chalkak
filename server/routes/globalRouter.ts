@@ -13,6 +13,6 @@ const globalRouter = express.Router();
 globalRouter.get("/", home);
 globalRouter.post("/join", postJoin);
 globalRouter.route("/login").get(getLogin).post(postLogin);
-globalRouter.get("/search", search);
+globalRouter.get("/search/:keyword", search);
 
 export default globalRouter;
