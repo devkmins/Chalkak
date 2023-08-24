@@ -95,9 +95,36 @@ export const postViews = async (req: Request, res: Response) => {
     await Post.findByIdAndUpdate(postId, {
       views,
     });
+
+    await post?.save();
   }
 
   return res.status(200).json();
+};
+
+export const postLikes = async (req: Request, res: Response) => {
+  const session = req.session as CustomSession;
+  const userId = session.user?._id;
+  const postId = req.params.pid;
+  const post = await Post.findById(postId);
+
+  if (!post) {
+    return res.status(404).json({ error: "게시글을 찾을 수 없습니다." });
+  }
+
+  if (userId) {
+    const userIndex = post.likes.indexOf(userId);
+
+    if (post.likes.includes(userId)) {
+      post.likes.splice(userIndex, 1);
+    } else {
+      post.likes.push(userId);
+    }
+
+    await post.save();
+
+    return res.status(200).json(post.likes);
+  }
 };
 
 export const postDelete = async (req: Request, res: Response) => {
