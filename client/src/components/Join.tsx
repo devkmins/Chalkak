@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
-import { useCookies } from "react-cookie";
 import { useSetRecoilState } from "recoil";
 import { loggedInState, sessionState } from "../atoms";
 
@@ -18,8 +17,6 @@ function Join() {
   });
 
   const [error, setError] = useState("");
-
-  const [, setCookie] = useCookies(["loggedIn", "user"]);
 
   const setLoggedIn = useSetRecoilState(loggedInState);
   const setSessionData = useSetRecoilState(sessionState);

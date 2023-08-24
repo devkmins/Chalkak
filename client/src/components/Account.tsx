@@ -3,10 +3,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { sessionState } from "../atoms";
-import { useCookies } from "react-cookie";
 
 function Account() {
-  const [, setCookie] = useCookies(["user"]);
   const [sessionData, setSessionData] = useRecoilState(sessionState);
   const [formData, setFormData] = useState({
     name: sessionData.name,
@@ -24,7 +22,6 @@ function Account() {
         { withCredentials: true }
       );
 
-      setCookie("user", response.data);
       setSessionData(response.data);
     } catch (error) {
       console.error("Error:", error);

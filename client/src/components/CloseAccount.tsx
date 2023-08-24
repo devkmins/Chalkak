@@ -11,7 +11,7 @@ function CloseAccount() {
 
   const setLoggedIn = useSetRecoilState(loggedInState);
   const setSessionData = useSetRecoilState(sessionState);
-  const [, , removeCookie] = useCookies(["connect.sid", "loggedIn", "user"]);
+  const [, , removeCookie] = useCookies(["connect.sid"]);
 
   const [formData, setFormData] = useState({
     password: "",
@@ -39,8 +39,6 @@ function CloseAccount() {
         _id: "",
       });
       removeCookie("connect.sid");
-      removeCookie("loggedIn");
-      removeCookie("user");
 
       navigate("/");
     } catch (error) {

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
 import { useSetRecoilState } from "recoil";
 import { loggedInState, sessionState } from "../atoms";
-import { useCookies } from "react-cookie";
 
 function Login() {
   const navigate = useNavigate();
@@ -15,8 +14,6 @@ function Login() {
   });
 
   const [error, setError] = useState(false);
-
-  const [, setCookie] = useCookies(["loggedIn", "user"]);
 
   const setLoggedIn = useSetRecoilState(loggedInState);
   const setSessionData = useSetRecoilState(sessionState);
