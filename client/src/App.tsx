@@ -13,6 +13,7 @@ import CloseAccount from "./components/CloseAccount";
 import UploadImage from "./components/UploadImage";
 import axios from "axios";
 import DetailPost from "./components/DetailPost";
+import SearchPostList from "./components/SearchPostList";
 
 function App() {
   const [loggedIn, setLoggedIn] = useRecoilState(loggedInState);
@@ -35,6 +36,7 @@ function App() {
         <Route path="/" element={<Posts />} />
         <Route path="/user/:id" element={<UserPage />} />
         <Route path="/post/:id" element={<DetailPost />} />
+        <Route path="/search/:keyword" element={<SearchPostList />} />
         {loggedIn ? (
           <>
             <Route path="/join" element={<Navigate to="/" />} />
