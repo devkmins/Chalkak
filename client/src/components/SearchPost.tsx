@@ -31,7 +31,7 @@ function SearchPost() {
   return (
     <form onSubmit={handleSubmit}>
       <input
-        name="search"
+        name="keyword"
         onChange={handleChange}
         value={formData.keyword}
         placeholder="검색하기"
