@@ -97,7 +97,7 @@ export const search = async (req: Request, res: Response) => {
   try {
     const posts = await Post.find({
       $or: [
-        { title: { $regex: keyword, $options: "i" } }, // i 옵션: 대소문자 무시
+        { title: { $regex: keyword, $options: "i" } },
         { description: { $regex: keyword, $options: "i" } },
         { hashtags: { $regex: keyword, $options: "i" } },
       ],
