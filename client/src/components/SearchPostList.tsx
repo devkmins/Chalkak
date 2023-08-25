@@ -10,8 +10,6 @@ function SearchPostList() {
   const location = useLocation();
   const posts = location.state;
 
-  console.log(posts);
-
   return (
     <>
       {posts &&
