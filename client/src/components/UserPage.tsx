@@ -19,6 +19,12 @@ function UserPage() {
       .then((response) => response.data)
   );
 
+  let totalViews = 0;
+  let totalLikes = 0;
+
+  data?.posts?.map((post: any) => (totalViews += post.views));
+  data?.posts?.map((post: any) => (totalLikes += post.likes.length));
+
   return (
     <>
       {sessionData.username === username ? (
@@ -29,6 +35,8 @@ function UserPage() {
       {data ? (
         <>
           <div>{data.name}</div>
+          <h4>Total Views: {totalViews}</h4>
+          <h4>Total Likes: {totalLikes}</h4>
           {data.posts.map((post: any) => (
             <div key={post._id}>
               {post.fileUrl.map((img: any) => (
