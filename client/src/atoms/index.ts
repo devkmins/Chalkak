@@ -23,3 +23,10 @@ export const sessionState = atom<ISessionData>({
     _id: "",
   },
 });
+
+export const recentSearchState = atom({
+  key: "recentSearchState",
+  default: JSON.parse(localStorage.getItem("keywords") as string)
+    ? JSON.parse(localStorage.getItem("keywords") as string)
+    : [],
+});
