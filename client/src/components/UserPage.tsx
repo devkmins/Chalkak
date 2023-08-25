@@ -22,7 +22,7 @@ function UserPage() {
   let totalViews = 0;
   let totalLikes = 0;
 
-  data?.posts?.map((post: any) => (totalViews += post.views));
+  data?.posts?.map((post: any) => (totalViews += post.views - 1));
   data?.posts?.map((post: any) => (totalLikes += post.likes.length));
 
   return (
