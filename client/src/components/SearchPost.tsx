@@ -1,13 +1,21 @@
 import axios from "axios";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import RecentSearch from "./RecentSearch";
+import { useSetRecoilState } from "recoil";
+import { recentSearchState } from "../atoms";
 
 function SearchPost() {
   const navigate = useNavigate();
 
+  const setKeywords = useSetRecoilState(recentSearchState);
+
   const [formData, setFormData] = useState({
     keyword: "",
   });
+
+  const [focus, setFocus] = useState(false);
+  const searchForm = useRef(null);
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -16,6 +24,14 @@ function SearchPost() {
       `http://localhost:4000/search/${formData.keyword}`,
       { withCredentials: true }
     );
+
+    setKeywords((prev: any) => {
+      const newKeywords = [...prev, formData.keyword];
+
+      localStorage.setItem("keywords", JSON.stringify(newKeywords));
+
+      return newKeywords;
+    });
 
     navigate(`/search/${formData.keyword}`, { state: response.data });
   };
@@ -28,8 +44,16 @@ function SearchPost() {
     }));
   };
 
+  const handleFocus = () => {
+    setFocus(true);
+  };
+
+  const handleBlur = () => {
+    setFocus(false);
+  };
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form onBlur={handleBlur} onFocus={handleFocus} onSubmit={handleSubmit}>
       <input
         name="keyword"
         onChange={handleChange}
@@ -38,6 +62,7 @@ function SearchPost() {
         type="text"
         alt=""
       />
+      <div>{focus && <RecentSearch />}</div>
     </form>
   );
 }
