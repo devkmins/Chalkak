@@ -59,7 +59,9 @@ export const getLogin = (req: Request, res: Response) => {
 
 export const postLogin = async (req: Request, res: Response) => {
   const { username, password } = req.body;
-  const user = await User.findOne({ username });
+  const user = await User.findOne({
+    $or: [{ username: username }, { email: username }],
+  });
 
   if (!user) {
     return res.status(400).json({ error: "loginUsernameError" });
