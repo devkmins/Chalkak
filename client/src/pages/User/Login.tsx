@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
 import { useSetRecoilState } from "recoil";
@@ -13,6 +13,7 @@ const Box = styled.div`
   grid-template-columns: repeat(2, 1fr);
   width: 100%;
   min-height: 100vh;
+  overflow: hidden;
 `;
 
 const LoginImg = styled.div`
@@ -39,6 +40,11 @@ const LoginLogo = styled.div`
     font-size: 24px;
     font-weight: 500;
   }
+`;
+
+const LoginLogoIcon = styled(RiCameraLensFill)`
+  width: 80px;
+  height: 80px;
 `;
 
 const LoginForm = styled.form`
@@ -133,7 +139,7 @@ function Login() {
       <LoginImg />
       <LoginBox>
         <LoginLogo>
-          <RiCameraLensFill size={100} />
+          <LoginLogoIcon />
           <span>로그인</span>
         </LoginLogo>
         {error && <p>{error}</p>}
@@ -150,7 +156,6 @@ function Login() {
           </LoginInputBox>
           <LoginInputBox>
             <span>비밀번호</span>
-
             <input
               name="password"
               type="password"
