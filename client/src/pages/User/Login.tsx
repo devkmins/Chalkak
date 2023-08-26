@@ -61,16 +61,30 @@ const LoginInputBox = styled.div`
   }
 
   input {
-    height: 30%;
+    border-radius: 5px;
+    border: 1px solid gray;
+    height: 37.5%;
+    padding-left: 10px;
+    font-size: 15px;
 
     &:focus {
-      border: 1px solid green;
+      border: 1.75px solid #636e72;
     }
   }
 `;
 
 const LoginBtn = styled.button`
-  height: 35%;
+  border-radius: 5px;
+  border: 1px solid gray;
+  background-color: black;
+  color: white;
+  height: 40%;
+  font-weight: 500;
+  font-size: 15px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 function Login() {
