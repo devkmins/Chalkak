@@ -40,6 +40,11 @@ const LoginLogo = styled.div`
     font-size: 24px;
     font-weight: 500;
   }
+
+  hr {
+    margin-top: 35px;
+    width: 75%;
+  }
 `;
 
 const LoginLogoIcon = styled(RiCameraLensFill)`
@@ -141,6 +146,7 @@ function Login() {
         <LoginLogo>
           <LoginLogoIcon />
           <span>로그인</span>
+          <hr />
         </LoginLogo>
         {error && <p>{error}</p>}
         <LoginForm onSubmit={handleSubmit}>
