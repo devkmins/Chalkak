@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import RecentSearch from "./RecentSearch";
 import { useSetRecoilState } from "recoil";
@@ -15,7 +15,7 @@ function SearchPost() {
   });
 
   const [focus, setFocus] = useState(false);
-  const searchForm = useRef(null);
+  const searchRef = useRef<HTMLDivElement>(null);
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -52,18 +52,34 @@ function SearchPost() {
     setFocus(false);
   };
 
+  useEffect(() => {
+    const handleDocumentClick = (event: any) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setFocus(false);
+      }
+    };
+
+    document.addEventListener("click", handleDocumentClick);
+
+    return () => {
+      document.removeEventListener("click", handleDocumentClick);
+    };
+  }, []);
+
   return (
-    <form onBlur={handleBlur} onFocus={handleFocus} onSubmit={handleSubmit}>
-      <input
-        name="keyword"
-        onChange={handleChange}
-        value={formData.keyword}
-        placeholder="검색하기"
-        type="text"
-        alt=""
-      />
-      <div>{focus && <RecentSearch />}</div>
-    </form>
+    <div onFocus={handleFocus} ref={searchRef}>
+      <form onSubmit={handleSubmit}>
+        <input
+          name="keyword"
+          onChange={handleChange}
+          value={formData.keyword}
+          placeholder="검색하기"
+          type="text"
+          alt=""
+        />
+      </form>
+      {focus && <RecentSearch />}
+    </div>
   );
 }
 
