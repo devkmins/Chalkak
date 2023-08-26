@@ -48,10 +48,6 @@ function SearchPost() {
     setFocus(true);
   };
 
-  const handleBlur = () => {
-    setFocus(false);
-  };
-
   useEffect(() => {
     const handleDocumentClick = (event: any) => {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
