@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import Posts from "./components/Posts";
-import Join from "./components/Join";
+import Join from "./pages/User/Join";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import Login from "./components/Login";
-import Logout from "./components/Logout";
+import Login from "./pages/User/Login";
+import Logout from "./pages/User/Logout";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { loggedInState, sessionState } from "./atoms";
 import UserPage from "./components/UserPage";
@@ -14,6 +14,7 @@ import UploadImage from "./components/UploadImage";
 import axios from "axios";
 import DetailPost from "./components/DetailPost";
 import SearchPostList from "./components/SearchPostList";
+import Main from "./pages/Main";
 
 function App() {
   const [loggedIn, setLoggedIn] = useRecoilState(loggedInState);
@@ -33,7 +34,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Posts />} />
+        <Route path="/" element={<Main />} />
         <Route path="/user/:id" element={<UserPage />} />
         <Route path="/post/:id" element={<DetailPost />} />
         <Route path="/search/:keyword" element={<SearchPostList />} />
