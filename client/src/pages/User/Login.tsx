@@ -48,7 +48,7 @@ const LoginLogoIcon = styled(RiCameraLensFill)`
 `;
 
 const LoginForm = styled.form`
-  display: inherit;
+  display: grid;
   grid-template-rows: repeat(3, 25%);
   grid-template-columns: 75%;
   justify-content: center;
