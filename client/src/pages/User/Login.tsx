@@ -36,13 +36,13 @@ const LoginLogo = styled.div`
   margin-top: 12.5px;
 
   span {
-    margin-top: 25px;
+    margin-top: 20px;
     font-size: 24px;
     font-weight: 500;
   }
 
   hr {
-    margin-top: 35px;
+    margin-top: 30px;
     width: 75%;
   }
 `;
@@ -98,6 +98,17 @@ const LoginBtn = styled.button`
   }
 `;
 
+const ErrorMessage = styled.span`
+  margin-top: 7.5px;
+  font-size: 13px;
+  color: #ff6b6b;
+`;
+
+interface Error {
+  passwordError: string;
+  userError: string;
+}
+
 function Login() {
   const navigate = useNavigate();
 
@@ -106,7 +117,7 @@ function Login() {
     password: "",
   });
 
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<Error>();
 
   const setLoggedIn = useSetRecoilState(loggedInState);
   const setSessionData = useSetRecoilState(sessionState);
@@ -128,7 +139,7 @@ function Login() {
         setSessionData(response.data.user);
         navigate("/");
       })
-      .catch((error) => setError(error.response.data.error));
+      .catch((error) => setError(error.response.data));
   };
 
   const handleChange = (event: any) => {
@@ -137,6 +148,11 @@ function Login() {
       ...prevFormData,
       [name]: value,
     }));
+
+    setError({
+      passwordError: "",
+      userError: "",
+    });
   };
 
   return (
@@ -148,7 +164,6 @@ function Login() {
           <span>로그인</span>
           <hr />
         </LoginLogo>
-        {error && <p>{error}</p>}
         <LoginForm onSubmit={handleSubmit}>
           <LoginInputBox>
             <span>사용자 이름 또는 이메일</span>
@@ -159,6 +174,9 @@ function Login() {
               onChange={handleChange}
               required
             />
+            {error && error.userError && (
+              <ErrorMessage>{error.userError}</ErrorMessage>
+            )}
           </LoginInputBox>
           <LoginInputBox>
             <span>비밀번호</span>
@@ -170,6 +188,9 @@ function Login() {
               onChange={handleChange}
               required
             />
+            {error && error.passwordError && (
+              <ErrorMessage>{error.passwordError}</ErrorMessage>
+            )}
           </LoginInputBox>
           <LoginBtn type="submit">로그인</LoginBtn>
         </LoginForm>
@@ -177,5 +198,7 @@ function Login() {
     </Box>
   );
 }
+
+// {error?.passwordError && <span>{error}</span>}
 
 export default Login;
