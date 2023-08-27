@@ -4,6 +4,36 @@ import { useNavigate } from "react-router-dom";
 import RecentSearch from "./RecentSearch";
 import { useSetRecoilState } from "recoil";
 import { recentSearchState } from "../atoms";
+import { styled } from "styled-components";
+import { BiSearch } from "react-icons/bi";
+
+const Box = styled.div``;
+
+const SearchForm = styled.form`
+  display: flex;
+  align-items: center;
+  width: 95%;
+  height: 40px;
+  border-radius: 15px;
+  background-color: #eeeeee;
+  border: 0.5px solid #d1d1d1;
+`;
+
+const SearchIcon = styled(BiSearch)`
+  width: 22.5px;
+  height: 22.5px;
+  margin: 0px 15px 0px 10px;
+  color: gray;
+`;
+
+const SearchInput = styled.input`
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 15px;
+  background-color: #eeeeee;
+  font-size: 14px;
+`;
 
 function SearchPost() {
   const navigate = useNavigate();
@@ -63,19 +93,20 @@ function SearchPost() {
   }, []);
 
   return (
-    <div onFocus={handleFocus} ref={searchRef}>
-      <form onSubmit={handleSubmit}>
-        <input
+    <Box onFocus={handleFocus} ref={searchRef}>
+      <SearchForm onSubmit={handleSubmit}>
+        <SearchIcon />
+        <SearchInput
           name="keyword"
           onChange={handleChange}
           value={formData.keyword}
-          placeholder="검색하기"
+          placeholder="Chalkak 검색"
           type="text"
           alt=""
         />
-      </form>
+      </SearchForm>
       {focus && <RecentSearch />}
-    </div>
+    </Box>
   );
 }
 
