@@ -17,18 +17,22 @@ export const postJoin = async (req: Request, res: Response) => {
   const existUsername = await User.exists({ username });
   const existEmail = await User.exists({ email });
 
-  if (password !== confirmPassword) {
-    return res.status(400).json({ error: "passwordConfirmError" });
-  }
-
-  if (existUsername && existEmail) {
+  if (existUsername && existEmail && password !== confirmPassword) {
     return res.status(400).json({
-      error: ["usernameExistError", "emailExistError"],
+      usernameError: "이미 존재하는 아이디입니다.",
+      emailError: "이미 존재하는 이메일입니다.",
+      passwordError: "비밀번호가 일치하지 않습니다.",
     });
   } else if (existUsername) {
-    return res.status(400).json({ error: "usernameExistError" });
+    return res
+      .status(400)
+      .json({ usernameError: "이미 존재하는 아이디입니다." });
   } else if (existEmail) {
-    return res.status(400).json({ error: "emailExistError" });
+    return res.status(400).json({ emailError: "이미 존재하는 이메일입니다." });
+  } else if (password !== confirmPassword) {
+    return res
+      .status(400)
+      .json({ passwordError: "비밀번호가 일치하지 않습니다." });
   }
 
   try {
