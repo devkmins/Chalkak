@@ -135,6 +135,7 @@ function Join() {
 
     const trimName = formData.name.trim();
     const trimUsername = formData.username.trim();
+    const trimPassword = formData.password.trim();
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const isValidEmail = emailRegex.test(formData.email);
@@ -180,6 +181,14 @@ function Join() {
       setError((prevError: any) => ({
         ...prevError,
         emailError: "이메일이 유효하지 않습니다.",
+      }));
+      return;
+    }
+
+    if (formData.password !== trimPassword || formData.password.includes(" ")) {
+      setError((prevError: any) => ({
+        ...prevError,
+        passwordError: "비밀번호에는 공백이 포함되어서는 안 됩니다.",
       }));
       return;
     }
