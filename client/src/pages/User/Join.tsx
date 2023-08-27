@@ -8,6 +8,12 @@ import styled from "styled-components";
 import joinImg from "../../assets/Join/join.jpeg";
 import { RiCameraLensFill } from "react-icons/ri";
 
+interface Error {
+  usernameError: string;
+  emailError: string;
+  passwordError: string;
+}
+
 const Box = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -111,12 +117,6 @@ const ErrorMessage = styled.span`
   color: #ff6b6b;
 `;
 
-interface Error {
-  usernameError: string;
-  emailError: string;
-  passwordError: string;
-}
-
 function Join() {
   const navigate = useNavigate();
 
@@ -142,13 +142,6 @@ function Join() {
       confirmPassword: CryptoJS.SHA256(formData.confirmPassword).toString(),
     };
 
-    const { username, password } = formData;
-
-    const hashedLoginFormData = {
-      username,
-      password: CryptoJS.SHA256(formData.password).toString(),
-    };
-
     const join = await axios
       .post("http://localhost:4000/join", hashedJoinFormData, {
         withCredentials: true,
@@ -166,8 +159,8 @@ function Join() {
     }));
 
     setError({
-      usernameError: "",
       emailError: "",
+      usernameError: "",
       passwordError: "",
     });
   };
