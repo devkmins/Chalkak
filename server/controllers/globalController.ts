@@ -23,6 +23,21 @@ export const postJoin = async (req: Request, res: Response) => {
       emailError: "이미 존재하는 이메일입니다.",
       passwordError: "비밀번호가 일치하지 않습니다.",
     });
+  } else if (existUsername && existEmail) {
+    return res.status(400).json({
+      usernameError: "이미 존재하는 아이디입니다.",
+      emailError: "이미 존재하는 이메일입니다.",
+    });
+  } else if (existUsername && password !== confirmPassword) {
+    return res.status(400).json({
+      usernameError: "이미 존재하는 아이디입니다.",
+      passwordError: "비밀번호가 일치하지 않습니다.",
+    });
+  } else if (existEmail && password !== confirmPassword) {
+    return res.status(400).json({
+      emailError: "이미 존재하는 이메일입니다.",
+      passwordError: "비밀번호가 일치하지 않습니다.",
+    });
   } else if (existUsername) {
     return res
       .status(400)
@@ -42,11 +57,9 @@ export const postJoin = async (req: Request, res: Response) => {
       email,
       password,
     });
-    return res
-      .status(200)
-      .json({ message: "회원가입이 성공적으로 완료되었습니다." });
+    return res.status(200).json();
   } catch (error) {
-    return res.status(400).send({ error: "회원가입에 실패했습니다." });
+    return res.status(400).json();
   }
 };
 
