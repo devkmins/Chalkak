@@ -16,9 +16,12 @@ const Box = styled.div`
   overflow: hidden;
 `;
 
+const LoginImgContainer = styled.div``;
+
 const LoginImg = styled.div`
+  position: fixed;
   background-image: url(${loginImg});
-  width: 100%;
+  width: 50%;
   height: 100%;
   background-position: center center;
   background-size: cover;
@@ -157,7 +160,9 @@ function Login() {
 
   return (
     <Box>
-      <LoginImg />
+      <LoginImgContainer>
+        <LoginImg />
+      </LoginImgContainer>
       <LoginBox>
         <LoginLogo>
           <LoginLogoIcon />
