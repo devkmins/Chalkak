@@ -64,13 +64,17 @@ export const postLogin = async (req: Request, res: Response) => {
   });
 
   if (!user) {
-    return res.status(400).json({ error: "loginUsernameError" });
+    return res
+      .status(400)
+      .json({ userError: "사용자의 이름 또는 이메일이 올바르지 않습니다." });
   }
 
   const comparePassword = await bcrypt.compare(password, user.password);
 
   if (!comparePassword) {
-    return res.status(400).json({ error: "loginPasswordError" });
+    return res
+      .status(400)
+      .json({ passwordError: "비밀번호가 올바르지 않습니다." });
   }
 
   const userSessionData = {
