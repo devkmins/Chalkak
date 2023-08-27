@@ -17,37 +17,26 @@ export const postJoin = async (req: Request, res: Response) => {
   const existUsername = await User.exists({ username });
   const existEmail = await User.exists({ email });
 
-  if (existUsername && existEmail && password !== confirmPassword) {
-    return res.status(400).json({
-      usernameError: "이미 존재하는 아이디입니다.",
-      emailError: "이미 존재하는 이메일입니다.",
-      passwordError: "비밀번호가 일치하지 않습니다.",
-    });
-  } else if (existUsername && existEmail) {
-    return res.status(400).json({
-      usernameError: "이미 존재하는 아이디입니다.",
-      emailError: "이미 존재하는 이메일입니다.",
-    });
-  } else if (existUsername && password !== confirmPassword) {
-    return res.status(400).json({
-      usernameError: "이미 존재하는 아이디입니다.",
-      passwordError: "비밀번호가 일치하지 않습니다.",
-    });
-  } else if (existEmail && password !== confirmPassword) {
-    return res.status(400).json({
-      emailError: "이미 존재하는 이메일입니다.",
-      passwordError: "비밀번호가 일치하지 않습니다.",
-    });
-  } else if (existUsername) {
-    return res
-      .status(400)
-      .json({ usernameError: "이미 존재하는 아이디입니다." });
-  } else if (existEmail) {
-    return res.status(400).json({ emailError: "이미 존재하는 이메일입니다." });
-  } else if (password !== confirmPassword) {
-    return res
-      .status(400)
-      .json({ passwordError: "비밀번호가 일치하지 않습니다." });
+  let errors: {
+    usernameError?: string;
+    emailError?: string;
+    confirmPasswordError?: string;
+  } = {};
+
+  if (existUsername) {
+    errors.usernameError = "이미 존재하는 아이디입니다.";
+  }
+
+  if (existEmail) {
+    errors.emailError = "이미 존재하는 이메일입니다.";
+  }
+
+  if (password !== confirmPassword) {
+    errors.confirmPasswordError = "비밀번호가 일치하지 않습니다.";
+  }
+
+  if (Object.keys(errors).length > 0) {
+    return res.status(400).json(errors);
   }
 
   try {
