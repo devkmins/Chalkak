@@ -130,9 +130,6 @@ function Join() {
 
   const [error, setError] = useState<Error>();
 
-  const setLoggedIn = useSetRecoilState(loggedInState);
-  const setSessionData = useSetRecoilState(sessionState);
-
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
