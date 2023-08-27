@@ -2,16 +2,16 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
-import { useSetRecoilState } from "recoil";
-import { loggedInState, sessionState } from "../../atoms";
 import styled from "styled-components";
 import joinImg from "../../assets/Join/join.jpeg";
 import { RiCameraLensFill } from "react-icons/ri";
 
 interface Error {
+  nameError: string;
   usernameError: string;
   emailError: string;
   passwordError: string;
+  confirmPasswordError: string;
 }
 
 const Box = styled.div`
@@ -133,6 +133,74 @@ function Join() {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
+    const trimName = formData.name.trim();
+    const trimUsername = formData.username.trim();
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValidEmail = emailRegex.test(formData.email);
+
+    const passwordRegex =
+      /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\-]).*(?=.*[0-9]).*$/;
+    const isValidPassword = passwordRegex.test(formData.password);
+
+    if (formData.name.length < 2 || formData.name.length > 20) {
+      setError((prevError: any) => ({
+        ...prevError,
+        nameError: "이름은 2자 이상 20자 이하여야 합니다.",
+      }));
+      return;
+    }
+
+    if (formData.name !== trimName) {
+      setError((prevError: any) => ({
+        ...prevError,
+        nameError:
+          "이름의 첫 글자, 마지막 글자에는 공백이 포함 되어서는 안 됩니다.",
+      }));
+      return;
+    }
+
+    if (formData.username.length < 3 || formData.username.length > 20) {
+      setError((prevError: any) => ({
+        ...prevError,
+        usernameError: "아이디는 4자 이상 20자 이하여야 합니다.",
+      }));
+      return;
+    }
+
+    if (formData.username !== trimUsername || formData.username.includes(" ")) {
+      setError((prevError: any) => ({
+        ...prevError,
+        usernameError: "아이디에는 공백이 포함되어서는 안 됩니다.",
+      }));
+      return;
+    }
+
+    if (!isValidEmail) {
+      setError((prevError: any) => ({
+        ...prevError,
+        emailError: "이메일이 유효하지 않습니다.",
+      }));
+      return;
+    }
+
+    if (formData.password.length < 8 || formData.password.length > 16) {
+      setError((prevError: any) => ({
+        ...prevError,
+        passwordError: "비밀번호는 8자 이상 16자 이하여야 합니다.",
+      }));
+      return;
+    }
+
+    if (!isValidPassword) {
+      setError((prevError: any) => ({
+        ...prevError,
+        passwordError:
+          "비밀번호는 1개 이상의 숫자, 특수문자가 포함되어야 합니다.",
+      }));
+      return;
+    }
+
     const hashedJoinFormData = {
       ...formData,
       password: CryptoJS.SHA256(formData.password).toString(),
@@ -156,9 +224,11 @@ function Join() {
     }));
 
     setError({
+      nameError: "",
       emailError: "",
       usernameError: "",
       passwordError: "",
+      confirmPasswordError: "",
     });
   };
 
@@ -183,6 +253,9 @@ function Join() {
               onChange={handleChange}
               required
             />
+            {error && error.nameError && (
+              <ErrorMessage>{error.nameError}</ErrorMessage>
+            )}
           </JoinInputBox>
           <JoinInputBox>
             <span>이메일</span>
@@ -219,6 +292,9 @@ function Join() {
               onChange={handleChange}
               required
             />
+            {error && error.passwordError && (
+              <ErrorMessage>{error.passwordError}</ErrorMessage>
+            )}
           </JoinInputBox>
           <JoinInputBox>
             <span>비밀번호 확인</span>
@@ -229,8 +305,8 @@ function Join() {
               onChange={handleChange}
               required
             />
-            {error && error.passwordError && (
-              <ErrorMessage>{error.passwordError}</ErrorMessage>
+            {error && error.confirmPasswordError && (
+              <ErrorMessage>{error.confirmPasswordError}</ErrorMessage>
             )}
           </JoinInputBox>
           <JoinBtn type="submit">회원가입</JoinBtn>
