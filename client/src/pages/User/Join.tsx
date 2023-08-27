@@ -243,7 +243,7 @@ function Join() {
               <ErrorMessage>{error.passwordError}</ErrorMessage>
             )}
           </JoinInputBox>
-          <JoinBtn type="submit">Submit</JoinBtn>
+          <JoinBtn type="submit">회원가입</JoinBtn>
         </JoinForm>
       </JoinBox>
     </Box>
