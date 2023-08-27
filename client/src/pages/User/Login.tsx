@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
 import { useSetRecoilState } from "recoil";
@@ -203,7 +203,5 @@ function Login() {
     </Box>
   );
 }
-
-// {error?.passwordError && <span>{error}</span>}
 
 export default Login;
