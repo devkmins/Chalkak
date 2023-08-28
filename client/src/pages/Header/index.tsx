@@ -2,8 +2,11 @@ import { styled } from "styled-components";
 import SearchPost from "../../components/SearchPost";
 import { RiCameraLensFill } from "react-icons/ri";
 import { useRecoilValue } from "recoil";
-import { loggedInState, sessionState } from "../../atoms";
+import { loggedInState } from "../../atoms";
 import { Link } from "react-router-dom";
+import defaultUserProfileImg from "../../assets/User/default-profile.png";
+import Menu from "../../components/Menu";
+import { useState } from "react";
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -34,10 +37,12 @@ const SearchPostBox = styled.div`
 `;
 
 const AuthBox = styled.div`
-  margin-top: 5px;
+  display: flex;
+  align-items: center;
 
   a {
     margin-right: 25px;
+    margin-top: 2.5px;
     padding: 7.5px 10px;
     border-radius: 5px;
     color: #656f79;
@@ -53,9 +58,28 @@ const AuthBox = styled.div`
   }
 `;
 
+const DefaultUserImgBox = styled.div`
+  width: min-content;
+  height: min-content;
+`;
+
+const DefaultUserImg = styled.div`
+  background-image: url(${defaultUserProfileImg});
+  background-position: center center;
+  background-size: cover;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+`;
+
 function Header() {
   const loggedIn = useRecoilValue(loggedInState);
-  const sessionData = useRecoilValue(sessionState);
+
+  const [userImgClick, setUserImgClick] = useState(false);
+
+  const onClick = () => {
+    setUserImgClick((prev) => !prev);
+  };
 
   return (
     <HeaderContainer>
@@ -70,12 +94,11 @@ function Header() {
         {loggedIn ? (
           <>
             <Link to={"/user/logout"}>Logout</Link>
-            <Link
-              to={`/user/${sessionData.username}`}
-              state={sessionData.username}>
-              My Profile
-            </Link>
             <Link to={"/post/upload"}>업로드</Link>
+            <DefaultUserImgBox>
+              <DefaultUserImg onClick={onClick} />
+              {userImgClick && <Menu />}
+            </DefaultUserImgBox>
           </>
         ) : (
           <>
