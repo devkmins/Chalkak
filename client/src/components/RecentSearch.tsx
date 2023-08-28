@@ -47,6 +47,7 @@ const SearchText = styled.span`
   padding: 10px 20px;
   color: #8c8c8c;
   font-size: 13.5px;
+  font-family: "NanumGothic";
   margin-bottom: 10px;
   margin-right: 12.5px;
 `;
