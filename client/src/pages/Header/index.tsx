@@ -45,6 +45,11 @@ const AuthBox = styled.div`
     &:last-child {
       margin-right: 20px;
     }
+
+    &:hover {
+      color: black;
+      transition: color 0.25s;
+    }
   }
 `;
 
