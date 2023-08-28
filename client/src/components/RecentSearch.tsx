@@ -5,7 +5,8 @@ import styled from "styled-components";
 const RecentSearchBox = styled.div`
   position: absolute;
   width: 57.5%;
-  height: 100px;
+  min-height: 100px;
+  height: auto;
   background-color: white;
   border-radius: 10px;
   border: 0.5px solid #d1d1d1;
@@ -34,15 +35,20 @@ const Header = styled.div`
 `;
 
 const SearchList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
   margin-top: 25px;
+  white-space: nowrap;
 `;
 
 const SearchText = styled.span`
+  width: min-content;
   border: 1px solid #8c8c8c;
   border-radius: 7.5px;
   padding: 10px 20px;
   color: #8c8c8c;
   font-size: 13.5px;
+  margin-bottom: 10px;
 `;
 
 function RecentSearch() {
