@@ -16,7 +16,17 @@ const SearchForm = styled.form`
   height: 40px;
   border-radius: 15px;
   background-color: #eeeeee;
-  border: 0.5px solid #d1d1d1;
+  border: 1px solid #e1e1e1;
+  transition: background-color 0.25s;
+
+  &:hover {
+    border-color: #cccccc;
+  }
+
+  &:focus-within {
+    background-color: white;
+    border-color: #cccccc;
+  }
 `;
 
 const SearchIcon = styled(BiSearch)`
@@ -31,7 +41,7 @@ const SearchInput = styled.input`
   height: 100%;
   border: none;
   border-radius: 15px;
-  background-color: #eeeeee;
+  background-color: inherit;
   font-size: 14px;
 `;
 
