@@ -5,6 +5,8 @@ import CryptoJS from "crypto-js";
 import styled from "styled-components";
 import joinImg from "../../assets/Join/join.jpeg";
 import { RiCameraLensFill } from "react-icons/ri";
+import { BiSolidShow } from "react-icons/bi";
+import { BiSolidHide } from "react-icons/bi";
 
 interface Error {
   nameError: string;
@@ -97,6 +99,38 @@ const JoinInputBox = styled.div`
   }
 `;
 
+const JoinPasswordBox = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  span {
+    margin-bottom: 5px;
+    font-weight: 300;
+    font-weight: 500;
+  }
+`;
+
+const JoinPasswordInputBox = styled.div`
+  display: grid;
+  grid-template-columns: 94% 6%;
+  align-content: center;
+  border: 1px solid gray;
+  border-radius: 5px;
+  height: 36%;
+  min-width: min-content;
+
+  &:focus-within {
+    border: 1.75px solid #636e72;
+  }
+
+  input {
+    border: none;
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 15px;
+  }
+`;
+
 const JoinBtn = styled.button`
   border-radius: 5px;
   border: 1px solid gray;
@@ -129,6 +163,9 @@ function Join() {
   });
 
   const [error, setError] = useState<Error>();
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -241,6 +278,14 @@ function Join() {
     });
   };
 
+  const passwordToggle = () => {
+    setShowPassword((prev) => !prev);
+  };
+
+  const confirmPasswordToggle = () => {
+    setShowConfirmPassword((prev) => !prev);
+  };
+
   return (
     <Box>
       <JoinImgContainer>
@@ -292,32 +337,46 @@ function Join() {
               <ErrorMessage>{error.usernameError}</ErrorMessage>
             )}
           </JoinInputBox>
-          <JoinInputBox>
+          <JoinPasswordBox>
             <span>비밀번호</span>
-            <input
-              name="password"
-              type="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
+            <JoinPasswordInputBox>
+              <input
+                name="password"
+                type={showPassword ? "text" : "password"}
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+              {showPassword ? (
+                <BiSolidHide onClick={passwordToggle} />
+              ) : (
+                <BiSolidShow onClick={passwordToggle} />
+              )}
+            </JoinPasswordInputBox>
             {error && error.passwordError && (
               <ErrorMessage>{error.passwordError}</ErrorMessage>
             )}
-          </JoinInputBox>
-          <JoinInputBox>
+          </JoinPasswordBox>
+          <JoinPasswordBox>
             <span>비밀번호 확인</span>
-            <input
-              name="confirmPassword"
-              type="password"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              required
-            />
+            <JoinPasswordInputBox>
+              <input
+                name="confirmPassword"
+                type={showConfirmPassword ? "text" : "password"}
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                required
+              />
+              {showConfirmPassword ? (
+                <BiSolidHide onClick={confirmPasswordToggle} />
+              ) : (
+                <BiSolidShow onClick={confirmPasswordToggle} />
+              )}
+            </JoinPasswordInputBox>
             {error && error.confirmPasswordError && (
               <ErrorMessage>{error.confirmPasswordError}</ErrorMessage>
             )}
-          </JoinInputBox>
+          </JoinPasswordBox>
           <JoinBtn type="submit">회원가입</JoinBtn>
         </JoinForm>
       </JoinBox>
