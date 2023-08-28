@@ -7,6 +7,8 @@ import { loggedInState, sessionState } from "../../atoms";
 import { styled } from "styled-components";
 import loginImg from "../../assets/Login/login.jpeg";
 import { RiCameraLensFill } from "react-icons/ri";
+import { BiSolidShow } from "react-icons/bi";
+import { BiSolidHide } from "react-icons/bi";
 
 const Box = styled.div`
   display: grid;
@@ -87,6 +89,38 @@ const LoginInputBox = styled.div`
   }
 `;
 
+const LoginPasswordBox = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  span {
+    margin-bottom: 5px;
+    font-weight: 300;
+    font-weight: 500;
+  }
+`;
+
+const LoginPasswordInputBox = styled.div`
+  display: grid;
+  grid-template-columns: 94% 6%;
+  align-content: center;
+  border: 1px solid gray;
+  border-radius: 5px;
+  height: 36%;
+  min-width: min-content;
+
+  &:focus-within {
+    border: 1.75px solid #636e72;
+  }
+
+  input {
+    border: none;
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 15px;
+  }
+`;
+
 const LoginBtn = styled.button`
   border-radius: 5px;
   border: 1px solid gray;
@@ -121,6 +155,8 @@ function Login() {
   });
 
   const [error, setError] = useState<Error>();
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const setLoggedIn = useSetRecoilState(loggedInState);
   const setSessionData = useSetRecoilState(sessionState);
@@ -158,6 +194,10 @@ function Login() {
     });
   };
 
+  const passwordToggle = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   return (
     <Box>
       <LoginImgContainer>
@@ -183,20 +223,27 @@ function Login() {
               <ErrorMessage>{error.userError}</ErrorMessage>
             )}
           </LoginInputBox>
-          <LoginInputBox>
+          <LoginPasswordBox>
             <span>비밀번호</span>
-            <input
-              name="password"
-              type="password"
-              placeholder=""
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
+            <LoginPasswordInputBox>
+              <input
+                name="password"
+                type={showPassword ? "text" : "password"}
+                placeholder=""
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+              {showPassword ? (
+                <BiSolidHide onClick={passwordToggle} />
+              ) : (
+                <BiSolidShow onClick={passwordToggle} />
+              )}
+            </LoginPasswordInputBox>
             {error && error.passwordError && (
               <ErrorMessage>{error.passwordError}</ErrorMessage>
             )}
-          </LoginInputBox>
+          </LoginPasswordBox>
           <LoginBtn type="submit">로그인</LoginBtn>
         </LoginForm>
       </LoginBox>
