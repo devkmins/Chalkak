@@ -66,7 +66,11 @@ function SearchPost() {
     );
 
     setKeywords((prev: any) => {
-      const newKeywords = [...prev, formData.keyword];
+      const newKeywords = [formData.keyword, ...prev];
+
+      if (newKeywords.length > 5) {
+        newKeywords.pop();
+      }
 
       localStorage.setItem("keywords", JSON.stringify(newKeywords));
 
