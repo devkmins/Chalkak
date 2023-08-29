@@ -3,6 +3,7 @@ import User from "../models/User";
 import { CustomSession } from "../types/session";
 import bcrypt from "bcrypt";
 import Post from "../models/Post";
+import fs from "fs";
 
 export const editProfile = async (req: Request, res: Response) => {
   const { name: newName, email: newEmail, username: newUsername } = req.body;
@@ -32,11 +33,14 @@ export const editProfile = async (req: Request, res: Response) => {
 export const editProfileImg = async (req: Request, res: Response) => {
   const session = req.session as CustomSession;
   const username = session.user?.username;
+  const user = await User.findOne({ username });
+
+  fs.unlink(`${user?.profileImage}`, (error) => {});
+
   const updateUser = await User.findOneAndUpdate(
     { username },
     { profileImage: req.file?.path }
   );
-  const user = await User.findOne({ username });
 
   if (user) {
     const userSessionData = {
