@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { sessionState } from "../atoms";
 import { Link } from "react-router-dom";
+import defaultUserProfileImg from "../assets/User/default-profile.png";
 
 function UserPage() {
   const location = useLocation();
@@ -22,8 +23,8 @@ function UserPage() {
   let totalViews = 0;
   let totalLikes = 0;
 
-  data?.posts?.map((post: any) => (totalViews += post.views - 1));
-  data?.posts?.map((post: any) => (totalLikes += post.likes.length));
+  data?.userPosts?.posts?.map((post: any) => (totalViews += post.views - 1));
+  data?.userPosts?.posts?.map((post: any) => (totalLikes += post.likes.length));
 
   return (
     <>
@@ -34,10 +35,19 @@ function UserPage() {
       )}
       {data ? (
         <>
+          <img
+            key={data?.profileImg}
+            alt=""
+            src={
+              data?.profileImg
+                ? `http://localhost:4000/${data?.profileImg}`
+                : defaultUserProfileImg
+            }
+          />
           <div>{data.name}</div>
           <h4>Total Views: {totalViews}</h4>
           <h4>Total Likes: {totalLikes}</h4>
-          {data.posts.map((post: any) => (
+          {data.userPosts.posts.map((post: any) => (
             <div key={post._id}>
               {post.fileUrl.map((img: any) => (
                 <img
