@@ -32,3 +32,8 @@ export const imageUpload = multer({
   dest: "uploads/images/",
   limits: { fileSize: 15000000 },
 });
+
+export const avatarImgUpload = multer({
+  dest: "uploads/avatars/",
+  limits: { fileSize: 200000 },
+});
