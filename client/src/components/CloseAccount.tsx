@@ -35,6 +35,7 @@ function CloseAccount() {
         email: "",
         username: "",
         name: "",
+        profileImage: "",
         socialOnly: false,
         _id: "",
       });

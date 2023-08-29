@@ -22,6 +22,7 @@ function Logout() {
           email: "",
           username: "",
           name: "",
+          profileImage: "",
           socialOnly: false,
           _id: "",
         });
