@@ -40,9 +40,6 @@ export const editProfileImg = async (req: Request, res: Response) => {
   await user?.save();
 
   return res.status(200).json(req.file?.path);
-
-  console.log(user);
-  console.log(req.file);
 };
 
 export const closeAccount = async (req: Request, res: Response) => {
