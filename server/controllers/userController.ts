@@ -13,7 +13,7 @@ export const see = async (req: Request, res: Response) => {
     },
   });
 
-  return res.json(userPosts);
+  return res.json({ profileImg: user?.profileImage, userPosts });
 };
 
 export const logout = (req: Request, res: Response) => {
