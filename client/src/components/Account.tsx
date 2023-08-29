@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { sessionState } from "../atoms";
@@ -16,6 +16,18 @@ const ProfileImg = styled.img`
   height: 60px;
 `;
 
+const EditProfileImg = styled.input.attrs({ type: "file" })`
+  display: none;
+`;
+
+const CustomButton = styled.button`
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+`;
+
 function Account() {
   const [sessionData, setSessionData] = useRecoilState(sessionState);
   const [formData, setFormData] = useState({
@@ -24,6 +36,8 @@ function Account() {
     username: sessionData.username,
   });
   const userProfileImg = sessionData.profileImage;
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -47,6 +61,10 @@ function Account() {
       ...prevFormData,
       [name]: value,
     }));
+  };
+
+  const handleButtonClick = () => {
+    fileInputRef?.current?.click();
   };
 
   const imgChange = async (event: any) => {
@@ -85,9 +103,13 @@ function Account() {
               : defaultUserProfileImg
           }
         />
-        <form>
-          <input onChange={imgChange} type="file" accept="image/*" />
-        </form>
+        <CustomButton onClick={handleButtonClick}>파일 선택</CustomButton>
+        <EditProfileImg
+          onChange={imgChange}
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+        />
       </ProfileImgBox>
       <form onSubmit={handleSubmit}>
         <input
