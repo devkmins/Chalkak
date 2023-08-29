@@ -32,10 +32,26 @@ export const editProfile = async (req: Request, res: Response) => {
 export const editProfileImg = async (req: Request, res: Response) => {
   const session = req.session as CustomSession;
   const username = session.user?.username;
-  const user = await User.findOneAndUpdate(
+  const updateUser = await User.findOneAndUpdate(
     { username },
-    { profileImg: req.file?.path }
+    { profileImage: req.file?.path }
   );
+  const user = await User.findOne({ username });
+
+  if (user) {
+    const userSessionData = {
+      email: user.email,
+      name: user.name,
+      username: user.username,
+      socialOnly: user.socialOnly,
+      profileImage: req.file?.path,
+      _id: user._id,
+    };
+
+    session.user = userSessionData;
+
+    session.save();
+  }
 
   await user?.save();
 
