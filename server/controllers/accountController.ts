@@ -29,6 +29,22 @@ export const editProfile = async (req: Request, res: Response) => {
   return res.status(200).json(session.user);
 };
 
+export const editProfileImg = async (req: Request, res: Response) => {
+  const session = req.session as CustomSession;
+  const username = session.user?.username;
+  const user = await User.findOneAndUpdate(
+    { username },
+    { profileImg: req.file?.path }
+  );
+
+  await user?.save();
+
+  return res.status(200).json(req.file?.path);
+
+  console.log(user);
+  console.log(req.file);
+};
+
 export const closeAccount = async (req: Request, res: Response) => {
   if (res.headersSent) {
     return;
