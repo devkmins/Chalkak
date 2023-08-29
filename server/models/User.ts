@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   socialOnly: { type: Boolean, default: false },
-  profileImage: String,
+  profileImage: { type: String, default: "" },
   totalViews: { type: Number, ref: "Post" },
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
 });
