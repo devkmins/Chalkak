@@ -63,9 +63,9 @@ function AccountMenu({ pathname }: AccountMenuProp) {
         </LinkLi>
         <LinkLi>
           {pathname === "/account/close" ? (
-            <ConnectedtLink to={"/account/close"}>회원탈퇴</ConnectedtLink>
+            <ConnectedtLink to={"/account/close"}>계정 폐쇄</ConnectedtLink>
           ) : (
-            <StyledLink to={"/account/close"}>회원탈퇴</StyledLink>
+            <StyledLink to={"/account/close"}>계정 폐쇄</StyledLink>
           )}
         </LinkLi>
       </LinkUl>
