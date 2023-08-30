@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import CryptoJS from "crypto-js";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import AccountMenu from "./AccountMenu";
 
 function ChangePassword() {
   const navigate = useNavigate();
@@ -11,6 +12,9 @@ function ChangePassword() {
     newPassword: "",
     newConfirmPassword: "",
   });
+
+  const location = useLocation();
+  const pathname = location.pathname;
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -45,33 +49,36 @@ function ChangePassword() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        name="currentPassword"
-        type="password"
-        placeholder="Current Password"
-        value={formData.currentPassword}
-        onChange={handleChange}
-        required
-      />
-      <input
-        name="newPassword"
-        type="password"
-        placeholder="New Password"
-        value={formData.newPassword}
-        onChange={handleChange}
-        required
-      />
-      <input
-        name="newConfirmPassword"
-        type="password"
-        placeholder="New Confirm Password"
-        value={formData.newConfirmPassword}
-        onChange={handleChange}
-        required
-      />
-      <button type="submit">Submit</button>
-    </form>
+    <>
+      <AccountMenu pathname={pathname} />
+      <form onSubmit={handleSubmit}>
+        <input
+          name="currentPassword"
+          type="password"
+          placeholder="Current Password"
+          value={formData.currentPassword}
+          onChange={handleChange}
+          required
+        />
+        <input
+          name="newPassword"
+          type="password"
+          placeholder="New Password"
+          value={formData.newPassword}
+          onChange={handleChange}
+          required
+        />
+        <input
+          name="newConfirmPassword"
+          type="password"
+          placeholder="New Confirm Password"
+          value={formData.newConfirmPassword}
+          onChange={handleChange}
+          required
+        />
+        <button type="submit">Submit</button>
+      </form>
+    </>
   );
 }
 

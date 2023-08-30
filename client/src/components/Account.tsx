@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { sessionState } from "../atoms";
 import { styled } from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.png";
+import AccountMenu from "./AccountMenu";
 
 const ProfileImgBox = styled.div`
   width: min-content;
@@ -38,6 +39,9 @@ function Account() {
   const userProfileImg = sessionData.profileImage;
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const location = useLocation();
+  const pathname = location.pathname;
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -93,6 +97,7 @@ function Account() {
 
   return (
     <>
+      <AccountMenu pathname={pathname} />
       <ProfileImgBox>
         <ProfileImg
           key={userProfileImg}

@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
 import { useCookies } from "react-cookie";
 import { useSetRecoilState } from "recoil";
 import { loggedInState, sessionState } from "../atoms";
+import AccountMenu from "./AccountMenu";
 
 function CloseAccount() {
   const navigate = useNavigate();
@@ -16,6 +17,9 @@ function CloseAccount() {
   const [formData, setFormData] = useState({
     password: "",
   });
+
+  const location = useLocation();
+  const pathname = location.pathname;
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -56,16 +60,19 @@ function CloseAccount() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        name="password"
-        type="password"
-        placeholder="Password"
-        value={formData.password}
-        onChange={handleChange}
-        required
-      />
-    </form>
+    <>
+      <AccountMenu pathname={pathname} />
+      <form onSubmit={handleSubmit}>
+        <input
+          name="password"
+          type="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
+      </form>
+    </>
   );
 }
 
