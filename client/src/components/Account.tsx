@@ -92,7 +92,7 @@ const EditInputBox = styled.div`
     font-size: 15px;
 
     &:focus {
-      border: 1.5px solid #111111;
+      border: 1.25px solid #111111;
     }
   }
 `;
@@ -111,6 +111,7 @@ const EditBtn = styled.button`
   background-color: black;
   border: none;
   cursor: pointer;
+  border-radius: 5px;
 `;
 
 function Account() {
