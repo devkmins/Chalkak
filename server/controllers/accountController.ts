@@ -111,7 +111,17 @@ export const changePassword = async (req: Request, res: Response) => {
       user.password = newPassword;
 
       await user.save();
+    } else {
+      return res
+        .status(400)
+        .json({
+          currentPasswordError: "현재 비밀번호는 올바르지 않은 비밀번호입니다.",
+        });
     }
+  } else {
+    return res
+      .status(400)
+      .json({ confirmPasswordError: "비밀번호가 일치하지 않습니다." });
   }
 
   return res.status(200).send("Good");

@@ -6,6 +6,12 @@ import AccountMenu from "./AccountMenu";
 import styled from "styled-components";
 import Header from "../pages/Header";
 
+interface Error {
+  currentPasswordError: string;
+  newPasswordError: string;
+  confirmPasswordError: string;
+}
+
 const Container = styled.div``;
 
 const Box = styled.div`
@@ -73,6 +79,12 @@ const Btn = styled.button`
   font-size: 16px;
 `;
 
+const ErrorMessage = styled.span`
+  margin-top: 7.5px;
+  font-size: 13px;
+  color: #ff6b6b;
+`;
+
 function ChangePassword() {
   const navigate = useNavigate();
 
@@ -85,8 +97,44 @@ function ChangePassword() {
   const location = useLocation();
   const pathname = location.pathname;
 
+  const [error, setError] = useState<Error>();
+
   const handleSubmit = async (event: any) => {
     event.preventDefault();
+
+    const trimPassword = formData.newPassword.trim();
+
+    const passwordRegex =
+      /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\-]).*(?=.*[0-9]).*$/;
+    const isValidPassword = passwordRegex.test(formData.newPassword);
+
+    if (
+      formData.newPassword !== trimPassword ||
+      formData.newPassword.includes(" ")
+    ) {
+      setError((prevError: any) => ({
+        ...prevError,
+        newPasswordError: "비밀번호에는 공백이 포함되어서는 안 됩니다.",
+      }));
+      return;
+    }
+
+    if (formData.newPassword.length < 8 || formData.newPassword.length > 16) {
+      setError((prevError: any) => ({
+        ...prevError,
+        newPasswordError: "비밀번호는 8자 이상 16자 이하여야 합니다.",
+      }));
+      return;
+    }
+
+    if (!isValidPassword) {
+      setError((prevError: any) => ({
+        ...prevError,
+        newPasswordError:
+          "비밀번호는 1개 이상의 숫자, 특수문자가 포함되어야 합니다.",
+      }));
+      return;
+    }
 
     const hashedFormData = {
       currentPassword: CryptoJS.SHA256(formData.currentPassword).toString(),
@@ -96,17 +144,14 @@ function ChangePassword() {
       ).toString(),
     };
 
-    try {
-      const response = await axios.patch(
-        `http://localhost:4000/account/password`,
-        hashedFormData,
-        { withCredentials: true }
-      );
-
-      navigate("/");
-    } catch (error) {
-      console.error("Error:", error);
-    }
+    const response = await axios
+      .patch(`http://localhost:4000/account/password`, hashedFormData, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        navigate("/");
+      })
+      .catch((error) => setError(error.response.data));
   };
 
   const handleChange = (event: any) => {
@@ -115,6 +160,12 @@ function ChangePassword() {
       ...prevFormData,
       [name]: value,
     }));
+
+    setError({
+      currentPasswordError: "",
+      newPasswordError: "",
+      confirmPasswordError: "",
+    });
   };
 
   return (
@@ -137,6 +188,9 @@ function ChangePassword() {
                   onChange={handleChange}
                   required
                 />
+                {error && error.currentPasswordError && (
+                  <ErrorMessage>{error.currentPasswordError}</ErrorMessage>
+                )}
               </InputBox>
               <InputBox>
                 <span>비밀번호</span>
@@ -147,6 +201,9 @@ function ChangePassword() {
                   onChange={handleChange}
                   required
                 />
+                {error && error.newPasswordError && (
+                  <ErrorMessage>{error.newPasswordError}</ErrorMessage>
+                )}
               </InputBox>
               <InputBox>
                 <span>비밀번호 확인</span>
@@ -157,6 +214,9 @@ function ChangePassword() {
                   onChange={handleChange}
                   required
                 />
+                {error && error.confirmPasswordError && (
+                  <ErrorMessage>{error.confirmPasswordError}</ErrorMessage>
+                )}
               </InputBox>
               <BtnBox>
                 <Btn type="submit">비밀번호 변경</Btn>
