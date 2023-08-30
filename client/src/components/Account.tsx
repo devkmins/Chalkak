@@ -8,6 +8,11 @@ import defaultUserProfileImg from "../assets/User/default-profile.png";
 import Header from "../pages/Header";
 import AccountMenu from "./AccountMenu";
 
+interface Error {
+  emailError: string;
+  usernameError: string;
+}
+
 const Container = styled.div``;
 
 const Box = styled.div`
@@ -115,6 +120,12 @@ const EditBtn = styled.button`
   font-size: 16px;
 `;
 
+const ErrorMessage = styled.span`
+  margin-top: 7.5px;
+  font-size: 13px;
+  color: #ff6b6b;
+`;
+
 function Account() {
   const [sessionData, setSessionData] = useRecoilState(sessionState);
   const [formData, setFormData] = useState({
@@ -130,22 +141,46 @@ function Account() {
   const location = useLocation();
   const pathname = location.pathname;
 
+  const [error, setError] = useState<Error>();
+
   const handleSubmit = async (event?: React.FormEvent<HTMLFormElement>) => {
     if (event) {
       event.preventDefault();
     }
 
-    try {
-      const response = await axios.put(
-        `http://localhost:4000/account`,
-        formData,
-        { withCredentials: true }
-      );
+    const trimUsername = formData.username.trim();
 
-      setSessionData(response.data);
-    } catch (error) {
-      console.error("Error:", error);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValidEmail = emailRegex.test(formData.email);
+
+    if (formData.username.length < 3 || formData.username.length > 20) {
+      setError((prevError: any) => ({
+        ...prevError,
+        usernameError: "사용자 이름은 4자 이상 20자 이하여야 합니다.",
+      }));
+      return;
     }
+
+    if (formData.username !== trimUsername || formData.username.includes(" ")) {
+      setError((prevError: any) => ({
+        ...prevError,
+        usernameError: "사용자 이름에는 공백이 포함되어서는 안 됩니다.",
+      }));
+      return;
+    }
+
+    if (!isValidEmail) {
+      setError((prevError: any) => ({
+        ...prevError,
+        emailError: "이메일이 유효하지 않습니다.",
+      }));
+      return;
+    }
+
+    const response = await axios
+      .put(`http://localhost:4000/account`, formData, { withCredentials: true })
+      .then((response) => setSessionData(response.data))
+      .catch((error) => setError(error.response.data));
   };
 
   const handleChange = (event: any) => {
@@ -154,6 +189,11 @@ function Account() {
       ...prevFormData,
       [name]: value,
     }));
+
+    setError({
+      emailError: "",
+      usernameError: "",
+    });
   };
 
   const handleInputClick = () => {
@@ -194,7 +234,7 @@ function Account() {
     if (event.key === "Enter") {
       event.preventDefault();
       handleSubmit();
-      formRef.current?.submit();
+      //formRef.current?.submit();
     }
   };
 
@@ -235,7 +275,6 @@ function Account() {
                   <input
                     type="text"
                     name="name"
-                    placeholder="name"
                     value={formData.name}
                     required
                     onChange={handleChange}
@@ -247,24 +286,28 @@ function Account() {
                   <input
                     type="text"
                     name="email"
-                    placeholder="email"
                     value={formData.email}
                     required
                     onChange={handleChange}
                     onKeyDown={handleEnterKeyPress}
                   />
+                  {error && error.emailError && (
+                    <ErrorMessage>{error.emailError}</ErrorMessage>
+                  )}
                 </EditInputBox>
                 <EditInputBox>
                   <span>사용자 이름</span>
                   <input
                     type="text"
                     name="username"
-                    placeholder="username"
                     value={formData.username}
                     required
                     onChange={handleChange}
                     onKeyDown={handleEnterKeyPress}
                   />
+                  {error && error.usernameError && (
+                    <ErrorMessage>{error.usernameError}</ErrorMessage>
+                  )}
                 </EditInputBox>
               </EditInputContainer>
             </EditForm>

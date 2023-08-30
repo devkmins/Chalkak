@@ -9,25 +9,60 @@ export const editProfile = async (req: Request, res: Response) => {
   const { name: newName, email: newEmail, username: newUsername } = req.body;
   const session = req.session as CustomSession;
   const username = session.user?.username;
-  const user = await User.findOneAndUpdate(
-    { username },
-    { name: newName, email: newEmail, username: newUsername }
-  );
 
-  if (session.user) {
-    const newUserSessionData = {
-      email: newEmail,
-      name: newName,
-      username: newUsername,
-      socialOnly: session.user?.socialOnly,
-      profileImage: session.user?.profileImage,
-      _id: session.user._id,
-    };
+  const user = await User.findOne({ username: username });
+  const findUserByUsername = await User.findOne({ username: newUsername });
+  const findUserByEmail = await User.findOne({ email: newEmail });
 
-    session.user = newUserSessionData;
+  if (
+    findUserByEmail &&
+    user?._id.toString() !== findUserByEmail._id.toString() &&
+    findUserByUsername &&
+    user?._id.toString() !== findUserByUsername._id.toString()
+  ) {
+    return res.status(400).json({
+      emailError: "이미 존재하는 이메일입니다.",
+      usernameError: "이미 존재하는 사용자 이름입니다.",
+    });
   }
 
-  return res.status(200).json(session.user);
+  if (
+    findUserByEmail &&
+    user?._id.toString() !== findUserByEmail._id.toString()
+  ) {
+    return res.status(400).json({ emailError: "이미 존재하는 이메일입니다." });
+  }
+
+  if (
+    findUserByUsername &&
+    user?._id.toString() !== findUserByUsername._id.toString()
+  ) {
+    return res
+      .status(400)
+      .json({ usernameError: "이미 존재하는 사용자 이름입니다." });
+  }
+
+  try {
+    const updatedUser = await User.findOneAndUpdate(
+      { username },
+      { name: newName, email: newEmail, username: newUsername }
+    );
+
+    if (session.user) {
+      const newUserSessionData = {
+        email: newEmail,
+        name: newName,
+        username: newUsername,
+        socialOnly: session.user?.socialOnly,
+        profileImage: session.user?.profileImage,
+        _id: session.user._id,
+      };
+
+      session.user = newUserSessionData;
+    }
+
+    return res.status(200).json(session.user);
+  } catch {}
 };
 
 export const editProfileImg = async (req: Request, res: Response) => {
@@ -112,11 +147,9 @@ export const changePassword = async (req: Request, res: Response) => {
 
       await user.save();
     } else {
-      return res
-        .status(400)
-        .json({
-          currentPasswordError: "현재 비밀번호는 올바르지 않은 비밀번호입니다.",
-        });
+      return res.status(400).json({
+        currentPasswordError: "현재 비밀번호는 올바르지 않은 비밀번호입니다.",
+      });
     }
   } else {
     return res
