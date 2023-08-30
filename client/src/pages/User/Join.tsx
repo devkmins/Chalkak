@@ -201,7 +201,7 @@ function Join() {
     if (formData.username.length < 3 || formData.username.length > 20) {
       setError((prevError: any) => ({
         ...prevError,
-        usernameError: "아이디는 4자 이상 20자 이하여야 합니다.",
+        usernameError: "사용자 이름은 4자 이상 20자 이하여야 합니다.",
       }));
       return;
     }
@@ -209,7 +209,7 @@ function Join() {
     if (formData.username !== trimUsername || formData.username.includes(" ")) {
       setError((prevError: any) => ({
         ...prevError,
-        usernameError: "아이디에는 공백이 포함되어서는 안 됩니다.",
+        usernameError: "사용자 이름에는 공백이 포함되어서는 안 됩니다.",
       }));
       return;
     }
