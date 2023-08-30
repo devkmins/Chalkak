@@ -14,7 +14,63 @@ const Box = styled.div`
   padding-top: 100px;
 `;
 
-const ChangePasswordSection = styled.section``;
+const ChangePasswordSection = styled.section`
+  margin-right: 25px;
+`;
+
+const MainTitleBox = styled.div`
+  padding-bottom: 25px;
+  border-bottom: 1px solid #dddddd;
+`;
+
+const MainTitle = styled.span`
+  font-size: 18px;
+  font-weight: 700;
+`;
+
+const ChangePasswordBox = styled.div`
+  display: grid;
+  grid-template-rows: repeat(4, 32.5%);
+  margin-top: 50px;
+  min-height: 50vh;
+`;
+
+const InputBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  span {
+    margin-bottom: 5px;
+    font-weight: 500;
+  }
+
+  input {
+    border-radius: 5px;
+    border: 1px solid gray;
+    height: 40%;
+    padding-left: 10px;
+    font-size: 15px;
+
+    &:focus {
+      border: 1.25px solid #111111;
+    }
+  }
+`;
+
+const BtnBox = styled.div`
+  width: 100%;
+`;
+
+const Btn = styled.button`
+  width: 100%;
+  height: 50px;
+  color: white;
+  background-color: black;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+`;
 
 function ChangePassword() {
   const navigate = useNavigate();
@@ -66,34 +122,46 @@ function ChangePassword() {
       <Box>
         <AccountMenu pathname={pathname} />
         <ChangePasswordSection>
-          <span>비밀번호 변경</span>
-          <form onSubmit={handleSubmit}>
-            <input
-              name="currentPassword"
-              type="password"
-              placeholder="Current Password"
-              value={formData.currentPassword}
-              onChange={handleChange}
-              required
-            />
-            <input
-              name="newPassword"
-              type="password"
-              placeholder="New Password"
-              value={formData.newPassword}
-              onChange={handleChange}
-              required
-            />
-            <input
-              name="newConfirmPassword"
-              type="password"
-              placeholder="New Confirm Password"
-              value={formData.newConfirmPassword}
-              onChange={handleChange}
-              required
-            />
-            <button type="submit">Submit</button>
-          </form>
+          <MainTitleBox>
+            <MainTitle>비밀번호 변경</MainTitle>
+          </MainTitleBox>
+          <ChangePasswordBox>
+            <form onSubmit={handleSubmit}>
+              <InputBox>
+                <span>현재 비밀번호</span>
+                <input
+                  name="currentPassword"
+                  type="password"
+                  value={formData.currentPassword}
+                  onChange={handleChange}
+                  required
+                />
+              </InputBox>
+              <InputBox>
+                <span>비밀번호</span>
+                <input
+                  name="newPassword"
+                  type="password"
+                  value={formData.newPassword}
+                  onChange={handleChange}
+                  required
+                />
+              </InputBox>
+              <InputBox>
+                <span>비밀번호 확인</span>
+                <input
+                  name="newConfirmPassword"
+                  type="password"
+                  value={formData.newConfirmPassword}
+                  onChange={handleChange}
+                  required
+                />
+              </InputBox>
+              <BtnBox>
+                <Btn type="submit">비밀번호 변경</Btn>
+              </BtnBox>
+            </form>
+          </ChangePasswordBox>
         </ChangePasswordSection>
       </Box>
     </Container>
