@@ -3,6 +3,18 @@ import { useState } from "react";
 import CryptoJS from "crypto-js";
 import { useLocation, useNavigate } from "react-router-dom";
 import AccountMenu from "./AccountMenu";
+import styled from "styled-components";
+import Header from "../pages/Header";
+
+const Container = styled.div``;
+
+const Box = styled.div`
+  display: grid;
+  grid-template-columns: 20% 80%;
+  padding-top: 100px;
+`;
+
+const ChangePasswordSection = styled.section``;
 
 function ChangePassword() {
   const navigate = useNavigate();
@@ -49,36 +61,42 @@ function ChangePassword() {
   };
 
   return (
-    <>
-      <AccountMenu pathname={pathname} />
-      <form onSubmit={handleSubmit}>
-        <input
-          name="currentPassword"
-          type="password"
-          placeholder="Current Password"
-          value={formData.currentPassword}
-          onChange={handleChange}
-          required
-        />
-        <input
-          name="newPassword"
-          type="password"
-          placeholder="New Password"
-          value={formData.newPassword}
-          onChange={handleChange}
-          required
-        />
-        <input
-          name="newConfirmPassword"
-          type="password"
-          placeholder="New Confirm Password"
-          value={formData.newConfirmPassword}
-          onChange={handleChange}
-          required
-        />
-        <button type="submit">Submit</button>
-      </form>
-    </>
+    <Container>
+      <Header />
+      <Box>
+        <AccountMenu pathname={pathname} />
+        <ChangePasswordSection>
+          <span>비밀번호 변경</span>
+          <form onSubmit={handleSubmit}>
+            <input
+              name="currentPassword"
+              type="password"
+              placeholder="Current Password"
+              value={formData.currentPassword}
+              onChange={handleChange}
+              required
+            />
+            <input
+              name="newPassword"
+              type="password"
+              placeholder="New Password"
+              value={formData.newPassword}
+              onChange={handleChange}
+              required
+            />
+            <input
+              name="newConfirmPassword"
+              type="password"
+              placeholder="New Confirm Password"
+              value={formData.newConfirmPassword}
+              onChange={handleChange}
+              required
+            />
+            <button type="submit">Submit</button>
+          </form>
+        </ChangePasswordSection>
+      </Box>
+    </Container>
   );
 }
 

@@ -6,6 +6,18 @@ import { useCookies } from "react-cookie";
 import { useSetRecoilState } from "recoil";
 import { loggedInState, sessionState } from "../atoms";
 import AccountMenu from "./AccountMenu";
+import styled from "styled-components";
+import Header from "../pages/Header";
+
+const Container = styled.div``;
+
+const Box = styled.div`
+  display: grid;
+  grid-template-columns: 20% 80%;
+  padding-top: 100px;
+`;
+
+const CloseAccountSection = styled.section``;
 
 function CloseAccount() {
   const navigate = useNavigate();
@@ -60,19 +72,25 @@ function CloseAccount() {
   };
 
   return (
-    <>
-      <AccountMenu pathname={pathname} />
-      <form onSubmit={handleSubmit}>
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-      </form>
-    </>
+    <Container>
+      <Header />
+      <Box>
+        <AccountMenu pathname={pathname} />
+        <CloseAccountSection>
+          <span>계정 폐쇄</span>
+          <form onSubmit={handleSubmit}>
+            <input
+              name="password"
+              type="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </form>
+        </CloseAccountSection>
+      </Box>
+    </Container>
   );
 }
 

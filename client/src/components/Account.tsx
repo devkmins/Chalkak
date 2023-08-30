@@ -5,7 +5,18 @@ import { useRecoilState } from "recoil";
 import { sessionState } from "../atoms";
 import { styled } from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.png";
+import Header from "../pages/Header";
 import AccountMenu from "./AccountMenu";
+
+const Container = styled.div``;
+
+const Box = styled.div`
+  display: grid;
+  grid-template-columns: 20% 80%;
+  padding-top: 100px;
+`;
+
+const EditSection = styled.section``;
 
 const ProfileImgBox = styled.div`
   width: min-content;
@@ -15,6 +26,7 @@ const ProfileImgBox = styled.div`
 const ProfileImg = styled.img`
   width: 60px;
   height: 60px;
+  border-radius: 50%;
 `;
 
 const EditProfileImg = styled.input`
@@ -28,6 +40,8 @@ const CustomButton = styled.button`
   border: none;
   cursor: pointer;
 `;
+
+const EditForm = styled.form``;
 
 function Account() {
   const [sessionData, setSessionData] = useRecoilState(sessionState);
@@ -96,59 +110,63 @@ function Account() {
   };
 
   return (
-    <>
-      <AccountMenu pathname={pathname} />
-      <ProfileImgBox>
-        <ProfileImg
-          key={userProfileImg}
-          alt=""
-          src={
-            userProfileImg
-              ? `http://localhost:4000/${userProfileImg}`
-              : defaultUserProfileImg
-          }
-        />
-        <CustomButton onClick={handleButtonClick}>파일 선택</CustomButton>
-        <EditProfileImg
-          onChange={imgChange}
-          ref={fileInputRef}
-          type="file"
-          accept="image/*"
-        />
-      </ProfileImgBox>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="name"
-          value={formData.name}
-          required
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="email"
-          placeholder="email"
-          value={formData.email}
-          required
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="username"
-          placeholder="username"
-          value={formData.username}
-          required
-          onChange={handleChange}
-        />
-        <button type="submit">계정 업데이트</button>
-      </form>
-      <div>
-        <Link to={"/account"}>프로필 수정</Link>
-        <Link to={"/account/password"}>비밀번호 변경</Link>
-        <Link to={"/account/close"}>회원탈퇴</Link>
-      </div>
-    </>
+    <Container>
+      <Header />
+      <Box>
+        <AccountMenu pathname={pathname} />
+        <EditSection>
+          <span>프로필 편집</span>
+          <ProfileImgBox>
+            <ProfileImg
+              key={userProfileImg}
+              alt=""
+              src={
+                userProfileImg
+                  ? `http://localhost:4000/${userProfileImg}`
+                  : defaultUserProfileImg
+              }
+            />
+            <CustomButton onClick={handleButtonClick}>파일 선택</CustomButton>
+            <EditProfileImg
+              onChange={imgChange}
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+            />
+          </ProfileImgBox>
+          <EditForm onSubmit={handleSubmit}>
+            <span>이름</span>
+            <input
+              type="text"
+              name="name"
+              placeholder="name"
+              value={formData.name}
+              required
+              onChange={handleChange}
+            />
+            <span>이메일</span>
+            <input
+              type="text"
+              name="email"
+              placeholder="email"
+              value={formData.email}
+              required
+              onChange={handleChange}
+            />
+            <span>사용자 이름</span>
+            <input
+              type="text"
+              name="username"
+              placeholder="username"
+              value={formData.username}
+              required
+              onChange={handleChange}
+            />
+            <button type="submit">계정 업데이트</button>
+          </EditForm>
+        </EditSection>
+      </Box>
+    </Container>
   );
 }
 
