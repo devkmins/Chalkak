@@ -9,6 +9,10 @@ import AccountMenu from "./AccountMenu";
 import styled from "styled-components";
 import Header from "../pages/Header";
 
+interface Error {
+  passwordError: string;
+}
+
 const Container = styled.div``;
 
 const Box = styled.div`
@@ -82,6 +86,12 @@ const Btn = styled.button`
   font-size: 16px;
 `;
 
+const ErrorMessage = styled.span`
+  margin-top: 7.5px;
+  font-size: 13px;
+  color: #ff6b6b;
+`;
+
 function CloseAccount() {
   const navigate = useNavigate();
 
@@ -95,6 +105,8 @@ function CloseAccount() {
 
   const location = useLocation();
   const pathname = location.pathname;
+
+  const [error, setError] = useState<Error>();
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -122,7 +134,7 @@ function CloseAccount() {
 
         navigate("/");
       })
-      .catch((error) => {});
+      .catch((error) => setError(error.response.data));
   };
 
   const handleChange = (event: any) => {
@@ -158,6 +170,9 @@ function CloseAccount() {
                 onChange={handleChange}
                 required
               />
+              {error && error.passwordError && (
+                <ErrorMessage>{error.passwordError}</ErrorMessage>
+              )}
               <Btn type="submit">계정 폐쇄</Btn>
             </InputBox>
           </Form>

@@ -124,6 +124,10 @@ export const closeAccount = async (req: Request, res: Response) => {
       });
 
       await User.findOneAndDelete({ username });
+    } else {
+      return res
+        .status(400)
+        .json({ passwordError: "비밀번호가 일치하지 않습니다." });
     }
   }
 
