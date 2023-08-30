@@ -17,7 +17,70 @@ const Box = styled.div`
   padding-top: 100px;
 `;
 
-const CloseAccountSection = styled.section``;
+const CloseAccountSection = styled.section`
+  margin-right: 25px;
+  min-height: 50vh;
+`;
+
+const MainTitleBox = styled.div`
+  padding-bottom: 25px;
+  border-bottom: 1px solid #dddddd;
+`;
+
+const MainTitle = styled.span`
+  font-size: 18px;
+  font-weight: 700;
+`;
+
+const WarningMessagesBox = styled.div`
+  white-space: nowrap;
+  margin-top: 50px;
+
+  span {
+    font-size: 15px;
+    font-weight: 300;
+
+    &:first-child {
+      font-weight: 600;
+      color: #ff6b6b;
+    }
+  }
+`;
+
+const Form = styled.form`
+  margin-top: 12.5px;
+  height: 100%;
+`;
+
+const InputBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  input {
+    border-radius: 5px;
+    border: 1px solid gray;
+    height: 45px;
+    padding-left: 10px;
+    font-size: 15px;
+
+    &:focus {
+      border: 1.25px solid #111111;
+    }
+  }
+`;
+
+const Btn = styled.button`
+  margin-top: 50px;
+  width: 100%;
+  height: 45px;
+  color: white;
+  background-color: black;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+`;
 
 function CloseAccount() {
   const navigate = useNavigate();
@@ -40,27 +103,26 @@ function CloseAccount() {
       password: CryptoJS.SHA256(formData.password).toString(),
     };
 
-    try {
-      const response = await axios.delete(
-        `http://localhost:4000/account/close`,
-        { withCredentials: true, data: hashedFormData }
-      );
+    const response = await axios
+      .delete(`http://localhost:4000/account/close`, {
+        withCredentials: true,
+        data: hashedFormData,
+      })
+      .then((response) => {
+        setLoggedIn(false);
+        setSessionData({
+          email: "",
+          username: "",
+          name: "",
+          profileImage: "",
+          socialOnly: false,
+          _id: "",
+        });
+        removeCookie("connect.sid");
 
-      setLoggedIn(false);
-      setSessionData({
-        email: "",
-        username: "",
-        name: "",
-        profileImage: "",
-        socialOnly: false,
-        _id: "",
-      });
-      removeCookie("connect.sid");
-
-      navigate("/");
-    } catch (error) {
-      console.error("Error:", error);
-    }
+        navigate("/");
+      })
+      .catch((error) => {});
   };
 
   const handleChange = (event: any) => {
@@ -77,17 +139,28 @@ function CloseAccount() {
       <Box>
         <AccountMenu pathname={pathname} />
         <CloseAccountSection>
-          <span>계정 폐쇄</span>
-          <form onSubmit={handleSubmit}>
-            <input
-              name="password"
-              type="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-          </form>
+          <MainTitleBox>
+            <MainTitle>계정 폐쇄</MainTitle>
+          </MainTitleBox>
+          <WarningMessagesBox>
+            <span>경고: </span>
+            <span>
+              계정 폐쇄는 취소가 불가능합니다. 모든 사진들이 삭제되며 이는
+              되돌릴 수 없습니다.
+            </span>
+          </WarningMessagesBox>
+          <Form onSubmit={handleSubmit}>
+            <InputBox>
+              <input
+                name="password"
+                type="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+              <Btn type="submit">계정 폐쇄</Btn>
+            </InputBox>
+          </Form>
         </CloseAccountSection>
       </Box>
     </Container>
