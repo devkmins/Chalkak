@@ -16,7 +16,7 @@ const ProfileImg = styled.img`
   height: 60px;
 `;
 
-const EditProfileImg = styled.input.attrs({ type: "file" })`
+const EditProfileImg = styled.input`
   display: none;
 `;
 
