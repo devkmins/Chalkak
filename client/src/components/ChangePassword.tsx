@@ -54,7 +54,7 @@ const InputBox = styled.div`
   input {
     border-radius: 5px;
     border: 1px solid gray;
-    height: 40%;
+    height: 45px;
     padding-left: 10px;
     font-size: 15px;
 
@@ -70,7 +70,7 @@ const BtnBox = styled.div`
 
 const Btn = styled.button`
   width: 100%;
-  height: 50px;
+  height: 45px;
   color: white;
   background-color: black;
   border: none;

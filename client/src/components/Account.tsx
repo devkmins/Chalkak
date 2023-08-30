@@ -92,7 +92,7 @@ const EditInputBox = styled.div`
   input {
     border-radius: 5px;
     border: 1px solid gray;
-    height: 40%;
+    height: 45px;
     padding-left: 10px;
     font-size: 15px;
 
@@ -106,12 +106,12 @@ const EditBtnBox = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-top: 25px;
+  margin-top: 15px;
 `;
 
 const EditBtn = styled.button`
   width: 100%;
-  height: 50px;
+  height: 45px;
   color: white;
   background-color: black;
   border: none;
