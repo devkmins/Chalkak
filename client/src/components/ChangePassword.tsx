@@ -66,6 +66,7 @@ const InputBox = styled.div`
 
 const BtnBox = styled.div`
   width: 100%;
+  margin-top: 22px;
 `;
 
 const Btn = styled.button`
