@@ -124,6 +124,7 @@ function Account() {
   const userProfileImg = sessionData.profileImage;
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const formRef = useRef<HTMLFormElement | null>(null);
 
   const location = useLocation();
   const pathname = location.pathname;
@@ -186,6 +187,16 @@ function Account() {
     });
   };
 
+  const handleEnterKeyPress = (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleSubmit();
+      formRef.current?.submit();
+    }
+  };
+
   return (
     <Container>
       <Header />
@@ -216,7 +227,7 @@ function Account() {
                 accept="image/*"
               />
             </ProfileImgBox>
-            <EditForm>
+            <EditForm ref={formRef}>
               <EditInputContainer>
                 <EditInputBox>
                   <span>이름</span>
@@ -227,6 +238,7 @@ function Account() {
                     value={formData.name}
                     required
                     onChange={handleChange}
+                    onKeyDown={handleEnterKeyPress}
                   />
                 </EditInputBox>
                 <EditInputBox>
@@ -238,6 +250,7 @@ function Account() {
                     value={formData.email}
                     required
                     onChange={handleChange}
+                    onKeyDown={handleEnterKeyPress}
                   />
                 </EditInputBox>
                 <EditInputBox>
@@ -249,6 +262,7 @@ function Account() {
                     value={formData.username}
                     required
                     onChange={handleChange}
+                    onKeyDown={handleEnterKeyPress}
                   />
                 </EditInputBox>
               </EditInputContainer>
