@@ -112,6 +112,7 @@ const EditBtn = styled.button`
   border: none;
   cursor: pointer;
   border-radius: 5px;
+  font-size: 16px;
 `;
 
 function Account() {
