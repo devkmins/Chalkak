@@ -1,6 +1,58 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { styled } from "styled-components";
+
+const CreateBox = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+`;
+
+const CreateForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+
+  input {
+    display: flex;
+    align-items: flex-start;
+  }
+`;
+
+const TitleInput = styled.input`
+  height: 75px;
+  border: none;
+  border-bottom: 1px solid #4f4f4f;
+  font-size: 35px;
+  font-weight: 300;
+`;
+
+const DescriptionInput = styled.input`
+  margin-top: 25px;
+  height: 275px;
+  font-size: 18px;
+  font-weight: 300;
+  text-align: left;
+  padding-bottom: 225px;
+`;
+
+const HashtagsInput = styled.input`
+  margin-top: 25px;
+  height: 50px;
+  font-size: 14px;
+  font-weight: 300;
+`;
+
+const Btn = styled.button`
+  margin-top: 75px;
+  height: 50px;
+  color: white;
+  background-color: black;
+  border: none;
+  border-radius: 5px;
+`;
 
 function CreatePost({ images }: any) {
   const navigate = useNavigate();
@@ -8,7 +60,7 @@ function CreatePost({ images }: any) {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    hashtags: "",
+    hashtags: [],
   });
 
   const handleSubmit = async (event: any) => {
@@ -49,36 +101,36 @@ function CreatePost({ images }: any) {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <input
+    <CreateBox>
+      <CreateForm onSubmit={handleSubmit}>
+        <TitleInput
           type="title"
           name="title"
-          placeholder="title"
+          placeholder="제목"
           value={formData.title}
           maxLength={75}
           required
           onChange={handleChange}
         />
-        <input
+        <DescriptionInput
           type="text"
           name="description"
-          placeholder="description"
+          placeholder="사진에 대한 설명을 작성해 보세요."
           value={formData.description}
           maxLength={150}
           required
           onChange={handleChange}
         />
-        <input
+        <HashtagsInput
           type="text"
           name="hashtags"
-          placeholder="hashtags"
+          placeholder="추가하고 싶은 해시태그를 입력해 보세요."
           value={formData.hashtags}
           onChange={handleChange}
         />
-        <button type="submit">Submit</button>
-      </form>
-    </>
+        <Btn type="submit">Submit</Btn>
+      </CreateForm>
+    </CreateBox>
   );
 }
 
