@@ -90,8 +90,6 @@ function UploadImage() {
   const [data, setData] = useState<string[]>([]);
   const [next, setNext] = useState(false);
 
-  const [hover, setHover] = useState(false);
-
   const onClick = async () => {
     if (images.length > 0) {
       setNext(true);
@@ -141,7 +139,7 @@ function UploadImage() {
       <Header />
       <UploadContainer>
         {next ? (
-          <CreatePost images={imagesFormData} data={data} />
+          <CreatePost images={imagesFormData} />
         ) : (
           <>
             <UploadBox>
