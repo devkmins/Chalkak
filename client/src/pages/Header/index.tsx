@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 import SearchPost from "../../components/SearchPost";
 import { RiCameraLensFill } from "react-icons/ri";
 import { useRecoilValue } from "recoil";
-import { loggedInState } from "../../atoms";
+import { loggedInState, sessionState } from "../../atoms";
 import { Link } from "react-router-dom";
 import defaultUserProfileImg from "../../assets/User/default-profile.png";
 import Menu from "../../components/Menu";
@@ -65,17 +65,17 @@ const UserImgBox = styled.div`
   height: min-content;
 `;
 
-const DefaultUserImg = styled.div`
-  background-image: url(${defaultUserProfileImg});
-  background-position: center center;
-  background-size: cover;
-  width: 35px;
-  height: 35px;
+const UserImg = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   cursor: pointer;
 `;
 
 function Header() {
   const loggedIn = useRecoilValue(loggedInState);
+  const sessionData = useRecoilValue(sessionState);
+  const userProfileImg = sessionData.profileImage;
 
   const [userImgClick, setUserImgClick] = useState(false);
 
@@ -100,7 +100,16 @@ function Header() {
             <Link to={"/user/logout"}>Logout</Link>
             <Link to={"/post/upload"}>업로드</Link>
             <UserImgBox>
-              <DefaultUserImg onClick={onClick} />
+              <UserImg
+                key={userProfileImg}
+                alt=""
+                src={
+                  userProfileImg
+                    ? `http://localhost:4000/${userProfileImg}`
+                    : defaultUserProfileImg
+                }
+                onClick={onClick}
+              />
               {userImgClick && <Menu />}
             </UserImgBox>
           </>
