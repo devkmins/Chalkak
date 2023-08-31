@@ -27,6 +27,7 @@ const TitleInput = styled.input`
   border-bottom: 1px solid #4f4f4f;
   font-size: 35px;
   font-weight: 300;
+  padding-left: 10px;
 `;
 
 const DescriptionInput = styled.input`
@@ -36,6 +37,7 @@ const DescriptionInput = styled.input`
   font-weight: 300;
   text-align: left;
   padding-bottom: 225px;
+  padding-left: 10px;
 `;
 
 const HashtagsInput = styled.input`
@@ -43,6 +45,7 @@ const HashtagsInput = styled.input`
   height: 50px;
   font-size: 14px;
   font-weight: 300;
+  padding-left: 10px;
 `;
 
 const Btn = styled.button`
