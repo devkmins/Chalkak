@@ -20,14 +20,16 @@ const HeaderContainer = styled.div`
 `;
 
 const LogoBox = styled.div`
-  display: flex;
-  align-items: center;
+  a {
+    display: flex;
+    align-items: center;
 
-  span {
-    font-size: 26px;
-    font-weight: 700;
-    margin-top: 10px;
-    margin-left: 12.5px;
+    span {
+      font-size: 26px;
+      font-weight: 700;
+      margin-top: 10px;
+      margin-left: 12.5px;
+    }
   }
 `;
 
@@ -58,7 +60,7 @@ const AuthBox = styled.div`
   }
 `;
 
-const DefaultUserImgBox = styled.div`
+const UserImgBox = styled.div`
   width: min-content;
   height: min-content;
 `;
@@ -84,8 +86,10 @@ function Header() {
   return (
     <HeaderContainer>
       <LogoBox>
-        <RiCameraLensFill size={40} />
-        <span>Chalkak</span>
+        <Link to={"/"}>
+          <RiCameraLensFill size={40} />
+          <span>Chalkak</span>
+        </Link>
       </LogoBox>
       <SearchPostBox>
         <SearchPost />
@@ -95,10 +99,10 @@ function Header() {
           <>
             <Link to={"/user/logout"}>Logout</Link>
             <Link to={"/post/upload"}>업로드</Link>
-            <DefaultUserImgBox>
+            <UserImgBox>
               <DefaultUserImg onClick={onClick} />
               {userImgClick && <Menu />}
-            </DefaultUserImgBox>
+            </UserImgBox>
           </>
         ) : (
           <>
