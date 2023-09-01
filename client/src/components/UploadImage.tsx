@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CreatePost from "./CreatePost";
 import Dropzone from "react-dropzone";
 import { styled } from "styled-components";
@@ -65,12 +65,14 @@ const UploadBtn = styled.button`
   }
 `;
 
-const ImagesContainer = styled.div`
+const ColumnsContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, auto);
+  grid-template-columns: repeat(3, 32%);
   grid-auto-rows: auto;
-  border-top: 1.5px solid black;
+  grid-gap: 15px;
+  justify-content: center;
   width: 75%;
+  border-top: 1px solid black;
   margin-top: 50px;
   padding-top: 50px;
 
@@ -80,15 +82,48 @@ const ImagesContainer = styled.div`
   }
 `;
 
-const ImagesBox = styled.div``;
+const ImagesContainer = styled.div``;
 
-const Image = styled.img``;
+const ImagesBox = styled.div`
+  margin-bottom: 15px;
+`;
+
+const Image = styled.img`
+  width: 100%;
+  max-height: max-content;
+`;
 
 function UploadImage() {
   const [images, setImages] = useState<File[]>([]);
   const [imagesFormData, setImagesFormData] = useState(new FormData());
   const [data, setData] = useState<string[]>([]);
   const [next, setNext] = useState(false);
+
+  const [firstCol, setFirstCol] = useState<string[]>([]);
+  const [secondCol, setSecondCol] = useState<string[]>([]);
+  const [thirdCol, setThirdCol] = useState<string[]>([]);
+
+  console.log(data);
+
+  useEffect(() => {
+    const firstColImages: string[] = [];
+    const secondColImages: string[] = [];
+    const thirdColImages: string[] = [];
+
+    data?.forEach((img, index) => {
+      if (index % 3 === 0) {
+        firstColImages.push(img);
+      } else if (index % 3 === 1) {
+        secondColImages.push(img);
+      } else if (index % 3 === 2) {
+        thirdColImages.push(img);
+      }
+    });
+
+    setFirstCol(firstColImages);
+    setSecondCol(secondColImages);
+    setThirdCol(thirdColImages);
+  }, [data]);
 
   const onClick = async () => {
     if (images.length > 0) {
@@ -133,6 +168,14 @@ function UploadImage() {
       });
     }
   };
+  /*{data
+                ? data.map((img) => (
+                    <ImagesBox key={img}>
+                      <Image src={img} alt="" />
+                      <button onClick={() => removeClick(img)}>X</button>
+                    </ImagesBox>
+                  ))
+                : ""}*/
 
   return (
     <Container>
@@ -145,7 +188,7 @@ function UploadImage() {
             <UploadBox>
               <Dropzone
                 maxFiles={10}
-                maxSize={15000000}
+                maxSize={150000000}
                 accept={{ "image/*": [".png", ".jpeg", ".jpg"] }}
                 onDrop={onDrop}>
                 {({ getRootProps, getInputProps }) => (
@@ -164,16 +207,32 @@ function UploadImage() {
               </Dropzone>
               <UploadBtn onClick={onClick}>{data.length} 사진 제출</UploadBtn>
             </UploadBox>
-            <ImagesContainer>
-              {data
-                ? data.map((img) => (
+            <ColumnsContainer>
+              <ImagesContainer>
+                {firstCol &&
+                  firstCol.map((img) => (
                     <ImagesBox key={img}>
                       <Image src={img} alt="" />
-                      <button onClick={() => removeClick(img)}>X</button>
                     </ImagesBox>
-                  ))
-                : ""}
-            </ImagesContainer>
+                  ))}
+              </ImagesContainer>
+              <ImagesContainer>
+                {secondCol &&
+                  secondCol.map((img) => (
+                    <ImagesBox key={img}>
+                      <Image src={img} alt="" />
+                    </ImagesBox>
+                  ))}
+              </ImagesContainer>
+              <ImagesContainer>
+                {thirdCol &&
+                  thirdCol.map((img) => (
+                    <ImagesBox key={img}>
+                      <Image src={img} alt="" />
+                    </ImagesBox>
+                  ))}
+              </ImagesContainer>
+            </ColumnsContainer>
           </>
         )}
       </UploadContainer>
