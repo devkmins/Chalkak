@@ -40,7 +40,7 @@ const DescriptionInput = styled.input`
   padding-left: 10px;
 `;
 
-const HashtagsBox = styled.div``;
+const HashtagsContainer = styled.div``;
 
 const HashtagsInput = styled.input`
   width: 100%;
@@ -51,7 +51,7 @@ const HashtagsInput = styled.input`
   padding-left: 10px;
 `;
 
-const Hashtags = styled.div`
+const HashtagsBox = styled.div`
   display: flex;
   flex-wrap: wrap;
   white-space: nowrap;
@@ -76,6 +76,35 @@ const Btn = styled.button`
   background-color: black;
   border: none;
   border-radius: 5px;
+`;
+
+const RemoveButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 1px;
+  right: 15px;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  line-height: 15px;
+  font-size: 10px;
+  text-align: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
+`;
+
+const Hashtags = styled.div`
+  position: relative;
+
+  &:hover ${RemoveButton} {
+    opacity: 1;
+    background-color: #8c8c8c;
+  }
 `;
 
 function CreatePost({ images }: any) {
@@ -136,6 +165,18 @@ function CreatePost({ images }: any) {
     }
   };
 
+  const removeClick = (hashtag: string) => {
+    setFormData((prev: any) => {
+      const newHashtags: string[] = [...prev.hashtags];
+      const index = newHashtags.indexOf(hashtag);
+      newHashtags.splice(index, 1);
+
+      const newFormData = { ...prev, hashtags: newHashtags };
+
+      return newFormData;
+    });
+  };
+
   return (
     <CreateBox>
       <CreateForm onSubmit={handleSubmit}>
@@ -156,18 +197,25 @@ function CreatePost({ images }: any) {
           maxLength={150}
           onChange={handleChange}
         />
-        <HashtagsBox>
+        <HashtagsContainer>
           <HashtagsInput
             type="text"
             name="hashtags"
             placeholder="추가하고 싶은 해시태그를 입력해 보세요."
             onKeyDown={handleHashtagsEnter}
           />
-          <Hashtags>
+          <HashtagsBox>
             {formData.hashtags &&
-              formData.hashtags.map((hashtag) => <Hashtag>{hashtag}</Hashtag>)}
-          </Hashtags>
-        </HashtagsBox>
+              formData.hashtags.map((hashtag) => (
+                <Hashtags key={hashtag + Math.random()}>
+                  <Hashtag>{hashtag}</Hashtag>
+                  <RemoveButton onClick={() => removeClick(hashtag)}>
+                    X
+                  </RemoveButton>
+                </Hashtags>
+              ))}
+          </HashtagsBox>
+        </HashtagsContainer>
         <Btn type="submit">Submit</Btn>
       </CreateForm>
     </CreateBox>
