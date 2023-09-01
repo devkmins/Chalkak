@@ -17,6 +17,7 @@ const HeaderContainer = styled.div`
   padding: 10px 20px;
   border-bottom: 0.5px solid #c8d6e5;
   background-color: white;
+  z-index: 100;
 `;
 
 const LogoBox = styled.div`
