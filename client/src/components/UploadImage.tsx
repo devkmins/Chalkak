@@ -103,8 +103,6 @@ function UploadImage() {
   const [secondCol, setSecondCol] = useState<string[]>([]);
   const [thirdCol, setThirdCol] = useState<string[]>([]);
 
-  console.log(data);
-
   useEffect(() => {
     const firstColImages: string[] = [];
     const secondColImages: string[] = [];
