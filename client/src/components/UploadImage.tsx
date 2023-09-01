@@ -234,7 +234,6 @@ function UploadImage() {
                   firstCol.map((img) => (
                     <ImagesBox key={img}>
                       <Image src={img} alt="" />
-
                       <RemoveButton onClick={() => removeClick(img)}>
                         X
                       </RemoveButton>
@@ -246,7 +245,6 @@ function UploadImage() {
                   secondCol.map((img) => (
                     <ImagesBox key={img}>
                       <Image src={img} alt="" />
-
                       <RemoveButton onClick={() => removeClick(img)}>
                         X
                       </RemoveButton>
@@ -258,7 +256,6 @@ function UploadImage() {
                   thirdCol.map((img) => (
                     <ImagesBox key={img}>
                       <Image src={img} alt="" />
-
                       <RemoveButton onClick={() => removeClick(img)}>
                         X
                       </RemoveButton>
