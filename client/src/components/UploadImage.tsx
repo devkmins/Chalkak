@@ -86,11 +86,42 @@ const ImagesContainer = styled.div``;
 
 const ImagesBox = styled.div`
   margin-bottom: 15px;
+  position: relative;
 `;
 
 const Image = styled.img`
   width: 100%;
   max-height: max-content;
+`;
+
+const RemoveButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: #2b2e2c;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  font-size: 15px;
+  text-align: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+
+  &:hover {
+    opacity: 1;
+    background-color: black;
+  }
+
+  ${ImagesBox}:hover & {
+    opacity: 0.75;
+  }
 `;
 
 function UploadImage() {
@@ -203,6 +234,10 @@ function UploadImage() {
                   firstCol.map((img) => (
                     <ImagesBox key={img}>
                       <Image src={img} alt="" />
+
+                      <RemoveButton onClick={() => removeClick(img)}>
+                        X
+                      </RemoveButton>
                     </ImagesBox>
                   ))}
               </ImagesContainer>
@@ -211,6 +246,10 @@ function UploadImage() {
                   secondCol.map((img) => (
                     <ImagesBox key={img}>
                       <Image src={img} alt="" />
+
+                      <RemoveButton onClick={() => removeClick(img)}>
+                        X
+                      </RemoveButton>
                     </ImagesBox>
                   ))}
               </ImagesContainer>
@@ -219,6 +258,10 @@ function UploadImage() {
                   thirdCol.map((img) => (
                     <ImagesBox key={img}>
                       <Image src={img} alt="" />
+
+                      <RemoveButton onClick={() => removeClick(img)}>
+                        X
+                      </RemoveButton>
                     </ImagesBox>
                   ))}
               </ImagesContainer>
