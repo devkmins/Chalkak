@@ -166,14 +166,6 @@ function UploadImage() {
       });
     }
   };
-  /*{data
-                ? data.map((img) => (
-                    <ImagesBox key={img}>
-                      <Image src={img} alt="" />
-                      <button onClick={() => removeClick(img)}>X</button>
-                    </ImagesBox>
-                  ))
-                : ""}*/
 
   return (
     <Container>
