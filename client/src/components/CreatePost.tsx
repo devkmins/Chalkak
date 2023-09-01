@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 
@@ -40,7 +40,10 @@ const DescriptionInput = styled.input`
   padding-left: 10px;
 `;
 
+const HashtagsBox = styled.div``;
+
 const HashtagsInput = styled.input`
+  width: 100%;
   margin-top: 25px;
   height: 50px;
   font-size: 14px;
@@ -48,8 +51,26 @@ const HashtagsInput = styled.input`
   padding-left: 10px;
 `;
 
+const Hashtags = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  white-space: nowrap;
+  margin-top: 10px;
+`;
+
+const Hashtag = styled.div`
+  padding: 10px 25px;
+  border-radius: 7.5px;
+  border: 1px solid #767676;
+  width: min-content;
+  margin-right: 15px;
+  margin-bottom: 10px;
+  color: #8c8c8c;
+  font-family: "NanumGothic";
+`;
+
 const Btn = styled.button`
-  margin-top: 75px;
+  margin-top: 25px;
   height: 50px;
   color: white;
   background-color: black;
@@ -103,6 +124,18 @@ function CreatePost({ images }: any) {
     }));
   };
 
+  const handleHashtagsEnter = (event: any) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+
+      const { value } = event.target;
+
+      setFormData((prev: any) => {
+        return { ...prev, hashtags: [...prev.hashtags, value] };
+      });
+    }
+  };
+
   return (
     <CreateBox>
       <CreateForm onSubmit={handleSubmit}>
@@ -121,16 +154,20 @@ function CreatePost({ images }: any) {
           placeholder="사진에 대한 설명을 작성해 보세요."
           value={formData.description}
           maxLength={150}
-          required
           onChange={handleChange}
         />
-        <HashtagsInput
-          type="text"
-          name="hashtags"
-          placeholder="추가하고 싶은 해시태그를 입력해 보세요."
-          value={formData.hashtags}
-          onChange={handleChange}
-        />
+        <HashtagsBox>
+          <HashtagsInput
+            type="text"
+            name="hashtags"
+            placeholder="추가하고 싶은 해시태그를 입력해 보세요."
+            onKeyDown={handleHashtagsEnter}
+          />
+          <Hashtags>
+            {formData.hashtags &&
+              formData.hashtags.map((hashtag) => <Hashtag>{hashtag}</Hashtag>)}
+          </Hashtags>
+        </HashtagsBox>
         <Btn type="submit">Submit</Btn>
       </CreateForm>
     </CreateBox>
