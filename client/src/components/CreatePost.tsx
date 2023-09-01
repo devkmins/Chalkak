@@ -66,7 +66,9 @@ const Hashtag = styled.div`
   margin-right: 15px;
   margin-bottom: 10px;
   color: #8c8c8c;
-  font-family: "NanumGothic";
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 300;
 `;
 
 const Btn = styled.button`
