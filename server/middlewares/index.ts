@@ -30,7 +30,7 @@ export const publicOnlyMiddleware = (
 
 export const imageUpload = multer({
   dest: "uploads/images/",
-  limits: { fileSize: 15000000 },
+  limits: { fileSize: 150000000 },
 });
 
 export const avatarImgUpload = multer({
