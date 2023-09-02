@@ -161,9 +161,13 @@ function CreatePost({ images }: any) {
 
       const { value } = event.target;
 
-      setFormData((prev: any) => {
-        return { ...prev, hashtags: [...prev.hashtags, value] };
-      });
+      if (formData.hashtags.length < 5) {
+        setFormData((prev: any) => {
+          return { ...prev, hashtags: [...prev.hashtags, value] };
+        });
+      }
+
+      event.target.value = "";
     }
   };
 
