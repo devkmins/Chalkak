@@ -7,7 +7,7 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   padding-top: 80px;
-  margin-bottom: 100px;
+  margin-bottom: 25px;
 `;
 
 const MainImgBox = styled.div`
