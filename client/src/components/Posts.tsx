@@ -65,6 +65,8 @@ const ProfileLink = styled(Link)`
 const ProfileImg = styled.img`
   border-radius: 50%;
   margin-right: 10px;
+  width: 32.5px;
+  height: 32.5px;
 `;
 
 const ImagesBox = styled.div`
@@ -132,7 +134,6 @@ function Posts() {
                       <ProfileImg
                         src={`http://localhost:4000/${post.owner.profileImage}`}
                         alt=""
-                        style={{ width: "30px", height: "30px" }}
                       />
                       {post.owner.name}
                     </ProfileLink>
@@ -156,7 +157,6 @@ function Posts() {
                     <ProfileImg
                       src={`http://localhost:4000/${post.owner.profileImage}`}
                       alt=""
-                      style={{ width: "30px", height: "30px" }}
                     />
                     <ProfileLink
                       to={`/user/${post.owner.username}`}
@@ -183,7 +183,6 @@ function Posts() {
                     <ProfileImg
                       src={`http://localhost:4000/${post.owner.profileImage}`}
                       alt=""
-                      style={{ width: "30px", height: "30px" }}
                     />
                     <ProfileLink
                       to={`/user/${post.owner.username}`}
