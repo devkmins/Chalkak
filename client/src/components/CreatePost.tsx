@@ -78,6 +78,7 @@ const Btn = styled.button`
   background-color: black;
   border: none;
   border-radius: 5px;
+  cursor: pointer;
 `;
 
 const RemoveButton = styled.button`
