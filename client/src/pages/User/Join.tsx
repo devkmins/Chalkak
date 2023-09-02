@@ -303,6 +303,7 @@ function Join() {
             <input
               name="name"
               type="text"
+              maxLength={20}
               value={formData.name}
               onChange={handleChange}
               required
@@ -329,6 +330,7 @@ function Join() {
             <input
               name="username"
               type="text"
+              maxLength={20}
               value={formData.username}
               onChange={handleChange}
               required
@@ -343,6 +345,7 @@ function Join() {
               <input
                 name="password"
                 type={showPassword ? "text" : "password"}
+                maxLength={16}
                 value={formData.password}
                 onChange={handleChange}
                 required
@@ -363,6 +366,7 @@ function Join() {
               <input
                 name="confirmPassword"
                 type={showConfirmPassword ? "text" : "password"}
+                maxLength={16}
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 required
