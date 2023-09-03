@@ -10,8 +10,6 @@ import Header from "../pages/Header";
 import { RiImage2Fill } from "react-icons/ri";
 import { useEffect, useState } from "react";
 
-interface IUserPosts {}
-
 const Container = styled.div``;
 
 const ProfileContainer = styled.div`
@@ -228,30 +226,6 @@ function UserPage() {
     setSecondCol(secondColImages);
     setThirdCol(thirdColImages);
   }, [data]);
-
-  /*{data.userPosts.posts.map((post: any) => (
-                  <PostBox key={post?._id}>
-                    <StyledLink to={`/post/${post?.title}`} state={post?._id}>
-                      <Image
-                        src={`http://localhost:4000/${post.fileUrl[0].path}`}
-                        alt=""
-                      />
-                    </StyledLink>
-                    <PostProfileContainer>
-                      <ProfileBox>
-                        <PostProfileImg
-                          src={`http://localhost:4000/${post.owner.profileImage}`}
-                          alt=""
-                        />
-                        <ProfileLink
-                          to={`/user/${post.owner.username}`}
-                          state={post.owner.username}>
-                          {post.owner.name}
-                        </ProfileLink>
-                      </ProfileBox>
-                    </PostProfileContainer>
-                  </PostBox>
-                ))}*/
 
   return (
     <Container>
