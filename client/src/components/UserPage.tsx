@@ -107,7 +107,7 @@ const PhotoBox = styled.div`
     border-bottom: 1.5px solid black;
   }
 
-  span {
+  a {
     margin-top: 2.5px;
   }
 `;
@@ -254,7 +254,11 @@ function UserPage() {
               <ContentsContainer>
                 <PhotoBox>
                   <StyledRiImage2Fill />
-                  <span>사진 {data.userPosts.posts.length}</span>
+                  <Link
+                    to={`/user/${data?.userPosts.username}`}
+                    state={data?.userPosts.username}>
+                    사진 {data.userPosts.posts.length}
+                  </Link>
                 </PhotoBox>
               </ContentsContainer>
               <PostsBox>
