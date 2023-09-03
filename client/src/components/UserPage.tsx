@@ -185,6 +185,7 @@ function UserPage() {
   const username = location.state;
 
   const sessionData = useRecoilValue(sessionState);
+  const userProfileImg = sessionData.profileImage;
 
   const { data } = useQuery("data", () =>
     axios
@@ -233,11 +234,11 @@ function UserPage() {
         {data && (
           <>
             <ProfileImg
-              key={data?.profileImg}
+              key={sessionData.profileImage}
               alt=""
               src={
-                data?.profileImg
-                  ? `http://localhost:4000/${data?.profileImg}`
+                userProfileImg
+                  ? `http://localhost:4000/${userProfileImg}`
                   : defaultUserProfileImg
               }
             />
@@ -280,7 +281,11 @@ function UserPage() {
                                 to={`/user/${post.owner.username}`}
                                 state={post.owner.username}>
                                 <PostProfileImg
-                                  src={`http://localhost:4000/${post.owner.profileImage}`}
+                                  src={
+                                    `http://localhost:4000/${post.owner.profileImage}`
+                                      ? `http://localhost:4000/${post.owner.profileImage}`
+                                      : defaultUserProfileImg
+                                  }
                                   alt=""
                                 />
                                 {post.owner.name}
