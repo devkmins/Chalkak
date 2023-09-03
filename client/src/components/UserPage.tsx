@@ -104,7 +104,6 @@ const PhotoBox = styled.div`
 
   &:hover {
     color: black;
-    border-bottom: 1.5px solid black;
   }
 
   a {
