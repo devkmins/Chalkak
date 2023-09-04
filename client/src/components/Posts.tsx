@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import defaultUserProfileImg from "../assets/User/default-profile.png";
 
 const Container = styled.div`
   width: 100%;
@@ -132,7 +133,11 @@ function Posts() {
                       to={`/user/${post.owner.username}`}
                       state={post.owner.username}>
                       <ProfileImg
-                        src={`http://localhost:4000/${post.owner.profileImage}`}
+                        src={
+                          post.owner.profileImage
+                            ? `http://localhost:4000/${post.owner.profileImage}`
+                            : defaultUserProfileImg
+                        }
                         alt=""
                       />
                       {post.owner.name}
@@ -155,7 +160,11 @@ function Posts() {
                 <ProfileContainer>
                   <ProfileBox>
                     <ProfileImg
-                      src={`http://localhost:4000/${post.owner.profileImage}`}
+                      src={
+                        post.owner.profileImage
+                          ? `http://localhost:4000/${post.owner.profileImage}`
+                          : defaultUserProfileImg
+                      }
                       alt=""
                     />
                     <ProfileLink
@@ -181,7 +190,11 @@ function Posts() {
                 <ProfileContainer>
                   <ProfileBox>
                     <ProfileImg
-                      src={`http://localhost:4000/${post.owner.profileImage}`}
+                      src={
+                        post.owner.profileImage
+                          ? `http://localhost:4000/${post.owner.profileImage}`
+                          : defaultUserProfileImg
+                      }
                       alt=""
                     />
                     <ProfileLink

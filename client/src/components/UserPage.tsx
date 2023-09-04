@@ -282,7 +282,7 @@ function UserPage() {
                                 state={post.owner.username}>
                                 <PostProfileImg
                                   src={
-                                    `http://localhost:4000/${post.owner.profileImage}`
+                                    post.owner.profileImage
                                       ? `http://localhost:4000/${post.owner.profileImage}`
                                       : defaultUserProfileImg
                                   }
@@ -310,7 +310,11 @@ function UserPage() {
                           <PostProfileContainer>
                             <ProfileBox>
                               <PostProfileImg
-                                src={`http://localhost:4000/${post.owner.profileImage}`}
+                                src={
+                                  post.owner.profileImage
+                                    ? `http://localhost:4000/${post.owner.profileImage}`
+                                    : defaultUserProfileImg
+                                }
                                 alt=""
                               />
                               <ProfileLink
@@ -338,7 +342,11 @@ function UserPage() {
                           <PostProfileContainer>
                             <ProfileBox>
                               <PostProfileImg
-                                src={`http://localhost:4000/${post.owner.profileImage}`}
+                                src={
+                                  post.owner.profileImage
+                                    ? `http://localhost:4000/${post.owner.profileImage}`
+                                    : defaultUserProfileImg
+                                }
                                 alt=""
                               />
                               <ProfileLink
