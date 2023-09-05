@@ -185,7 +185,6 @@ function UserPage() {
   const username = location.state;
 
   const sessionData = useRecoilValue(sessionState);
-  const userProfileImg = sessionData.profileImage;
 
   const { data } = useQuery("data", () =>
     axios
@@ -194,6 +193,8 @@ function UserPage() {
       })
       .then((response) => response.data)
   );
+
+  const userProfileImg = data?.profileImg;
 
   let totalViews = 0;
   let totalLikes = 0;
@@ -234,7 +235,6 @@ function UserPage() {
         {data && (
           <>
             <ProfileImg
-              key={sessionData.profileImage}
               alt=""
               src={
                 userProfileImg
