@@ -8,7 +8,7 @@ import path from "path";
 
 export const watch = async (req: Request, res: Response) => {
   const { pid } = req.params;
-  const post = await Post.findById(pid);
+  const post = await Post.findById(pid).populate("owner", "name profileImage");
 
   if (!post) {
     return res.status(404).send("404");
