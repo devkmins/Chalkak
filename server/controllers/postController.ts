@@ -46,7 +46,7 @@ export const imagesUpload = async (req: Request, res: Response) => {
       title: "Default",
       description: "Default",
       fileUrl: req.files,
-      hashtags: "",
+      hashtags: [],
       owner: userId,
     });
 
