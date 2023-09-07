@@ -5,7 +5,7 @@ const postSchema = new mongoose.Schema({
   description: { type: String, trim: true, maxLength: 150 },
   fileUrl: [{ type: Object, required: true }],
   createdAt: { type: Date, required: true, default: Date.now },
-  hashtags: [{ type: String, trim: true }],
+  hashtags: [{ type: String, required: true, trim: true }],
   owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
   thumbnail: String,
   views: { type: Number, default: 1, required: true },
