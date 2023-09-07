@@ -210,7 +210,6 @@ function CreatePost({ images }: any) {
             name="hashtags"
             placeholder="추가하고 싶은 해시태그를 입력해 보세요."
             onKeyDown={handleHashtagsEnter}
-            required
           />
           <HashtagsBox>
             {formData.hashtags &&
