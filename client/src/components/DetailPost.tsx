@@ -3,8 +3,6 @@ import { useQuery } from "react-query";
 import { useLocation } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { loggedInState, sessionState } from "../atoms";
-import EditPost from "./EditPost";
-import DeletePost from "./DeletePost";
 import { useEffect, useState } from "react";
 import Header from "../pages/Header";
 import { css, styled } from "styled-components";
@@ -14,6 +12,11 @@ import { BsThreeDots, BsPerson } from "react-icons/bs";
 import { MdDateRange } from "react-icons/md";
 import { IconBaseProps } from "react-icons";
 import PostSettings from "./PostSettings";
+import ReactModal from "react-modal";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { Link } from "react-router-dom";
 
 interface StyledAiFillHeartProps extends IconBaseProps {
   clicked: boolean;
@@ -23,13 +26,12 @@ const Container = styled.div``;
 
 const Box = styled.div`
   margin: 0px 75px;
-  height: min-content;
-  padding-top: 100px;
+  padding-top: 75px;
 `;
 
 const NestedBox = styled.div`
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  height: min-content;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
+    rgba(17, 17, 26, 0.05) 0px 8px 32px;
   padding: 20px;
 `;
 
@@ -70,44 +72,33 @@ const StyledBsThreeDots = styled(BsThreeDots)`
   }
 `;
 
-const PostSettingsBox = styled.div`
-  position: absolute;
-  display: grid;
-  grid-template-rows: repeat(2, 1fr);
-  align-items: center;
-  min-width: max-content;
-  min-height: 80px;
-  background-color: white;
-  border: 1px solid lightgray;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  border-top-left-radius: 10px;
-  margin-top: 2.5px;
-
-  a {
-    font-size: 15px;
-  }
-`;
+const StyledReactModal = styled(ReactModal)``;
 
 const ImagesContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 25px;
+  object-fit: cover;
 `;
 
 const ImagesBox = styled.div`
   display: flex;
   justify-content: center;
-  width: 10%;
+  align-items: center;
+`;
+
+const StyledSlider = styled(Slider)`
+  width: 90vh;
+  height: max-content;
 `;
 
 const Image = styled.img`
   width: 100%;
-  max-height: max-content;
+  height: max-content;
 `;
 
 const ContentContainer = styled.div`
-  margin-top: 25px;
+  margin-top: 50px;
 `;
 
 const ContentBox = styled.div`
@@ -198,9 +189,11 @@ const LikesBox = styled.div`
   display: flex;
   align-items: center;
   margin-top: 25px;
+  width: max-content;
 
   span {
     font-size: 16px;
+    margin-left: 5px;
   }
 `;
 
@@ -219,6 +212,25 @@ const StyledAiFillHeart = styled(AiFillHeart)<StyledAiFillHeartProps>`
         `};
 `;
 
+const CustomArrow = styled.div`
+  display: block;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 18px;
+`;
+
+const LeftArrow = styled(CustomArrow)`
+  left: 10px;
+`;
+
+const RightArrow = styled(CustomArrow)`
+  right: 10px;
+`;
+
 function DetailPost() {
   const { data } = useQuery("getData", () =>
     axios
@@ -232,7 +244,17 @@ function DetailPost() {
   const sessionData = useRecoilValue(sessionState);
   const loggedIn = useRecoilValue(loggedInState);
 
-  const [postSettingsClick, setPostSettingsClick] = useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const afterOpenModal = () => {};
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
   const userProfileImg = data?.owner?.profileImage;
 
@@ -293,14 +315,15 @@ function DetailPost() {
     setLikes(data?.likes?.length);
   }, [data]);
 
-  const onSettingsClick = () => {
-    setPostSettingsClick((prev) => !prev);
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    prevArrow: <LeftArrow>{"<"}</LeftArrow>,
+    nextArrow: <RightArrow>{">"}</RightArrow>,
   };
-
-  /*<PostSettingsBox>
-                    <EditPost postId={data?._id} />
-                    <DeletePost postId={data?._id} />
-                  </PostSettingsBox>*/
 
   return (
     <Container>
@@ -309,20 +332,33 @@ function DetailPost() {
         <NestedBox>
           <ProfileContainer>
             <ProfileBox>
-              <ProfileImg
-                alt=""
-                src={
-                  userProfileImg
-                    ? `http://localhost:4000/${userProfileImg}`
-                    : defaultUserProfileImg
-                }
-              />
-              <ProfileName>{data?.owner?.name}</ProfileName>
+              <Link
+                to={`/user/${data?.owner?.username}`}
+                state={data?.owner?.username}>
+                <ProfileImg
+                  alt=""
+                  src={
+                    userProfileImg
+                      ? `http://localhost:4000/${userProfileImg}`
+                      : defaultUserProfileImg
+                  }
+                />
+              </Link>
+              <Link
+                to={`/user/${data?.owner?.username}`}
+                state={data?.owner?.username}>
+                <ProfileName>{data?.owner?.name}</ProfileName>
+              </Link>
             </ProfileBox>
             {sessionData._id === data?.owner?._id && (
               <PostSettingsContainer>
-                <StyledBsThreeDots onClick={onSettingsClick} />
-                {postSettingsClick && <PostSettings />}
+                <StyledBsThreeDots onClick={openModal} />
+                <StyledReactModal
+                  isOpen={modalIsOpen}
+                  onAfterOpen={afterOpenModal}
+                  onRequestClose={closeModal}>
+                  <PostSettings postId={data?._id} />
+                </StyledReactModal>
               </PostSettingsContainer>
             )}
           </ProfileContainer>
@@ -330,13 +366,15 @@ function DetailPost() {
             <div key={data?._id}>
               <ImagesContainer>
                 <ImagesBox>
-                  {data?.fileUrl?.map((img: any) => (
-                    <Image
-                      key={img.path}
-                      alt=""
-                      src={`http://localhost:4000/${img.path}`}
-                    />
-                  ))}
+                  <StyledSlider {...sliderSettings}>
+                    {data?.fileUrl?.map((img: any, index: number) => (
+                      <Image
+                        key={img.path}
+                        alt={`Image ${index + 1}`}
+                        src={`http://localhost:4000/${img.path}`}
+                      />
+                    ))}
+                  </StyledSlider>
                 </ImagesBox>
               </ImagesContainer>
               <ContentContainer>
