@@ -33,6 +33,7 @@ const NestedBox = styled.div`
   box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
     rgba(17, 17, 26, 0.05) 0px 8px 32px;
   padding: 20px;
+  height: fit-content;
 `;
 
 const ProfileContainer = styled.div`
@@ -40,6 +41,7 @@ const ProfileContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  height: fit-content;
 `;
 
 const ProfileBox = styled.div`
@@ -78,7 +80,6 @@ const ImagesContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 25px;
-  object-fit: cover;
 `;
 
 const ImagesBox = styled.div`
@@ -89,13 +90,9 @@ const ImagesBox = styled.div`
 
 const StyledSlider = styled(Slider)`
   width: 90vh;
-  height: max-content;
 `;
 
-const Image = styled.img`
-  width: 100%;
-  height: max-content;
-`;
+const Image = styled.img``;
 
 const ContentContainer = styled.div`
   margin-top: 50px;
@@ -317,10 +314,12 @@ function DetailPost() {
 
   const sliderSettings = {
     dots: true,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    touchMove: true,
+    adaptiveHeight: true,
     prevArrow: <LeftArrow>{"<"}</LeftArrow>,
     nextArrow: <RightArrow>{">"}</RightArrow>,
   };
