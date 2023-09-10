@@ -1,6 +1,8 @@
 import { useRecoilState } from "recoil";
 import { recentSearchState } from "../atoms";
 import styled from "styled-components";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const RecentSearchBox = styled.div`
   position: absolute;
@@ -50,9 +52,17 @@ const SearchText = styled.span`
   font-family: "NanumGothic";
   margin-bottom: 10px;
   margin-right: 12.5px;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid black;
+    color: black;
+  }
 `;
 
 function RecentSearch() {
+  const navigate = useNavigate();
+
   const [keywords, setKeywords] = useRecoilState(recentSearchState);
 
   const onClick = (event: any) => {
@@ -61,6 +71,15 @@ function RecentSearch() {
     localStorage.removeItem("keywords");
 
     setKeywords([]);
+  };
+
+  const keywordClicked = async (keyword: string) => {
+    const response = await axios.get(
+      `http://localhost:4000/search/${keyword}`,
+      { withCredentials: true }
+    );
+
+    navigate(`/search/${keyword}`, { state: response.data });
   };
 
   return (
@@ -72,7 +91,9 @@ function RecentSearch() {
       <SearchList>
         {keywords &&
           keywords.map((keyword: any) => (
-            <SearchText key={keyword + `${Math.random()}`}>
+            <SearchText
+              onClick={() => keywordClicked(keyword)}
+              key={keyword + `${Math.random()}`}>
               {keyword}
             </SearchText>
           ))}
