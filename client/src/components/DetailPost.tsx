@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useQuery } from "react-query";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { loggedInState, sessionState } from "../atoms";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { currentSearchState, loggedInState, sessionState } from "../atoms";
 import { useEffect, useState } from "react";
 import Header from "../pages/Header";
 import { css, styled } from "styled-components";
@@ -249,6 +249,8 @@ function DetailPost() {
   const sessionData = useRecoilValue(sessionState);
   const loggedIn = useRecoilValue(loggedInState);
 
+  const setCurrentSearch = useSetRecoilState(currentSearchState);
+
   const [modalIsOpen, setIsOpen] = useState(false);
 
   const openModal = () => {
@@ -337,6 +339,8 @@ function DetailPost() {
       `http://localhost:4000/search/${hashtag}`,
       { withCredentials: true }
     );
+
+    setCurrentSearch(hashtag);
 
     navigate(`/search/${hashtag}`, { state: response.data });
   };
