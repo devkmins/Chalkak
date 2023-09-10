@@ -32,3 +32,8 @@ export const recentSearchState = atom({
     ? JSON.parse(localStorage.getItem("keywords") as string)
     : [],
 });
+
+export const currentSearchState = atom({
+  key: "currentSearchState",
+  default: "",
+});
