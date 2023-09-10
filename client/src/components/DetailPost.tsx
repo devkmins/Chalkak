@@ -180,6 +180,7 @@ const Hashtag = styled.span`
   font-size: 13.5px;
   font-family: "NanumGothic";
   margin-right: 12.5px;
+  cursor: pointer;
 `;
 
 const LikesBox = styled.div`
@@ -400,10 +401,12 @@ function DetailPost() {
                     ))}
                 </HashtagsList>
                 <LikesBox>
-                  {loggedIn && (
+                  {loggedIn ? (
                     <StyledAiFillHeart
                       clicked={clickLikes}
                       onClick={likesBtn}></StyledAiFillHeart>
+                  ) : (
+                    <StyledAiFillHeart clicked={clickLikes} />
                   )}
                   <span>{likes}</span>
                 </LikesBox>
