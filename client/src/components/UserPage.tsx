@@ -78,6 +78,7 @@ const ColumnsContainer = styled.div`
   justify-content: center;
   padding: 0px 15px;
   padding-top: 50px;
+  width: 100%;
 
   @media (max-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
