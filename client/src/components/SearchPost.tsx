@@ -2,8 +2,8 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import RecentSearch from "./RecentSearch";
-import { useSetRecoilState } from "recoil";
-import { recentSearchState } from "../atoms";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { currentSearchState, recentSearchState } from "../atoms";
 import { styled } from "styled-components";
 import { BiSearch } from "react-icons/bi";
 
@@ -48,6 +48,7 @@ const SearchInput = styled.input`
 function SearchPost() {
   const navigate = useNavigate();
 
+  const [currentSearch, setCurrentSearch] = useRecoilState(currentSearchState);
   const setKeywords = useSetRecoilState(recentSearchState);
 
   const [formData, setFormData] = useState({
@@ -77,6 +78,8 @@ function SearchPost() {
       return newKeywords;
     });
 
+    setCurrentSearch(formData.keyword);
+
     navigate(`/search/${formData.keyword}`, { state: response.data });
   };
 
@@ -86,6 +89,8 @@ function SearchPost() {
       ...prevFormData,
       [name]: value,
     }));
+
+    setCurrentSearch(value);
   };
 
   const handleFocus = () => {
@@ -113,7 +118,7 @@ function SearchPost() {
         <SearchInput
           name="keyword"
           onChange={handleChange}
-          value={formData.keyword}
+          value={currentSearch}
           placeholder="Chalkak 검색"
           type="text"
           alt=""
