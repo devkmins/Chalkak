@@ -1,5 +1,5 @@
-import { useRecoilState } from "recoil";
-import { recentSearchState } from "../atoms";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { currentSearchState, recentSearchState } from "../atoms";
 import styled from "styled-components";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -65,6 +65,8 @@ function RecentSearch() {
 
   const [keywords, setKeywords] = useRecoilState(recentSearchState);
 
+  const setCurrentSearch = useSetRecoilState(currentSearchState);
+
   const onClick = (event: any) => {
     event?.preventDefault();
 
@@ -78,6 +80,8 @@ function RecentSearch() {
       `http://localhost:4000/search/${keyword}`,
       { withCredentials: true }
     );
+
+    setCurrentSearch(keyword);
 
     navigate(`/search/${keyword}`, { state: response.data });
   };
