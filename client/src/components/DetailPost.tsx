@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useQuery } from "react-query";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { loggedInState, sessionState } from "../atoms";
 import { useEffect, useState } from "react";
@@ -181,6 +181,11 @@ const Hashtag = styled.span`
   font-family: "NanumGothic";
   margin-right: 12.5px;
   cursor: pointer;
+
+  &:hover {
+    border: 1px solid black;
+    color: black;
+  }
 `;
 
 const LikesBox = styled.div`
@@ -238,6 +243,8 @@ function DetailPost() {
 
   const location = useLocation();
   const postId = location.state;
+
+  const navigate = useNavigate();
 
   const sessionData = useRecoilValue(sessionState);
   const loggedIn = useRecoilValue(loggedInState);
@@ -325,6 +332,15 @@ function DetailPost() {
     nextArrow: <RightArrow>{">"}</RightArrow>,
   };
 
+  const hashtagClicked = async (hashtag: string) => {
+    const response = await axios.get(
+      `http://localhost:4000/search/${hashtag}`,
+      { withCredentials: true }
+    );
+
+    navigate(`/search/${hashtag}`, { state: response.data });
+  };
+
   return (
     <Container>
       <Header />
@@ -395,7 +411,9 @@ function DetailPost() {
                 <HashtagsList>
                   {data?.hashtags &&
                     data?.hashtags?.map((hashtag: string) => (
-                      <Hashtag key={hashtag + `${Math.random()}`}>
+                      <Hashtag
+                        onClick={() => hashtagClicked(hashtag)}
+                        key={hashtag + `${Math.random()}`}>
                         {hashtag}
                       </Hashtag>
                     ))}
