@@ -66,9 +66,9 @@ function IntroContent() {
       <MainTextBox>
         <MainTextTop>찰칵!</MainTextTop>
         <MainTextBottom>
-          찰칵은 나의 시선을 타인에게 공유하는 공간입니다. <br />
+          찰칵은 나의 시선을 타자에게 공유하는 공간입니다. <br />
           세상를 바라보는 시선을 공유하고 타자의 시선을 따라가는 발걸음을 내딛어
-          보세요.
+          보세요!
         </MainTextBottom>
       </MainTextBox>
     </Container>
