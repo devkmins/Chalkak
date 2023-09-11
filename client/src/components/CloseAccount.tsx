@@ -168,6 +168,7 @@ function CloseAccount() {
                 type="password"
                 value={formData.password}
                 onChange={handleChange}
+                placeholder="비밀번호 입력"
                 required
               />
               {error && error.passwordError && (
