@@ -6,6 +6,7 @@ import styled from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.png";
 import { useSetRecoilState } from "recoil";
 import { currentSearchState } from "../atoms";
+import useInitSearch from "../hooks/useInitSearch";
 
 const Container = styled.div`
   width: 100%;
@@ -90,9 +91,6 @@ function Posts() {
     axios.get("http://localhost:4000/").then((response) => response.data)
   );
 
-  const setCurrentSearch = useSetRecoilState(currentSearchState);
-  setCurrentSearch("");
-
   const [firstCol, setFirstCol] = useState<any[]>([]);
   const [secondCol, setSecondCol] = useState<any[]>([]);
   const [thirdCol, setThirdCol] = useState<any[]>([]);
@@ -118,6 +116,8 @@ function Posts() {
     setSecondCol(secondColImages);
     setThirdCol(thirdColImages);
   }, [data]);
+
+  useInitSearch();
 
   return (
     <Container>

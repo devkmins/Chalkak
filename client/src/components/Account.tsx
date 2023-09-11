@@ -7,6 +7,7 @@ import { styled } from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.png";
 import Header from "../pages/Header";
 import AccountMenu from "./AccountMenu";
+import useInitSearch from "../hooks/useInitSearch";
 
 interface Error {
   emailError: string;
@@ -237,6 +238,8 @@ function Account() {
       //formRef.current?.submit();
     }
   };
+
+  useInitSearch();
 
   return (
     <Container>

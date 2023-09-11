@@ -4,6 +4,7 @@ import Dropzone from "react-dropzone";
 import { styled } from "styled-components";
 import Header from "../pages/Header";
 import { PiImageThin } from "react-icons/pi";
+import useInitSearch from "../hooks/useInitSearch";
 
 const Container = styled.div``;
 
@@ -197,6 +198,8 @@ function UploadImage() {
       });
     }
   };
+
+  useInitSearch();
 
   return (
     <Container>

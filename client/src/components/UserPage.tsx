@@ -9,6 +9,7 @@ import styled from "styled-components";
 import Header from "../pages/Header";
 import { RiImage2Fill } from "react-icons/ri";
 import { useEffect, useState } from "react";
+import useInitSearch from "../hooks/useInitSearch";
 
 const Container = styled.div``;
 
@@ -228,6 +229,8 @@ function UserPage() {
     setSecondCol(secondColImages);
     setThirdCol(thirdColImages);
   }, [data]);
+
+  useInitSearch();
 
   return (
     <Container>
