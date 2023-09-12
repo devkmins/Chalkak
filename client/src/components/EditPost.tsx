@@ -2,12 +2,6 @@ import axios from "axios";
 import { useState } from "react";
 
 function EditPost({ postId }: any) {
-  const [edit, setEdit] = useState(false);
-
-  const onClick = () => {
-    setEdit((prev) => !prev);
-  };
-
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -26,8 +20,6 @@ function EditPost({ postId }: any) {
     } catch (error) {
       console.error("Error:", error);
     }
-
-    onClick();
   };
 
   const handleChange = (event: any) => {
@@ -40,38 +32,34 @@ function EditPost({ postId }: any) {
 
   return (
     <>
-      {edit ? (
-        <form onSubmit={handleSubmit}>
-          <input
-            type="title"
-            name="title"
-            placeholder="title"
-            value={formData.title}
-            maxLength={75}
-            required
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            name="description"
-            placeholder="description"
-            value={formData.description}
-            maxLength={150}
-            required
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            name="hashtags"
-            placeholder="hashtags"
-            value={formData.hashtags}
-            onChange={handleChange}
-          />
-          <button type="submit">Submit</button>
-        </form>
-      ) : (
-        <h4 onClick={onClick}>Edit</h4>
-      )}
+      <form onSubmit={handleSubmit}>
+        <input
+          type="title"
+          name="title"
+          placeholder="title"
+          value={formData.title}
+          maxLength={75}
+          required
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="description"
+          placeholder="description"
+          value={formData.description}
+          maxLength={150}
+          required
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="hashtags"
+          placeholder="hashtags"
+          value={formData.hashtags}
+          onChange={handleChange}
+        />
+        <button type="submit">Submit</button>
+      </form>
     </>
   );
 }
