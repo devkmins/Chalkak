@@ -19,7 +19,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
 
 interface StyledAiFillHeartProps extends IconBaseProps {
-  clicked: boolean;
+  clicked: string;
 }
 
 const Container = styled.div``;
@@ -205,14 +205,7 @@ const StyledAiFillHeart = styled(AiFillHeart)<StyledAiFillHeartProps>`
   height: 25px;
   margin-bottom: 5px;
   cursor: pointer;
-  ${(props) =>
-    props.clicked
-      ? css`
-          color: red;
-        `
-      : css`
-          color: black;
-        `};
+  color: ${(props) => (props.clicked === "true" ? "#ff6b6b" : "#576574")};
 `;
 
 const CustomArrow = styled.div`
@@ -425,10 +418,10 @@ function DetailPost() {
                 <LikesBox>
                   {loggedIn ? (
                     <StyledAiFillHeart
-                      clicked={clickLikes}
+                      clicked={String(clickLikes)}
                       onClick={likesBtn}></StyledAiFillHeart>
                   ) : (
-                    <StyledAiFillHeart clicked={clickLikes} />
+                    <StyledAiFillHeart clicked={String(clickLikes)} />
                   )}
                   <span>{likes}</span>
                 </LikesBox>
