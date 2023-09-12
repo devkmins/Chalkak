@@ -5,7 +5,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { currentSearchState, loggedInState, sessionState } from "../atoms";
 import { useEffect, useState } from "react";
 import Header from "../pages/Header";
-import { css, styled } from "styled-components";
+import { styled } from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.png";
 import { AiFillHeart } from "react-icons/ai";
 import { BsThreeDots, BsPerson } from "react-icons/bs";
