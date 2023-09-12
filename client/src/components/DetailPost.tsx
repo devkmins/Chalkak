@@ -219,13 +219,33 @@ const CustomArrow = styled.div`
   font-size: 18px;
 `;
 
-const LeftArrow = styled(CustomArrow)`
+const LeftArrow = ({ currentSlide, slideCount, ...props }: any) => {
+  return <CustomArrow {...props}>{"<"}</CustomArrow>;
+};
+
+const RightArrow = ({ currentSlide, slideCount, ...props }: any) => {
+  return <CustomArrow {...props}>{">"}</CustomArrow>;
+};
+
+const StyledLeftArrow = styled(LeftArrow)`
   left: 10px;
 `;
 
-const RightArrow = styled(CustomArrow)`
+const StyledRightArrow = styled(RightArrow)`
   right: 10px;
 `;
+
+const sliderSettings = {
+  dots: true,
+  infinite: false,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  touchMove: true,
+  adaptiveHeight: true,
+  prevArrow: <StyledLeftArrow>{"<"}</StyledLeftArrow>,
+  nextArrow: <StyledRightArrow>{">"}</StyledRightArrow>,
+};
 
 function DetailPost() {
   const { data } = useQuery("getData", () =>
@@ -314,18 +334,6 @@ function DetailPost() {
     setClickLikes(data?.likes?.includes(sessionData._id));
     setLikes(data?.likes?.length);
   }, [data]);
-
-  const sliderSettings = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    touchMove: true,
-    adaptiveHeight: true,
-    prevArrow: <LeftArrow>{"<"}</LeftArrow>,
-    nextArrow: <RightArrow>{">"}</RightArrow>,
-  };
 
   const hashtagClicked = async (hashtag: string) => {
     const response = await axios.get(
