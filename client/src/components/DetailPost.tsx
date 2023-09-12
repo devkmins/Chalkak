@@ -10,6 +10,7 @@ import defaultUserProfileImg from "../assets/User/default-profile.png";
 import { AiFillHeart } from "react-icons/ai";
 import { BsThreeDots, BsPerson } from "react-icons/bs";
 import { MdDateRange } from "react-icons/md";
+import { GrFormClose } from "react-icons/gr";
 import { IconBaseProps } from "react-icons";
 import PostSettings from "./PostSettings";
 import ReactModal from "react-modal";
@@ -75,6 +76,15 @@ const StyledBsThreeDots = styled(BsThreeDots)`
 `;
 
 const StyledReactModal = styled(ReactModal)``;
+
+const StyledGrFormClose = styled(GrFormClose)`
+  position: absolute;
+  margin-top: 70px;
+  margin-left: 5px;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+`;
 
 const ImagesContainer = styled.div`
   display: flex;
@@ -378,6 +388,7 @@ function DetailPost() {
                   isOpen={modalIsOpen}
                   onAfterOpen={afterOpenModal}
                   onRequestClose={closeModal}>
+                  <StyledGrFormClose onClick={closeModal} />
                   <PostSettings postId={data?._id} />
                 </StyledReactModal>
               </PostSettingsContainer>
