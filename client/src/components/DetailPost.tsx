@@ -257,6 +257,8 @@ const sliderSettings = {
   nextArrow: <StyledRightArrow>{">"}</StyledRightArrow>,
 };
 
+ReactModal.setAppElement("#root");
+
 function DetailPost() {
   const { data } = useQuery("getData", () =>
     axios
