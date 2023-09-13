@@ -7,6 +7,7 @@ import joinImg from "../../assets/Join/join.jpeg";
 import { RiCameraLensFill } from "react-icons/ri";
 import { BiSolidShow } from "react-icons/bi";
 import { BiSolidHide } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 interface Error {
   nameError: string;
@@ -293,7 +294,9 @@ function Join() {
       </JoinImgContainer>
       <JoinBox>
         <JoinLogo>
-          <JoinLogoIcon />
+          <Link to={"/"}>
+            <JoinLogoIcon />
+          </Link>
           <span>회원가입</span>
           <hr />
         </JoinLogo>

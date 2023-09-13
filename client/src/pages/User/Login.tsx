@@ -9,6 +9,7 @@ import loginImg from "../../assets/Login/login.jpeg";
 import { RiCameraLensFill } from "react-icons/ri";
 import { BiSolidShow } from "react-icons/bi";
 import { BiSolidHide } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 const Box = styled.div`
   display: grid;
@@ -205,7 +206,9 @@ function Login() {
       </LoginImgContainer>
       <LoginBox>
         <LoginLogo>
-          <LoginLogoIcon />
+          <Link to={"/"}>
+            <LoginLogoIcon />
+          </Link>
           <span>로그인</span>
           <hr />
         </LoginLogo>
