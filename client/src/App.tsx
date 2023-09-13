@@ -75,7 +75,7 @@ a {
 	text-decoration: none;
 	color: inherit;
 }
-input {
+input, textarea {
   outline: none;
 }
 `;
