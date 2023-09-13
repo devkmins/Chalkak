@@ -84,6 +84,14 @@ const StyledGrFormClose = styled(GrFormClose)`
   width: 35px;
   height: 35px;
   cursor: pointer;
+
+  path {
+    stroke: #f2efef;
+
+    &:hover {
+      stroke: white;
+    }
+  }
 `;
 
 const ImagesContainer = styled.div`
