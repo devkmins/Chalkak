@@ -26,14 +26,12 @@ interface StyledAiFillHeartProps extends IconBaseProps {
 const Container = styled.div``;
 
 const Box = styled.div`
-  margin: 0px 75px;
-  padding-top: 75px;
+  margin: 0px 25px;
+  padding-top: 85px;
+  padding-bottom: 25px;
 `;
 
 const NestedBox = styled.div`
-  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
-    rgba(17, 17, 26, 0.05) 0px 8px 32px;
-  padding: 20px;
   height: fit-content;
 `;
 
@@ -51,13 +49,13 @@ const ProfileBox = styled.div`
 `;
 
 const ProfileImg = styled.img`
-  width: 42.5px;
-  height: 42.5px;
+  width: 47.5px;
+  height: 47.5px;
   border-radius: 50%;
 `;
 
 const ProfileName = styled.span`
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
   margin-left: 10px;
 `;
@@ -110,7 +108,10 @@ const StyledSlider = styled(Slider)`
   width: 90vh;
 `;
 
-const Image = styled.img``;
+const Image = styled.img`
+  object-fit: contain;
+  max-height: 100vh;
+`;
 
 const ContentContainer = styled.div`
   margin-top: 50px;
