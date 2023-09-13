@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import { styled } from "styled-components";
+import { sessionState } from "../atoms";
 
 const CreateBox = styled.div`
   display: flex;
@@ -113,6 +115,8 @@ const Hashtags = styled.div`
 function CreatePost({ images }: any) {
   const navigate = useNavigate();
 
+  const sessionData = useRecoilValue(sessionState);
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -142,7 +146,9 @@ function CreatePost({ images }: any) {
         { withCredentials: true }
       );
 
-      navigate("/");
+      navigate(`/user/${sessionData.username}`, {
+        state: sessionData.username,
+      });
     } catch (error) {
       console.error("Error:", error);
     }
