@@ -101,6 +101,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/user/:id" element={<UserPage />} />
+        <Route path="/user/:id/likes" element={<UserPage />} />
         <Route path="/post/:id" element={<DetailPost />} />
         <Route path="/search/:keyword" element={<SearchPostList />} />
         {loggedIn ? (
