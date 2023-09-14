@@ -10,6 +10,17 @@ import Header from "../pages/Header";
 import { RiImage2Fill } from "react-icons/ri";
 import { useEffect, useState } from "react";
 import useInitSearch from "../hooks/useInitSearch";
+import { AiFillHeart } from "react-icons/ai";
+import UserPosts from "./UserPosts";
+import UserLikes from "./UserLikes";
+
+interface IPhotoLi {
+  connectphotos: string;
+}
+
+interface ILikesLi {
+  connectlikes: string;
+}
 
 const Container = styled.div``;
 
@@ -71,45 +82,29 @@ const PostsContainer = styled.div`
   margin-top: 50px;
 `;
 
-const ColumnsContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 31.5%);
-  grid-auto-rows: auto;
-  grid-gap: 25px;
-  justify-content: center;
-  padding: 0px 15px;
-  padding-top: 50px;
-  width: 100%;
-
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: auto;
-  }
-`;
-
-const ImagesContainer = styled.div``;
-
 const ContentsContainer = styled.div`
   display: flex;
-  align-items: center;
-  color: #6b6565;
   font-weight: 600;
   padding-left: 25px;
   border-bottom: 1px solid #d1d1d1;
 `;
 
-const PhotoBox = styled.div`
+const ContentsUl = styled.ul`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 25px;
+`;
+
+const PhotoLi = styled.li<IPhotoLi>`
   display: flex;
   align-items: center;
   padding-bottom: 15px;
   cursor: pointer;
+  color: ${(props) => (props.connectphotos === "true" ? "black" : "#6b6565")};
 
   &:hover {
     color: black;
-  }
-
-  a {
-    margin-top: 2.5px;
   }
 `;
 
@@ -117,76 +112,36 @@ const StyledRiImage2Fill = styled(RiImage2Fill)`
   width: 25px;
   height: 25px;
   margin-right: 5px;
+  margin-bottom: -6px;
 `;
 
-const PostsBox = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 25px;
-`;
-
-const StyledLink = styled(Link)`
-  display: flex;
-  width: 100%;
-`;
-
-const Image = styled.img`
-  width: 100%;
-  max-height: max-content;
-`;
-
-const PostProfileContainer = styled.div`
-  display: none;
-  position: absolute;
-  bottom: 0;
-  width: max-content;
-  height: max-content;
-  margin-bottom: 17.5px;
-`;
-
-const ProfileBox = styled.div`
+const LikesLi = styled.li<ILikesLi>`
   display: flex;
   align-items: center;
-  padding: 0px 20px;
-`;
-
-const ProfileLink = styled(Link)`
-  display: flex;
-  align-items: center;
-  color: #e0dfdf;
-  font-size: 16px;
+  padding-bottom: 15px;
+  cursor: pointer;
+  color: ${(props) => (props.connectlikes === "true" ? "black" : "#6b6565")};
 
   &:hover {
-    color: white;
-    transition: color 0.25s;
+    color: black;
   }
 `;
 
-const PostProfileImg = styled.img`
-  border-radius: 50%;
-  margin-right: 10px;
-  width: 32.5px;
-  height: 32.5px;
+const StyledAiFillHeart = styled(AiFillHeart)`
+  width: 25px;
+  height: 25px;
+  margin-right: 5px;
+  margin-bottom: -6px;
 `;
 
-const PostBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  margin-bottom: 25px;
-
-  &:hover {
-    ${PostProfileContainer} {
-      display: flex;
-    }
-  }
+const ContentText = styled.span`
+  margin-bottom: 10px;
 `;
 
 function UserPage() {
   const location = useLocation();
   const username = location.state;
-
-  const sessionData = useRecoilValue(sessionState);
+  const pathname = location.pathname;
 
   const { data } = useQuery("data", () =>
     axios
@@ -196,6 +151,21 @@ function UserPage() {
       .then((response) => response.data)
   );
 
+  const [connectPhotos, setConnectPhotos] = useState(true);
+  const [connectLikes, setConnectLikes] = useState(false);
+
+  useEffect(() => {
+    if (pathname === `/user/${username}`) {
+      setConnectPhotos(true);
+      setConnectLikes(false);
+    } else if (pathname === `/user/${username}/likes`) {
+      setConnectPhotos(false);
+      setConnectLikes(true);
+    }
+  }, [pathname]);
+
+  const sessionData = useRecoilValue(sessionState);
+
   const userProfileImg = data?.profileImg;
 
   let totalViews = 0;
@@ -203,32 +173,6 @@ function UserPage() {
 
   data?.userPosts?.posts?.map((post: any) => (totalViews += post.views - 1));
   data?.userPosts?.posts?.map((post: any) => (totalLikes += post.likes.length));
-
-  const [firstCol, setFirstCol] = useState<any[]>([]);
-  const [secondCol, setSecondCol] = useState<any[]>([]);
-  const [thirdCol, setThirdCol] = useState<any[]>([]);
-
-  useEffect(() => {
-    const firstColImages: string[] = [];
-    const secondColImages: string[] = [];
-    const thirdColImages: string[] = [];
-
-    if (data && Array.isArray(data?.userPosts?.posts)) {
-      data?.userPosts?.posts.forEach((post: any, index: any) => {
-        if (index % 3 === 0) {
-          firstColImages.push(post);
-        } else if (index % 3 === 1) {
-          secondColImages.push(post);
-        } else if (index % 3 === 2) {
-          thirdColImages.push(post);
-        }
-      });
-    }
-
-    setFirstCol(firstColImages);
-    setSecondCol(secondColImages);
-    setThirdCol(thirdColImages);
-  }, [data]);
 
   useInitSearch();
 
@@ -256,115 +200,27 @@ function UserPage() {
             )}
             <PostsContainer>
               <ContentsContainer>
-                <PhotoBox>
-                  <StyledRiImage2Fill />
-                  <Link
-                    to={`/user/${data?.userPosts.username}`}
-                    state={data?.userPosts.username}>
-                    사진 {data.userPosts.posts.length}
-                  </Link>
-                </PhotoBox>
+                <ContentsUl>
+                  <PhotoLi connectphotos={String(connectPhotos)}>
+                    <Link to={`/user/${username}`} state={username}>
+                      <StyledRiImage2Fill />
+                      <ContentText>
+                        사진 {data.userPosts.posts.length}
+                      </ContentText>
+                    </Link>
+                  </PhotoLi>
+                  <LikesLi connectlikes={String(connectLikes)}>
+                    <Link to={`/user/${username}/likes`} state={username}>
+                      <StyledAiFillHeart />
+                      <ContentText>
+                        좋아요 {data?.likedPosts.length}
+                      </ContentText>
+                    </Link>
+                  </LikesLi>
+                </ContentsUl>
               </ContentsContainer>
-              <PostsBox>
-                <ColumnsContainer>
-                  <ImagesContainer>
-                    {firstCol &&
-                      firstCol.map((post) => (
-                        <PostBox key={post?._id}>
-                          <StyledLink
-                            to={`/post/${post?.title}`}
-                            state={post?._id}>
-                            <Image
-                              src={`http://localhost:4000/${post.fileUrl[0].path}`}
-                              alt=""
-                            />
-                          </StyledLink>
-                          <PostProfileContainer>
-                            <ProfileBox>
-                              <ProfileLink
-                                to={`/user/${post.owner.username}`}
-                                state={post.owner.username}>
-                                <PostProfileImg
-                                  src={
-                                    post.owner.profileImage
-                                      ? `http://localhost:4000/${post.owner.profileImage}`
-                                      : defaultUserProfileImg
-                                  }
-                                  alt=""
-                                />
-                                {post.owner.name}
-                              </ProfileLink>
-                            </ProfileBox>
-                          </PostProfileContainer>
-                        </PostBox>
-                      ))}
-                  </ImagesContainer>
-                  <ImagesContainer>
-                    {secondCol &&
-                      secondCol.map((post) => (
-                        <PostBox key={post?._id}>
-                          <StyledLink
-                            to={`/post/${post?.title}`}
-                            state={post?._id}>
-                            <Image
-                              src={`http://localhost:4000/${post.fileUrl[0].path}`}
-                              alt=""
-                            />
-                          </StyledLink>
-                          <PostProfileContainer>
-                            <ProfileBox>
-                              <PostProfileImg
-                                src={
-                                  post.owner.profileImage
-                                    ? `http://localhost:4000/${post.owner.profileImage}`
-                                    : defaultUserProfileImg
-                                }
-                                alt=""
-                              />
-                              <ProfileLink
-                                to={`/user/${post.owner.username}`}
-                                state={post.owner.username}>
-                                {post.owner.name}
-                              </ProfileLink>
-                            </ProfileBox>
-                          </PostProfileContainer>
-                        </PostBox>
-                      ))}
-                  </ImagesContainer>
-                  <ImagesContainer>
-                    {thirdCol &&
-                      thirdCol.map((post) => (
-                        <PostBox key={post?._id}>
-                          <StyledLink
-                            to={`/post/${post?.title}`}
-                            state={post?._id}>
-                            <Image
-                              src={`http://localhost:4000/${post.fileUrl[0].path}`}
-                              alt=""
-                            />
-                          </StyledLink>
-                          <PostProfileContainer>
-                            <ProfileBox>
-                              <PostProfileImg
-                                src={
-                                  post.owner.profileImage
-                                    ? `http://localhost:4000/${post.owner.profileImage}`
-                                    : defaultUserProfileImg
-                                }
-                                alt=""
-                              />
-                              <ProfileLink
-                                to={`/user/${post.owner.username}`}
-                                state={post.owner.username}>
-                                {post.owner.name}
-                              </ProfileLink>
-                            </ProfileBox>
-                          </PostProfileContainer>
-                        </PostBox>
-                      ))}
-                  </ImagesContainer>
-                </ColumnsContainer>
-              </PostsBox>
+              {connectPhotos && <UserPosts data={data?.userPosts} />}
+              {connectLikes && <UserLikes data={data?.likedPosts} />}
             </PostsContainer>
           </>
         )}
