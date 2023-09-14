@@ -35,7 +35,7 @@ const LogoBox = styled.div`
 `;
 
 const SearchPostBox = styled.div`
-  width: 62.5%;
+  width: 65%;
   border-right: 1px solid #d1d1d1;
 `;
 
