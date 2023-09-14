@@ -17,7 +17,7 @@ const PostsContainer = styled.div`
 const ContentsContainer = styled.div`
   display: flex;
   align-items: center;
-  color: #6b6565;
+  color: #000000d5;
   font-weight: 600;
   padding-left: 25px;
   border-bottom: 1px solid #d1d1d1;
