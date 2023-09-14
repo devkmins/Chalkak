@@ -124,3 +124,14 @@ export const search = async (req: Request, res: Response) => {
     return res.status(500).json({ error: "검색 중 오류가 발생했습니다." });
   }
 };
+
+export const topViewsPosts = async (req: Request, res: Response) => {
+  const top10Posts = await Post.find({})
+    .populate("owner", "username name profileImage")
+    .sort({ views: -1 })
+    .limit(10);
+
+  if (top10Posts) {
+    return res.json(top10Posts);
+  }
+};
