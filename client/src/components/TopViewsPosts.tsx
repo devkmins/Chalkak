@@ -49,7 +49,8 @@ const sliderSettings = {
   adaptiveHeight: true,
   autoplay: true,
   centerMode: true,
-  autoplaySpeed: 1250,
+  speed: 1500,
+  autoplaySpeed: 1500,
   cssEase: "linear",
 };
 
