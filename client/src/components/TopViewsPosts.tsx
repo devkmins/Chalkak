@@ -31,7 +31,6 @@ const Text = styled.span`
 const StyledSlider = styled(Slider)`
   display: grid;
   align-items: center;
-  height: max-content;
   margin-bottom: 40px;
 `;
 
