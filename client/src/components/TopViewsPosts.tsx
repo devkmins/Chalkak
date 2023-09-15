@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useQuery } from "react-query";
+import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import styled from "styled-components";
 
@@ -34,8 +35,10 @@ const StyledSlider = styled(Slider)`
   margin-bottom: 40px;
 `;
 
+const StyledLink = styled(Link)``;
+
 const Image = styled.img`
-  width: 25%;
+  width: 100%;
   height: 300px;
   object-fit: contain;
   padding: 0px 10px;
@@ -67,12 +70,14 @@ function TopViewsPosts() {
       <Text>Top 20</Text>
       <StyledSlider {...sliderSettings}>
         {Array.isArray(data) &&
-          data?.map((img: any, index: any) => (
-            <Image
-              key={index}
-              src={`http://localhost:4000/${img?.fileUrl[0]?.path}`}
-              alt=""
-            />
+          data?.map((post: any, index: any) => (
+            <StyledLink to={`/post/${post?.title}`} state={post?._id}>
+              <Image
+                key={index}
+                src={`http://localhost:4000/${post?.fileUrl[0]?.path}`}
+                alt=""
+              />
+            </StyledLink>
           ))}
       </StyledSlider>
       <Line />
