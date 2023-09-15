@@ -8,14 +8,22 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin-top: 75px;
   margin-bottom: 25px;
 `;
 
+const Line = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 45%;
+  margin-top: 15px;
+  border-top: 0.5px solid black;
+`;
+
 const Text = styled.span`
+  margin-top: 75px;
   font-family: "NanumGothicBold";
   font-weight: 600;
-  font-size: 15px;
+  font-size: 20px;
   margin-bottom: 15px;
 `;
 
@@ -23,6 +31,7 @@ const StyledSlider = styled(Slider)`
   display: grid;
   align-items: center;
   height: max-content;
+  margin-bottom: 40px;
 `;
 
 const Image = styled.img`
@@ -53,7 +62,8 @@ function TopViewsPosts() {
 
   return (
     <Container>
-      <Text>조회수가 가장 높은 게시글 20개를 구경해 보세요!</Text>
+      <Line />
+      <Text>Top 20</Text>
       <StyledSlider {...sliderSettings}>
         {Array.isArray(data) &&
           data?.map((img: any, index: any) => (
@@ -64,6 +74,7 @@ function TopViewsPosts() {
             />
           ))}
       </StyledSlider>
+      <Line />
     </Container>
   );
 }
