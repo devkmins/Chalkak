@@ -177,6 +177,14 @@ function UploadImage() {
 
       return newData;
     });
+
+    setImages((prev) => {
+      const newImages = [...prev];
+      const index = data.findIndex((value) => value === img);
+      newImages.splice(index, 1);
+
+      return newImages;
+    });
   };
 
   const onDrop = (acceptedFiles: any) => {
