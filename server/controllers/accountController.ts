@@ -94,7 +94,7 @@ export const editProfileImg = async (req: Request, res: Response) => {
 
   await user?.save();
 
-  return res.status(200).json(req.file?.path);
+  return res.status(200).json(req?.file?.path);
 };
 
 export const closeAccount = async (req: Request, res: Response) => {
@@ -112,6 +112,16 @@ export const closeAccount = async (req: Request, res: Response) => {
 
     if (comparePassword) {
       const posts = user.posts;
+
+      const userPosts = await User.findOne({ username })
+        .select("posts")
+        .populate("posts");
+
+      userPosts?.posts.map((post) => {
+        Object(post)?.fileUrl?.map((file: any) => {
+          fs.unlink(`${file.path}`, (error) => {});
+        });
+      });
 
       await Post.deleteMany({ _id: { $in: posts } });
 
