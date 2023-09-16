@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { useQuery } from "react-query";
 import { styled } from "styled-components";
 
 const Form = styled.form`
@@ -93,10 +94,16 @@ const Btn = styled.button`
 `;
 
 function EditPost({ postId }: any) {
+  const { data } = useQuery("getData", () =>
+    axios
+      .get(`http://localhost:4000/post/${postId}`)
+      .then((response) => response.data)
+  );
+
   const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    hashtags: [],
+    title: data?.title,
+    description: data?.description,
+    hashtags: data?.hashtags,
   });
 
   const handleSubmit = async (event: any) => {
@@ -178,7 +185,7 @@ function EditPost({ postId }: any) {
         />
         <HashtagsBox>
           {formData.hashtags &&
-            formData.hashtags.map((hashtag) => (
+            formData.hashtags.map((hashtag: any) => (
               <Hashtags key={hashtag + Math.random()}>
                 <Hashtag>{hashtag}</Hashtag>
                 <RemoveButton onClick={() => removeClick(hashtag)}>
