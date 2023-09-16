@@ -13,6 +13,8 @@ import useInitSearch from "../hooks/useInitSearch";
 import { AiFillHeart } from "react-icons/ai";
 import UserPosts from "./UserPosts";
 import UserLikes from "./UserLikes";
+import { PiPersonArmsSpreadBold } from "react-icons/pi";
+import { RiHeartsLine } from "react-icons/ri";
 
 interface IPhotoLi {
   connectphotos: string;
@@ -51,16 +53,36 @@ const TotalBox = styled.div`
   margin-top: 20px;
 `;
 
-const TotalViews = styled.span`
-  font-size: 16px;
-  font-weight: 400;
+const TotalViews = styled.div`
+  display: flex;
+  align-items: center;
   color: #767676;
+
+  span {
+    font-size: 16px;
+    font-weight: 400;
+  }
 `;
 
-const TotalLikes = styled.span`
-  font-size: 16px;
-  font-weight: 400;
+const StyledPiPersonArmsSpreadBold = styled(PiPersonArmsSpreadBold)`
+  margin-bottom: 5px;
+  margin-right: 4px;
+`;
+
+const TotalLikes = styled.div`
+  display: flex;
+  align-items: center;
   color: #767676;
+
+  span {
+    font-size: 16px;
+    font-weight: 400;
+  }
+`;
+
+const StyledRiHeartsLine = styled(RiHeartsLine)`
+  margin-bottom: 4px;
+  margin-right: 4px;
 `;
 
 const EditProfileLink = styled(Link)`
@@ -192,8 +214,14 @@ function UserPage() {
             />
             <ProfileName>{data.userPosts.name}</ProfileName>
             <TotalBox>
-              <TotalViews>조회 수 {totalViews}</TotalViews>
-              <TotalLikes>좋아요 수 {totalLikes}</TotalLikes>
+              <TotalViews>
+                <StyledPiPersonArmsSpreadBold />
+                <span>조회 수 {totalViews}</span>
+              </TotalViews>
+              <TotalLikes>
+                <StyledRiHeartsLine />
+                <span>좋아요 수 {totalLikes}</span>
+              </TotalLikes>
             </TotalBox>
             {sessionData.username === username && (
               <EditProfileLink to={"/account"}>프로필 편집</EditProfileLink>
