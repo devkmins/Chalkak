@@ -3,6 +3,10 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import { styled } from "styled-components";
 
+interface Error {
+  titleError: string;
+}
+
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -10,9 +14,14 @@ const Form = styled.form`
   height: 100%;
 `;
 
+const TitleBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
+`;
+
 const TitleInput = styled.input`
   margin-top: 5px;
-  margin-bottom: 25px;
   height: 40px;
   font-family: "NanumGothic";
   font-size: 15px;
@@ -96,6 +105,12 @@ const Btn = styled.button`
   font-size: 16px;
 `;
 
+const ErrorMessage = styled.span`
+  margin-top: 7.5px;
+  font-size: 13px;
+  color: #ff6b6b;
+`;
+
 function EditPost({ postId }: any) {
   const { data } = useQuery("getData", () =>
     axios
@@ -104,13 +119,24 @@ function EditPost({ postId }: any) {
   );
 
   const [formData, setFormData] = useState({
-    title: data?.title,
-    description: data?.description,
+    title: data?.title.trim(),
+    description: data?.description.trim(),
     hashtags: data?.hashtags,
   });
 
+  const [error, setError] = useState<Error>();
+
   const handleSubmit = async (event: any) => {
     event.preventDefault();
+
+    if (formData.title === "") {
+      setError((prevError: any) => ({
+        ...prevError,
+        titleError: "게시글의 제목이 유효하지 않습니다.",
+      }));
+
+      return;
+    }
 
     try {
       const response = await axios.put(
@@ -125,10 +151,15 @@ function EditPost({ postId }: any) {
 
   const handleChange = (event: any) => {
     const { name, value } = event.target;
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
+
+    setError({
+      titleError: "",
+    });
   };
 
   const handleHashtagsEnter = (event: any) => {
@@ -164,14 +195,19 @@ function EditPost({ postId }: any) {
   return (
     <>
       <Form onSubmit={handleSubmit}>
-        <span>제목</span>
-        <TitleInput
-          type="title"
-          name="title"
-          value={formData.title}
-          maxLength={75}
-          onChange={handleChange}
-        />
+        <TitleBox>
+          <span>제목</span>
+          <TitleInput
+            type="title"
+            name="title"
+            value={formData.title}
+            maxLength={75}
+            onChange={handleChange}
+          />
+          {error && error.titleError && (
+            <ErrorMessage>{error.titleError}</ErrorMessage>
+          )}
+        </TitleBox>
         <span>설명</span>
         <DescriptionTextArea
           name="description"
@@ -179,7 +215,6 @@ function EditPost({ postId }: any) {
           maxLength={150}
           onChange={handleChange}
         />
-        <span></span>
         <span>해시태그</span>
         <HashtagsInput
           type="text"
