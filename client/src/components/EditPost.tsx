@@ -15,6 +15,7 @@ const TitleInput = styled.input`
   margin-bottom: 25px;
   height: 40px;
   font-family: "NanumGothic";
+  font-size: 15px;
 `;
 
 const DescriptionTextArea = styled.textarea`
@@ -24,6 +25,7 @@ const DescriptionTextArea = styled.textarea`
   overflow-wrap: break-word;
   resize: none;
   font-family: "NanumGothic";
+  font-size: 15px;
 `;
 
 const HashtagsInput = styled.input`
@@ -31,6 +33,7 @@ const HashtagsInput = styled.input`
   margin-bottom: 25px;
   height: 40px;
   font-family: "NanumGothic";
+  font-size: 15px;
 `;
 
 const HashtagsBox = styled.div`
