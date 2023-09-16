@@ -70,9 +70,11 @@ function TopViewsPosts() {
       <StyledSlider {...sliderSettings}>
         {Array.isArray(data) &&
           data?.map((post: any, index: any) => (
-            <StyledLink to={`/post/${post?.title}`} state={post?._id}>
+            <StyledLink
+              to={`/post/${post?.title}`}
+              state={post?._id}
+              key={index}>
               <Image
-                key={index}
                 src={`http://localhost:4000/${post?.fileUrl[0]?.path}`}
                 alt=""
               />
