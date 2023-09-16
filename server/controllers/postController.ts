@@ -73,11 +73,7 @@ export const postEdit = async (req: Request, res: Response) => {
   const session = req.session as CustomSession;
   const userId = session.user?._id;
   const postId = req.params.pid;
-  const {
-    title: newTitle,
-    description: newDescription,
-    hashtags: newHashtags,
-  } = req.body;
+  const { title: newTitle, description, hashtags } = req.body;
   const post = await Post.findById(postId);
 
   if (post?.owner.toString() !== userId) {
@@ -86,8 +82,8 @@ export const postEdit = async (req: Request, res: Response) => {
 
   await Post.findByIdAndUpdate(postId, {
     title: newTitle ? newTitle : post?.title,
-    description: newDescription ? newDescription : post?.description,
-    hashtags: newHashtags ? newHashtags : post?.hashtags,
+    description: description,
+    hashtags: hashtags,
   });
 
   return res.status(200).json();
