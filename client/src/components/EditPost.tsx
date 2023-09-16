@@ -127,13 +127,15 @@ function EditPost({ postId }: any) {
 
       const { value } = event.target;
 
-      if (formData.hashtags.length < 5) {
-        setFormData((prev: any) => {
-          return { ...prev, hashtags: [...prev.hashtags, value] };
-        });
-      }
+      if (value !== "" && value.trim()) {
+        if (formData.hashtags.length < 5) {
+          setFormData((prev: any) => {
+            return { ...prev, hashtags: [...prev.hashtags, value.trim()] };
+          });
+        }
 
-      event.target.value = "";
+        event.target.value = "";
+      }
     }
   };
 
@@ -158,7 +160,6 @@ function EditPost({ postId }: any) {
           name="title"
           value={formData.title}
           maxLength={75}
-          required
           onChange={handleChange}
         />
         <span>설명</span>
@@ -166,7 +167,6 @@ function EditPost({ postId }: any) {
           name="description"
           value={formData.description}
           maxLength={150}
-          required
           onChange={handleChange}
         />
         <span></span>

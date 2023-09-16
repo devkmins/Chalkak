@@ -168,13 +168,15 @@ function CreatePost({ images }: any) {
 
       const { value } = event.target;
 
-      if (formData.hashtags.length < 5) {
-        setFormData((prev: any) => {
-          return { ...prev, hashtags: [...prev.hashtags, value] };
-        });
-      }
+      if (value !== "" && value.trim()) {
+        if (formData.hashtags.length < 5) {
+          setFormData((prev: any) => {
+            return { ...prev, hashtags: [...prev.hashtags, value.trim()] };
+          });
+        }
 
-      event.target.value = "";
+        event.target.value = "";
+      }
     }
   };
 
