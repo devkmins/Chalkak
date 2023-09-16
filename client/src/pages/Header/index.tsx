@@ -6,7 +6,7 @@ import { loggedInState, sessionState } from "../../atoms";
 import { Link } from "react-router-dom";
 import defaultUserProfileImg from "../../assets/User/default-profile.png";
 import Menu from "../../components/Menu";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -79,10 +79,29 @@ function Header() {
   const userProfileImg = sessionData.profileImage;
 
   const [userImgClick, setUserImgClick] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const onClick = () => {
     setUserImgClick((prev) => !prev);
   };
+
+  const handleFocus = () => {
+    setUserImgClick(true);
+  };
+
+  useEffect(() => {
+    const handleDocumentClick = (event: any) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setUserImgClick(false);
+      }
+    };
+
+    document.addEventListener("click", handleDocumentClick);
+
+    return () => {
+      document.removeEventListener("click", handleDocumentClick);
+    };
+  }, [menuRef]);
 
   return (
     <HeaderContainer>
@@ -100,7 +119,7 @@ function Header() {
           <>
             <Link to={"/user/logout"}>Logout</Link>
             <Link to={"/post/upload"}>업로드</Link>
-            <UserImgBox>
+            <UserImgBox onFocus={handleFocus} ref={menuRef}>
               <UserImg
                 key={userProfileImg}
                 alt=""
