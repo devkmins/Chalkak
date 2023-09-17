@@ -31,8 +31,6 @@ const DescriptionTextArea = styled.textarea`
   margin-top: 5px;
   margin-bottom: 25px;
   height: 120px;
-  overflow-wrap: break-word;
-  resize: none;
   font-family: "NanumGothic";
   font-size: 15px;
 `;
