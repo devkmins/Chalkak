@@ -204,6 +204,7 @@ function CreatePost({ images }: any) {
           name="title"
           placeholder="제목"
           value={formData.title}
+          autoFocus={true}
           maxLength={75}
           required
           onChange={handleChange}
