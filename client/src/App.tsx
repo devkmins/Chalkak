@@ -77,6 +77,7 @@ a {
 }
 input, textarea {
   outline: none;
+  resize: none;
 }
 `;
 
