@@ -80,6 +80,8 @@ const ImagesBox = styled.div`
   margin-bottom: 25px;
 
   &:hover {
+    opacity: 0.875;
+
     ${ProfileContainer} {
       display: flex;
     }

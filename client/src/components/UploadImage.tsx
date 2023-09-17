@@ -88,6 +88,10 @@ const ImagesContainer = styled.div``;
 const ImagesBox = styled.div`
   margin-bottom: 15px;
   position: relative;
+
+  &:hover {
+    opacity: 0.875;
+  }
 `;
 
 const Image = styled.img`

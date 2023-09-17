@@ -78,6 +78,8 @@ const PostBox = styled.div`
   margin-bottom: 25px;
 
   &:hover {
+    opacity: 0.875;
+
     ${PostProfileContainer} {
       display: flex;
     }
