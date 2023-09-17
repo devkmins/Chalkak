@@ -4,11 +4,11 @@ import DeletePost from "./DeletePost";
 import { useState } from "react";
 
 interface IDetailsLi {
-  showDetails: string;
+  $showDetails: string;
 }
 
 interface ISettingsLi {
-  showSettings: string;
+  $showSettings: string;
 }
 
 const Container = styled.div`
@@ -44,7 +44,7 @@ const DetailsLi = styled.li<IDetailsLi>`
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
-  color: ${(props) => (props.showDetails === "true" ? "black" : "#999595")};
+  color: ${(props) => (props.$showDetails === "true" ? "black" : "#999595")};
 
   &:hover {
     color: black;
@@ -55,7 +55,7 @@ const SettingsLi = styled.li<ISettingsLi>`
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
-  color: ${(props) => (props.showSettings === "true" ? "black" : "#999595")};
+  color: ${(props) => (props.$showSettings === "true" ? "black" : "#999595")};
 
   &:hover {
     color: black;
@@ -88,12 +88,14 @@ function PostSettings({ postId }: any) {
       <Box>
         <UlBox>
           <Ul>
-            <DetailsLi onClick={clickDetails} showDetails={String(showDetails)}>
+            <DetailsLi
+              onClick={clickDetails}
+              $showDetails={String(showDetails)}>
               세부 사항
             </DetailsLi>
             <SettingsLi
               onClick={clickSettings}
-              showSettings={String(showSettings)}>
+              $showSettings={String(showSettings)}>
               설정
             </SettingsLi>
           </Ul>
