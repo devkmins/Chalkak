@@ -3,7 +3,7 @@ import SearchPost from "../../components/SearchPost";
 import { RiCameraLensFill } from "react-icons/ri";
 import { useRecoilValue } from "recoil";
 import { loggedInState, sessionState } from "../../atoms";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import defaultUserProfileImg from "../../assets/User/default-profile.png";
 import Menu from "../../components/Menu";
 import { useEffect, useRef, useState } from "react";
@@ -21,16 +21,19 @@ const HeaderContainer = styled.div`
 `;
 
 const LogoBox = styled.div`
-  a {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    span {
-      font-size: 26px;
-      font-weight: 700;
-      margin-top: 10px;
-      margin-left: 12.5px;
-    }
+  svg {
+    cursor: pointer;
+  }
+
+  span {
+    cursor: pointer;
+    font-size: 26px;
+    font-weight: 700;
+    margin-top: 10px;
+    margin-left: 12.5px;
   }
 `;
 
@@ -81,12 +84,39 @@ function Header() {
   const [userImgClick, setUserImgClick] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
+  const location = useLocation();
+  const path = location.pathname;
+
+  const navigate = useNavigate();
+
+  const isRoot = path === "/" ? true : false;
+
   const onClick = () => {
     setUserImgClick((prev) => !prev);
   };
 
   const handleFocus = () => {
     setUserImgClick(true);
+  };
+
+  const logoClicked = () => {
+    if (isRoot) {
+      scrollToTop();
+    } else {
+      navigateToRoot();
+    }
+  };
+
+  const navigateToRoot = () => {
+    navigate("/");
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
   };
 
   useEffect(() => {
@@ -105,11 +135,9 @@ function Header() {
 
   return (
     <HeaderContainer>
-      <LogoBox>
-        <Link to={"/"}>
-          <RiCameraLensFill size={40} />
-          <span>Chalkak</span>
-        </Link>
+      <LogoBox onClick={logoClicked}>
+        <RiCameraLensFill size={40} />
+        <span>Chalkak</span>
       </LogoBox>
       <SearchPostBox>
         <SearchPost />
