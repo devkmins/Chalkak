@@ -30,16 +30,20 @@ const TitleInput = styled.input`
   font-size: 35px;
   font-weight: 300;
   padding-left: 10px;
+  font-family: "NanumGothic";
 `;
 
-const DescriptionInput = styled.input`
+const DescriptionTextArea = styled.textarea`
   margin-top: 25px;
   height: 275px;
   font-size: 18px;
   font-weight: 300;
   text-align: left;
+  padding-top: 10px;
   padding-bottom: 225px;
   padding-left: 10px;
+  line-height: 25px;
+  font-family: "NanumGothic";
 `;
 
 const HashtagsContainer = styled.div``;
@@ -49,8 +53,9 @@ const HashtagsInput = styled.input`
   margin-top: 25px;
   height: 50px;
   font-size: 14px;
-  font-weight: 300;
   padding-left: 10px;
+  font-weight: 300;
+  font-family: "NanumGothic";
 `;
 
 const HashtagsBox = styled.div`
@@ -68,8 +73,7 @@ const Hashtag = styled.div`
   margin-right: 15px;
   margin-bottom: 10px;
   color: #8c8c8c;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: "NanumGothic";
   font-weight: 300;
 `;
 
@@ -204,8 +208,7 @@ function CreatePost({ images }: any) {
           required
           onChange={handleChange}
         />
-        <DescriptionInput
-          type="text"
+        <DescriptionTextArea
           name="description"
           placeholder="사진에 대한 설명을 작성해 보세요."
           value={formData.description}
