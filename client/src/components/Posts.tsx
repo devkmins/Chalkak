@@ -119,6 +119,10 @@ function Posts() {
     setThirdCol(thirdColImages);
   }, [data]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   useInitSearch();
 
   return (

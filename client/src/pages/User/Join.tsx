@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
 import styled from "styled-components";
@@ -286,6 +286,10 @@ function Join() {
   const confirmPasswordToggle = () => {
     setShowConfirmPassword((prev) => !prev);
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Box>
