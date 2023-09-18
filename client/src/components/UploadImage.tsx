@@ -131,9 +131,7 @@ const RemoveButton = styled.button`
 
 function UploadImage() {
   const [images, setImages] = useState<File[]>([]);
-  const [imagesFormData, setImagesFormData] = useState(new FormData());
   const [data, setData] = useState<string[]>([]);
-  const [next, setNext] = useState(false);
 
   const [firstCol, setFirstCol] = useState<string[]>([]);
   const [secondCol, setSecondCol] = useState<string[]>([]);
@@ -161,15 +159,11 @@ function UploadImage() {
 
   const onClick = async () => {
     if (images.length > 0) {
-      setNext(true);
-
-      const formData = new FormData();
+      const imagesFormData = new FormData();
 
       images.forEach((img) => {
-        formData.append("images", img);
+        imagesFormData.append("images", img);
       });
-
-      setImagesFormData(formData);
     }
   };
 
@@ -217,69 +211,65 @@ function UploadImage() {
     <Container>
       <Header />
       <UploadContainer>
-        {next ? (
-          <CreatePost images={imagesFormData} />
-        ) : (
-          <>
-            <UploadBox>
-              <Dropzone
-                maxFiles={10}
-                maxSize={150000000}
-                accept={{ "image/*": [".png", ".jpeg", ".jpg"] }}
-                onDrop={onDrop}>
-                {({ getRootProps, getInputProps }) => (
-                  <DropzoneSection>
-                    <DropzoneBox {...getRootProps()}>
-                      <input {...getInputProps()} />
-                      <PiImageThin size={100} />
-                      <DropZoneText>
-                        최대 10개의 이미지를 끌어다 놓거나 찾아보기로 선택해
-                        보세요!
-                      </DropZoneText>
-                      <span>이미지 최대 {10 - data.length}개 추가 가능</span>
-                    </DropzoneBox>
-                  </DropzoneSection>
-                )}
-              </Dropzone>
-              <UploadBtn onClick={onClick}>{data.length} 사진 제출</UploadBtn>
-            </UploadBox>
-            <ColumnsContainer>
-              <ImagesContainer>
-                {firstCol &&
-                  firstCol.map((img) => (
-                    <ImagesBox key={img}>
-                      <Image src={img} alt="" />
-                      <RemoveButton onClick={() => removeClick(img)}>
-                        X
-                      </RemoveButton>
-                    </ImagesBox>
-                  ))}
-              </ImagesContainer>
-              <ImagesContainer>
-                {secondCol &&
-                  secondCol.map((img) => (
-                    <ImagesBox key={img}>
-                      <Image src={img} alt="" />
-                      <RemoveButton onClick={() => removeClick(img)}>
-                        X
-                      </RemoveButton>
-                    </ImagesBox>
-                  ))}
-              </ImagesContainer>
-              <ImagesContainer>
-                {thirdCol &&
-                  thirdCol.map((img) => (
-                    <ImagesBox key={img}>
-                      <Image src={img} alt="" />
-                      <RemoveButton onClick={() => removeClick(img)}>
-                        X
-                      </RemoveButton>
-                    </ImagesBox>
-                  ))}
-              </ImagesContainer>
-            </ColumnsContainer>
-          </>
-        )}
+        <>
+          <UploadBox>
+            <Dropzone
+              maxFiles={10}
+              maxSize={150000000}
+              accept={{ "image/*": [".png", ".jpeg", ".jpg"] }}
+              onDrop={onDrop}>
+              {({ getRootProps, getInputProps }) => (
+                <DropzoneSection>
+                  <DropzoneBox {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    <PiImageThin size={100} />
+                    <DropZoneText>
+                      최대 10개의 이미지를 끌어다 놓거나 찾아보기로 선택해
+                      보세요!
+                    </DropZoneText>
+                    <span>이미지 최대 {10 - data.length}개 추가 가능</span>
+                  </DropzoneBox>
+                </DropzoneSection>
+              )}
+            </Dropzone>
+            <UploadBtn onClick={onClick}>{data.length} 사진 제출</UploadBtn>
+          </UploadBox>
+          <ColumnsContainer>
+            <ImagesContainer>
+              {firstCol &&
+                firstCol.map((img) => (
+                  <ImagesBox key={img}>
+                    <Image src={img} alt="" />
+                    <RemoveButton onClick={() => removeClick(img)}>
+                      X
+                    </RemoveButton>
+                  </ImagesBox>
+                ))}
+            </ImagesContainer>
+            <ImagesContainer>
+              {secondCol &&
+                secondCol.map((img) => (
+                  <ImagesBox key={img}>
+                    <Image src={img} alt="" />
+                    <RemoveButton onClick={() => removeClick(img)}>
+                      X
+                    </RemoveButton>
+                  </ImagesBox>
+                ))}
+            </ImagesContainer>
+            <ImagesContainer>
+              {thirdCol &&
+                thirdCol.map((img) => (
+                  <ImagesBox key={img}>
+                    <Image src={img} alt="" />
+                    <RemoveButton onClick={() => removeClick(img)}>
+                      X
+                    </RemoveButton>
+                  </ImagesBox>
+                ))}
+            </ImagesContainer>
+          </ColumnsContainer>
+        </>
       </UploadContainer>
     </Container>
   );
