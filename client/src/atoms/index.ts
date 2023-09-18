@@ -37,3 +37,8 @@ export const currentSearchState = atom({
   key: "currentSearchState",
   default: "",
 });
+
+export const mainPageScrollYState = atom({
+  key: "mainPageScrollYState",
+  default: 0,
+});
