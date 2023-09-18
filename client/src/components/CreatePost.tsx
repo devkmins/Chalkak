@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { styled } from "styled-components";
 import { sessionState } from "../atoms";
@@ -118,6 +118,9 @@ const Hashtags = styled.div`
 
 function CreatePost() {
   const navigate = useNavigate();
+
+  const location = useLocation();
+  const postId = location.state;
 
   const sessionData = useRecoilValue(sessionState);
 
