@@ -5,6 +5,8 @@ import { styled } from "styled-components";
 import Header from "../pages/Header";
 import { PiImageThin } from "react-icons/pi";
 import useInitSearch from "../hooks/useInitSearch";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Container = styled.div``;
 
@@ -133,6 +135,8 @@ function UploadImage() {
   const [images, setImages] = useState<File[]>([]);
   const [data, setData] = useState<string[]>([]);
 
+  const navigate = useNavigate();
+
   const [firstCol, setFirstCol] = useState<string[]>([]);
   const [secondCol, setSecondCol] = useState<string[]>([]);
   const [thirdCol, setThirdCol] = useState<string[]>([]);
@@ -164,6 +168,27 @@ function UploadImage() {
       images.forEach((img) => {
         imagesFormData.append("images", img);
       });
+
+      try {
+        const responseImages = await axios.post(
+          "http://localhost:4000/post/upload/images",
+          imagesFormData,
+          {
+            withCredentials: true,
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        const postId = responseImages.data;
+
+        navigate("/post/upload/content", {
+          state: postId,
+        });
+      } catch (error) {
+        console.log("error", error);
+      }
     }
   };
 
