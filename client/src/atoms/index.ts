@@ -42,3 +42,8 @@ export const mainPageScrollYState = atom({
   key: "mainPageScrollYState",
   default: 0,
 });
+
+export const isBackToMainState = atom({
+  key: "isBackToMainState",
+  default: false,
+});
