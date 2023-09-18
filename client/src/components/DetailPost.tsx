@@ -18,6 +18,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
+import useBackToMain from "../hooks/useBackToMain";
 
 interface StyledAiFillHeartProps extends IconBaseProps {
   clicked: string;
@@ -366,6 +367,8 @@ function DetailPost() {
 
     navigate(`/search/${hashtag}`, { state: response.data });
   };
+
+  useBackToMain();
 
   return (
     <Container>

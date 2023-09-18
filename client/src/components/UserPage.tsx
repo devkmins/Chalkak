@@ -15,6 +15,7 @@ import UserPosts from "./UserPosts";
 import UserLikes from "./UserLikes";
 import { PiPersonArmsSpreadBold } from "react-icons/pi";
 import { RiHeartsLine } from "react-icons/ri";
+import useBackToMain from "../hooks/useBackToMain";
 
 interface IPhotoLi {
   connectphotos: string;
@@ -197,6 +198,8 @@ function UserPage() {
   data?.userPosts?.posts?.map((post: any) => (totalLikes += post.likes.length));
 
   useInitSearch();
+
+  useBackToMain();
 
   return (
     <Container>
