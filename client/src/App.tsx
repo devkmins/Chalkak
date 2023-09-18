@@ -16,6 +16,7 @@ import DetailPost from "./components/DetailPost";
 import SearchPostList from "./components/SearchPostList";
 import Main from "./pages/Main";
 import { createGlobalStyle } from "styled-components";
+import CreatePost from "./components/CreatePost";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Source+Sans+Pro:wght@300;400&display=swap');
@@ -113,7 +114,7 @@ function App() {
             <Route path="/account" element={<Account />} />
             <Route path="/account/close" element={<CloseAccount />} />
             <Route path="/account/password" element={<ChangePassword />} />
-            <Route path="/post/upload" element={<UploadImage />} />
+            <Route path="/post/upload/images" element={<UploadImage />} />
           </>
         ) : (
           <>
@@ -124,6 +125,7 @@ function App() {
             <Route path="/account/close" element={<Navigate to="/" />} />
             <Route path="/account/password" element={<Navigate to="/" />} />
             <Route path="/post/upload" element={<Navigate to="/" />} />
+            <Route path="/post/upload/post" element={<Navigate to="/" />} />
           </>
         )}
       </Routes>
