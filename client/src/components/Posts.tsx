@@ -4,12 +4,8 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.png";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import {
-  currentSearchState,
-  isBackToMainState,
-  mainPageScrollYState,
-} from "../atoms";
+import { useRecoilState } from "recoil";
+import { isBackToMainState, mainPageScrollYState } from "../atoms";
 import useInitSearch from "../hooks/useInitSearch";
 
 const Container = styled.div`
