@@ -116,7 +116,7 @@ const Hashtags = styled.div`
   }
 `;
 
-function CreatePost({ images }: any) {
+function CreatePost() {
   const navigate = useNavigate();
 
   const sessionData = useRecoilValue(sessionState);
@@ -131,19 +131,6 @@ function CreatePost({ images }: any) {
     event.preventDefault();
 
     try {
-      const responseImages = await axios.post(
-        "http://localhost:4000/post/upload/images",
-        images,
-        {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-
-      const postId = responseImages.data;
-
       const responseForm = await axios.post(
         "http://localhost:4000/post/upload",
         { formData, postId },
