@@ -4,8 +4,12 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.png";
-import { useSetRecoilState } from "recoil";
-import { currentSearchState } from "../atoms";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  currentSearchState,
+  isBackToMainState,
+  mainPageScrollYState,
+} from "../atoms";
 import useInitSearch from "../hooks/useInitSearch";
 
 const Container = styled.div`
@@ -97,6 +101,18 @@ function Posts() {
   const [secondCol, setSecondCol] = useState<any[]>([]);
   const [thirdCol, setThirdCol] = useState<any[]>([]);
 
+  const [scrollY, setScrollY] = useRecoilState(mainPageScrollYState);
+
+  const [isBackToMain, setIsBackToMain] = useRecoilState(isBackToMainState);
+
+  const clickedProfile = () => {
+    setScrollY(window.scrollY);
+  };
+
+  const clickedPost = () => {
+    setScrollY(window.scrollY);
+  };
+
   useEffect(() => {
     const firstColImages: string[] = [];
     const secondColImages: string[] = [];
@@ -120,8 +136,12 @@ function Posts() {
   }, [data]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    if (isBackToMain) {
+      window.scrollTo(0, scrollY);
+    } else {
+      window.scrollTo(0, 0);
+    }
+  });
 
   useInitSearch();
 
@@ -132,7 +152,10 @@ function Posts() {
           {firstCol &&
             firstCol.map((post) => (
               <ImagesBox key={post?._id}>
-                <StyledLink to={`/post/${post?.title}`} state={post?._id}>
+                <StyledLink
+                  to={`/post/${post?.title}`}
+                  state={post?._id}
+                  onClick={clickedPost}>
                   <Image
                     src={`http://localhost:4000/${post.fileUrl[0].path}`}
                     alt=""
@@ -142,7 +165,8 @@ function Posts() {
                   <ProfileBox>
                     <ProfileLink
                       to={`/user/${post.owner.username}`}
-                      state={post.owner.username}>
+                      state={post.owner.username}
+                      onClick={clickedProfile}>
                       <ProfileImg
                         src={
                           post.owner.profileImage
@@ -162,7 +186,10 @@ function Posts() {
           {secondCol &&
             secondCol.map((post) => (
               <ImagesBox key={post?._id}>
-                <StyledLink to={`/post/${post?.title}`} state={post?._id}>
+                <StyledLink
+                  to={`/post/${post?.title}`}
+                  state={post?._id}
+                  onClick={clickedPost}>
                   <Image
                     src={`http://localhost:4000/${post.fileUrl[0].path}`}
                     alt=""
@@ -172,7 +199,8 @@ function Posts() {
                   <ProfileBox>
                     <ProfileLink
                       to={`/user/${post.owner.username}`}
-                      state={post.owner.username}>
+                      state={post.owner.username}
+                      onClick={clickedProfile}>
                       <ProfileImg
                         src={
                           post.owner.profileImage
@@ -192,7 +220,10 @@ function Posts() {
           {thirdCol &&
             thirdCol.map((post) => (
               <ImagesBox key={post?._id}>
-                <StyledLink to={`/post/${post?.title}`} state={post?._id}>
+                <StyledLink
+                  to={`/post/${post?.title}`}
+                  state={post?._id}
+                  onClick={clickedPost}>
                   <Image
                     src={`http://localhost:4000/${post.fileUrl[0].path}`}
                     alt=""
@@ -202,7 +233,8 @@ function Posts() {
                   <ProfileBox>
                     <ProfileLink
                       to={`/user/${post.owner.username}`}
-                      state={post.owner.username}>
+                      state={post.owner.username}
+                      onClick={clickedProfile}>
                       <ProfileImg
                         src={
                           post.owner.profileImage
