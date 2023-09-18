@@ -115,6 +115,7 @@ function App() {
             <Route path="/account/close" element={<CloseAccount />} />
             <Route path="/account/password" element={<ChangePassword />} />
             <Route path="/post/upload/images" element={<UploadImage />} />
+            <Route path="/post/upload/content" element={<CreatePost />} />
           </>
         ) : (
           <>
@@ -126,6 +127,7 @@ function App() {
             <Route path="/account/password" element={<Navigate to="/" />} />
             <Route path="/post/upload" element={<Navigate to="/" />} />
             <Route path="/post/upload/post" element={<Navigate to="/" />} />
+            <Route path="/post/upload/content" element={<Navigate to="/" />} />
           </>
         )}
       </Routes>
