@@ -1,8 +1,8 @@
 import { styled } from "styled-components";
 import SearchPost from "../../components/SearchPost";
 import { RiCameraLensFill } from "react-icons/ri";
-import { useRecoilValue } from "recoil";
-import { loggedInState, sessionState } from "../../atoms";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { isBackToMainState, loggedInState, sessionState } from "../../atoms";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import defaultUserProfileImg from "../../assets/User/default-profile.png";
 import Menu from "../../components/Menu";
@@ -81,6 +81,8 @@ function Header() {
   const sessionData = useRecoilValue(sessionState);
   const userProfileImg = sessionData.profileImage;
 
+  const setIsBackToMain = useSetRecoilState(isBackToMainState);
+
   const [userImgClick, setUserImgClick] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -108,6 +110,7 @@ function Header() {
   };
 
   const navigateToRoot = () => {
+    setIsBackToMain(false);
     navigate("/");
   };
 
