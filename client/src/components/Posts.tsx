@@ -140,17 +140,17 @@ function Posts() {
                 </StyledLink>
                 <ProfileContainer>
                   <ProfileBox>
+                    <ProfileImg
+                      src={
+                        post.owner.profileImage
+                          ? `http://localhost:4000/${post.owner.profileImage}`
+                          : defaultUserProfileImg
+                      }
+                      alt=""
+                    />
                     <ProfileLink
                       to={`/user/${post.owner.username}`}
                       state={post.owner.username}>
-                      <ProfileImg
-                        src={
-                          post.owner.profileImage
-                            ? `http://localhost:4000/${post.owner.profileImage}`
-                            : defaultUserProfileImg
-                        }
-                        alt=""
-                      />
                       {post.owner.name}
                     </ProfileLink>
                   </ProfileBox>
