@@ -20,6 +20,32 @@ export const watch = async (req: Request, res: Response) => {
   return res.status(200).json(post);
 };
 
+export const postUpload = async (req: Request, res: Response) => {
+  const session = req.session as CustomSession;
+  const userId = session.user?._id;
+  const { title, description, hashtags } = req.body.formData;
+  const files = req.body.files;
+
+  const newPost = await Post.create({
+    title,
+    description,
+    hashtags,
+    fileUrl: files,
+    owner: userId,
+  });
+
+  await newPost.save();
+
+  const user = await User.findById(userId);
+
+  if (user) {
+    user?.posts.push(newPost._id);
+    await user?.save();
+  }
+
+  return res.status(200).json(req.files);
+};
+
 export const imagesUpload = async (req: Request, res: Response) => {
   const files = req.files;
 
