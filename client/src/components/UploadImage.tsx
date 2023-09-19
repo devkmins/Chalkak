@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import CreatePost from "./CreatePost";
 import Dropzone from "react-dropzone";
 import { styled } from "styled-components";
 import Header from "../pages/Header";
@@ -7,6 +6,8 @@ import { PiImageThin } from "react-icons/pi";
 import useInitSearch from "../hooks/useInitSearch";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useRecoilValue } from "recoil";
+import { sessionState } from "../atoms";
 
 const Container = styled.div``;
 
@@ -54,38 +55,24 @@ const DropZoneText = styled.p`
   margin-bottom: 20px;
 `;
 
-const UploadBtn = styled.button`
-  margin-top: 25px;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  background-color: black;
-  width: 50%;
-  height: 45px;
-
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const ColumnsContainer = styled.div`
+const ImagesContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 32%);
+  grid-template-columns: repeat(5, 18%);
   grid-auto-rows: auto;
   grid-gap: 15px;
   justify-content: center;
   width: 75%;
   border-top: 1px solid black;
   margin-top: 50px;
+
   padding-top: 50px;
+  padding-bottom: 35px;
 
   @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 20%);
     grid-auto-rows: auto;
   }
 `;
-
-const ImagesContainer = styled.div``;
 
 const ImagesBox = styled.div`
   margin-bottom: 15px;
@@ -131,68 +118,133 @@ const RemoveButton = styled.button`
   }
 `;
 
+const CreateBox = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+`;
+
+const CreateForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+
+  input {
+    display: flex;
+    align-items: flex-start;
+  }
+`;
+
+const TitleInput = styled.input`
+  height: 75px;
+  border: none;
+  border-top: 1px solid #4f4f4f;
+  border-bottom: 1px solid #4f4f4f;
+  font-size: 35px;
+  font-weight: 300;
+  padding-left: 10px;
+  font-family: "NanumGothic";
+`;
+
+const DescriptionTextArea = styled.textarea`
+  margin-top: 25px;
+  height: 275px;
+  font-size: 18px;
+  font-weight: 300;
+  text-align: left;
+  padding-top: 10px;
+  padding-bottom: 225px;
+  padding-left: 10px;
+  line-height: 25px;
+  font-family: "NanumGothic";
+`;
+
+const HashtagsContainer = styled.div``;
+
+const HashtagsInput = styled.input`
+  width: 100%;
+  margin-top: 25px;
+  height: 50px;
+  font-size: 14px;
+  padding-left: 10px;
+  font-weight: 300;
+  font-family: "NanumGothic";
+`;
+
+const HashtagsBox = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  white-space: nowrap;
+  margin-top: 10px;
+`;
+
+const Hashtag = styled.div`
+  padding: 10px 25px;
+  border-radius: 7.5px;
+  border: 1px solid #767676;
+  width: min-content;
+  margin-right: 15px;
+  margin-bottom: 10px;
+  color: #8c8c8c;
+  font-family: "NanumGothic";
+  font-weight: 300;
+`;
+
+const Btn = styled.button`
+  margin-top: 25px;
+  height: 50px;
+  color: white;
+  background-color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+`;
+
+const RemoveHashtagButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 1px;
+  right: 15px;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  line-height: 15px;
+  font-size: 10px;
+  text-align: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
+`;
+
+const Hashtags = styled.div`
+  position: relative;
+
+  &:hover ${RemoveButton} {
+    opacity: 1;
+    background-color: #8c8c8c;
+  }
+`;
+
 function UploadImage() {
   const [images, setImages] = useState<File[]>([]);
   const [data, setData] = useState<string[]>([]);
 
   const navigate = useNavigate();
 
-  const [firstCol, setFirstCol] = useState<string[]>([]);
-  const [secondCol, setSecondCol] = useState<string[]>([]);
-  const [thirdCol, setThirdCol] = useState<string[]>([]);
+  const sessionData = useRecoilValue(sessionState);
 
-  useEffect(() => {
-    const firstColImages: string[] = [];
-    const secondColImages: string[] = [];
-    const thirdColImages: string[] = [];
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    hashtags: [],
+  });
 
-    data?.forEach((img, index) => {
-      if (index % 3 === 0) {
-        firstColImages.push(img);
-      } else if (index % 3 === 1) {
-        secondColImages.push(img);
-      } else if (index % 3 === 2) {
-        thirdColImages.push(img);
-      }
-    });
-
-    setFirstCol(firstColImages);
-    setSecondCol(secondColImages);
-    setThirdCol(thirdColImages);
-  }, [data]);
-
-  const onClick = async () => {
-    if (images.length > 0) {
-      const imagesFormData = new FormData();
-
-      images.forEach((img) => {
-        imagesFormData.append("images", img);
-      });
-
-      try {
-        const responseImages = await axios.post(
-          "http://localhost:4000/post/upload/images",
-          imagesFormData,
-          {
-            withCredentials: true,
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-
-        const postId = responseImages.data;
-
-        navigate("/post/upload/content", {
-          state: postId,
-        });
-      } catch (error) {
-        console.log("error", error);
-      }
-    }
-  };
-
-  const removeClick = (img: string) => {
+  const removeImgClick = (img: string) => {
     setData((prev) => {
       const newData = [...prev];
       const index = newData.indexOf(String(img));
@@ -230,73 +282,171 @@ function UploadImage() {
     }
   };
 
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
+
+    if (images.length > 0) {
+      const imagesFormData = new FormData();
+
+      images.forEach((img) => {
+        imagesFormData.append("images", img);
+      });
+
+      try {
+        const responseImages = await axios.post(
+          "http://localhost:4000/post/upload/images",
+          imagesFormData,
+          { withCredentials: true }
+        );
+
+        const files = responseImages.data;
+
+        const responseForm = await axios.post(
+          "http://localhost:4000/post/upload",
+          { formData, files },
+          { withCredentials: true }
+        );
+
+        navigate(`/user/${sessionData.username}`, {
+          state: sessionData.username,
+        });
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+  };
+
+  const handleChange = (event: any) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  const handleHashtagsEnter = (event: any) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+
+      const { value } = event.target;
+
+      if (value !== "" && value.trim()) {
+        if (formData.hashtags.length < 5) {
+          setFormData((prev: any) => {
+            return { ...prev, hashtags: [...prev.hashtags, value.trim()] };
+          });
+        }
+
+        event.target.value = "";
+      }
+    }
+  };
+
+  const removeHashtagClick = (hashtag: string) => {
+    setFormData((prev: any) => {
+      const newHashtags: string[] = [...prev.hashtags];
+      const index = newHashtags.indexOf(hashtag);
+      newHashtags.splice(index, 1);
+
+      const newFormData = { ...prev, hashtags: newHashtags };
+
+      return newFormData;
+    });
+  };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   useInitSearch();
 
   return (
-    <Container>
-      <Header />
-      <UploadContainer>
-        <>
-          <UploadBox>
-            <Dropzone
-              maxFiles={10}
-              maxSize={150000000}
-              accept={{ "image/*": [".png", ".jpeg", ".jpg"] }}
-              onDrop={onDrop}>
-              {({ getRootProps, getInputProps }) => (
-                <DropzoneSection>
-                  <DropzoneBox {...getRootProps()}>
-                    <input {...getInputProps()} />
-                    <PiImageThin size={100} />
-                    <DropZoneText>
-                      최대 10개의 이미지를 끌어다 놓거나 찾아보기로 선택해
-                      보세요!
-                    </DropZoneText>
-                    <span>이미지 최대 {10 - data.length}개 추가 가능</span>
-                  </DropzoneBox>
-                </DropzoneSection>
-              )}
-            </Dropzone>
-            <UploadBtn onClick={onClick}>{data.length} 사진 제출</UploadBtn>
-          </UploadBox>
-          <ColumnsContainer>
+    <>
+      <Container>
+        <Header />
+        <UploadContainer>
+          <>
+            <UploadBox>
+              <Dropzone
+                maxFiles={10}
+                maxSize={150000000}
+                accept={{ "image/*": [".png", ".jpeg", ".jpg"] }}
+                onDrop={onDrop}>
+                {({ getRootProps, getInputProps }) => (
+                  <DropzoneSection>
+                    <DropzoneBox {...getRootProps()}>
+                      <input {...getInputProps()} />
+                      <PiImageThin size={100} />
+                      <DropZoneText>
+                        최대 10개의 이미지를 끌어다 놓거나 찾아보기로 선택해
+                        보세요!
+                      </DropZoneText>
+                      <span>이미지 최대 {10 - data.length}개 추가 가능</span>
+                    </DropzoneBox>
+                  </DropzoneSection>
+                )}
+              </Dropzone>
+            </UploadBox>
             <ImagesContainer>
-              {firstCol &&
-                firstCol.map((img) => (
+              {data &&
+                data.map((img) => (
                   <ImagesBox key={img}>
                     <Image src={img} alt="" />
-                    <RemoveButton onClick={() => removeClick(img)}>
+                    <RemoveButton onClick={() => removeImgClick(img)}>
                       X
                     </RemoveButton>
                   </ImagesBox>
                 ))}
             </ImagesContainer>
-            <ImagesContainer>
-              {secondCol &&
-                secondCol.map((img) => (
-                  <ImagesBox key={img}>
-                    <Image src={img} alt="" />
-                    <RemoveButton onClick={() => removeClick(img)}>
-                      X
-                    </RemoveButton>
-                  </ImagesBox>
-                ))}
-            </ImagesContainer>
-            <ImagesContainer>
-              {thirdCol &&
-                thirdCol.map((img) => (
-                  <ImagesBox key={img}>
-                    <Image src={img} alt="" />
-                    <RemoveButton onClick={() => removeClick(img)}>
-                      X
-                    </RemoveButton>
-                  </ImagesBox>
-                ))}
-            </ImagesContainer>
-          </ColumnsContainer>
-        </>
-      </UploadContainer>
-    </Container>
+          </>
+        </UploadContainer>
+      </Container>
+      {images.length > 0 && (
+        <CreateBox>
+          <CreateForm onSubmit={handleSubmit}>
+            <TitleInput
+              type="title"
+              name="title"
+              placeholder="제목"
+              value={formData.title}
+              maxLength={75}
+              required
+              onChange={handleChange}
+            />
+            <DescriptionTextArea
+              name="description"
+              placeholder="사진에 대한 설명을 작성해 보세요."
+              value={formData.description}
+              maxLength={150}
+              onChange={handleChange}
+            />
+            <HashtagsContainer>
+              <HashtagsInput
+                type="text"
+                name="hashtags"
+                placeholder="추가하고 싶은 해시태그를 입력해 보세요."
+                onKeyDown={handleHashtagsEnter}
+              />
+              <HashtagsBox>
+                {formData.hashtags &&
+                  formData.hashtags.map((hashtag) => (
+                    <Hashtags key={hashtag + Math.random()}>
+                      <Hashtag>{hashtag}</Hashtag>
+                      <RemoveHashtagButton
+                        onClick={() => removeHashtagClick(hashtag)}>
+                        X
+                      </RemoveHashtagButton>
+                    </Hashtags>
+                  ))}
+              </HashtagsBox>
+            </HashtagsContainer>
+            <Btn onClick={handleSubmit} type="submit">
+              {data.length} 사진 제출
+            </Btn>
+          </CreateForm>
+        </CreateBox>
+      )}
+    </>
   );
 }
 
