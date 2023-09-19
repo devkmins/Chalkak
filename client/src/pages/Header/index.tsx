@@ -149,7 +149,7 @@ function Header() {
         {loggedIn ? (
           <>
             <Link to={"/user/logout"}>Logout</Link>
-            <Link to={"/post/upload/images"}>업로드</Link>
+            <Link to={"/post/upload"}>업로드</Link>
             <UserImgBox onFocus={handleFocus} ref={menuRef}>
               <UserImg
                 key={userProfileImg}
