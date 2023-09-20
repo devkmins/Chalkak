@@ -111,30 +111,34 @@ function CloseAccount() {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
-    const hashedFormData = {
-      password: CryptoJS.SHA256(formData.password).toString(),
-    };
+    const result = window.confirm("계정을 정말 폐쇄하실 건가요?");
 
-    const response = await axios
-      .delete(`http://localhost:4000/account/close`, {
-        withCredentials: true,
-        data: hashedFormData,
-      })
-      .then((response) => {
-        setLoggedIn(false);
-        setSessionData({
-          email: "",
-          username: "",
-          name: "",
-          profileImage: "",
-          socialOnly: false,
-          _id: "",
-        });
-        removeCookie("connect.sid");
+    if (result) {
+      const hashedFormData = {
+        password: CryptoJS.SHA256(formData.password).toString(),
+      };
 
-        navigate("/");
-      })
-      .catch((error) => setError(error.response.data));
+      const response = await axios
+        .delete(`http://localhost:4000/account/close`, {
+          withCredentials: true,
+          data: hashedFormData,
+        })
+        .then((response) => {
+          setLoggedIn(false);
+          setSessionData({
+            email: "",
+            username: "",
+            name: "",
+            profileImage: "",
+            socialOnly: false,
+            _id: "",
+          });
+          removeCookie("connect.sid");
+
+          navigate("/");
+        })
+        .catch((error) => setError(error.response.data));
+    }
   };
 
   const handleChange = (event: any) => {
