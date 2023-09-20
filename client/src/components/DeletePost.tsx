@@ -68,15 +68,19 @@ function DeletePost({ postId }: any) {
   );
 
   const onClick = async () => {
-    try {
-      const response = await axios.delete(
-        `http://localhost:4000/post/${postId}/delete`,
-        { withCredentials: true }
-      );
+    const result = window.confirm("사진을 정말 제거하실 건가요?");
 
-      navigate("/");
-    } catch (error) {
-      console.error("Error:", error);
+    if (result) {
+      try {
+        const response = await axios.delete(
+          `http://localhost:4000/post/${postId}/delete`,
+          { withCredentials: true }
+        );
+
+        navigate("/");
+      } catch (error) {
+        console.error("Error:", error);
+      }
     }
   };
 
