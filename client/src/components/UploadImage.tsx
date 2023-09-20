@@ -8,14 +8,25 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useRecoilValue } from "recoil";
 import { sessionState } from "../atoms";
+import { TbArrowNarrowLeft } from "react-icons/tb";
 
 const Container = styled.div``;
+
+const BackBtnBox = styled.div`
+  padding-top: 75px;
+  margin-left: 10px;
+`;
+
+const StyledTbArrowNarrowLeft = styled(TbArrowNarrowLeft)`
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+`;
 
 const UploadContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 100px;
 `;
 
 const UploadBox = styled.div`
@@ -244,6 +255,20 @@ function UploadImage() {
     hashtags: [],
   });
 
+  const handleBackBtn = () => {
+    if (images.length > 0) {
+      const result = window.confirm(
+        "모든 업로드가 취소됩니다. 정말로 닫으시겠습니까?"
+      );
+
+      if (result) {
+        navigate(-1);
+      }
+    } else {
+      navigate(-1);
+    }
+  };
+
   const removeImgClick = (img: string) => {
     setData((prev) => {
       const newData = [...prev];
@@ -364,6 +389,9 @@ function UploadImage() {
     <>
       <Container>
         <Header />
+        <BackBtnBox>
+          <StyledTbArrowNarrowLeft onClick={handleBackBtn} />
+        </BackBtnBox>
         <UploadContainer>
           <>
             <UploadBox>
