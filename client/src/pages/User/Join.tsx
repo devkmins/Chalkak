@@ -258,7 +258,10 @@ function Join() {
       .post("http://localhost:4000/join", hashedJoinFormData, {
         withCredentials: true,
       })
-      .then(() => navigate("/login"))
+      .then(() => {
+        sessionStorage.setItem("isJoined", "true");
+        navigate("/login", { state: { name: formData.name } });
+      })
       .catch((error) => setError(error.response.data));
   };
 
