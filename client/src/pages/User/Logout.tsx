@@ -2,13 +2,14 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { loggedInState, sessionState } from "../../atoms";
+import { isLoggedOutState, loggedInState, sessionState } from "../../atoms";
 import { useCookies } from "react-cookie";
 
 function Logout() {
   const navigate = useNavigate();
   const setLoggedIn = useSetRecoilState(loggedInState);
   const setSessionData = useSetRecoilState(sessionState);
+  const setIsLoggedOut = useSetRecoilState(isLoggedOutState);
   const [cookies, , removeCookie] = useCookies(["connect.sid"]);
 
   const logout = async () => {
@@ -27,6 +28,7 @@ function Logout() {
           _id: "",
         });
         removeCookie("connect.sid");
+        setIsLoggedOut(true);
         navigate("/");
       });
   };
