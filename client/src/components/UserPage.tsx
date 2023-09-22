@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useQuery } from "react-query";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { sessionState } from "../atoms";
 import { Link } from "react-router-dom";
@@ -163,8 +163,10 @@ const ContentText = styled.span`
 
 function UserPage() {
   const location = useLocation();
-  const username = location.state;
   const pathname = location.pathname;
+
+  const params = useParams();
+  const username = params.id;
 
   const { data } = useQuery("data", () =>
     axios
