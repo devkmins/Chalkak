@@ -52,3 +52,8 @@ export const isLoggedOutState = atom({
   key: "isLoggedOutState",
   default: false,
 });
+
+export const isEditedState = atom({
+  key: "isEditedState",
+  default: false,
+});
