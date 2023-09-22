@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { sessionState } from "../atoms";
@@ -8,6 +8,7 @@ import defaultUserProfileImg from "../assets/User/default-profile.png";
 import Header from "../pages/Header";
 import AccountMenu from "./AccountMenu";
 import useInitSearch from "../hooks/useInitSearch";
+import NotificationBar from "./NotificationBar";
 
 interface Error {
   emailError: string;
@@ -144,6 +145,8 @@ function Account() {
 
   const [error, setError] = useState<Error>();
 
+  const [isUpdated, setIsUpdated] = useState(false);
+
   const handleSubmit = async (event?: React.FormEvent<HTMLFormElement>) => {
     if (event) {
       event.preventDefault();
@@ -180,7 +183,10 @@ function Account() {
 
     const response = await axios
       .put(`http://localhost:4000/account`, formData, { withCredentials: true })
-      .then((response) => setSessionData(response.data))
+      .then((response) => {
+        setIsUpadted(true);
+        setSessionData(response.data);
+      })
       .catch((error) => setError(error.response.data));
   };
 
@@ -241,86 +247,95 @@ function Account() {
 
   useInitSearch();
 
+  useEffect(() => {
+    setTimeout(() => setIsUpdated(false), 3000);
+  }, [isUpdated]);
+
+  const accountText = "계정이 업데이트 되었습니다.";
+
   return (
-    <Container>
-      <Header />
-      <Box>
-        <AccountMenu pathname={pathname} />
-        <EditSection>
-          <MainTitleBox>
-            <MainTitle>프로필 편집</MainTitle>
-          </MainTitleBox>
-          <EditBox>
-            <ProfileImgBox>
-              <ProfileImg
-                key={userProfileImg}
-                alt=""
-                src={
-                  userProfileImg
-                    ? `http://localhost:4000/${userProfileImg}`
-                    : defaultUserProfileImg
-                }
-              />
-              <CustomButton onClick={handleInputClick}>
-                프로필 이미지 변경
-              </CustomButton>
-              <EditProfileImg
-                onChange={imgChange}
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-              />
-            </ProfileImgBox>
-            <EditForm ref={formRef}>
-              <EditInputContainer>
-                <EditInputBox>
-                  <span>이름</span>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    required
-                    onChange={handleChange}
-                    onKeyDown={handleEnterKeyPress}
-                  />
-                </EditInputBox>
-                <EditInputBox>
-                  <span>이메일</span>
-                  <input
-                    type="text"
-                    name="email"
-                    value={formData.email}
-                    required
-                    onChange={handleChange}
-                    onKeyDown={handleEnterKeyPress}
-                  />
-                  {error && error.emailError && (
-                    <ErrorMessage>{error.emailError}</ErrorMessage>
-                  )}
-                </EditInputBox>
-                <EditInputBox>
-                  <span>사용자 이름</span>
-                  <input
-                    type="text"
-                    name="username"
-                    value={formData.username}
-                    required
-                    onChange={handleChange}
-                    onKeyDown={handleEnterKeyPress}
-                  />
-                  {error && error.usernameError && (
-                    <ErrorMessage>{error.usernameError}</ErrorMessage>
-                  )}
-                </EditInputBox>
-              </EditInputContainer>
-            </EditForm>
-          </EditBox>
-          <EditBtnBox>
-            <EditBtn onClick={handleFormClick}>계정 업데이트</EditBtn>
-          </EditBtnBox>
-        </EditSection>
-      </Box>
-    </Container>
+    <>
+      {isUpdated && <NotificationBar text={accountText} />}
+      <Container>
+        <Header />
+        <Box>
+          <AccountMenu pathname={pathname} />
+          <EditSection>
+            <MainTitleBox>
+              <MainTitle>프로필 편집</MainTitle>
+            </MainTitleBox>
+            <EditBox>
+              <ProfileImgBox>
+                <ProfileImg
+                  key={userProfileImg}
+                  alt=""
+                  src={
+                    userProfileImg
+                      ? `http://localhost:4000/${userProfileImg}`
+                      : defaultUserProfileImg
+                  }
+                />
+                <CustomButton onClick={handleInputClick}>
+                  프로필 이미지 변경
+                </CustomButton>
+                <EditProfileImg
+                  onChange={imgChange}
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                />
+              </ProfileImgBox>
+              <EditForm ref={formRef}>
+                <EditInputContainer>
+                  <EditInputBox>
+                    <span>이름</span>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      required
+                      onChange={handleChange}
+                      onKeyDown={handleEnterKeyPress}
+                    />
+                  </EditInputBox>
+                  <EditInputBox>
+                    <span>이메일</span>
+                    <input
+                      type="text"
+                      name="email"
+                      value={formData.email}
+                      required
+                      onChange={handleChange}
+                      onKeyDown={handleEnterKeyPress}
+                    />
+                    {error && error.emailError && (
+                      <ErrorMessage>{error.emailError}</ErrorMessage>
+                    )}
+                  </EditInputBox>
+                  <EditInputBox>
+                    <span>사용자 이름</span>
+                    <input
+                      type="text"
+                      name="username"
+                      value={formData.username}
+                      required
+                      onChange={handleChange}
+                      onKeyDown={handleEnterKeyPress}
+                    />
+                    {error && error.usernameError && (
+                      <ErrorMessage>{error.usernameError}</ErrorMessage>
+                    )}
+                  </EditInputBox>
+                </EditInputContainer>
+              </EditForm>
+            </EditBox>
+            <EditBtnBox>
+              <EditBtn onClick={handleFormClick}>계정 업데이트</EditBtn>
+            </EditBtnBox>
+          </EditSection>
+        </Box>
+      </Container>
+    </>
   );
 }
 
