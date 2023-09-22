@@ -1,15 +1,16 @@
 import axios from "axios";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
 import { useSetRecoilState } from "recoil";
-import { loggedInState, sessionState } from "../../atoms";
+import { isLoggedOutState, loggedInState, sessionState } from "../../atoms";
 import { styled } from "styled-components";
 import loginImg from "../../assets/Login/login.jpeg";
 import { RiCameraLensFill } from "react-icons/ri";
 import { BiSolidShow } from "react-icons/bi";
 import { BiSolidHide } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import NotificationBar from "../../components/NotificationBar";
 
 const Box = styled.div`
   display: grid;
@@ -162,6 +163,16 @@ function Login() {
   const setLoggedIn = useSetRecoilState(loggedInState);
   const setSessionData = useSetRecoilState(sessionState);
 
+  const setIsLoggedOut = useSetRecoilState(isLoggedOutState);
+
+  const isJoined = sessionStorage.getItem("isJoined");
+  const location = useLocation();
+  let userName;
+
+  if (location.state) {
+    userName = location.state.name;
+  }
+
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
@@ -177,6 +188,7 @@ function Login() {
       .then((response) => {
         setLoggedIn(true);
         setSessionData(response.data.user);
+        setIsLoggedOut(false);
         navigate("/");
       })
       .catch((error) => setError(error.response.data));
@@ -199,8 +211,17 @@ function Login() {
     setShowPassword((prev) => !prev);
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      sessionStorage.removeItem("isJoined");
+    }, 3001);
+  }, []);
+
+  const joinText = `안녕하세요 ${userName}님, 회원가입이 완료되었어요!`;
+
   return (
     <Box>
+      {isJoined === "true" && <NotificationBar text={joinText} />}
       <LoginImgContainer>
         <LoginImg />
       </LoginImgContainer>
