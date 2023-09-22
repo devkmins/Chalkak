@@ -1,10 +1,11 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CryptoJS from "crypto-js";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import AccountMenu from "./AccountMenu";
 import styled from "styled-components";
 import Header from "../pages/Header";
+import NotificationBar from "./NotificationBar";
 
 interface Error {
   currentPasswordError: string;
@@ -87,8 +88,6 @@ const ErrorMessage = styled.span`
 `;
 
 function ChangePassword() {
-  const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     currentPassword: "",
     newPassword: "",
@@ -99,6 +98,8 @@ function ChangePassword() {
   const pathname = location.pathname;
 
   const [error, setError] = useState<Error>();
+
+  const [isChanged, setIsChanged] = useState(false);
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -150,7 +151,12 @@ function ChangePassword() {
         withCredentials: true,
       })
       .then((response) => {
-        navigate("/");
+        setIsChanged(true);
+        setFormData({
+          currentPassword: "",
+          newPassword: "",
+          newConfirmPassword: "",
+        });
       })
       .catch((error) => setError(error.response.data));
   };
@@ -169,64 +175,73 @@ function ChangePassword() {
     });
   };
 
+  useEffect(() => {
+    setTimeout(() => setIsChanged(false), 3000);
+  }, [isChanged]);
+
+  const changePasswordText = "비밀번호가 변경되었습니다.";
+
   return (
-    <Container>
-      <Header />
-      <Box>
-        <AccountMenu pathname={pathname} />
-        <ChangePasswordSection>
-          <MainTitleBox>
-            <MainTitle>비밀번호 변경</MainTitle>
-          </MainTitleBox>
-          <ChangePasswordBox>
-            <form onSubmit={handleSubmit}>
-              <InputBox>
-                <span>현재 비밀번호</span>
-                <input
-                  name="currentPassword"
-                  type="password"
-                  value={formData.currentPassword}
-                  onChange={handleChange}
-                  required
-                />
-                {error && error.currentPasswordError && (
-                  <ErrorMessage>{error.currentPasswordError}</ErrorMessage>
-                )}
-              </InputBox>
-              <InputBox>
-                <span>비밀번호</span>
-                <input
-                  name="newPassword"
-                  type="password"
-                  value={formData.newPassword}
-                  onChange={handleChange}
-                  required
-                />
-                {error && error.newPasswordError && (
-                  <ErrorMessage>{error.newPasswordError}</ErrorMessage>
-                )}
-              </InputBox>
-              <InputBox>
-                <span>비밀번호 확인</span>
-                <input
-                  name="newConfirmPassword"
-                  type="password"
-                  value={formData.newConfirmPassword}
-                  onChange={handleChange}
-                  required
-                />
-                {error && error.confirmPasswordError && (
-                  <ErrorMessage>{error.confirmPasswordError}</ErrorMessage>
-                )}
-              </InputBox>
-              <BtnBox>
-                <Btn type="submit">비밀번호 변경</Btn>
-              </BtnBox>
-            </form>
-          </ChangePasswordBox>
-        </ChangePasswordSection>
-      </Box>
-    </Container>
+    <>
+      {isChanged && <NotificationBar text={changePasswordText} />}
+      <Container>
+        <Header />
+        <Box>
+          <AccountMenu pathname={pathname} />
+          <ChangePasswordSection>
+            <MainTitleBox>
+              <MainTitle>비밀번호 변경</MainTitle>
+            </MainTitleBox>
+            <ChangePasswordBox>
+              <form onSubmit={handleSubmit}>
+                <InputBox>
+                  <span>현재 비밀번호</span>
+                  <input
+                    name="currentPassword"
+                    type="password"
+                    value={formData.currentPassword}
+                    onChange={handleChange}
+                    required
+                  />
+                  {error && error.currentPasswordError && (
+                    <ErrorMessage>{error.currentPasswordError}</ErrorMessage>
+                  )}
+                </InputBox>
+                <InputBox>
+                  <span>비밀번호</span>
+                  <input
+                    name="newPassword"
+                    type="password"
+                    value={formData.newPassword}
+                    onChange={handleChange}
+                    required
+                  />
+                  {error && error.newPasswordError && (
+                    <ErrorMessage>{error.newPasswordError}</ErrorMessage>
+                  )}
+                </InputBox>
+                <InputBox>
+                  <span>비밀번호 확인</span>
+                  <input
+                    name="newConfirmPassword"
+                    type="password"
+                    value={formData.newConfirmPassword}
+                    onChange={handleChange}
+                    required
+                  />
+                  {error && error.confirmPasswordError && (
+                    <ErrorMessage>{error.confirmPasswordError}</ErrorMessage>
+                  )}
+                </InputBox>
+                <BtnBox>
+                  <Btn type="submit">비밀번호 변경</Btn>
+                </BtnBox>
+              </form>
+            </ChangePasswordBox>
+          </ChangePasswordSection>
+        </Box>
+      </Container>
+    </>
   );
 }
 
