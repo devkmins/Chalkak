@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
 import { useQuery } from "react-query";
+import { useSetRecoilState } from "recoil";
 import { styled } from "styled-components";
+import { isEditedState } from "../atoms";
 
 interface Error {
   titleError: string;
@@ -124,6 +126,8 @@ function EditPost({ postId }: any) {
 
   const [error, setError] = useState<Error>();
 
+  const setIsEdited = useSetRecoilState(isEditedState);
+
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
@@ -142,6 +146,8 @@ function EditPost({ postId }: any) {
         formData,
         { withCredentials: true }
       );
+
+      setIsEdited(true);
     } catch (error) {
       console.error("Error:", error);
     }
