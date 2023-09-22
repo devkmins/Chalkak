@@ -393,9 +393,7 @@ function DetailPost() {
           <NestedBox>
             <ProfileContainer>
               <ProfileBox>
-                <Link
-                  to={`/user/${data?.owner?.username}`}
-                  state={data?.owner?.username}>
+                <Link to={`/user/${data?.owner?.username}`}>
                   <ProfileImg
                     alt=""
                     src={
@@ -405,9 +403,7 @@ function DetailPost() {
                     }
                   />
                 </Link>
-                <Link
-                  to={`/user/${data?.owner?.username}`}
-                  state={data?.owner?.username}>
+                <Link to={`/user/${data?.owner?.username}`}>
                   <ProfileName>{data?.owner?.name}</ProfileName>
                 </Link>
               </ProfileBox>

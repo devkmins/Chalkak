@@ -198,9 +198,7 @@ function SearchPostList() {
                           </StyledLink>
                           <PostProfileContainer>
                             <ProfileBox>
-                              <ProfileLink
-                                to={`/user/${post.owner.username}`}
-                                state={post.owner.username}>
+                              <ProfileLink to={`/user/${post.owner.username}`}>
                                 <PostProfileImg
                                   src={
                                     post.owner.profileImage
@@ -238,9 +236,7 @@ function SearchPostList() {
                                 }
                                 alt=""
                               />
-                              <ProfileLink
-                                to={`/user/${post.owner.username}`}
-                                state={post.owner.username}>
+                              <ProfileLink to={`/user/${post.owner.username}`}>
                                 {post.owner.name}
                               </ProfileLink>
                             </ProfileBox>
@@ -270,9 +266,7 @@ function SearchPostList() {
                                 }
                                 alt=""
                               />
-                              <ProfileLink
-                                to={`/user/${post.owner.username}`}
-                                state={post.owner.username}>
+                              <ProfileLink to={`/user/${post.owner.username}`}>
                                 {post.owner.name}
                               </ProfileLink>
                             </ProfileBox>

@@ -161,7 +161,6 @@ function Posts() {
                   <ProfileBox>
                     <ProfileLink
                       to={`/user/${post.owner.username}`}
-                      state={post.owner.username}
                       onClick={clickedProfile}>
                       <ProfileImg
                         src={
@@ -195,7 +194,6 @@ function Posts() {
                   <ProfileBox>
                     <ProfileLink
                       to={`/user/${post.owner.username}`}
-                      state={post.owner.username}
                       onClick={clickedProfile}>
                       <ProfileImg
                         src={
@@ -229,7 +227,6 @@ function Posts() {
                   <ProfileBox>
                     <ProfileLink
                       to={`/user/${post.owner.username}`}
-                      state={post.owner.username}
                       onClick={clickedProfile}>
                       <ProfileImg
                         src={

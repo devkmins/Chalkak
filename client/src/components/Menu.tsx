@@ -28,9 +28,7 @@ function Menu() {
 
   return (
     <Container>
-      <Link to={`/user/${sessionData.username}`} state={sessionData.username}>
-        프로필 보기
-      </Link>
+      <Link to={`/user/${sessionData.username}`}>프로필 보기</Link>
       <Link to={"/account"}>계정 설정</Link>
     </Container>
   );
