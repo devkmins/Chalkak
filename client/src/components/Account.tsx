@@ -184,7 +184,7 @@ function Account() {
     const response = await axios
       .put(`http://localhost:4000/account`, formData, { withCredentials: true })
       .then((response) => {
-        setIsUpadted(true);
+        setIsUpdated(true);
         setSessionData(response.data);
       })
       .catch((error) => setError(error.response.data));
