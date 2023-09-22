@@ -1,8 +1,13 @@
 import axios from "axios";
 import { useQuery } from "react-query";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { currentSearchState, loggedInState, sessionState } from "../atoms";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  currentSearchState,
+  isEditedState,
+  loggedInState,
+  sessionState,
+} from "../atoms";
 import { useEffect, useState } from "react";
 import Header from "../pages/Header";
 import { styled } from "styled-components";
@@ -19,6 +24,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
 import useBackToMain from "../hooks/useBackToMain";
+import NotificationBar from "./NotificationBar";
 
 interface StyledAiFillHeartProps extends IconBaseProps {
   clicked: string;
@@ -288,6 +294,8 @@ function DetailPost() {
 
   const [modalIsOpen, setIsOpen] = useState(false);
 
+  const [isEdited, setIsEdited] = useRecoilState(isEditedState);
+
   const openModal = () => {
     setIsOpen(true);
   };
@@ -370,100 +378,109 @@ function DetailPost() {
 
   useBackToMain();
 
+  const updatedText = "사진이 업데이트 되었습니다.";
+
+  useEffect(() => {
+    setTimeout(() => setIsEdited(false), 3000);
+  }, [isEdited]);
+
   return (
-    <Container>
-      <Header />
-      <Box>
-        <NestedBox>
-          <ProfileContainer>
-            <ProfileBox>
-              <Link
-                to={`/user/${data?.owner?.username}`}
-                state={data?.owner?.username}>
-                <ProfileImg
-                  alt=""
-                  src={
-                    userProfileImg
-                      ? `http://localhost:4000/${userProfileImg}`
-                      : defaultUserProfileImg
-                  }
-                />
-              </Link>
-              <Link
-                to={`/user/${data?.owner?.username}`}
-                state={data?.owner?.username}>
-                <ProfileName>{data?.owner?.name}</ProfileName>
-              </Link>
-            </ProfileBox>
-            {sessionData._id === data?.owner?._id && (
-              <PostSettingsContainer>
-                <StyledBsThreeDots onClick={openModal} />
-                <StyledReactModal
-                  isOpen={modalIsOpen}
-                  onAfterOpen={afterOpenModal}
-                  onRequestClose={closeModal}>
-                  <StyledGrFormClose onClick={closeModal} />
-                  <PostSettings postId={data?._id} />
-                </StyledReactModal>
-              </PostSettingsContainer>
+    <>
+      {isEdited && <NotificationBar text={updatedText} />}
+      <Container>
+        <Header />
+        <Box>
+          <NestedBox>
+            <ProfileContainer>
+              <ProfileBox>
+                <Link
+                  to={`/user/${data?.owner?.username}`}
+                  state={data?.owner?.username}>
+                  <ProfileImg
+                    alt=""
+                    src={
+                      userProfileImg
+                        ? `http://localhost:4000/${userProfileImg}`
+                        : defaultUserProfileImg
+                    }
+                  />
+                </Link>
+                <Link
+                  to={`/user/${data?.owner?.username}`}
+                  state={data?.owner?.username}>
+                  <ProfileName>{data?.owner?.name}</ProfileName>
+                </Link>
+              </ProfileBox>
+              {sessionData._id === data?.owner?._id && (
+                <PostSettingsContainer>
+                  <StyledBsThreeDots onClick={openModal} />
+                  <StyledReactModal
+                    isOpen={modalIsOpen}
+                    onAfterOpen={afterOpenModal}
+                    onRequestClose={closeModal}>
+                    <StyledGrFormClose onClick={closeModal} />
+                    <PostSettings postId={data?._id} />
+                  </StyledReactModal>
+                </PostSettingsContainer>
+              )}
+            </ProfileContainer>
+            {data && (
+              <div key={data?._id}>
+                <ImagesContainer>
+                  <ImagesBox>
+                    <StyledSlider {...sliderSettings}>
+                      {data?.fileUrl?.map((img: any, index: number) => (
+                        <Image
+                          key={img.path}
+                          alt={`Image ${index + 1}`}
+                          src={`http://localhost:4000/${img.path}`}
+                        />
+                      ))}
+                    </StyledSlider>
+                  </ImagesBox>
+                </ImagesContainer>
+                <ContentContainer>
+                  <ContentBox>
+                    <Title>{data?.title}</Title>
+                    <Description>{data?.description}</Description>
+                  </ContentBox>
+                  <InfoBox>
+                    <DateBox>
+                      <StyledMdDateRange />
+                      <span>{resultDate}에 게시됨</span>
+                    </DateBox>
+                    <ViewsBox>
+                      <StyledBsPerson />
+                      <span>{data?.views}회 조회</span>
+                    </ViewsBox>
+                  </InfoBox>
+                  <HashtagsList>
+                    {data?.hashtags &&
+                      data?.hashtags?.map((hashtag: string) => (
+                        <Hashtag
+                          onClick={() => hashtagClicked(hashtag)}
+                          key={hashtag + `${Math.random()}`}>
+                          {hashtag}
+                        </Hashtag>
+                      ))}
+                  </HashtagsList>
+                  <LikesBox>
+                    {loggedIn ? (
+                      <StyledAiFillHeart
+                        clicked={String(clickLikes)}
+                        onClick={likesBtn}></StyledAiFillHeart>
+                    ) : (
+                      <StyledAiFillHeart clicked={String(clickLikes)} />
+                    )}
+                    <span>{likes}</span>
+                  </LikesBox>
+                </ContentContainer>
+              </div>
             )}
-          </ProfileContainer>
-          {data && (
-            <div key={data?._id}>
-              <ImagesContainer>
-                <ImagesBox>
-                  <StyledSlider {...sliderSettings}>
-                    {data?.fileUrl?.map((img: any, index: number) => (
-                      <Image
-                        key={img.path}
-                        alt={`Image ${index + 1}`}
-                        src={`http://localhost:4000/${img.path}`}
-                      />
-                    ))}
-                  </StyledSlider>
-                </ImagesBox>
-              </ImagesContainer>
-              <ContentContainer>
-                <ContentBox>
-                  <Title>{data?.title}</Title>
-                  <Description>{data?.description}</Description>
-                </ContentBox>
-                <InfoBox>
-                  <DateBox>
-                    <StyledMdDateRange />
-                    <span>{resultDate}에 게시됨</span>
-                  </DateBox>
-                  <ViewsBox>
-                    <StyledBsPerson />
-                    <span>{data?.views}회 조회</span>
-                  </ViewsBox>
-                </InfoBox>
-                <HashtagsList>
-                  {data?.hashtags &&
-                    data?.hashtags?.map((hashtag: string) => (
-                      <Hashtag
-                        onClick={() => hashtagClicked(hashtag)}
-                        key={hashtag + `${Math.random()}`}>
-                        {hashtag}
-                      </Hashtag>
-                    ))}
-                </HashtagsList>
-                <LikesBox>
-                  {loggedIn ? (
-                    <StyledAiFillHeart
-                      clicked={String(clickLikes)}
-                      onClick={likesBtn}></StyledAiFillHeart>
-                  ) : (
-                    <StyledAiFillHeart clicked={String(clickLikes)} />
-                  )}
-                  <span>{likes}</span>
-                </LikesBox>
-              </ContentContainer>
-            </div>
-          )}
-        </NestedBox>
-      </Box>
-    </Container>
+          </NestedBox>
+        </Box>
+      </Container>
+    </>
   );
 }
 
