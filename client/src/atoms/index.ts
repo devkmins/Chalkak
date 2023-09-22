@@ -47,3 +47,8 @@ export const isBackToMainState = atom({
   key: "isBackToMainState",
   default: false,
 });
+
+export const isLoggedOutState = atom({
+  key: "isLoggedOutState",
+  default: false,
+});
