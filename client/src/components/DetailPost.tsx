@@ -25,6 +25,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
 import useBackToMain from "../hooks/useBackToMain";
 import NotificationBar from "./NotificationBar";
+import SimilarPosts from "./SimilarPosts";
 
 interface StyledAiFillHeartProps extends IconBaseProps {
   clicked: string;
@@ -232,6 +233,17 @@ const StyledAiFillHeart = styled(AiFillHeart)<StyledAiFillHeartProps>`
   margin-bottom: 5px;
   cursor: pointer;
   color: ${(props) => (props.clicked === "true" ? "#ff6b6b" : "#576574")};
+`;
+
+const SimilarPostsBox = styled.div`
+  padding-top: 25px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+`;
+
+const SimilarPostsText = styled.span`
+  margin-left: 25px;
+  font-size: 18px;
+  font-weight: 600;
 `;
 
 const CustomArrow = styled.div`
@@ -475,6 +487,10 @@ function DetailPost() {
             )}
           </NestedBox>
         </Box>
+        <SimilarPostsBox>
+          <SimilarPostsText>관련 사진</SimilarPostsText>
+          <SimilarPosts title={data?.title} postId={data?._id} />
+        </SimilarPostsBox>
       </Container>
     </>
   );
