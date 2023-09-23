@@ -57,3 +57,8 @@ export const isEditedState = atom({
   key: "isEditedState",
   default: false,
 });
+
+export const currentPostState = atom({
+  key: "currentPostState",
+  default: "",
+});
