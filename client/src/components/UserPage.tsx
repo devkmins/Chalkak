@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useQuery } from "react-query";
 import { useLocation, useParams } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { sessionState } from "../atoms";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { currentUserPageState, sessionState } from "../atoms";
 import { Link } from "react-router-dom";
 import defaultUserProfileImg from "../assets/User/default-profile.png";
 import styled from "styled-components";
@@ -179,6 +179,8 @@ function UserPage() {
   const [connectPhotos, setConnectPhotos] = useState(true);
   const [connectLikes, setConnectLikes] = useState(false);
 
+  const setCurrentUserPage = useSetRecoilState(currentUserPageState);
+
   useEffect(() => {
     if (pathname === `/user/${username}`) {
       setConnectPhotos(true);
@@ -198,6 +200,12 @@ function UserPage() {
 
   data?.userPosts?.posts?.map((post: any) => (totalViews += post.views - 1));
   data?.userPosts?.posts?.map((post: any) => (totalLikes += post.likes.length));
+
+  useEffect(() => {
+    if (username) {
+      setCurrentUserPage(username);
+    }
+  }, [username]);
 
   useInitSearch();
 
