@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
+  currentPostState,
   currentSearchState,
   isEditedState,
   loggedInState,
@@ -308,6 +309,8 @@ function DetailPost() {
 
   const [isEdited, setIsEdited] = useRecoilState(isEditedState);
 
+  const setCurrentPost = useSetRecoilState(currentPostState);
+
   const openModal = () => {
     setIsOpen(true);
   };
@@ -395,6 +398,10 @@ function DetailPost() {
   useEffect(() => {
     setTimeout(() => setIsEdited(false), 3000);
   }, [isEdited]);
+
+  useEffect(() => {
+    setCurrentPost(postId);
+  }, [postId]);
 
   return (
     <>
