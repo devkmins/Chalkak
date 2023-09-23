@@ -139,3 +139,31 @@ export const postDelete = async (req: Request, res: Response) => {
 
   return res.status(200).json();
 };
+
+export const similarPosts = async (req: Request, res: Response) => {
+  const { postTitle, postId } = req.query;
+
+  if (postTitle) {
+    try {
+      const posts = await Post.find({
+        $and: [
+          { _id: { $ne: postId } },
+          {
+            $or: [
+              { title: { $regex: postTitle, $options: "i" } },
+              { description: { $regex: postTitle, $options: "i" } },
+              { hashtags: { $regex: postTitle, $options: "i" } },
+            ],
+          },
+        ],
+      }).populate("owner");
+
+      return res.status(200).json(posts);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: "오류가 발생했습니다." });
+    }
+  } else {
+    return;
+  }
+};
