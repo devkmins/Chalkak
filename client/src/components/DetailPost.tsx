@@ -403,6 +403,10 @@ function DetailPost() {
     setCurrentPost(postId);
   }, [postId]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       {isEdited && <NotificationBar text={updatedText} />}
