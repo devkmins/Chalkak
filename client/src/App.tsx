@@ -5,7 +5,12 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/User/Login";
 import Logout from "./pages/User/Logout";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { currentPostState, loggedInState, sessionState } from "./atoms";
+import {
+  currentPostState,
+  currentUserPageState,
+  loggedInState,
+  sessionState,
+} from "./atoms";
 import UserPage from "./components/UserPage";
 import Account from "./components/Account";
 import ChangePassword from "./components/ChangePassword";
@@ -86,6 +91,7 @@ function App() {
   const setSessionData = useSetRecoilState(sessionState);
 
   const currentPost = useRecoilValue(currentPostState);
+  const currentUserPage = useRecoilValue(currentUserPageState);
 
   useEffect(() => {
     axios
@@ -103,7 +109,7 @@ function App() {
       <GlobalStyle />
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/user/:id" element={<UserPage />} />
+        <Route path="/user/:id" element={<UserPage key={currentUserPage} />} />
         <Route path="/user/:id/likes" element={<UserPage />} />
         <Route path="/post/:id" element={<DetailPost key={currentPost} />} />
         <Route path="/search/:keyword" element={<SearchPostList />} />
