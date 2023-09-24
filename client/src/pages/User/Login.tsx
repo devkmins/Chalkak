@@ -171,8 +171,6 @@ function Login() {
 
   const setIsLoggedOut = useSetRecoilState(isLoggedOutState);
 
-  const [loginCount, setLoginCounut] = useState(0);
-
   const isJoined = sessionStorage.getItem("isJoined");
   const location = useLocation();
   let userName;
@@ -184,7 +182,7 @@ function Login() {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
-    if (JSON.parse(localStorage.getItem("loginCount") as string) < 9) {
+    if (JSON.parse(localStorage.getItem("loginCount") as string) < 10) {
       const hashedFormData = {
         ...formData,
         password: CryptoJS.SHA256(formData.password).toString(),
@@ -203,13 +201,21 @@ function Login() {
         })
         .catch((error) => {
           setError(error.response.data);
-          setLoginCounut((prev) => prev + 1);
-          localStorage.setItem("loginCount", JSON.stringify(loginCount));
+
+          if (localStorage.getItem("loginCount")) {
+            localStorage.setItem(
+              "loginCount",
+              JSON.stringify(
+                JSON.parse(localStorage.getItem("loginCount") as string) + 1
+              )
+            );
+          } else {
+            localStorage.setItem("loginCount", JSON.stringify(1));
+          }
         });
     } else {
       setTimeout(() => {
         localStorage.removeItem("loginCount");
-        setLoginCounut(0);
       }, 300000);
       setError((prev: any) => {
         return {
@@ -238,12 +244,6 @@ function Login() {
   const passwordToggle = () => {
     setShowPassword((prev) => !prev);
   };
-
-  useEffect(() => {
-    setTimeout(() => {
-      sessionStorage.removeItem("isJoined");
-    }, 3001);
-  }, []);
 
   const joinText = `안녕하세요 ${userName}님, 회원가입이 완료되었어요!`;
 
