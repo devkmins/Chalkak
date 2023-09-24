@@ -123,6 +123,11 @@ const LoginPasswordInputBox = styled.div`
   }
 `;
 
+const LoginBtnBox = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const LoginBtn = styled.button`
   border-radius: 5px;
   border: 1px solid gray;
@@ -146,6 +151,7 @@ const ErrorMessage = styled.span`
 interface Error {
   passwordError: string;
   userError: string;
+  loginCountError: string;
 }
 
 function Login() {
@@ -165,6 +171,8 @@ function Login() {
 
   const setIsLoggedOut = useSetRecoilState(isLoggedOutState);
 
+  const [loginCount, setLoginCounut] = useState(0);
+
   const isJoined = sessionStorage.getItem("isJoined");
   const location = useLocation();
   let userName;
@@ -176,22 +184,41 @@ function Login() {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
-    const hashedFormData = {
-      ...formData,
-      password: CryptoJS.SHA256(formData.password).toString(),
-    };
+    if (JSON.parse(localStorage.getItem("loginCount") as string) < 9) {
+      const hashedFormData = {
+        ...formData,
+        password: CryptoJS.SHA256(formData.password).toString(),
+      };
 
-    await axios
-      .post("http://localhost:4000/login", hashedFormData, {
-        withCredentials: true,
-      })
-      .then((response) => {
-        setLoggedIn(true);
-        setSessionData(response.data.user);
-        setIsLoggedOut(false);
-        navigate("/");
-      })
-      .catch((error) => setError(error.response.data));
+      await axios
+        .post("http://localhost:4000/login", hashedFormData, {
+          withCredentials: true,
+        })
+        .then((response) => {
+          setLoggedIn(true);
+          setSessionData(response.data.user);
+          setIsLoggedOut(false);
+          localStorage.removeItem("loginCount");
+          navigate("/");
+        })
+        .catch((error) => {
+          setError(error.response.data);
+          setLoginCounut((prev) => prev + 1);
+          localStorage.setItem("loginCount", JSON.stringify(loginCount));
+        });
+    } else {
+      setTimeout(() => {
+        localStorage.removeItem("loginCount");
+        setLoginCounut(0);
+      }, 300000);
+      setError((prev: any) => {
+        return {
+          ...prev,
+          loginCountError:
+            "로그인 실패 횟수가 10회를 초과하였습니다. 5분 후에 다시 시도해주세요.",
+        };
+      });
+    }
   };
 
   const handleChange = (event: any) => {
@@ -204,6 +231,7 @@ function Login() {
     setError({
       passwordError: "",
       userError: "",
+      loginCountError: "",
     });
   };
 
@@ -268,7 +296,12 @@ function Login() {
               <ErrorMessage>{error.passwordError}</ErrorMessage>
             )}
           </LoginPasswordBox>
-          <LoginBtn type="submit">로그인</LoginBtn>
+          <LoginBtnBox>
+            <LoginBtn type="submit">로그인</LoginBtn>
+            {error && error.loginCountError && (
+              <ErrorMessage>{error.loginCountError}</ErrorMessage>
+            )}
+          </LoginBtnBox>
         </LoginForm>
       </LoginBox>
     </Box>
