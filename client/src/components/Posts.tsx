@@ -134,10 +134,14 @@ function Posts() {
   useEffect(() => {
     if (isBackToMain) {
       window.scrollTo(0, scrollY);
-    } else {
-      window.scrollTo(0, 0);
     }
   });
+
+  useEffect(() => {
+    if (!isBackToMain) {
+      window.scrollTo(0, 0);
+    }
+  }, []);
 
   useInitSearch();
 
