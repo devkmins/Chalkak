@@ -117,7 +117,6 @@ function App() {
           <>
             <Route path="/join" element={<Navigate to="/" />} />
             <Route path="/login" element={<Navigate to="/" />} />
-            <Route path="/user/logout" element={<Logout />} />
             <Route path="/account" element={<Account />} />
             <Route path="/account/close" element={<CloseAccount />} />
             <Route path="/account/password" element={<ChangePassword />} />
@@ -127,7 +126,6 @@ function App() {
           <>
             <Route path="/join" element={<Join />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/user/logout" element={<Navigate to="/" />} />
             <Route path="/account" element={<Navigate to="/" />} />
             <Route path="/account/close" element={<Navigate to="/" />} />
             <Route path="/account/password" element={<Navigate to="/" />} />
