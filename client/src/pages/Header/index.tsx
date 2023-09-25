@@ -2,11 +2,18 @@ import { styled } from "styled-components";
 import SearchPost from "../../components/SearchPost";
 import { RiCameraLensFill } from "react-icons/ri";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { isBackToMainState, loggedInState, sessionState } from "../../atoms";
+import {
+  isBackToMainState,
+  isLoggedOutState,
+  loggedInState,
+  sessionState,
+} from "../../atoms";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import defaultUserProfileImg from "../../assets/User/default-profile.png";
 import Menu from "../../components/Menu";
 import { useEffect, useRef, useState } from "react";
+import { useCookies } from "react-cookie";
+import axios from "axios";
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -46,7 +53,9 @@ const AuthBox = styled.div`
   display: flex;
   align-items: center;
 
+  span,
   a {
+    cursor: pointer;
     margin-right: 25px;
     margin-top: 2.5px;
     padding: 7.5px 10px;
@@ -91,6 +100,11 @@ function Header() {
 
   const navigate = useNavigate();
 
+  const setLoggedIn = useSetRecoilState(loggedInState);
+  const setSessionData = useSetRecoilState(sessionState);
+  const setIsLoggedOut = useSetRecoilState(isLoggedOutState);
+  const [cookies, , removeCookie] = useCookies(["connect.sid"]);
+
   const isRoot = path === "/" ? true : false;
 
   const onClick = () => {
@@ -122,6 +136,27 @@ function Header() {
     });
   };
 
+  const logout = async () => {
+    await axios
+      .post("http://localhost:4000/user/logout", cookies, {
+        withCredentials: true,
+      })
+      .then(() => {
+        setLoggedIn(false);
+        setSessionData({
+          email: "",
+          username: "",
+          name: "",
+          profileImage: "",
+          socialOnly: false,
+          _id: "",
+        });
+        removeCookie("connect.sid");
+        setIsLoggedOut(true);
+        navigate("/");
+      });
+  };
+
   useEffect(() => {
     const handleDocumentClick = (event: any) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -148,7 +183,7 @@ function Header() {
       <AuthBox>
         {loggedIn ? (
           <>
-            <Link to={"/user/logout"}>Logout</Link>
+            <span onClick={logout}>로그아웃</span>
             <Link to={"/post/upload"}>업로드</Link>
             <UserImgBox onFocus={handleFocus} ref={menuRef}>
               <UserImg
