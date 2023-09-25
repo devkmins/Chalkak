@@ -3,7 +3,6 @@ import Posts from "./components/Posts";
 import Join from "./pages/User/Join";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/User/Login";
-import Logout from "./pages/User/Logout";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   currentPostState,
