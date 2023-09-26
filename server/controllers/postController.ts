@@ -63,13 +63,17 @@ export const postEdit = async (req: Request, res: Response) => {
     return res.status(403).send({ error: "권한이 없습니다." });
   }
 
-  await Post.findByIdAndUpdate(postId, {
-    title: newTitle ? newTitle : post?.title,
-    description: description,
-    hashtags: hashtags,
-  });
+  const updatedPost = await Post.findByIdAndUpdate(
+    postId,
+    {
+      title: newTitle ? newTitle : post?.title,
+      description: description,
+      hashtags: hashtags,
+    },
+    { new: true }
+  ).populate("owner", "name profileImage username");
 
-  return res.status(200).json();
+  return res.status(200).json(updatedPost);
 };
 
 export const postViews = async (req: Request, res: Response) => {
