@@ -112,16 +112,16 @@ const ErrorMessage = styled.span`
 `;
 
 function EditPost({ postId }: any) {
-  const { data } = useQuery("getData", () =>
+  const { data } = useQuery("getPostDataDetail", () =>
     axios
       .get(`http://localhost:4000/post/${postId}`)
       .then((response) => response.data)
   );
 
   const [formData, setFormData] = useState({
-    title: data?.title.trim(),
-    description: data?.description.trim(),
-    hashtags: data?.hashtags,
+    title: data?.title.trim() || "",
+    description: data?.description.trim() || "",
+    hashtags: data?.hashtags || [],
   });
 
   const [error, setError] = useState<Error>();
