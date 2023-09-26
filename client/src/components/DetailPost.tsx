@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
@@ -289,7 +289,7 @@ const sliderSettings = {
 ReactModal.setAppElement("#root");
 
 function DetailPost() {
-  const { data } = useQuery("getData", () =>
+  const { data } = useQuery("getPostDataDetail", () =>
     axios
       .get(`http://localhost:4000/post/${postId}`)
       .then((response) => response.data)
@@ -310,6 +310,8 @@ function DetailPost() {
   const [isEdited, setIsEdited] = useRecoilState(isEditedState);
 
   const setCurrentPost = useSetRecoilState(currentPostState);
+
+  const queryClient = useQueryClient();
 
   const openModal = () => {
     setIsOpen(true);
@@ -392,6 +394,12 @@ function DetailPost() {
   };
 
   useBackToMain();
+
+  useEffect(() => {
+    if (isEdited) {
+      queryClient.invalidateQueries("getPostDataDetail");
+    }
+  }, [isEdited]);
 
   const updatedText = "사진이 업데이트 되었습니다.";
 
