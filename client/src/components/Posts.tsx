@@ -1,12 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useQuery } from "react-query";
+import { useInfiniteQuery, useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.png";
 import { useRecoilState } from "recoil";
-import { isBackToMainState, mainPageScrollYState } from "../atoms";
+import {
+  currentPostPageState,
+  isBackToMainState,
+  mainPageScrollYState,
+} from "../atoms";
 import useInitSearch from "../hooks/useInitSearch";
+import React from "react";
 
 const Container = styled.div`
   width: 100%;
@@ -89,9 +94,38 @@ const ImagesBox = styled.div`
 `;
 
 function Posts() {
-  const { data } = useQuery("getData", () =>
-    axios.get("http://localhost:4000/").then((response) => response.data)
+  const [page, setPage] = useRecoilState(currentPostPageState);
+
+  const { data, refetch, isFetching } = useQuery(
+    "getAllPostsData",
+    async () => {
+      const response = await axios.get(
+        `http://localhost:4000/posts?page=${page}`
+      );
+      const responseData = response.data;
+      return responseData;
+    }
   );
+
+  const handleScroll = () => {
+    const windowHeight = window.innerHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight;
+
+    if (windowHeight + scrollTop >= scrollHeight - 125) {
+      setPage((prev) => prev + 1);
+      setTimeout(() => {
+        refetch();
+      }, 0);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const [firstCol, setFirstCol] = useState<any[]>([]);
   const [secondCol, setSecondCol] = useState<any[]>([]);
@@ -110,12 +144,12 @@ function Posts() {
   };
 
   useEffect(() => {
-    const firstColImages: string[] = [];
-    const secondColImages: string[] = [];
-    const thirdColImages: string[] = [];
+    const firstColImages: any[] = [];
+    const secondColImages: any[] = [];
+    const thirdColImages: any[] = [];
 
-    if (data && Array.isArray(data)) {
-      data?.forEach((post: any, index: any) => {
+    if (data?.postsData && Array.isArray(data?.postsData)) {
+      data?.postsData.forEach((post: any, index: number) => {
         if (index % 3 === 0) {
           firstColImages.push(post);
         } else if (index % 3 === 1) {
