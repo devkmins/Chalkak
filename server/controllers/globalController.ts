@@ -5,13 +5,23 @@ import bcrypt from "bcrypt";
 import { CustomSession } from "../types/session";
 
 export const home = async (req: Request, res: Response) => {
-  const posts = await Post.find({}).populate(
-    "owner",
-    "username name profileImage"
-  );
+  const page = Number(req.query.page) || 1;
+  const perPage = 10;
 
-  if (posts) {
-    return res.json(posts);
+  try {
+    const totalPosts = await Post.countDocuments();
+    const totalPages = Math.ceil(totalPosts / perPage);
+    const posts = await Post.find({})
+      .limit(page * perPage)
+      .populate("owner", "username name profileImage");
+
+    return res.json({
+      postsData: posts,
+      totalPages: totalPages,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "서버 오류" });
   }
 };
 
