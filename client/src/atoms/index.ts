@@ -67,3 +67,8 @@ export const currentUserPageState = atom({
   key: "currentUserPageState",
   default: "",
 });
+
+export const currentPostPageState = atom({
+  key: "currentPostPageState",
+  default: 1,
+});
