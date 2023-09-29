@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 import { CustomSession } from "../types/session";
 
 export const home = async (req: Request, res: Response) => {
-  const page = Number(req.query.page) || 1;
+  let page = Number(req.query.page) || 1;
   const perPage = 10;
 
   try {
