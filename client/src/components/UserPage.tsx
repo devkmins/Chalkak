@@ -16,6 +16,7 @@ import UserLikes from "./UserLikes";
 import { PiPersonArmsSpreadBold } from "react-icons/pi";
 import { RiHeartsLine } from "react-icons/ri";
 import useBackToMain from "../hooks/useBackToMain";
+import { debounce } from "lodash";
 
 interface IPhotoLi {
   connectphotos: string;
@@ -168,13 +169,39 @@ function UserPage() {
   const params = useParams();
   const username = params.id;
 
-  const { data } = useQuery("data", () =>
-    axios
-      .get(`http://localhost:4000/user/${username}`, {
-        withCredentials: true,
-      })
-      .then((response) => response.data)
+  const [page, setPage] = useState(1);
+
+  const { data, refetch, isFetching, isLoading } = useQuery(
+    "getAllPostsData",
+    async () => {
+      const response = await axios.get(
+        `http://localhost:4000/user/${username}?page=${page}`
+      );
+      const responseData = response.data;
+
+      return responseData;
+    }
   );
+
+  const handleScroll = debounce(() => {
+    const windowHeight = window.innerHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight;
+
+    if (windowHeight + scrollTop >= scrollHeight - 100) {
+      setPage((prev) => prev + 1);
+      setTimeout(() => {
+        refetch();
+      }, 0);
+    }
+  }, 200);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const [connectPhotos, setConnectPhotos] = useState(true);
   const [connectLikes, setConnectLikes] = useState(false);
