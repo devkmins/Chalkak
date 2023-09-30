@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.png";
 import { useEffect, useState } from "react";
+import { debounce } from "lodash";
 
 interface IProp {
   title: string;
@@ -91,15 +92,40 @@ const ImagesBox = styled.div`
 `;
 
 function SimilarPosts({ title, postId }: IProp) {
-  const { data } = useQuery(["getData", title, postId], async () => {
-    const response = await axios.get(
-      "http://localhost:4000/post/similarPosts",
-      {
-        params: { postTitle: title, postId },
-      }
-    );
-    return response.data;
-  });
+  const [page, setPage] = useState(1);
+
+  const { data, refetch, isFetching, isLoading } = useQuery(
+    ["getSimilarPostsData", title, postId],
+    async () => {
+      const response = await axios.get(
+        `http://localhost:4000/post/similarPosts?page=${page}`,
+        {
+          params: { postTitle: title, postId },
+        }
+      );
+      return response.data;
+    }
+  );
+
+  const handleScroll = debounce(() => {
+    const windowHeight = window.innerHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight;
+
+    if (windowHeight + scrollTop >= scrollHeight - 100) {
+      setPage((prev) => prev + 1);
+      setTimeout(() => {
+        refetch();
+      }, 0);
+    }
+  }, 200);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const [firstCol, setFirstCol] = useState<any[]>([]);
   const [secondCol, setSecondCol] = useState<any[]>([]);
