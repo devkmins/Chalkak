@@ -145,6 +145,8 @@ export const postDelete = async (req: Request, res: Response) => {
 };
 
 export const similarPosts = async (req: Request, res: Response) => {
+  let page = Number(req.query.page) || 1;
+  const perPage = 10;
   const { postTitle, postId } = req.query;
 
   if (postTitle) {
@@ -160,7 +162,9 @@ export const similarPosts = async (req: Request, res: Response) => {
             ],
           },
         ],
-      }).populate("owner");
+      })
+        .populate("owner")
+        .limit(page * perPage);
 
       return res.status(200).json(posts);
     } catch (error) {
