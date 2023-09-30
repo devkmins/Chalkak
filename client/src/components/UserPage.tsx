@@ -273,7 +273,7 @@ function UserPage() {
                     <Link to={`/user/${username}`} state={username}>
                       <StyledRiImage2Fill />
                       <ContentText>
-                        사진 {data?.userPosts?.posts?.length}
+                        사진 {data?.length.userPostsLength}
                       </ContentText>
                     </Link>
                   </PhotoLi>
@@ -281,7 +281,7 @@ function UserPage() {
                     <Link to={`/user/${username}/likes`} state={username}>
                       <StyledAiFillHeart />
                       <ContentText>
-                        좋아요 {data?.likedPosts?.length}
+                        좋아요 {data?.length.userLikedLength}
                       </ContentText>
                     </Link>
                   </LikesLi>
