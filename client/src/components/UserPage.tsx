@@ -172,7 +172,7 @@ function UserPage() {
   const [page, setPage] = useState(1);
 
   const { data, refetch, isFetching, isLoading } = useQuery(
-    "getAllPostsData",
+    "getAllUserPostsData",
     async () => {
       const response = await axios.get(
         `http://localhost:4000/user/${username}?page=${page}`
@@ -252,7 +252,7 @@ function UserPage() {
                   : defaultUserProfileImg
               }
             />
-            <ProfileName>{data.userPosts.name}</ProfileName>
+            <ProfileName>{data?.userPosts?.name}</ProfileName>
             <TotalBox>
               <TotalViews>
                 <StyledPiPersonArmsSpreadBold />
@@ -273,7 +273,7 @@ function UserPage() {
                     <Link to={`/user/${username}`} state={username}>
                       <StyledRiImage2Fill />
                       <ContentText>
-                        사진 {data.userPosts.posts.length}
+                        사진 {data?.userPosts?.posts?.length}
                       </ContentText>
                     </Link>
                   </PhotoLi>
@@ -281,7 +281,7 @@ function UserPage() {
                     <Link to={`/user/${username}/likes`} state={username}>
                       <StyledAiFillHeart />
                       <ContentText>
-                        좋아요 {data?.likedPosts.length}
+                        좋아요 {data?.likedPosts?.length}
                       </ContentText>
                     </Link>
                   </LikesLi>
