@@ -36,10 +36,17 @@ export const see = async (req: Request, res: Response) => {
         select: "name username profileImage",
       });
 
+    const userPostsLength = await Post.countDocuments({ owner: user._id });
+    const userLikedLength = await Post.countDocuments({ likes: userId });
+
     return res.json({
       profileImg: user.profileImage,
       likedPosts: userLiked,
       userPosts: user,
+      length: {
+        userPostsLength,
+        userLikedLength,
+      },
     });
   } catch (error) {
     console.error(error);
