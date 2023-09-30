@@ -36,7 +36,7 @@ export const see = async (req: Request, res: Response) => {
         select: "name username profileImage",
       });
 
-    const userPostsLength = await Post.countDocuments({ owner: user._id });
+    const userPostsLength = await Post.countDocuments({ owner: userId });
     const userLikedLength = await Post.countDocuments({ likes: userId });
 
     return res.json({
