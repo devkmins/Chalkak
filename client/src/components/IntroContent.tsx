@@ -27,7 +27,7 @@ const MainImg = styled.div`
 
 const MainLine = styled.div`
   margin-top: 8vh;
-  width: 45%;
+  width: 50%;
   border-top: 0.5px solid black;
 `;
 
