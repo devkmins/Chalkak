@@ -38,7 +38,6 @@ const BottomLine = styled.div`
   display: flex;
   justify-content: center;
   width: 50%;
-  margin-top: 15px;
   border-top: 0.5px solid black;
 `;
 
