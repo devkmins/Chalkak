@@ -12,26 +12,40 @@ const Container = styled.div`
   margin-bottom: 25px;
 `;
 
-const Line = styled.div`
+const TopLine = styled.div`
   display: flex;
   justify-content: center;
-  width: 45%;
+  width: 20%;
   margin-top: 15px;
   border-top: 0.5px solid black;
 `;
 
 const Text = styled.span`
-  margin-top: 75px;
+  margin-top: 50px;
   font-family: "NanumGothicBold";
   font-weight: 600;
   font-size: 28px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+`;
+
+const Paragraph = styled.p`
+  font-weight: 300;
+  font-size: 18px;
+  margin-bottom: 25px;
+`;
+
+const BottomLine = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 50%;
+  margin-top: 15px;
+  border-top: 0.5px solid black;
 `;
 
 const StyledSlider = styled(Slider)`
   display: grid;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 25px;
 `;
 
 const StyledLink = styled(Link)``;
@@ -69,12 +83,12 @@ function TopViewsPosts() {
 
   return (
     <Container>
-      <Line />
+      <TopLine />
       <Text>Top 20</Text>
-      <p>
+      <Paragraph>
         사용자들이 가장 많이 조회한 20개의 사진 목록이에요. 구경해 보는 건
         어떨까요?
-      </p>
+      </Paragraph>
       <StyledSlider {...sliderSettings}>
         {Array.isArray(data) &&
           data?.map((post: any, index: any) => (
@@ -89,7 +103,7 @@ function TopViewsPosts() {
             </StyledLink>
           ))}
       </StyledSlider>
-      <Line />
+      <BottomLine />
     </Container>
   );
 }
