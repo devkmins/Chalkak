@@ -126,9 +126,7 @@ function UserLikes({ data }: any) {
                 </StyledLink>
                 <PostProfileContainer>
                   <ProfileBox>
-                    <ProfileLink
-                      to={`/user/${post.owner.username}`}
-                      state={post.owner.username}>
+                    <ProfileLink to={`/user/${post.owner.username}`}>
                       <PostProfileImg
                         src={
                           post.owner.profileImage
@@ -164,9 +162,7 @@ function UserLikes({ data }: any) {
                       }
                       alt=""
                     />
-                    <ProfileLink
-                      to={`/user/${post.owner.username}`}
-                      state={post.owner.username}>
+                    <ProfileLink to={`/user/${post.owner.username}`}>
                       {post.owner.name}
                     </ProfileLink>
                   </ProfileBox>
@@ -194,9 +190,7 @@ function UserLikes({ data }: any) {
                       }
                       alt=""
                     />
-                    <ProfileLink
-                      to={`/user/${post.owner.username}`}
-                      state={post.owner.username}>
+                    <ProfileLink to={`/user/${post.owner.username}`}>
                       {post.owner.name}
                     </ProfileLink>
                   </ProfileBox>
