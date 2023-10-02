@@ -72,3 +72,8 @@ export const currentPostPageState = atom({
   key: "currentPostPageState",
   default: 1,
 });
+
+export const totalPostsPagesState = atom({
+  key: "totalPostsPagesState",
+  default: 1,
+});
