@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { sessionState } from "../atoms";
 import { styled } from "styled-components";
-import defaultUserProfileImg from "../assets/User/default-profile.png";
+import defaultUserProfileImg from "../assets/User/default-profile.webp";
 import Header from "../pages/Header";
 import AccountMenu from "./AccountMenu";
 import useInitSearch from "../hooks/useInitSearch";

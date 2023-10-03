@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import defaultUserProfileImg from "../assets/User/default-profile.png";
+import defaultUserProfileImg from "../assets/User/default-profile.webp";
 
 const ColumnsContainer = styled.div`
   display: grid;

@@ -4,7 +4,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { currentUserPageState, sessionState } from "../atoms";
 import { Link } from "react-router-dom";
-import defaultUserProfileImg from "../assets/User/default-profile.png";
+import defaultUserProfileImg from "../assets/User/default-profile.webp";
 import styled from "styled-components";
 import Header from "../pages/Header";
 import { RiImage2Fill } from "react-icons/ri";

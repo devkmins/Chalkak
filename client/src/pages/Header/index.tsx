@@ -9,7 +9,7 @@ import {
   sessionState,
 } from "../../atoms";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import defaultUserProfileImg from "../../assets/User/default-profile.png";
+import defaultUserProfileImg from "../../assets/User/default-profile.webp";
 import Menu from "../../components/Menu";
 import { useEffect, useRef, useState } from "react";
 import { useCookies } from "react-cookie";

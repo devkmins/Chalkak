@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useInfiniteQuery, useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import defaultUserProfileImg from "../assets/User/default-profile.png";
+import defaultUserProfileImg from "../assets/User/default-profile.webp";
 import { useRecoilState } from "recoil";
 import {
   currentPostPageState,

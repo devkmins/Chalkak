@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import mainImg from "../assets/Main/main.jpeg";
+import mainImg from "../assets/Main/main.webp";
 
 const Container = styled.div`
   display: flex;

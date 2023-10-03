@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
 import styled from "styled-components";
-import joinImg from "../../assets/Join/join.jpeg";
+import joinImg from "../../assets/Join/join.webp";
 import { RiCameraLensFill } from "react-icons/ri";
 import { BiSolidShow } from "react-icons/bi";
 import { BiSolidHide } from "react-icons/bi";

@@ -5,7 +5,7 @@ import CryptoJS from "crypto-js";
 import { useSetRecoilState } from "recoil";
 import { isLoggedOutState, loggedInState, sessionState } from "../../atoms";
 import { styled } from "styled-components";
-import loginImg from "../../assets/Login/login.jpeg";
+import loginImg from "../../assets/Login/login.webp";
 import { RiCameraLensFill } from "react-icons/ri";
 import { BiSolidShow } from "react-icons/bi";
 import { BiSolidHide } from "react-icons/bi";

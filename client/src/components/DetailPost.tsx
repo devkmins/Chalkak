@@ -12,7 +12,7 @@ import {
 import { useEffect, useState } from "react";
 import Header from "../pages/Header";
 import { styled } from "styled-components";
-import defaultUserProfileImg from "../assets/User/default-profile.png";
+import defaultUserProfileImg from "../assets/User/default-profile.webp";
 import { AiFillHeart } from "react-icons/ai";
 import { BsThreeDots, BsPerson } from "react-icons/bs";
 import { MdDateRange } from "react-icons/md";

@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../pages/Header";
-import defaultUserProfileImg from "../assets/User/default-profile.png";
+import defaultUserProfileImg from "../assets/User/default-profile.webp";
 import { useEffect, useState } from "react";
 import { RiImage2Fill } from "react-icons/ri";
 import NoSearchResults from "./NoSearchResults";

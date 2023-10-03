@@ -2,7 +2,7 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import defaultUserProfileImg from "../assets/User/default-profile.png";
+import defaultUserProfileImg from "../assets/User/default-profile.webp";
 import { useEffect, useState } from "react";
 import { debounce } from "lodash";
 
