@@ -9,6 +9,7 @@ import axios from "axios";
 import { useRecoilValue } from "recoil";
 import { sessionState } from "../atoms";
 import { TbArrowNarrowLeft } from "react-icons/tb";
+import { resizeAndConvertToWebP } from "../resizeAndConvertToWebP";
 
 const Container = styled.div``;
 
@@ -313,9 +314,14 @@ function UploadImage() {
     if (images.length > 0) {
       const imagesFormData = new FormData();
 
-      images.forEach((img) => {
-        imagesFormData.append("images", img);
-      });
+      for (const img of images) {
+        try {
+          const imgFile = (await resizeAndConvertToWebP(img)) as File;
+          imagesFormData.append("images", imgFile);
+        } catch (error) {
+          console.error("이미지 변환 오류:", error);
+        }
+      }
 
       try {
         const responseImages = await axios.post(
