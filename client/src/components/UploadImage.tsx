@@ -404,7 +404,7 @@ function UploadImage() {
               <Dropzone
                 maxFiles={10}
                 maxSize={150000000}
-                accept={{ "image/*": [".png", ".jpeg", ".jpg"] }}
+                accept={{ "image/*": [".png", ".jpeg", ".jpg", "webp"] }}
                 onDrop={onDrop}>
                 {({ getRootProps, getInputProps }) => (
                   <DropzoneSection>
