@@ -12,6 +12,7 @@ import {
 } from "../atoms";
 import useInitSearch from "../hooks/useInitSearch";
 import React from "react";
+import { debounce } from "lodash";
 
 const Container = styled.div`
   width: 100%;
@@ -103,22 +104,23 @@ function Posts() {
         `http://localhost:4000/posts?page=${page}`
       );
       const responseData = response.data;
+
       return responseData;
     }
   );
 
-  const handleScroll = () => {
+  const handleScroll = debounce(() => {
     const windowHeight = window.innerHeight;
     const scrollTop = document.documentElement.scrollTop;
     const scrollHeight = document.documentElement.scrollHeight;
 
-    if (windowHeight + scrollTop >= scrollHeight - 125) {
+    if (windowHeight + scrollTop >= scrollHeight - 50) {
       setPage((prev) => prev + 1);
       setTimeout(() => {
         refetch();
       }, 0);
     }
-  };
+  }, 150);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
