@@ -85,7 +85,7 @@ function TopViewsPosts() {
       <TopLine />
       <Text>Top 20</Text>
       <Paragraph>
-        사용자들이 가장 많이 조회한 20개의 사진 목록이에요. 구경해 보는 건
+        사용자들이 가장 많이 조회한 10개의 사진 목록이에요. 구경해 보는 건
         어떨까요?
       </Paragraph>
       <StyledSlider {...sliderSettings}>
