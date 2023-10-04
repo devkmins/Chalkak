@@ -11,6 +11,12 @@ import { sessionState } from "../atoms";
 import { TbArrowNarrowLeft } from "react-icons/tb";
 import { resizeAndConvertToWebP } from "../resizeAndConvertToWebP";
 
+interface imgResizeFuncResultType {
+  blob: File;
+  ratioWidth: number;
+  ratioHeight: number;
+}
+
 const Container = styled.div``;
 
 const BackBtnBox = styled.div`
@@ -313,10 +319,19 @@ function UploadImage() {
 
     if (images.length > 0) {
       const imagesFormData = new FormData();
+      let ratioWidth;
+      let ratioHeight;
 
       for (const img of images) {
         try {
-          const imgFile = (await resizeAndConvertToWebP(img)) as File;
+          const result = (await resizeAndConvertToWebP(
+            img
+          )) as imgResizeFuncResultType;
+          const imgFile = result.blob;
+
+          ratioWidth = result.ratioWidth;
+          ratioHeight = result.ratioHeight;
+
           imagesFormData.append("images", imgFile);
         } catch (error) {
           console.error("이미지 변환 오류:", error);
@@ -334,7 +349,7 @@ function UploadImage() {
 
         const responseForm = await axios.post(
           "http://localhost:4000/post/upload",
-          { formData, files },
+          { formData, files, ratio: { ratioWidth, ratioHeight } },
           { withCredentials: true }
         );
 
