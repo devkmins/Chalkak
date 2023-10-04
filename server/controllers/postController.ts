@@ -24,6 +24,7 @@ export const postUpload = async (req: Request, res: Response) => {
   const session = req.session as CustomSession;
   const userId = session.user?._id;
   const { title, description, hashtags } = req.body.formData;
+  const { ratioWidth, ratioHeight } = req.body.ratio;
   const files = req.body.files;
 
   const newPost = await Post.create({
@@ -32,6 +33,8 @@ export const postUpload = async (req: Request, res: Response) => {
     hashtags,
     fileUrl: files,
     owner: userId,
+    ratioWidth,
+    ratioHeight,
   });
 
   await newPost.save();
