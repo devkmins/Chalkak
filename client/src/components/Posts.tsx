@@ -14,6 +14,11 @@ import useInitSearch from "../hooks/useInitSearch";
 import React from "react";
 import { debounce } from "lodash";
 
+interface imageComponentProps {
+  $ratioWidth: number;
+  $ratioHeight: number;
+}
+
 const Container = styled.div`
   width: 100%;
 `;
@@ -40,9 +45,11 @@ const StyledLink = styled(Link)`
   width: 100%;
 `;
 
-const Image = styled.img`
+const Image = styled.img<imageComponentProps>`
   width: 100%;
   max-height: max-content;
+  /*aspect-ratio: ${(props) => props.$ratioWidth} / ${(props) =>
+    props.$ratioHeight};*/
 `;
 
 const ProfileContainer = styled.div`
@@ -195,6 +202,8 @@ function Posts() {
                   <Image
                     src={`http://localhost:4000/${post.fileUrl[0].path}`}
                     alt=""
+                    $ratioWidth={post.ratioWidth}
+                    $ratioHeight={post.ratioHeight}
                   />
                 </StyledLink>
                 <ProfileContainer>
@@ -228,6 +237,8 @@ function Posts() {
                   <Image
                     src={`http://localhost:4000/${post.fileUrl[0].path}`}
                     alt=""
+                    $ratioWidth={post.ratioWidth}
+                    $ratioHeight={post.ratioHeight}
                   />
                 </StyledLink>
                 <ProfileContainer>
@@ -261,6 +272,8 @@ function Posts() {
                   <Image
                     src={`http://localhost:4000/${post.fileUrl[0].path}`}
                     alt=""
+                    $ratioWidth={post.ratioWidth}
+                    $ratioHeight={post.ratioHeight}
                   />
                 </StyledLink>
                 <ProfileContainer>
