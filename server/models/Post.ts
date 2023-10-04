@@ -10,6 +10,8 @@ const postSchema = new mongoose.Schema({
   thumbnail: String,
   views: { type: Number, default: 1, required: true },
   likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  ratioWidth: { type: Number, required: true },
+  ratioHeight: { type: Number, required: true },
 });
 
 const Post = mongoose.model("Post", postSchema);
