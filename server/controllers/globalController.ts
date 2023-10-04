@@ -139,7 +139,7 @@ export const topViewsPosts = async (req: Request, res: Response) => {
   const top10Posts = await Post.find({})
     .populate("owner", "username name profileImage")
     .sort({ views: -1 })
-    .limit(20);
+    .limit(10);
 
   if (top10Posts) {
     return res.json(top10Posts);
