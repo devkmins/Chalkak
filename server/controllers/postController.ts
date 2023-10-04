@@ -46,7 +46,7 @@ export const postUpload = async (req: Request, res: Response) => {
     await user?.save();
   }
 
-  return res.status(200).json(req.files);
+  return res.status(200).json();
 };
 
 export const imagesUpload = async (req: Request, res: Response) => {
