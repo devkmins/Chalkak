@@ -47,9 +47,8 @@ const StyledLink = styled(Link)`
 
 const Image = styled.img<imageComponentProps>`
   width: 100%;
-  max-height: max-content;
-  /*aspect-ratio: ${(props) => props.$ratioWidth} / ${(props) =>
-    props.$ratioHeight};*/
+  aspect-ratio: ${(props) => props.$ratioWidth} /
+    ${(props) => props.$ratioHeight};
 `;
 
 const ProfileContainer = styled.div`
