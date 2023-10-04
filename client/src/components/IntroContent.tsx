@@ -17,12 +17,9 @@ const MainImgBox = styled.div`
   width: 100%;
 `;
 
-const MainImg = styled.div`
-  background-image: url(${mainImg});
+const MainImg = styled.img`
   width: 70%;
-  height: 80vh;
-  background-position: center bottom;
-  background-size: cover;
+  height: 90vh;
 `;
 
 const MainLine = styled.div`
@@ -60,7 +57,7 @@ function IntroContent() {
   return (
     <Container>
       <MainImgBox>
-        <MainImg />
+        <MainImg src={mainImg} alt="" />
       </MainImgBox>
       <MainLine />
       <MainTextBox>
