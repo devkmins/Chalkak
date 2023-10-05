@@ -1,10 +1,13 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../pages/Header";
 import defaultUserProfileImg from "../assets/User/default-profile.webp";
 import { useEffect, useState } from "react";
 import { RiImage2Fill } from "react-icons/ri";
 import NoSearchResults from "./NoSearchResults";
+import { useQuery } from "react-query";
+import axios from "axios";
+import { debounce } from "lodash";
 
 const Container = styled.div``;
 
@@ -134,13 +137,43 @@ const PostBox = styled.div`
 `;
 
 function SearchPostList() {
-  const location = useLocation();
-  const posts = location.state;
+  const params = useParams();
+  const searchKeyword = params.keyword;
 
-  const pathnameSplit = location.pathname.split("/");
-  const searchWord = decodeURIComponent(
-    pathnameSplit[pathnameSplit.length - 1]
+  const [page, setPage] = useState(1);
+
+  const { data, refetch, isFetching, isLoading } = useQuery(
+    "getSearchPostList",
+    async () => {
+      const response = await axios.get(
+        `http://localhost:4000/search/${searchKeyword}?page=${page}`,
+        { withCredentials: true }
+      );
+      const responseData = response.data;
+
+      return responseData;
+    }
   );
+
+  const handleScroll = debounce(() => {
+    const windowHeight = window.innerHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight;
+
+    if (windowHeight + scrollTop >= scrollHeight - 100) {
+      setPage((prev) => prev + 1);
+      setTimeout(() => {
+        refetch();
+      }, 0);
+    }
+  }, 200);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const [firstCol, setFirstCol] = useState<any[]>([]);
   const [secondCol, setSecondCol] = useState<any[]>([]);
@@ -151,8 +184,8 @@ function SearchPostList() {
     const secondColImages: string[] = [];
     const thirdColImages: string[] = [];
 
-    if (posts && Array.isArray(posts)) {
-      posts?.forEach((post: any, index: any) => {
+    if (data?.posts && Array.isArray(data?.posts)) {
+      data?.posts?.forEach((post: any, index: any) => {
         if (index % 3 === 0) {
           firstColImages.push(post);
         } else if (index % 3 === 1) {
@@ -166,11 +199,11 @@ function SearchPostList() {
     setFirstCol(firstColImages);
     setSecondCol(secondColImages);
     setThirdCol(thirdColImages);
-  }, [posts]);
+  }, [data]);
 
   return (
     <>
-      {posts?.length > 0 ? (
+      {data?.posts?.length > 0 ? (
         <Container>
           <Header />
           <Box>
@@ -178,10 +211,10 @@ function SearchPostList() {
               <ContentsContainer>
                 <PhotoBox>
                   <StyledRiImage2Fill />
-                  <span>사진 {posts?.length}</span>
+                  <span>사진 {data?.totalPostsLength}</span>
                 </PhotoBox>
               </ContentsContainer>
-              <SearchWord>{searchWord}</SearchWord>
+              <SearchWord>{searchKeyword}</SearchWord>
               <PostsBox>
                 <ColumnsContainer>
                   <ImagesContainer>
@@ -282,7 +315,7 @@ function SearchPostList() {
       ) : (
         <Container>
           <Header />
-          <NoSearchResults posts={posts} searchWord={searchWord} />
+          <NoSearchResults posts={data} searchWord={searchKeyword} />
         </Container>
       )}
     </>
