@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import RecentSearch from "./RecentSearch";
@@ -61,11 +60,6 @@ function SearchPost() {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
-    const response = await axios.get(
-      `http://localhost:4000/search/${formData.keyword}`,
-      { withCredentials: true }
-    );
-
     setKeywords((prev: any) => {
       const newKeywords = [formData.keyword, ...prev];
 
@@ -80,7 +74,7 @@ function SearchPost() {
 
     setCurrentSearch(formData.keyword);
 
-    navigate(`/search/${formData.keyword}`, { state: response.data });
+    navigate(`/search/${formData.keyword}`);
   };
 
   const handleChange = (event: any) => {
