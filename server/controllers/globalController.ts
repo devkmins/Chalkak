@@ -118,6 +118,8 @@ export const postLogin = async (req: Request, res: Response) => {
 
 export const search = async (req: Request, res: Response) => {
   const { keyword } = req.params;
+  let page = Number(req.query.page) || 1;
+  const perPage = 10;
 
   try {
     const posts = await Post.find({
@@ -126,7 +128,9 @@ export const search = async (req: Request, res: Response) => {
         { description: { $regex: keyword, $options: "i" } },
         { hashtags: { $regex: keyword, $options: "i" } },
       ],
-    }).populate("owner");
+    })
+      .populate("owner")
+      .limit(page * perPage);
 
     return res.status(200).json(posts);
   } catch (error) {
