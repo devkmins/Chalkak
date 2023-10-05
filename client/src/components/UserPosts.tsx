@@ -91,10 +91,6 @@ const PostBox = styled.div`
 function UserPosts({ data }: any) {
   const [scrollY, setScrollY] = useRecoilState(userPageScrollYState);
 
-  const [isBackToUserPage, setIsBackToUserPage] = useRecoilState(
-    isBackToUserPageState
-  );
-
   const clickedProfile = () => {
     setScrollY(window.scrollY);
   };
