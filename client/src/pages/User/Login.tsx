@@ -251,6 +251,12 @@ function Login() {
     }
   }, []);
 
+  useEffect(() => {
+    if (sessionStorage.getItem("isJoined")) {
+      sessionStorage.removeItem("isJoined");
+    }
+  }, []);
+
   const joinText = `안녕하세요 ${userName}님, 회원가입이 완료되었어요!`;
 
   return (
