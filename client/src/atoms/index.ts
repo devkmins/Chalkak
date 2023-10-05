@@ -58,6 +58,11 @@ export const isBackToUserPageState = atom({
   default: false,
 });
 
+export const searchPostsListScrollYState = atom({
+  key: "searchPostsListScrollYState",
+  default: 0,
+});
+
 export const isLoggedOutState = atom({
   key: "isLoggedOutState",
   default: false,
