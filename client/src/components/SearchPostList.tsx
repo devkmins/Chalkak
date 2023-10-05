@@ -8,6 +8,11 @@ import NoSearchResults from "./NoSearchResults";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { debounce } from "lodash";
+import { useRecoilState } from "recoil";
+import {
+  isBackToSearchPostsListState,
+  searchPostsListScrollYState,
+} from "../atoms";
 
 const Container = styled.div``;
 
@@ -201,6 +206,32 @@ function SearchPostList() {
     setThirdCol(thirdColImages);
   }, [data]);
 
+  const [scrollY, setScrollY] = useRecoilState(searchPostsListScrollYState);
+
+  const [isBackToSearchPostsList, setIsBackToSearchPostsList] = useRecoilState(
+    isBackToSearchPostsListState
+  );
+
+  const clickedProfile = () => {
+    setScrollY(window.scrollY);
+  };
+
+  const clickedPost = () => {
+    setScrollY(window.scrollY);
+  };
+
+  useEffect(() => {
+    if (isBackToSearchPostsList) {
+      window.scrollTo(0, scrollY);
+    }
+  });
+
+  useEffect(() => {
+    if (!isBackToSearchPostsList) {
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
   return (
     <>
       {data?.posts?.length > 0 ? (
@@ -223,7 +254,8 @@ function SearchPostList() {
                         <PostBox key={post?._id}>
                           <StyledLink
                             to={`/post/${post?.title}`}
-                            state={post?._id}>
+                            state={post?._id}
+                            onClick={clickedPost}>
                             <Image
                               src={`http://localhost:4000/${post.fileUrl[0].path}`}
                               alt=""
@@ -231,7 +263,9 @@ function SearchPostList() {
                           </StyledLink>
                           <PostProfileContainer>
                             <ProfileBox>
-                              <ProfileLink to={`/user/${post.owner.username}`}>
+                              <ProfileLink
+                                to={`/user/${post.owner.username}`}
+                                onClick={clickedProfile}>
                                 <PostProfileImg
                                   src={
                                     post.owner.profileImage
@@ -253,7 +287,8 @@ function SearchPostList() {
                         <PostBox key={post?._id}>
                           <StyledLink
                             to={`/post/${post?.title}`}
-                            state={post?._id}>
+                            state={post?._id}
+                            onClick={clickedPost}>
                             <Image
                               src={`http://localhost:4000/${post.fileUrl[0].path}`}
                               alt=""
@@ -261,15 +296,17 @@ function SearchPostList() {
                           </StyledLink>
                           <PostProfileContainer>
                             <ProfileBox>
-                              <PostProfileImg
-                                src={
-                                  post.owner.profileImage
-                                    ? `http://localhost:4000/${post.owner.profileImage}`
-                                    : defaultUserProfileImg
-                                }
-                                alt=""
-                              />
-                              <ProfileLink to={`/user/${post.owner.username}`}>
+                              <ProfileLink
+                                to={`/user/${post.owner.username}`}
+                                onClick={clickedProfile}>
+                                <PostProfileImg
+                                  src={
+                                    post.owner.profileImage
+                                      ? `http://localhost:4000/${post.owner.profileImage}`
+                                      : defaultUserProfileImg
+                                  }
+                                  alt=""
+                                />
                                 {post.owner.name}
                               </ProfileLink>
                             </ProfileBox>
@@ -283,7 +320,8 @@ function SearchPostList() {
                         <PostBox key={post?._id}>
                           <StyledLink
                             to={`/post/${post?.title}`}
-                            state={post?._id}>
+                            state={post?._id}
+                            onClick={clickedPost}>
                             <Image
                               src={`http://localhost:4000/${post.fileUrl[0].path}`}
                               alt=""
@@ -291,15 +329,17 @@ function SearchPostList() {
                           </StyledLink>
                           <PostProfileContainer>
                             <ProfileBox>
-                              <PostProfileImg
-                                src={
-                                  post.owner.profileImage
-                                    ? `http://localhost:4000/${post.owner.profileImage}`
-                                    : defaultUserProfileImg
-                                }
-                                alt=""
-                              />
-                              <ProfileLink to={`/user/${post.owner.username}`}>
+                              <ProfileLink
+                                to={`/user/${post.owner.username}`}
+                                onClick={clickedProfile}>
+                                <PostProfileImg
+                                  src={
+                                    post.owner.profileImage
+                                      ? `http://localhost:4000/${post.owner.profileImage}`
+                                      : defaultUserProfileImg
+                                  }
+                                  alt=""
+                                />
                                 {post.owner.name}
                               </ProfileLink>
                             </ProfileBox>
