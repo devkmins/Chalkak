@@ -132,7 +132,15 @@ export const search = async (req: Request, res: Response) => {
       .populate("owner")
       .limit(page * perPage);
 
-    return res.status(200).json(posts);
+    const totalPostsLength = await Post.countDocuments({
+      $or: [
+        { title: { $regex: keyword, $options: "i" } },
+        { description: { $regex: keyword, $options: "i" } },
+        { hashtags: { $regex: keyword, $options: "i" } },
+      ],
+    });
+
+    return res.status(200).json({ posts, totalPostsLength });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "검색 중 오류가 발생했습니다." });
