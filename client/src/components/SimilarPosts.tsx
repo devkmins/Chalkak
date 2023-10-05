@@ -5,6 +5,8 @@ import styled from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.webp";
 import { useEffect, useState } from "react";
 import { debounce } from "lodash";
+import { useRecoilState } from "recoil";
+import { isBackToSimilarPostsState, similarPostsScrollYState } from "../atoms";
 
 interface IProp {
   title: string;
@@ -153,6 +155,32 @@ function SimilarPosts({ title, postId }: IProp) {
     setThirdCol(thirdColImages);
   }, [data]);
 
+  const [scrollY, setScrollY] = useRecoilState(similarPostsScrollYState);
+
+  const [isBackToSimilarPosts, setIsBackToSimilarPosts] = useRecoilState(
+    isBackToSimilarPostsState
+  );
+
+  const clickedProfile = () => {
+    setScrollY(window.scrollY);
+  };
+
+  const clickedPost = () => {
+    setScrollY(window.scrollY);
+  };
+
+  useEffect(() => {
+    if (isBackToSimilarPosts) {
+      window.scrollTo(0, scrollY);
+    }
+  });
+
+  useEffect(() => {
+    if (!isBackToSimilarPosts) {
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
   return (
     <Container>
       <ColumnsContainer>
@@ -160,7 +188,10 @@ function SimilarPosts({ title, postId }: IProp) {
           {firstCol &&
             firstCol.map((post) => (
               <ImagesBox key={post?._id}>
-                <StyledLink to={`/post/${post?.title}`} state={post?._id}>
+                <StyledLink
+                  to={`/post/${post?.title}`}
+                  state={post?._id}
+                  onClick={clickedPost}>
                   <Image
                     src={`http://localhost:4000/${post.fileUrl[0].path}`}
                     alt=""
@@ -168,7 +199,9 @@ function SimilarPosts({ title, postId }: IProp) {
                 </StyledLink>
                 <ProfileContainer>
                   <ProfileBox>
-                    <ProfileLink to={`/user/${post.owner.username}`}>
+                    <ProfileLink
+                      to={`/user/${post.owner.username}`}
+                      onClick={clickedProfile}>
                       <ProfileImg
                         src={
                           post.owner.profileImage
@@ -188,7 +221,10 @@ function SimilarPosts({ title, postId }: IProp) {
           {secondCol &&
             secondCol.map((post) => (
               <ImagesBox key={post?._id}>
-                <StyledLink to={`/post/${post?.title}`} state={post?._id}>
+                <StyledLink
+                  to={`/post/${post?.title}`}
+                  state={post?._id}
+                  onClick={clickedPost}>
                   <Image
                     src={`http://localhost:4000/${post.fileUrl[0].path}`}
                     alt=""
@@ -196,7 +232,9 @@ function SimilarPosts({ title, postId }: IProp) {
                 </StyledLink>
                 <ProfileContainer>
                   <ProfileBox>
-                    <ProfileLink to={`/user/${post.owner.username}`}>
+                    <ProfileLink
+                      to={`/user/${post.owner.username}`}
+                      onClick={clickedProfile}>
                       <ProfileImg
                         src={
                           post.owner.profileImage
@@ -216,7 +254,10 @@ function SimilarPosts({ title, postId }: IProp) {
           {thirdCol &&
             thirdCol.map((post) => (
               <ImagesBox key={post?._id}>
-                <StyledLink to={`/post/${post?.title}`}>
+                <StyledLink
+                  to={`/post/${post?.title}`}
+                  state={post?._id}
+                  onClick={clickedPost}>
                   <Image
                     src={`http://localhost:4000/${post.fileUrl[0].path}`}
                     alt=""
@@ -224,7 +265,9 @@ function SimilarPosts({ title, postId }: IProp) {
                 </StyledLink>
                 <ProfileContainer>
                   <ProfileBox>
-                    <ProfileLink to={`/user/${post.owner.username}`}>
+                    <ProfileLink
+                      to={`/user/${post.owner.username}`}
+                      onClick={clickedProfile}>
                       <ProfileImg
                         src={
                           post.owner.profileImage
