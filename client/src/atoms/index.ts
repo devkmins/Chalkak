@@ -73,6 +73,11 @@ export const similarPostsScrollYState = atom({
   default: 0,
 });
 
+export const isBackToSimilarPostsState = atom({
+  key: "isBackToSimilarPostsState",
+  default: false,
+});
+
 export const isLoggedOutState = atom({
   key: "isLoggedOutState",
   default: false,
