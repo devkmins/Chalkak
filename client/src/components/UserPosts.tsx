@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.webp";
+import { useRecoilState } from "recoil";
+import { isBackToUserPageState, userPageScrollYState } from "../atoms";
 
 const ColumnsContainer = styled.div`
   display: grid;
@@ -87,6 +89,20 @@ const PostBox = styled.div`
 `;
 
 function UserPosts({ data }: any) {
+  const [scrollY, setScrollY] = useRecoilState(userPageScrollYState);
+
+  const [isBackToUserPage, setIsBackToUserPage] = useRecoilState(
+    isBackToUserPageState
+  );
+
+  const clickedProfile = () => {
+    setScrollY(window.scrollY);
+  };
+
+  const clickedPost = () => {
+    setScrollY(window.scrollY);
+  };
+
   const [firstCol, setFirstCol] = useState<any[]>([]);
   const [secondCol, setSecondCol] = useState<any[]>([]);
   const [thirdCol, setThirdCol] = useState<any[]>([]);
@@ -120,7 +136,10 @@ function UserPosts({ data }: any) {
           {firstCol &&
             firstCol.map((post) => (
               <PostBox key={post?._id}>
-                <StyledLink to={`/post/${post?.title}`} state={post?._id}>
+                <StyledLink
+                  to={`/post/${post?.title}`}
+                  state={post?._id}
+                  onClick={clickedPost}>
                   <Image
                     src={`http://localhost:4000/${post.fileUrl[0].path}`}
                     alt=""
@@ -128,7 +147,9 @@ function UserPosts({ data }: any) {
                 </StyledLink>
                 <PostProfileContainer>
                   <ProfileBox>
-                    <ProfileLink to={`/user/${post.owner.username}`}>
+                    <ProfileLink
+                      to={`/user/${post.owner.username}`}
+                      onClick={clickedProfile}>
                       <PostProfileImg
                         src={
                           post.owner.profileImage
@@ -148,7 +169,10 @@ function UserPosts({ data }: any) {
           {secondCol &&
             secondCol.map((post) => (
               <PostBox key={post?._id}>
-                <StyledLink to={`/post/${post?.title}`} state={post?._id}>
+                <StyledLink
+                  to={`/post/${post?.title}`}
+                  state={post?._id}
+                  onClick={clickedPost}>
                   <Image
                     src={`http://localhost:4000/${post.fileUrl[0].path}`}
                     alt=""
@@ -156,15 +180,17 @@ function UserPosts({ data }: any) {
                 </StyledLink>
                 <PostProfileContainer>
                   <ProfileBox>
-                    <PostProfileImg
-                      src={
-                        post.owner.profileImage
-                          ? `http://localhost:4000/${post.owner.profileImage}`
-                          : defaultUserProfileImg
-                      }
-                      alt=""
-                    />
-                    <ProfileLink to={`/user/${post.owner.username}`}>
+                    <ProfileLink
+                      to={`/user/${post.owner.username}`}
+                      onClick={clickedProfile}>
+                      <PostProfileImg
+                        src={
+                          post.owner.profileImage
+                            ? `http://localhost:4000/${post.owner.profileImage}`
+                            : defaultUserProfileImg
+                        }
+                        alt=""
+                      />
                       {post.owner.name}
                     </ProfileLink>
                   </ProfileBox>
@@ -176,7 +202,10 @@ function UserPosts({ data }: any) {
           {thirdCol &&
             thirdCol.map((post) => (
               <PostBox key={post?._id}>
-                <StyledLink to={`/post/${post?.title}`} state={post?._id}>
+                <StyledLink
+                  to={`/post/${post?.title}`}
+                  state={post?._id}
+                  onClick={clickedPost}>
                   <Image
                     src={`http://localhost:4000/${post.fileUrl[0].path}`}
                     alt=""
@@ -184,15 +213,17 @@ function UserPosts({ data }: any) {
                 </StyledLink>
                 <PostProfileContainer>
                   <ProfileBox>
-                    <PostProfileImg
-                      src={
-                        post.owner.profileImage
-                          ? `http://localhost:4000/${post.owner.profileImage}`
-                          : defaultUserProfileImg
-                      }
-                      alt=""
-                    />
-                    <ProfileLink to={`/user/${post.owner.username}`}>
+                    <ProfileLink
+                      to={`/user/${post.owner.username}`}
+                      onClick={clickedProfile}>
+                      <PostProfileImg
+                        src={
+                          post.owner.profileImage
+                            ? `http://localhost:4000/${post.owner.profileImage}`
+                            : defaultUserProfileImg
+                        }
+                        alt=""
+                      />
                       {post.owner.name}
                     </ProfileLink>
                   </ProfileBox>
