@@ -48,6 +48,11 @@ export const isBackToMainState = atom({
   default: false,
 });
 
+export const userPageScrollYState = atom({
+  key: "userPageScrollYState",
+  default: 0,
+});
+
 export const isLoggedOutState = atom({
   key: "isLoggedOutState",
   default: false,
