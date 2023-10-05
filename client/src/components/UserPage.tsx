@@ -1,8 +1,13 @@
 import axios from "axios";
 import { useQuery } from "react-query";
 import { useLocation, useParams } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { currentUserPageState, sessionState } from "../atoms";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  currentUserPageState,
+  isBackToUserPageState,
+  sessionState,
+  userPageScrollYState,
+} from "../atoms";
 import { Link } from "react-router-dom";
 import defaultUserProfileImg from "../assets/User/default-profile.webp";
 import styled from "styled-components";
@@ -228,6 +233,24 @@ function UserPage() {
   data?.userPosts?.posts?.map((post: any) => (totalViews += post.views - 1));
   data?.userPosts?.posts?.map((post: any) => (totalLikes += post.likes.length));
 
+  const [scrollY, setScrollY] = useRecoilState(userPageScrollYState);
+
+  const [isBackToUserPage, setIsBackToUserPage] = useRecoilState(
+    isBackToUserPageState
+  );
+
+  useEffect(() => {
+    if (isBackToUserPage) {
+      window.scrollTo(0, scrollY);
+    }
+  });
+
+  useEffect(() => {
+    if (!isBackToUserPage) {
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
   useEffect(() => {
     if (username) {
       setCurrentUserPage(username);
@@ -235,8 +258,6 @@ function UserPage() {
   }, [username]);
 
   useInitSearch();
-
-  useBackToMain();
 
   return (
     <Container>
