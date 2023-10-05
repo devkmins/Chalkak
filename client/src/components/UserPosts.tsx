@@ -91,6 +91,10 @@ const PostBox = styled.div`
 function UserPosts({ data }: any) {
   const [scrollY, setScrollY] = useRecoilState(userPageScrollYState);
 
+  const [isBackToUserPage, setIsBackToUserPage] = useRecoilState(
+    isBackToUserPageState
+  );
+
   const clickedProfile = () => {
     setScrollY(window.scrollY);
   };
@@ -124,6 +128,18 @@ function UserPosts({ data }: any) {
     setSecondCol(secondColImages);
     setThirdCol(thirdColImages);
   }, [data]);
+
+  useEffect(() => {
+    const handleNavigation = () => {
+      setIsBackToUserPage(true);
+
+      return () => {
+        window.removeEventListener("popstate", handleNavigation);
+      };
+    };
+
+    window.addEventListener("popstate", handleNavigation);
+  });
 
   return (
     <PostsBox>
