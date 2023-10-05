@@ -314,6 +314,7 @@ function Join() {
               name="name"
               type="text"
               maxLength={20}
+              autoFocus
               value={formData.name}
               onChange={handleChange}
               required

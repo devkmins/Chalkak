@@ -279,6 +279,7 @@ function Login() {
             <input
               name="username"
               type="text"
+              autoFocus
               value={formData.username}
               onChange={handleChange}
               required
