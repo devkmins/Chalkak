@@ -108,6 +108,11 @@ export const currentUserPageScrollState = atom({
   default: 1,
 });
 
+export const currentSimilarPostsPageScrollState = atom({
+  key: "currentSimilarPostsPageScrollState",
+  default: 1,
+});
+
 export const totalPostsPagesState = atom({
   key: "totalPostsPagesState",
   default: 1,
