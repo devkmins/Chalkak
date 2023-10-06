@@ -58,13 +58,13 @@ export const isBackToUserPageState = atom({
   default: false,
 });
 
-export const searchPostsListScrollYState = atom({
-  key: "searchPostsListScrollYState",
+export const searchPostListScrollYState = atom({
+  key: "searchPostListScrollYState",
   default: 0,
 });
 
-export const isBackToSearchPostsListState = atom({
-  key: "isBackToSearchPostsListState",
+export const isBackToSearchPostListState = atom({
+  key: "isBackToSearchPostListState",
   default: false,
 });
 

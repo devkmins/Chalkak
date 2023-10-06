@@ -10,8 +10,8 @@ import axios from "axios";
 import { debounce } from "lodash";
 import { useRecoilState } from "recoil";
 import {
-  isBackToSearchPostsListState,
-  searchPostsListScrollYState,
+  isBackToSearchPostListState,
+  searchPostListScrollYState,
 } from "../atoms";
 
 const Container = styled.div``;
@@ -209,10 +209,10 @@ function SearchPostList() {
     setThirdCol(thirdColImages);
   }, [data]);
 
-  const [scrollY, setScrollY] = useRecoilState(searchPostsListScrollYState);
+  const [scrollY, setScrollY] = useRecoilState(searchPostListScrollYState);
 
-  const [isBackToSearchPostsList, setIsBackToSearchPostsList] = useRecoilState(
-    isBackToSearchPostsListState
+  const [isBackToSearchPostList, setIsBackToSearchPostList] = useRecoilState(
+    isBackToSearchPostListState
   );
 
   const clickedProfile = () => {
@@ -224,13 +224,13 @@ function SearchPostList() {
   };
 
   useEffect(() => {
-    if (isBackToSearchPostsList) {
+    if (isBackToSearchPostList) {
       window.scrollTo(0, scrollY);
     }
   });
 
   useEffect(() => {
-    if (!isBackToSearchPostsList) {
+    if (!isBackToSearchPostList) {
       window.scrollTo(0, 0);
     }
   }, []);
