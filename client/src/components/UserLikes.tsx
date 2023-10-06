@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.webp";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { isBackToUserPageState, userPageScrollYState } from "../atoms";
 
 const ColumnsContainer = styled.div`
@@ -90,6 +90,8 @@ function UserLikes({ data }: any) {
   const location = useLocation();
   const path = location.pathname;
 
+  const setIsBackToUserPage = useSetRecoilState(isBackToUserPageState);
+
   const [scrollY, setScrollY] = useRecoilState(userPageScrollYState);
 
   const clickedProfile = () => {
@@ -125,6 +127,18 @@ function UserLikes({ data }: any) {
     setSecondCol(secondColImages);
     setThirdCol(thirdColImages);
   }, [data]);
+
+  useEffect(() => {
+    const handleNavigation = () => {
+      setIsBackToUserPage(true);
+
+      return () => {
+        window.removeEventListener("popstate", handleNavigation);
+      };
+    };
+
+    window.addEventListener("popstate", handleNavigation);
+  });
 
   return (
     <PostsBox>

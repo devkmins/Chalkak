@@ -4,6 +4,9 @@ import { useLocation, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   currentUserPageState,
+  isBackToMainState,
+  isBackToSearchPostListState,
+  isBackToSimilarPostsState,
   isBackToUserPageState,
   sessionState,
   userPageScrollYState,
@@ -170,6 +173,13 @@ const ContentText = styled.span`
 function UserPage() {
   const location = useLocation();
   const pathname = location.pathname;
+  const prevPath = location.state;
+
+  const setIsBackToMain = useSetRecoilState(isBackToMainState);
+  const setIsBackToSimilarPosts = useSetRecoilState(isBackToSimilarPostsState);
+  const setIsBackToSearchPostList = useSetRecoilState(
+    isBackToSearchPostListState
+  );
 
   const params = useParams();
   const username = params.id;
@@ -238,6 +248,24 @@ function UserPage() {
   const [isBackToUserPage, setIsBackToUserPage] = useRecoilState(
     isBackToUserPageState
   );
+
+  useEffect(() => {
+    const handleNavigation = () => {
+      if (prevPath === "/") {
+        setIsBackToMain(true);
+      } else if (prevPath?.split("/")[1] === "search") {
+        setIsBackToSearchPostList(true);
+      } else if (prevPath?.split("/")[1] === "post") {
+        setIsBackToSimilarPosts(true);
+      }
+
+      return () => {
+        window.removeEventListener("popstate", handleNavigation);
+      };
+    };
+
+    window.addEventListener("popstate", handleNavigation);
+  });
 
   useEffect(() => {
     if (isBackToUserPage) {

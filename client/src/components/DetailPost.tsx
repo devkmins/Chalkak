@@ -5,6 +5,9 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   currentPostState,
   currentSearchState,
+  isBackToMainState,
+  isBackToSearchPostListState,
+  isBackToSimilarPostsState,
   isEditedState,
   loggedInState,
   sessionState,
@@ -296,7 +299,14 @@ function DetailPost() {
   );
 
   const location = useLocation();
-  const postId = location.state;
+  const postId = location.state.postId;
+  const prevPath = location.state.path;
+
+  const setIsBackToMain = useSetRecoilState(isBackToMainState);
+  const setIsBackToSimilarPosts = useSetRecoilState(isBackToSimilarPostsState);
+  const setIsBackToSearchPostList = useSetRecoilState(
+    isBackToSearchPostListState
+  );
 
   const navigate = useNavigate();
 
@@ -393,7 +403,23 @@ function DetailPost() {
     navigate(`/search/${hashtag}`, { state: response.data });
   };
 
-  useBackToMain();
+  useEffect(() => {
+    const handleNavigation = () => {
+      if (prevPath === "/") {
+        setIsBackToMain(true);
+      } else if (prevPath?.split("/")[1] === "search") {
+        setIsBackToSearchPostList(true);
+      } else if (prevPath?.split("/")[1] === "post") {
+        setIsBackToSimilarPosts(true);
+      }
+
+      return () => {
+        window.removeEventListener("popstate", handleNavigation);
+      };
+    };
+
+    window.addEventListener("popstate", handleNavigation);
+  });
 
   useEffect(() => {
     if (isEdited) {
