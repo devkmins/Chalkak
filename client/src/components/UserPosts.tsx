@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.webp";
 import { useRecoilState } from "recoil";
@@ -89,6 +89,9 @@ const PostBox = styled.div`
 `;
 
 function UserPosts({ data }: any) {
+  const location = useLocation();
+  const path = location.pathname;
+
   const [scrollY, setScrollY] = useRecoilState(userPageScrollYState);
 
   const clickedProfile = () => {
@@ -134,7 +137,7 @@ function UserPosts({ data }: any) {
               <PostBox key={post?._id}>
                 <StyledLink
                   to={`/post/${post?.title}`}
-                  state={post?._id}
+                  state={{ postId: post?._id, path }}
                   onClick={clickedPost}>
                   <Image
                     src={`http://localhost:4000/${post.fileUrl[0].path}`}
@@ -145,6 +148,7 @@ function UserPosts({ data }: any) {
                   <ProfileBox>
                     <ProfileLink
                       to={`/user/${post.owner.username}`}
+                      state={path}
                       onClick={clickedProfile}>
                       <PostProfileImg
                         src={
@@ -167,7 +171,7 @@ function UserPosts({ data }: any) {
               <PostBox key={post?._id}>
                 <StyledLink
                   to={`/post/${post?.title}`}
-                  state={post?._id}
+                  state={{ postId: post?._id, path }}
                   onClick={clickedPost}>
                   <Image
                     src={`http://localhost:4000/${post.fileUrl[0].path}`}
@@ -178,6 +182,7 @@ function UserPosts({ data }: any) {
                   <ProfileBox>
                     <ProfileLink
                       to={`/user/${post.owner.username}`}
+                      state={path}
                       onClick={clickedProfile}>
                       <PostProfileImg
                         src={
@@ -200,7 +205,7 @@ function UserPosts({ data }: any) {
               <PostBox key={post?._id}>
                 <StyledLink
                   to={`/post/${post?.title}`}
-                  state={post?._id}
+                  state={{ postId: post?._id, path }}
                   onClick={clickedPost}>
                   <Image
                     src={`http://localhost:4000/${post.fileUrl[0].path}`}
@@ -211,6 +216,7 @@ function UserPosts({ data }: any) {
                   <ProfileBox>
                     <ProfileLink
                       to={`/user/${post.owner.username}`}
+                      state={path}
                       onClick={clickedProfile}>
                       <PostProfileImg
                         src={

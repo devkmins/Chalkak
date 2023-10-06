@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../pages/Header";
 import defaultUserProfileImg from "../assets/User/default-profile.webp";
@@ -145,6 +145,9 @@ function SearchPostList() {
   const params = useParams();
   const searchKeyword = params.keyword;
 
+  const location = useLocation();
+  const path = location.pathname;
+
   const [page, setPage] = useState(1);
 
   const { data, refetch, isFetching, isLoading } = useQuery(
@@ -254,7 +257,7 @@ function SearchPostList() {
                         <PostBox key={post?._id}>
                           <StyledLink
                             to={`/post/${post?.title}`}
-                            state={post?._id}
+                            state={{ postId: post?._id, path }}
                             onClick={clickedPost}>
                             <Image
                               src={`http://localhost:4000/${post.fileUrl[0].path}`}
@@ -265,6 +268,7 @@ function SearchPostList() {
                             <ProfileBox>
                               <ProfileLink
                                 to={`/user/${post.owner.username}`}
+                                state={path}
                                 onClick={clickedProfile}>
                                 <PostProfileImg
                                   src={
@@ -287,7 +291,7 @@ function SearchPostList() {
                         <PostBox key={post?._id}>
                           <StyledLink
                             to={`/post/${post?.title}`}
-                            state={post?._id}
+                            state={{ postId: post?._id, path }}
                             onClick={clickedPost}>
                             <Image
                               src={`http://localhost:4000/${post.fileUrl[0].path}`}
@@ -298,6 +302,7 @@ function SearchPostList() {
                             <ProfileBox>
                               <ProfileLink
                                 to={`/user/${post.owner.username}`}
+                                state={path}
                                 onClick={clickedProfile}>
                                 <PostProfileImg
                                   src={
@@ -320,7 +325,7 @@ function SearchPostList() {
                         <PostBox key={post?._id}>
                           <StyledLink
                             to={`/post/${post?.title}`}
-                            state={post?._id}
+                            state={{ postId: post?._id, path }}
                             onClick={clickedPost}>
                             <Image
                               src={`http://localhost:4000/${post.fileUrl[0].path}`}
@@ -331,6 +336,7 @@ function SearchPostList() {
                             <ProfileBox>
                               <ProfileLink
                                 to={`/user/${post.owner.username}`}
+                                state={path}
                                 onClick={clickedProfile}>
                                 <PostProfileImg
                                   src={

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.webp";
 import { useEffect, useState } from "react";
@@ -94,6 +94,9 @@ const ImagesBox = styled.div`
 `;
 
 function SimilarPosts({ title, postId }: IProp) {
+  const location = useLocation();
+  const path = location.pathname;
+
   const [page, setPage] = useState(1);
 
   const { data, refetch, isFetching, isLoading } = useQuery(
@@ -190,7 +193,7 @@ function SimilarPosts({ title, postId }: IProp) {
               <ImagesBox key={post?._id}>
                 <StyledLink
                   to={`/post/${post?.title}`}
-                  state={post?._id}
+                  state={{ postId: post?._id, path }}
                   onClick={clickedPost}>
                   <Image
                     src={`http://localhost:4000/${post.fileUrl[0].path}`}
@@ -201,6 +204,7 @@ function SimilarPosts({ title, postId }: IProp) {
                   <ProfileBox>
                     <ProfileLink
                       to={`/user/${post.owner.username}`}
+                      state={path}
                       onClick={clickedProfile}>
                       <ProfileImg
                         src={
@@ -223,7 +227,7 @@ function SimilarPosts({ title, postId }: IProp) {
               <ImagesBox key={post?._id}>
                 <StyledLink
                   to={`/post/${post?.title}`}
-                  state={post?._id}
+                  state={{ postId: post?._id, path }}
                   onClick={clickedPost}>
                   <Image
                     src={`http://localhost:4000/${post.fileUrl[0].path}`}
@@ -234,6 +238,7 @@ function SimilarPosts({ title, postId }: IProp) {
                   <ProfileBox>
                     <ProfileLink
                       to={`/user/${post.owner.username}`}
+                      state={path}
                       onClick={clickedProfile}>
                       <ProfileImg
                         src={
@@ -256,7 +261,7 @@ function SimilarPosts({ title, postId }: IProp) {
               <ImagesBox key={post?._id}>
                 <StyledLink
                   to={`/post/${post?.title}`}
-                  state={post?._id}
+                  state={{ postId: post?._id, path }}
                   onClick={clickedPost}>
                   <Image
                     src={`http://localhost:4000/${post.fileUrl[0].path}`}
@@ -267,6 +272,7 @@ function SimilarPosts({ title, postId }: IProp) {
                   <ProfileBox>
                     <ProfileLink
                       to={`/user/${post.owner.username}`}
+                      state={path}
                       onClick={clickedProfile}>
                       <ProfileImg
                         src={

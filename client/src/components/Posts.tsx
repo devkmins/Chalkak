@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useInfiniteQuery, useQuery } from "react-query";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.webp";
 import { useRecoilState } from "recoil";
@@ -103,6 +103,9 @@ const ImagesBox = styled.div`
 function Posts() {
   const [page, setPage] = useRecoilState(currentPostPageState);
 
+  const location = useLocation();
+  const path = location.pathname;
+
   const { data, refetch, isFetching } = useQuery(
     "getAllPostsData",
     async () => {
@@ -196,7 +199,7 @@ function Posts() {
               <ImagesBox key={post?._id}>
                 <StyledLink
                   to={`/post/${post?.title}`}
-                  state={post?._id}
+                  state={{ postId: post?._id, path }}
                   onClick={clickedPost}>
                   <Image
                     src={`http://localhost:4000/${post.fileUrl[0].path}`}
@@ -209,6 +212,7 @@ function Posts() {
                   <ProfileBox>
                     <ProfileLink
                       to={`/user/${post.owner.username}`}
+                      state={path}
                       onClick={clickedProfile}>
                       <ProfileImg
                         src={
@@ -231,7 +235,7 @@ function Posts() {
               <ImagesBox key={post?._id}>
                 <StyledLink
                   to={`/post/${post?.title}`}
-                  state={post?._id}
+                  state={{ postId: post?._id, path }}
                   onClick={clickedPost}>
                   <Image
                     src={`http://localhost:4000/${post.fileUrl[0].path}`}
@@ -244,6 +248,7 @@ function Posts() {
                   <ProfileBox>
                     <ProfileLink
                       to={`/user/${post.owner.username}`}
+                      state={path}
                       onClick={clickedProfile}>
                       <ProfileImg
                         src={
@@ -266,7 +271,7 @@ function Posts() {
               <ImagesBox key={post?._id}>
                 <StyledLink
                   to={`/post/${post?.title}`}
-                  state={post?._id}
+                  state={{ postId: post?._id, path }}
                   onClick={clickedPost}>
                   <Image
                     src={`http://localhost:4000/${post.fileUrl[0].path}`}
@@ -279,6 +284,7 @@ function Posts() {
                   <ProfileBox>
                     <ProfileLink
                       to={`/user/${post.owner.username}`}
+                      state={path}
                       onClick={clickedProfile}>
                       <ProfileImg
                         src={
