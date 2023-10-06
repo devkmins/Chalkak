@@ -98,8 +98,8 @@ export const currentUserPageState = atom({
   default: "",
 });
 
-export const currentPostPageState = atom({
-  key: "currentPostPageState",
+export const currentPostPageScrollState = atom({
+  key: "currentPostPageScrollState",
   default: 1,
 });
 

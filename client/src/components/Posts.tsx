@@ -6,7 +6,7 @@ import styled from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.webp";
 import { useRecoilState } from "recoil";
 import {
-  currentPostPageState,
+  currentPostPageScrollState,
   isBackToMainState,
   mainPageScrollYState,
 } from "../atoms";
@@ -101,7 +101,7 @@ const ImagesBox = styled.div`
 `;
 
 function Posts() {
-  const [page, setPage] = useRecoilState(currentPostPageState);
+  const [page, setPage] = useRecoilState(currentPostPageScrollState);
 
   const location = useLocation();
   const path = location.pathname;
