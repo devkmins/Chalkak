@@ -133,6 +133,7 @@ function UserPosts({ data }: any) {
   useEffect(() => {
     const handleNavigation = () => {
       setIsBackToUserPage(true);
+      setTimeout(() => setIsBackToUserPage(false), 500);
 
       return () => {
         window.removeEventListener("popstate", handleNavigation);

@@ -253,10 +253,13 @@ function UserPage() {
     const handleNavigation = () => {
       if (prevPath === "/") {
         setIsBackToMain(true);
+        setTimeout(() => setIsBackToMain(false), 500);
       } else if (prevPath?.split("/")[1] === "search") {
         setIsBackToSearchPostList(true);
+        setTimeout(() => setIsBackToSearchPostList(false), 500);
       } else if (prevPath?.split("/")[1] === "post") {
         setIsBackToSimilarPosts(true);
+        setTimeout(() => setIsBackToSimilarPosts(false), 500);
       }
 
       return () => {
