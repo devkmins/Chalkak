@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import { useLocation, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
+  currentUserPageScrollState,
   currentUserPageState,
   isBackToMainState,
   isBackToSearchPostListState,
@@ -23,7 +24,6 @@ import UserPosts from "./UserPosts";
 import UserLikes from "./UserLikes";
 import { PiPersonArmsSpreadBold } from "react-icons/pi";
 import { RiHeartsLine } from "react-icons/ri";
-import useBackToMain from "../hooks/useBackToMain";
 import { debounce } from "lodash";
 
 interface IPhotoLi {
@@ -184,7 +184,7 @@ function UserPage() {
   const params = useParams();
   const username = params.id;
 
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useRecoilState(currentUserPageScrollState);
 
   const { data, refetch, isFetching, isLoading } = useQuery(
     "getAllUserPostsData",

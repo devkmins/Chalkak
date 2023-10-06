@@ -5,8 +5,12 @@ import styled from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.webp";
 import { useEffect, useState } from "react";
 import { debounce } from "lodash";
-import { useRecoilState } from "recoil";
-import { isBackToSimilarPostsState, similarPostsScrollYState } from "../atoms";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import {
+  currentSimilarPostsPageScrollState,
+  isBackToSimilarPostsState,
+  similarPostsScrollYState,
+} from "../atoms";
 
 interface IProp {
   title: string;
@@ -97,7 +101,7 @@ function SimilarPosts({ title, postId }: IProp) {
   const location = useLocation();
   const path = location.pathname;
 
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useRecoilState(currentSimilarPostsPageScrollState);
 
   const { data, refetch, isFetching, isLoading } = useQuery(
     ["getSimilarPostsData", title, postId],
