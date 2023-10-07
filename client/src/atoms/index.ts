@@ -113,7 +113,7 @@ export const currentSimilarPostsPageScrollState = atom({
   default: 1,
 });
 
-export const totalPostsPagesState = atom({
-  key: "totalPostsPagesState",
+export const totalPostsPageScrollState = atom({
+  key: "totalPostsPageScrollState",
   default: 1,
 });
