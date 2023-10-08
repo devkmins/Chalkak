@@ -1,15 +1,24 @@
-import { Link } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { sessionState } from "../atoms";
+import { Link, useNavigate } from "react-router-dom";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { isLoggedOutState, loggedInState, sessionState } from "../atoms";
 import styled from "styled-components";
+import { useCookies } from "react-cookie";
+import axios from "axios";
+import { useMobile } from "../styles/mediaQueries";
 
-const Container = styled.div`
+interface IContainer {
+  $isMobile: string;
+}
+
+const Container = styled.div<IContainer>`
   position: absolute;
   display: grid;
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: ${(props) =>
+    props.$isMobile === "true" ? "repeat(4, 1fr)" : "repeat(2, 1fr)"};
+  justify-content: center;
   align-items: center;
-  width: 110px;
-  height: 80px;
+  width: ${(props) => (props.$isMobile === "true" ? "125px" : "110px")};
+  height: ${(props) => (props.$isMobile === "true" ? "180px" : "80px")};
   background-color: white;
   border: 1px solid lightgray;
   border-bottom-left-radius: 12.5px;
@@ -18,18 +27,58 @@ const Container = styled.div`
   margin-top: 2.5px;
   right: 35px;
 
-  a {
+  a,
+  span {
     font-size: 15px;
   }
 `;
 
 function LoggedInMenu() {
-  const sessionData = useRecoilValue(sessionState);
+  const isMobile = useMobile();
+
+  const navigate = useNavigate();
+
+  const setLoggedIn = useSetRecoilState(loggedInState);
+  const [sessionData, setSessionData] = useRecoilState(sessionState);
+  const setIsLoggedOut = useSetRecoilState(isLoggedOutState);
+  const [cookies, , removeCookie] = useCookies(["connect.sid"]);
+
+  const logout = async () => {
+    await axios
+      .post("http://localhost:4000/user/logout", cookies, {
+        withCredentials: true,
+      })
+      .then(() => {
+        setLoggedIn(false);
+        setSessionData({
+          email: "",
+          username: "",
+          name: "",
+          profileImage: "",
+          socialOnly: false,
+          _id: "",
+        });
+        removeCookie("connect.sid");
+        setIsLoggedOut(true);
+        navigate("/");
+      });
+  };
 
   return (
-    <Container>
-      <Link to={`/user/${sessionData.username}`}>프로필 보기</Link>
-      <Link to={"/account"}>계정 설정</Link>
+    <Container $isMobile={String(isMobile)}>
+      {isMobile ? (
+        <>
+          <Link to={`/user/${sessionData.username}`}>프로필 보기</Link>
+          <Link to={"/account"}>계정 설정</Link>
+          <Link to={"/post/upload"}>업로드</Link>
+          <span onClick={logout}>로그아웃</span>
+        </>
+      ) : (
+        <>
+          <Link to={`/user/${sessionData.username}`}>프로필 보기</Link>
+          <Link to={"/account"}>계정 설정</Link>
+        </>
+      )}
     </Container>
   );
 }

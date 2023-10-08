@@ -23,7 +23,7 @@ import {
 import { FaBars } from "react-icons/fa";
 import GuestMenu from "../../components/GuestMenu";
 
-interface ISearchPostBoxProp {
+interface IIsMobile {
   $isMobile: string;
 }
 
@@ -57,24 +57,25 @@ const LogoBox = styled.div`
   }
 `;
 
-const SearchPostBox = styled.div<ISearchPostBoxProp>`
+const SearchPostBox = styled.div<IIsMobile>`
   width: 100%;
   border-right: ${(props) =>
     props.$isMobile === "true" ? "none" : "1px solid #d1d1d1"};
-  padding-right: ${(props) => (props.$isMobile === "true" ? "20px" : "35px")};
+  padding-right: ${(props) => (props.$isMobile === "true" ? "10px" : "35px")};
 `;
 
 const AuthBox = styled.div``;
 
-const LoggedInBox = styled.div`
+const LoggedInBox = styled.div<IIsMobile>`
   display: flex;
   align-items: center;
   margin-top: 2.5px;
+  margin-left: ${(props) => (props.$isMobile === "true" ? "0px" : "15px")};
 
   span,
   a {
     cursor: pointer;
-    padding: 7.5px 20px;
+    padding: 7.5px 15px;
     color: #656f79;
     white-space: nowrap;
 
@@ -83,6 +84,20 @@ const LoggedInBox = styled.div`
       transition: color 0.25s;
     }
   }
+`;
+
+const UserImgBox = styled.div<IIsMobile>`
+  width: min-content;
+  height: min-content;
+  margin-right: ${(props) => (props.$isMobile === "true" ? "0px" : "10px")};
+  margin-left: 10px;
+`;
+
+const UserImg = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
 `;
 
 const IsNotLoginBox = styled.div`
@@ -101,18 +116,6 @@ const IsNotLoginLink = styled(Link)`
     color: black;
     transition: color 0.25s;
   }
-`;
-
-const UserImgBox = styled.div`
-  width: min-content;
-  height: min-content;
-`;
-
-const UserImg = styled.img`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
 `;
 
 const GuestMenuBox = styled.div`
@@ -135,8 +138,8 @@ const GuestMenuBox = styled.div`
 `;
 
 const StyledFaBars = styled(FaBars)`
-  width: 20px;
-  height: 20px;
+  width: 22.5px;
+  height: 22.5px;
   color: #6b6666;
   cursor: pointer;
 `;
@@ -271,23 +274,50 @@ function Header() {
       </SearchPostBox>
       <AuthBox>
         {loggedIn ? (
-          <LoggedInBox>
-            <span onClick={logout}>로그아웃</span>
-            <Link to={"/post/upload"}>업로드</Link>
-            <UserImgBox onFocus={handleUserImgFocus} ref={menuRef}>
-              <UserImg
-                key={userProfileImg}
-                alt=""
-                src={
-                  userProfileImg
-                    ? `http://localhost:4000/${userProfileImg}`
-                    : defaultUserProfileImg
-                }
-                onClick={onUserImgClick}
-              />
-              {userImgClicked && <LoggedInMenu />}
-            </UserImgBox>
-          </LoggedInBox>
+          <>
+            {(isTabletOrLaptop || isDesktop) && (
+              <LoggedInBox $isMobile={String(isMobile)}>
+                <span onClick={logout}>로그아웃</span>
+                <Link to={"/post/upload"}>업로드</Link>
+                <UserImgBox
+                  onFocus={handleUserImgFocus}
+                  ref={menuRef}
+                  $isMobile={String(isMobile)}>
+                  <UserImg
+                    key={userProfileImg}
+                    alt=""
+                    src={
+                      userProfileImg
+                        ? `http://localhost:4000/${userProfileImg}`
+                        : defaultUserProfileImg
+                    }
+                    onClick={onUserImgClick}
+                  />
+                  {userImgClicked && <LoggedInMenu />}
+                </UserImgBox>
+              </LoggedInBox>
+            )}
+            {isMobile && (
+              <LoggedInBox $isMobile={String(isMobile)}>
+                <UserImgBox
+                  onFocus={handleUserImgFocus}
+                  ref={menuRef}
+                  $isMobile={String(isMobile)}>
+                  <UserImg
+                    key={userProfileImg}
+                    alt=""
+                    src={
+                      userProfileImg
+                        ? `http://localhost:4000/${userProfileImg}`
+                        : defaultUserProfileImg
+                    }
+                    onClick={onUserImgClick}
+                  />
+                  {userImgClicked && <LoggedInMenu />}
+                </UserImgBox>
+              </LoggedInBox>
+            )}
+          </>
         ) : (
           <>
             {(isTabletOrLaptop || isDesktop) && (
