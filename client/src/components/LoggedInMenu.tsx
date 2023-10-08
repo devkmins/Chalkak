@@ -8,13 +8,13 @@ const Container = styled.div`
   display: grid;
   grid-template-rows: repeat(2, 1fr);
   align-items: center;
-  min-width: max-content;
-  min-height: 80px;
+  width: 110px;
+  height: 80px;
   background-color: white;
   border: 1px solid lightgray;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  border-top-left-radius: 10px;
+  border-bottom-left-radius: 12.5px;
+  border-bottom-right-radius: 12.5px;
+  border-top-left-radius: 12.5px;
   margin-top: 2.5px;
   right: 35px;
 
@@ -23,7 +23,7 @@ const Container = styled.div`
   }
 `;
 
-function Menu() {
+function LoggedInMenu() {
   const sessionData = useRecoilValue(sessionState);
 
   return (
@@ -34,4 +34,4 @@ function Menu() {
   );
 }
 
-export default Menu;
+export default LoggedInMenu;
