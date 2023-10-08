@@ -10,7 +10,7 @@ import {
 } from "../../atoms";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import defaultUserProfileImg from "../../assets/User/default-profile.webp";
-import Menu from "../../components/Menu";
+import LoggedInMenu from "../../components/LoggedInMenu";
 import { useEffect, useRef, useState } from "react";
 import { useCookies } from "react-cookie";
 import axios from "axios";
@@ -21,6 +21,7 @@ import {
   useTabletOrLaptop,
 } from "../../styles/mediaQueries";
 import { FaBars } from "react-icons/fa";
+import GuestMenu from "../../components/GuestMenu";
 
 interface ISearchPostBoxProp {
   $isMobile: string;
@@ -31,6 +32,7 @@ const HeaderContainer = styled.div`
   align-items: center;
   position: fixed;
   width: 100%;
+  height: 65px;
   padding: 10px 15px;
   border-bottom: 0.5px solid #c8d6e5;
   background-color: white;
@@ -62,12 +64,28 @@ const SearchPostBox = styled.div<ISearchPostBoxProp>`
   padding-right: ${(props) => (props.$isMobile === "true" ? "20px" : "35px")};
 `;
 
-const AuthBox = styled.div`
+const AuthBox = styled.div``;
+
+const LoggedInBox = styled.div`
   display: flex;
   align-items: center;
+  margin-top: 2.5px;
+
+  span,
+  a {
+    cursor: pointer;
+    padding: 7.5px 20px;
+    color: #656f79;
+    white-space: nowrap;
+
+    &:hover {
+      color: black;
+      transition: color 0.25s;
+    }
+  }
 `;
 
-const IsNotLoginLinkBox = styled.div`
+const IsNotLoginBox = styled.div`
   display: flex;
   margin-left: 15px;
   margin-top: 2.5px;
@@ -97,6 +115,25 @@ const UserImg = styled.img`
   cursor: pointer;
 `;
 
+const GuestMenuBox = styled.div`
+  width: min-content;
+  height: min-content;
+  margin-top: 2.5px;
+
+  span,
+  a {
+    cursor: pointer;
+    padding: 7.5px 20px;
+    color: #656f79;
+    white-space: nowrap;
+
+    &:hover {
+      color: black;
+      transition: color 0.25s;
+    }
+  }
+`;
+
 const StyledFaBars = styled(FaBars)`
   width: 20px;
   height: 20px;
@@ -116,8 +153,11 @@ function Header() {
 
   const setIsBackToMain = useSetRecoilState(isBackToMainState);
 
-  const [userImgClick, setUserImgClick] = useState(false);
+  const [userImgClicked, setUserImgClicked] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  const [guestMenuClicked, setGuestMenuClicked] = useState(false);
+  const guestMenuRef = useRef<HTMLDivElement>(null);
 
   const location = useLocation();
   const path = location.pathname;
@@ -131,12 +171,20 @@ function Header() {
 
   const isRoot = path === "/" ? true : false;
 
-  const onClick = () => {
-    setUserImgClick((prev) => !prev);
+  const onUserImgClick = () => {
+    setUserImgClicked((prev) => !prev);
   };
 
-  const handleFocus = () => {
-    setUserImgClick(true);
+  const handleUserImgFocus = () => {
+    setUserImgClicked(true);
+  };
+
+  const onGuestMenuClick = () => {
+    setGuestMenuClicked((prev) => !prev);
+  };
+
+  const handleGuestMenuFocus = () => {
+    setGuestMenuClicked(true);
   };
 
   const logoClicked = () => {
@@ -184,7 +232,7 @@ function Header() {
   useEffect(() => {
     const handleDocumentClick = (event: any) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setUserImgClick(false);
+        setUserImgClicked(false);
       }
     };
 
@@ -194,6 +242,23 @@ function Header() {
       document.removeEventListener("click", handleDocumentClick);
     };
   }, [menuRef]);
+
+  useEffect(() => {
+    const handleDocumentClick = (event: any) => {
+      if (
+        guestMenuRef.current &&
+        !guestMenuRef.current.contains(event.target)
+      ) {
+        setGuestMenuClicked(false);
+      }
+    };
+
+    document.addEventListener("click", handleDocumentClick);
+
+    return () => {
+      document.removeEventListener("click", handleDocumentClick);
+    };
+  }, [guestMenuRef]);
 
   return (
     <HeaderContainer>
@@ -206,10 +271,10 @@ function Header() {
       </SearchPostBox>
       <AuthBox>
         {loggedIn ? (
-          <>
+          <LoggedInBox>
             <span onClick={logout}>로그아웃</span>
             <Link to={"/post/upload"}>업로드</Link>
-            <UserImgBox onFocus={handleFocus} ref={menuRef}>
+            <UserImgBox onFocus={handleUserImgFocus} ref={menuRef}>
               <UserImg
                 key={userProfileImg}
                 alt=""
@@ -218,21 +283,29 @@ function Header() {
                     ? `http://localhost:4000/${userProfileImg}`
                     : defaultUserProfileImg
                 }
-                onClick={onClick}
+                onClick={onUserImgClick}
               />
-              {userImgClick && <Menu />}
+              {userImgClicked && <LoggedInMenu />}
             </UserImgBox>
-          </>
+          </LoggedInBox>
         ) : (
           <>
             {(isTabletOrLaptop || isDesktop) && (
-              <IsNotLoginLinkBox>
+              <IsNotLoginBox>
                 <IsNotLoginLink to={"/login"}>로그인</IsNotLoginLink>
                 <IsNotLoginLink to={"/join"}>가입</IsNotLoginLink>
                 <IsNotLoginLink to={"/login"}>업로드</IsNotLoginLink>
-              </IsNotLoginLinkBox>
+              </IsNotLoginBox>
             )}
-            {isMobile && <StyledFaBars />}
+            {isMobile && (
+              <GuestMenuBox>
+                <StyledFaBars
+                  onFocus={handleGuestMenuFocus}
+                  onClick={onGuestMenuClick}
+                />
+                {guestMenuClicked && <GuestMenu />}
+              </GuestMenuBox>
+            )}
           </>
         )}
       </AuthBox>
