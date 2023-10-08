@@ -14,14 +14,24 @@ import Menu from "../../components/Menu";
 import { useEffect, useRef, useState } from "react";
 import { useCookies } from "react-cookie";
 import axios from "axios";
+import {
+  useDesktop,
+  useMobile,
+  useSmallDevice,
+  useTabletOrLaptop,
+} from "../../styles/mediaQueries";
+import { FaBars } from "react-icons/fa";
+
+interface ISearchPostBoxProp {
+  $isMobile: string;
+}
 
 const HeaderContainer = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
   position: fixed;
   width: 100%;
-  padding: 10px 20px;
+  padding: 10px 15px;
   border-bottom: 0.5px solid #c8d6e5;
   background-color: white;
   z-index: 100;
@@ -30,6 +40,7 @@ const HeaderContainer = styled.div`
 const LogoBox = styled.div`
   display: flex;
   align-items: center;
+  margin-right: 15px;
 
   svg {
     cursor: pointer;
@@ -44,32 +55,33 @@ const LogoBox = styled.div`
   }
 `;
 
-const SearchPostBox = styled.div`
-  width: 65%;
-  border-right: 1px solid #d1d1d1;
+const SearchPostBox = styled.div<ISearchPostBoxProp>`
+  width: 100%;
+  border-right: ${(props) =>
+    props.$isMobile === "true" ? "none" : "1px solid #d1d1d1"};
+  padding-right: ${(props) => (props.$isMobile === "true" ? "20px" : "35px")};
 `;
 
 const AuthBox = styled.div`
   display: flex;
   align-items: center;
+`;
 
-  span,
-  a {
-    cursor: pointer;
-    margin-right: 25px;
-    margin-top: 2.5px;
-    padding: 7.5px 10px;
-    border-radius: 5px;
-    color: #656f79;
+const IsNotLoginLinkBox = styled.div`
+  display: flex;
+  margin-left: 15px;
+  margin-top: 2.5px;
+`;
 
-    &:last-child {
-      margin-right: 20px;
-    }
+const IsNotLoginLink = styled(Link)`
+  white-space: nowrap;
+  cursor: pointer;
+  padding: 7.5px 20px;
+  color: #656f79;
 
-    &:hover {
-      color: black;
-      transition: color 0.25s;
-    }
+  &:hover {
+    color: black;
+    transition: color 0.25s;
   }
 `;
 
@@ -85,7 +97,19 @@ const UserImg = styled.img`
   cursor: pointer;
 `;
 
+const StyledFaBars = styled(FaBars)`
+  width: 20px;
+  height: 20px;
+  color: #6b6666;
+  cursor: pointer;
+`;
+
 function Header() {
+  const isSmallDevice = useSmallDevice();
+  const isMobile = useMobile();
+  const isTabletOrLaptop = useTabletOrLaptop();
+  const isDesktop = useDesktop();
+
   const loggedIn = useRecoilValue(loggedInState);
   const sessionData = useRecoilValue(sessionState);
   const userProfileImg = sessionData.profileImage;
@@ -175,9 +199,9 @@ function Header() {
     <HeaderContainer>
       <LogoBox onClick={logoClicked}>
         <RiCameraLensFill size={40} />
-        <span>Chalkak</span>
+        {isDesktop && <span>Chalkak</span>}
       </LogoBox>
-      <SearchPostBox>
+      <SearchPostBox $isMobile={String(isMobile)}>
         <SearchPost />
       </SearchPostBox>
       <AuthBox>
@@ -201,9 +225,14 @@ function Header() {
           </>
         ) : (
           <>
-            <Link to={"/login"}>로그인</Link>
-            <Link to={"/join"}>가입</Link>
-            <Link to={"/login"}>업로드</Link>
+            {(isTabletOrLaptop || isDesktop) && (
+              <IsNotLoginLinkBox>
+                <IsNotLoginLink to={"/login"}>로그인</IsNotLoginLink>
+                <IsNotLoginLink to={"/join"}>가입</IsNotLoginLink>
+                <IsNotLoginLink to={"/login"}>업로드</IsNotLoginLink>
+              </IsNotLoginLinkBox>
+            )}
+            {isMobile && <StyledFaBars />}
           </>
         )}
       </AuthBox>
