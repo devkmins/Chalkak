@@ -18,7 +18,7 @@ const MainImgBox = styled.div`
 `;
 
 const MainImg = styled.img`
-  width: 70%;
+  width: 80%;
   height: 90vh;
 `;
 
