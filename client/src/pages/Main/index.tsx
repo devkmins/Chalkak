@@ -1,7 +1,6 @@
 import Posts from "../../components/Posts";
 import Header from "../Header";
 import IntroContent from "../../components/IntroContent";
-import TopViewsPosts from "../../components/TopViewsPosts";
 import NotificationBar from "../../components/NotificationBar";
 import { useRecoilState } from "recoil";
 import { isLoggedOutState } from "../../atoms";
@@ -16,7 +15,6 @@ function Main() {
       {isLoggedOut && <NotificationBar text={logoutText} />}
       <Header />
       <IntroContent />
-      <TopViewsPosts />
       <Posts />
     </>
   );
