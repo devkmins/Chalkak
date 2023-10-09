@@ -9,7 +9,9 @@ import axios from "axios";
 import { useRecoilValue } from "recoil";
 import { sessionState } from "../atoms";
 import { TbArrowNarrowLeft } from "react-icons/tb";
+import { MdClear } from "react-icons/md";
 import { resizeAndConvertToWebP } from "../resizeAndConvertToWebP";
+import { useMobile } from "../styles/mediaQueries";
 
 interface imgResizeFuncResultType {
   blob: File;
@@ -17,17 +19,33 @@ interface imgResizeFuncResultType {
   ratioHeight: number;
 }
 
+interface IIsMobile {
+  $isMobile: string;
+}
+
 const Container = styled.div``;
 
-const BackBtnBox = styled.div`
+const BackBtnBox = styled.div<IIsMobile>`
+  display: flex;
+  justify-content: ${(props) =>
+    props.$isMobile === "true" ? "flex-end" : "none"};
   padding-top: 75px;
-  margin-left: 10px;
+  margin: 0px ${(props) => (props.$isMobile === "true" ? "10px" : "0px")} 10px
+    ${(props) => (props.$isMobile === "true" ? "0px" : "15px")};
 `;
 
 const StyledTbArrowNarrowLeft = styled(TbArrowNarrowLeft)`
   cursor: pointer;
   width: 30px;
   height: 30px;
+  color: #514d4d;
+`;
+
+const StyledMdClear = styled(MdClear)`
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  color: #514d4d;
 `;
 
 const UploadContainer = styled.div`
@@ -43,12 +61,12 @@ const UploadBox = styled.div`
   width: 100%;
 `;
 
-const DropzoneSection = styled.section`
+const DropzoneSection = styled.section<IIsMobile>`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 75%;
-  height: 45vh;
+  width: ${(props) => (props.$isMobile === "true" ? "95%" : "75%")};
+  height: ${(props) => (props.$isMobile === "true" ? "70vh" : "50vh")};
   border: 2px dashed #d4d4d4;
 `;
 
@@ -66,30 +84,28 @@ const DropzoneBox = styled.div`
   }
 `;
 
-const DropZoneText = styled.p`
-  font-size: 28px;
+const DropZoneText = styled.p<IIsMobile>`
+  font-size: ${(props) => (props.$isMobile === "true" ? "16px" : "28px")};
   font-weight: 700;
+  text-align: center;
   margin-top: 10px;
   margin-bottom: 20px;
+  padding: 0px 25px;
 `;
 
-const ImagesContainer = styled.div`
+const ImagesContainer = styled.div<IIsMobile>`
   display: grid;
-  grid-template-columns: repeat(5, 18%);
+  grid-template-columns: ${(props) =>
+    props.$isMobile === "true" ? "repeat(4, 1fr)" : "repeat(5, 1fr)"};
   grid-auto-rows: auto;
   grid-gap: 15px;
   justify-content: center;
-  width: 75%;
+  width: ${(props) => (props.$isMobile === "true" ? "90%" : "75%")};
   border-top: 1px solid black;
   margin-top: 50px;
 
   padding-top: 50px;
   padding-bottom: 35px;
-
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(4, 20%);
-    grid-auto-rows: auto;
-  }
 `;
 
 const ImagesBox = styled.div`
@@ -143,10 +159,10 @@ const CreateBox = styled.div`
   min-height: 100vh;
 `;
 
-const CreateForm = styled.form`
+const CreateForm = styled.form<IIsMobile>`
   display: flex;
   flex-direction: column;
-  width: 75%;
+  width: ${(props) => (props.$isMobile === "true" ? "90%" : "75%")};
 
   input {
     display: flex;
@@ -154,25 +170,26 @@ const CreateForm = styled.form`
   }
 `;
 
-const TitleInput = styled.input`
-  height: 75px;
+const TitleInput = styled.input<IIsMobile>`
+  height: ${(props) => (props.$isMobile === "true" ? "65px" : "75px")};
   border: none;
   border-top: 1px solid #4f4f4f;
   border-bottom: 1px solid #4f4f4f;
-  font-size: 35px;
+  font-size: ${(props) => (props.$isMobile === "true" ? "28px" : "35px")};
   font-weight: 300;
   padding-left: 10px;
   font-family: "NanumGothic";
 `;
 
-const DescriptionTextArea = styled.textarea`
+const DescriptionTextArea = styled.textarea<IIsMobile>`
   margin-top: 25px;
-  height: 275px;
-  font-size: 18px;
+  height: ${(props) => (props.$isMobile === "true" ? "200px" : "275px")};
+  font-size: ${(props) => (props.$isMobile === "true" ? "16px" : "18px")};
   font-weight: 300;
   text-align: left;
   padding-top: 10px;
-  padding-bottom: 225px;
+  padding-bottom: ${(props) =>
+    props.$isMobile === "true" ? "150px" : "225px"};
   padding-left: 10px;
   line-height: 25px;
   font-family: "NanumGothic";
@@ -242,13 +259,15 @@ const RemoveHashtagButton = styled.button`
 const Hashtags = styled.div`
   position: relative;
 
-  &:hover ${RemoveButton} {
+  &:hover ${RemoveHashtagButton} {
     opacity: 1;
     background-color: #8c8c8c;
   }
 `;
 
 function UploadImage() {
+  const isMobile = useMobile();
+
   const [images, setImages] = useState<File[]>([]);
   const [data, setData] = useState<string[]>([]);
 
@@ -410,8 +429,12 @@ function UploadImage() {
     <>
       <Container>
         <Header />
-        <BackBtnBox>
-          <StyledTbArrowNarrowLeft onClick={handleBackBtn} />
+        <BackBtnBox $isMobile={String(isMobile)}>
+          {isMobile ? (
+            <StyledMdClear onClick={handleBackBtn} />
+          ) : (
+            <StyledTbArrowNarrowLeft onClick={handleBackBtn} />
+          )}
         </BackBtnBox>
         <UploadContainer>
           <>
@@ -422,11 +445,11 @@ function UploadImage() {
                 accept={{ "image/*": [".png", ".jpeg", ".jpg", ".webp"] }}
                 onDrop={onDrop}>
                 {({ getRootProps, getInputProps }) => (
-                  <DropzoneSection>
+                  <DropzoneSection $isMobile={String(isMobile)}>
                     <DropzoneBox {...getRootProps()}>
                       <input {...getInputProps()} />
                       <PiImageThin size={100} />
-                      <DropZoneText>
+                      <DropZoneText $isMobile={String(isMobile)}>
                         최대 10개의 이미지를 끌어다 놓거나 찾아보기로 선택해
                         보세요!
                       </DropZoneText>
@@ -436,7 +459,7 @@ function UploadImage() {
                 )}
               </Dropzone>
             </UploadBox>
-            <ImagesContainer>
+            <ImagesContainer $isMobile={String(isMobile)}>
               {data &&
                 data.map((img) => (
                   <ImagesBox key={img}>
@@ -452,7 +475,7 @@ function UploadImage() {
       </Container>
       {images.length > 0 && (
         <CreateBox>
-          <CreateForm onSubmit={handleSubmit}>
+          <CreateForm onSubmit={handleSubmit} $isMobile={String(isMobile)}>
             <TitleInput
               type="title"
               name="title"
@@ -461,6 +484,7 @@ function UploadImage() {
               maxLength={75}
               required
               onChange={handleChange}
+              $isMobile={String(isMobile)}
             />
             <DescriptionTextArea
               name="description"
@@ -468,6 +492,7 @@ function UploadImage() {
               value={formData.description}
               maxLength={150}
               onChange={handleChange}
+              $isMobile={String(isMobile)}
             />
             <HashtagsContainer>
               <HashtagsInput
