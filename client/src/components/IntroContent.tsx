@@ -1,5 +1,19 @@
 import { styled } from "styled-components";
 import mainImg from "../assets/Main/main.webp";
+import {
+  useDesktop,
+  useMobile,
+  useTabletOrLaptop,
+} from "../styles/mediaQueries";
+
+interface IIsDesktop {
+  $isDesktop: string;
+}
+
+interface IMainImg {
+  $isMobile: string;
+  $isTabletOrLaptop: string;
+}
 
 const Container = styled.div`
   display: flex;
@@ -15,11 +29,16 @@ const MainImgBox = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+  aspect-ratio: 16 / 9;
 `;
 
-const MainImg = styled.img`
-  width: 80%;
-  height: 90vh;
+const MainImg = styled.img<IMainImg>`
+  width: ${(props) =>
+    props.$isMobile === "true"
+      ? "100%"
+      : props.$isTabletOrLaptop === "true"
+      ? "87.5%"
+      : "75%"};
 `;
 
 const MainLine = styled.div`
@@ -40,29 +59,39 @@ const MainTextBox = styled.div`
   }
 `;
 
-const MainTextTop = styled.span`
+const MainTextTop = styled.span<IIsDesktop>`
   font-weight: 600;
-  font-size: 50px;
+  font-size: ${(props) => (props.$isDesktop === "true" ? "50px" : "40px")};
 `;
 
-const MainTextBottom = styled.p`
+const MainTextBottom = styled.p<IIsDesktop>`
   margin-top: 3vh;
   font-weight: 300;
-  font-size: 18px;
+  font-size: ${(props) => (props.$isDesktop === "true" ? "18px" : "16px")};
   white-space: pre-line;
   line-height: 27.5px;
+  padding: 0px 65px;
 `;
 
 function IntroContent() {
+  const isMobile = useMobile();
+  const isTabletOrLaptop = useTabletOrLaptop();
+  const isDesktop = useDesktop();
+
   return (
     <Container>
       <MainImgBox>
-        <MainImg src={mainImg} alt="" />
+        <MainImg
+          src={mainImg}
+          alt=""
+          $isMobile={String(isMobile)}
+          $isTabletOrLaptop={String(isTabletOrLaptop)}
+        />
       </MainImgBox>
       <MainLine />
       <MainTextBox>
-        <MainTextTop>찰칵!</MainTextTop>
-        <MainTextBottom>
+        <MainTextTop $isDesktop={String(isDesktop)}>찰칵!</MainTextTop>
+        <MainTextBottom $isDesktop={String(isDesktop)}>
           찰칵은 나의 시선을 타자에게 공유하는 공간입니다. <br />
           세상를 바라보는 시선을 공유하고 타자의 시선을 따라가는 발걸음을 내딛어
           보세요!
