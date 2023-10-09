@@ -17,7 +17,6 @@ import axios from "axios";
 import {
   useDesktop,
   useMobile,
-  useSmallDevice,
   useTabletOrLaptop,
 } from "../../styles/mediaQueries";
 import { FaBars } from "react-icons/fa";
@@ -145,7 +144,6 @@ const StyledFaBars = styled(FaBars)`
 `;
 
 function Header() {
-  const isSmallDevice = useSmallDevice();
   const isMobile = useMobile();
   const isTabletOrLaptop = useTabletOrLaptop();
   const isDesktop = useDesktop();
