@@ -25,6 +25,7 @@ import UserLikes from "./UserLikes";
 import { PiPersonArmsSpreadBold } from "react-icons/pi";
 import { RiHeartsLine } from "react-icons/ri";
 import { debounce } from "lodash";
+import { useMobile } from "../styles/mediaQueries";
 
 interface IPhotoLi {
   connectphotos: string;
@@ -32,6 +33,10 @@ interface IPhotoLi {
 
 interface ILikesLi {
   connectlikes: string;
+}
+
+interface IIsMobile {
+  $isMobile: string;
 }
 
 const Container = styled.div``;
@@ -44,32 +49,40 @@ const ProfileContainer = styled.div`
   padding-top: 100px;
 `;
 
-const ProfileImg = styled.img`
+const ProfileImg = styled.img<IIsMobile>`
   width: 175px;
   height: 175px;
   border-radius: 50%;
+
+  ${(props) =>
+    props.$isMobile === "true" &&
+    `
+    width: 125px;
+    height: 125px;
+    `}
 `;
 
-const ProfileName = styled.span`
+const ProfileName = styled.span<IIsMobile>`
   margin-top: 20px;
-  font-size: 32px;
+  font-size: ${(props) => (props.$isMobile === "true" ? "28px" : "32px")};
   font-weight: 700;
 `;
 
 const TotalBox = styled.div`
   display: flex;
-  justify-content: space-around;
-  width: 20%;
+  justify-content: center;
+  width: 100%;
   margin-top: 20px;
 `;
 
-const TotalViews = styled.div`
+const TotalViews = styled.div<IIsMobile>`
   display: flex;
   align-items: center;
   color: #767676;
+  margin-right: 25px;
 
   span {
-    font-size: 16px;
+    font-size: ${(props) => (props.$isMobile === "true" ? "14px" : "16px")};
     font-weight: 400;
   }
 `;
@@ -79,13 +92,13 @@ const StyledPiPersonArmsSpreadBold = styled(PiPersonArmsSpreadBold)`
   margin-right: 4px;
 `;
 
-const TotalLikes = styled.div`
+const TotalLikes = styled.div<IIsMobile>`
   display: flex;
   align-items: center;
   color: #767676;
 
   span {
-    font-size: 16px;
+    font-size: ${(props) => (props.$isMobile === "true" ? "14px" : "16px")};
     font-weight: 400;
   }
 `;
@@ -95,18 +108,27 @@ const StyledRiHeartsLine = styled(RiHeartsLine)`
   margin-right: 4px;
 `;
 
-const EditProfileLink = styled(Link)`
+const EditProfileLink = styled(Link)<IIsMobile>`
   margin-top: 20px;
   border: 1px solid #a39e9e;
   border-radius: 15px;
   padding: 15px 40px;
   color: #767676;
+  font-size: 16px;
   cursor: pointer;
 
   &:hover {
     color: black;
     border-color: black;
   }
+
+  ${(props) =>
+    props.$isMobile === "true" &&
+    `
+    padding: 12.5px 35px;
+    border-radius: 12.5px;
+    font-size: 14px;
+    `}
 `;
 
 const PostsContainer = styled.div`
@@ -114,10 +136,10 @@ const PostsContainer = styled.div`
   margin-top: 50px;
 `;
 
-const ContentsContainer = styled.div`
+const ContentsContainer = styled.div<IIsMobile>`
   display: flex;
   font-weight: 600;
-  padding-left: 25px;
+  padding-left: ${(props) => (props.$isMobile === "true" ? "10px" : "25px")};
   border-bottom: 1px solid #d1d1d1;
 `;
 
@@ -171,6 +193,8 @@ const ContentText = styled.span`
 `;
 
 function UserPage() {
+  const isMobile = useMobile();
+
   const location = useLocation();
   const pathname = location.pathname;
   const prevPath = location.state;
@@ -303,23 +327,28 @@ function UserPage() {
                   ? `http://localhost:4000/${userProfileImg}`
                   : defaultUserProfileImg
               }
+              $isMobile={String(isMobile)}
             />
-            <ProfileName>{data?.userPosts?.name}</ProfileName>
+            <ProfileName $isMobile={String(isMobile)}>
+              {data?.userPosts?.name}
+            </ProfileName>
             <TotalBox>
-              <TotalViews>
+              <TotalViews $isMobile={String(isMobile)}>
                 <StyledPiPersonArmsSpreadBold />
                 <span>조회 수 {totalViews}</span>
               </TotalViews>
-              <TotalLikes>
+              <TotalLikes $isMobile={String(isMobile)}>
                 <StyledRiHeartsLine />
                 <span>좋아요 수 {totalLikes}</span>
               </TotalLikes>
             </TotalBox>
             {sessionData.username === username && (
-              <EditProfileLink to={"/account"}>프로필 편집</EditProfileLink>
+              <EditProfileLink to={"/account"} $isMobile={String(isMobile)}>
+                프로필 편집
+              </EditProfileLink>
             )}
             <PostsContainer>
-              <ContentsContainer>
+              <ContentsContainer $isMobile={String(isMobile)}>
                 <ContentsUl>
                   <PhotoLi connectphotos={String(connectPhotos)}>
                     <Link to={`/user/${username}`} state={username}>
