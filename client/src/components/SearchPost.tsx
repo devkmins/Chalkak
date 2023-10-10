@@ -64,15 +64,21 @@ function SearchPost() {
     event.preventDefault();
 
     setKeywords((prev: any) => {
-      const newKeywords = [formData.keyword, ...prev];
+      const prevKeywords = [...prev];
 
-      if (newKeywords.length > 5) {
-        newKeywords.pop();
+      if (!prevKeywords?.includes(formData.keyword)) {
+        const newKeywords = [formData.keyword, ...prevKeywords];
+
+        if (newKeywords.length > 5) {
+          newKeywords.pop();
+        }
+
+        localStorage.setItem("keywords", JSON.stringify(newKeywords));
+
+        return newKeywords;
+      } else {
+        return prevKeywords;
       }
-
-      localStorage.setItem("keywords", JSON.stringify(newKeywords));
-
-      return newKeywords;
     });
 
     setCurrentSearch(formData.keyword);
