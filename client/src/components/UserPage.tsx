@@ -162,11 +162,19 @@ const PhotoLi = styled.li<IPhotoLi>`
   }
 `;
 
-const StyledRiImage2Fill = styled(RiImage2Fill)`
+const StyledRiImage2Fill = styled(RiImage2Fill)<IIsMobile>`
   width: 25px;
   height: 25px;
   margin-right: 5px;
   margin-bottom: -6px;
+
+  ${(props) =>
+    props.$isMobile === "true" &&
+    `
+    width: 20px;
+    height: 20px;
+    margin-bottom: -4.5px;
+    `}
 `;
 
 const LikesLi = styled.li<ILikesLi>`
@@ -181,14 +189,23 @@ const LikesLi = styled.li<ILikesLi>`
   }
 `;
 
-const StyledAiFillHeart = styled(AiFillHeart)`
+const StyledAiFillHeart = styled(AiFillHeart)<IIsMobile>`
   width: 25px;
   height: 25px;
   margin-right: 5px;
   margin-bottom: -6px;
+
+  ${(props) =>
+    props.$isMobile === "true" &&
+    `
+    width: 20px;
+    height: 20px;
+    margin-bottom: -4.5px;
+    `}
 `;
 
-const ContentText = styled.span`
+const ContentText = styled.span<IIsMobile>`
+  font-size: ${(props) => (props.$isMobile === "true" ? "14px" : "16px")};
   margin-bottom: 10px;
 `;
 
@@ -352,16 +369,16 @@ function UserPage() {
                 <ContentsUl>
                   <PhotoLi connectphotos={String(connectPhotos)}>
                     <Link to={`/user/${username}`} state={username}>
-                      <StyledRiImage2Fill />
-                      <ContentText>
+                      <StyledRiImage2Fill $isMobile={String(isMobile)} />
+                      <ContentText $isMobile={String(isMobile)}>
                         사진 {data?.length.userPostsLength}
                       </ContentText>
                     </Link>
                   </PhotoLi>
                   <LikesLi connectlikes={String(connectLikes)}>
                     <Link to={`/user/${username}/likes`} state={username}>
-                      <StyledAiFillHeart />
-                      <ContentText>
+                      <StyledAiFillHeart $isMobile={String(isMobile)} />
+                      <ContentText $isMobile={String(isMobile)}>
                         좋아요 {data?.length.userLikedLength}
                       </ContentText>
                     </Link>
