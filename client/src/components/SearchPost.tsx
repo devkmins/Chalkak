@@ -5,6 +5,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { currentSearchState, recentSearchState } from "../atoms";
 import { styled } from "styled-components";
 import { BiSearch } from "react-icons/bi";
+import { useMobile } from "../styles/mediaQueries";
 
 const Box = styled.div``;
 
@@ -45,6 +46,8 @@ const SearchInput = styled.input`
 `;
 
 function SearchPost() {
+  const isMobile = useMobile();
+
   const navigate = useNavigate();
 
   const [currentSearch, setCurrentSearch] = useRecoilState(currentSearchState);
@@ -118,7 +121,7 @@ function SearchPost() {
           alt=""
         />
       </SearchForm>
-      {focus && <RecentSearch />}
+      {focus && !isMobile && <RecentSearch />}
     </Box>
   );
 }

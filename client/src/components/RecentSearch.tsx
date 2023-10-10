@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const RecentSearchBox = styled.div`
   position: absolute;
-  width: 57.5%;
+  width: 50%;
   min-height: 100px;
   height: auto;
   background-color: white;
@@ -37,6 +37,7 @@ const Header = styled.div`
 `;
 
 const SearchList = styled.div`
+  display: flex;
   flex-wrap: wrap;
   margin-top: 25px;
   white-space: nowrap;
