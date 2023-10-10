@@ -8,22 +8,30 @@ import { loggedInState, sessionState } from "../atoms";
 import AccountMenu from "./AccountMenu";
 import styled from "styled-components";
 import Header from "../pages/Header";
+import { useMobile } from "../styles/mediaQueries";
 
 interface Error {
   passwordError: string;
 }
 
+interface IIsMobile {
+  $isMobile: string;
+}
+
 const Container = styled.div``;
 
-const Box = styled.div`
-  display: grid;
+const Box = styled.div<IIsMobile>`
+  display: ${(props) => (props.$isMobile === "true" ? "flex" : "grid")};
+  flex-direction: column;
   grid-template-columns: 20% 80%;
   padding-top: 100px;
 `;
 
-const CloseAccountSection = styled.section`
+const CloseAccountSection = styled.section<IIsMobile>`
   margin-right: 25px;
   min-height: 50vh;
+  margin-left: ${(props) => (props.$isMobile === "true" ? "22.5px" : "0px")};
+  margin-top: ${(props) => (props.$isMobile === "true" ? "40px" : "0px")};
 `;
 
 const MainTitleBox = styled.div`
@@ -37,8 +45,8 @@ const MainTitle = styled.span`
 `;
 
 const WarningMessagesBox = styled.div`
-  white-space: nowrap;
-  margin-top: 50px;
+  margin-top: 47.5px;
+  line-height: 20px;
 
   span {
     font-size: 15px;
@@ -50,6 +58,8 @@ const WarningMessagesBox = styled.div`
     }
   }
 `;
+
+const WarningMessage = styled.span``;
 
 const Form = styled.form`
   margin-top: 12.5px;
@@ -93,6 +103,8 @@ const ErrorMessage = styled.span`
 `;
 
 function CloseAccount() {
+  const isMobile = useMobile();
+
   const navigate = useNavigate();
 
   const setLoggedIn = useSetRecoilState(loggedInState);
@@ -152,18 +164,18 @@ function CloseAccount() {
   return (
     <Container>
       <Header />
-      <Box>
+      <Box $isMobile={String(isMobile)}>
         <AccountMenu pathname={pathname} />
-        <CloseAccountSection>
+        <CloseAccountSection $isMobile={String(isMobile)}>
           <MainTitleBox>
             <MainTitle>계정 폐쇄</MainTitle>
           </MainTitleBox>
           <WarningMessagesBox>
             <span>경고: </span>
-            <span>
+            <WarningMessage>
               계정 폐쇄는 취소가 불가능합니다. 모든 사진들이 삭제되며 이는
               되돌릴 수 없습니다.
-            </span>
+            </WarningMessage>
           </WarningMessagesBox>
           <Form onSubmit={handleSubmit}>
             <InputBox>
