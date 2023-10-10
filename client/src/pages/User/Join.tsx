@@ -8,6 +8,7 @@ import { RiCameraLensFill } from "react-icons/ri";
 import { BiSolidShow } from "react-icons/bi";
 import { BiSolidHide } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import { useMobile } from "../../styles/mediaQueries";
 
 interface Error {
   nameError: string;
@@ -17,8 +18,12 @@ interface Error {
   confirmPasswordError: string;
 }
 
-const Box = styled.div`
-  display: grid;
+interface IIsMobile {
+  $isMobile: string;
+}
+
+const Box = styled.div<IIsMobile>`
+  display: ${(props) => (props.$isMobile === "true" ? "flex" : "grid")};
   grid-template-columns: repeat(2, 1fr);
   width: 100%;
   min-height: 100vh;
@@ -153,6 +158,8 @@ const ErrorMessage = styled.span`
 `;
 
 function Join() {
+  const isMobile = useMobile();
+
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -295,10 +302,12 @@ function Join() {
   }, []);
 
   return (
-    <Box>
-      <JoinImgContainer>
-        <JoinImg />
-      </JoinImgContainer>
+    <Box $isMobile={String(isMobile)}>
+      {!isMobile && (
+        <JoinImgContainer>
+          <JoinImg />
+        </JoinImgContainer>
+      )}
       <JoinBox>
         <JoinLogo>
           <Link to={"/"}>
