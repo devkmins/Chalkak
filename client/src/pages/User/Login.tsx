@@ -11,9 +11,14 @@ import { BiSolidShow } from "react-icons/bi";
 import { BiSolidHide } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import NotificationBar from "../../components/NotificationBar";
+import { useMobile } from "../../styles/mediaQueries";
 
-const Box = styled.div`
-  display: grid;
+interface IIsMobile {
+  $isMobile: string;
+}
+
+const Box = styled.div<IIsMobile>`
+  display: ${(props) => (props.$isMobile === "true" ? "flex" : "grid")};
   grid-template-columns: repeat(2, 1fr);
   width: 100%;
   min-height: 100vh;
@@ -34,6 +39,7 @@ const LoginImg = styled.div`
 const LoginBox = styled.div`
   display: grid;
   grid-template-rows: 25% 75%;
+  width: 100%;
 `;
 
 const LoginLogo = styled.div`
@@ -155,6 +161,8 @@ interface Error {
 }
 
 function Login() {
+  const isMobile = useMobile();
+
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -260,11 +268,13 @@ function Login() {
   const joinText = `안녕하세요 ${userName}님, 회원가입이 완료되었어요!`;
 
   return (
-    <Box>
+    <Box $isMobile={String(isMobile)}>
       {isJoined === "true" && <NotificationBar text={joinText} />}
-      <LoginImgContainer>
-        <LoginImg />
-      </LoginImgContainer>
+      {!isMobile && (
+        <LoginImgContainer>
+          <LoginImg />
+        </LoginImgContainer>
+      )}
       <LoginBox>
         <LoginLogo>
           <Link to={"/"}>
