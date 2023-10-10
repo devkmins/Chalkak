@@ -9,23 +9,31 @@ import Header from "../pages/Header";
 import AccountMenu from "./AccountMenu";
 import useInitSearch from "../hooks/useInitSearch";
 import NotificationBar from "./NotificationBar";
+import { useMobile } from "../styles/mediaQueries";
 
 interface Error {
   emailError: string;
   usernameError: string;
 }
 
+interface IIsMobile {
+  $isMobile: string;
+}
+
 const Container = styled.div``;
 
-const Box = styled.div`
-  display: grid;
+const Box = styled.div<IIsMobile>`
+  display: ${(props) => (props.$isMobile === "true" ? "flex" : "grid")};
+  flex-direction: column;
   grid-template-columns: 20% 80%;
   padding-top: 100px;
 `;
 
-const EditSection = styled.section`
+const EditSection = styled.section<IIsMobile>`
   margin-right: 25px;
   min-height: 50vh;
+  margin-left: ${(props) => (props.$isMobile === "true" ? "22.5px" : "0px")};
+  margin-top: ${(props) => (props.$isMobile === "true" ? "40px" : "0px")};
 `;
 
 const MainTitleBox = styled.div`
@@ -38,18 +46,20 @@ const MainTitle = styled.span`
   font-weight: 700;
 `;
 
-const EditBox = styled.div`
-  display: grid;
+const EditBox = styled.div<IIsMobile>`
+  display: ${(props) => (props.$isMobile === "true" ? "flex" : "grid")};
+  flex-direction: column;
   grid-template-columns: 35% 65%;
   margin-top: 50px;
   height: 100%;
 `;
 
-const ProfileImgBox = styled.div`
+const ProfileImgBox = styled.div<IIsMobile>`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
+  margin-bottom: ${(props) => (props.$isMobile === "true" ? "25px" : "0px")};
 `;
 
 const ProfileImg = styled.img`
@@ -74,7 +84,11 @@ const CustomButton = styled.span`
   }
 `;
 
-const EditForm = styled.form``;
+const EditForm = styled.form<IIsMobile>`
+  input {
+    margin-bottom: ${(props) => (props.$isMobile === "true" ? "35px" : "0px")};
+  }
+`;
 
 const EditInputContainer = styled.div`
   display: grid;
@@ -111,7 +125,7 @@ const EditBtnBox = styled.div`
   margin-top: 15px;
 `;
 
-const EditBtn = styled.button`
+const EditBtn = styled.button<IIsMobile>`
   width: 100%;
   height: 45px;
   color: white;
@@ -120,6 +134,7 @@ const EditBtn = styled.button`
   cursor: pointer;
   border-radius: 5px;
   font-size: 16px;
+  margin-bottom: ${(props) => (props.$isMobile === "true" ? "25px" : "0px")};
 `;
 
 const ErrorMessage = styled.span`
@@ -129,6 +144,8 @@ const ErrorMessage = styled.span`
 `;
 
 function Account() {
+  const isMobile = useMobile();
+
   const [sessionData, setSessionData] = useRecoilState(sessionState);
   const [formData, setFormData] = useState({
     name: sessionData.name,
@@ -241,7 +258,6 @@ function Account() {
     if (event.key === "Enter") {
       event.preventDefault();
       handleSubmit();
-      //formRef.current?.submit();
     }
   };
 
@@ -258,14 +274,14 @@ function Account() {
       {isUpdated && <NotificationBar text={accountText} />}
       <Container>
         <Header />
-        <Box>
+        <Box $isMobile={String(isMobile)}>
           <AccountMenu pathname={pathname} />
-          <EditSection>
+          <EditSection $isMobile={String(isMobile)}>
             <MainTitleBox>
               <MainTitle>프로필 편집</MainTitle>
             </MainTitleBox>
-            <EditBox>
-              <ProfileImgBox>
+            <EditBox $isMobile={String(isMobile)}>
+              <ProfileImgBox $isMobile={String(isMobile)}>
                 <ProfileImg
                   key={userProfileImg}
                   alt=""
@@ -285,7 +301,7 @@ function Account() {
                   accept="image/*"
                 />
               </ProfileImgBox>
-              <EditForm ref={formRef}>
+              <EditForm ref={formRef} $isMobile={String(isMobile)}>
                 <EditInputContainer>
                   <EditInputBox>
                     <span>이름</span>
@@ -330,7 +346,9 @@ function Account() {
               </EditForm>
             </EditBox>
             <EditBtnBox>
-              <EditBtn onClick={handleFormClick}>계정 업데이트</EditBtn>
+              <EditBtn onClick={handleFormClick} $isMobile={String(isMobile)}>
+                계정 업데이트
+              </EditBtn>
             </EditBtnBox>
           </EditSection>
         </Box>
