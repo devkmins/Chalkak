@@ -13,6 +13,21 @@ import {
   isBackToSearchPostListState,
   searchPostListScrollYState,
 } from "../atoms";
+import {
+  useDesktop,
+  useMobile,
+  useTabletOrLaptop,
+} from "../styles/mediaQueries";
+
+interface IIsMobile {
+  $isMobile: string;
+}
+
+interface IColumnsContainerProps {
+  $isMobile: string;
+  $isTabletOrLaptop: string;
+  $isDesktop: string;
+}
 
 const Container = styled.div``;
 
@@ -28,20 +43,22 @@ const PostsContainer = styled.div`
   width: 100%;
 `;
 
-const ColumnsContainer = styled.div`
+const ColumnsContainer = styled.div<IColumnsContainerProps>`
   display: grid;
-  grid-template-columns: repeat(3, 31.5%);
+  grid-template-columns: ${(props) =>
+    props.$isDesktop === "true"
+      ? "repeat(3, 31.5%)"
+      : props.$isTabletOrLaptop === "true"
+      ? "repeat(2, 47.5%)"
+      : props.$isMobile === "true"
+      ? "repeat(1, 100%)"
+      : ""};
   grid-auto-rows: auto;
   grid-gap: 25px;
   justify-content: center;
-  padding: 0px 15px;
+  padding: 0px ${(props) => (props.$isMobile === "true" ? "0px" : "15px")};
   padding-top: 50px;
   width: 100%;
-
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: auto;
-  }
 `;
 
 const ImagesContainer = styled.div``;
@@ -94,31 +111,36 @@ const Image = styled.img`
   object-fit: contain;
 `;
 
-const PostProfileContainer = styled.div`
-  display: none;
-  position: absolute;
+const ProfileContainer = styled.div<IIsMobile>`
+  display: ${(props) => (props.$isMobile === "true" ? "flex" : "none")};
+  position: ${(props) => (props.$isMobile === "true" ? "" : "absolute")};
   bottom: 0;
   width: max-content;
   height: max-content;
-  margin-bottom: 17.5px;
+  margin-bottom: ${(props) =>
+    props.$isMobile === "true" ? "12.5px" : "17.5px"};
 `;
 
-const ProfileBox = styled.div`
+const ProfileBox = styled.div<IIsMobile>`
   display: flex;
   align-items: center;
-  padding: 0px 20px;
+  padding: 0px ${(props) => (props.$isMobile === "true" ? "12.5px" : "20px")};
 `;
 
-const ProfileLink = styled(Link)`
+const ProfileLink = styled(Link)<IIsMobile>`
   display: flex;
   align-items: center;
-  color: #e0dfdf;
+  color: ${(props) => (props.$isMobile === "true" ? "black" : "#e0dfdf")};
   font-size: 16px;
 
-  &:hover {
-    color: white;
-    transition: color 0.25s;
-  }
+  ${(props) =>
+    props.$isMobile === "false" &&
+    `
+    &:hover {
+      color: white;
+      transition: color 0.25s;
+    }
+  `}
 `;
 
 const PostProfileImg = styled.img`
@@ -128,20 +150,26 @@ const PostProfileImg = styled.img`
   height: 32.5px;
 `;
 
-const PostBox = styled.div`
+const PostBox = styled.div<IIsMobile>`
   display: flex;
   flex-direction: column;
   position: relative;
-  margin-bottom: 25px;
+  margin-bottom: ${(props) => (props.$isMobile === "true" ? "50px" : "25px")};
 
   &:hover {
-    ${PostProfileContainer} {
+    opacity: ${(props) => (props.$isMobile === "true" ? "1" : "0.875")};
+
+    ${ProfileContainer} {
       display: flex;
     }
   }
 `;
 
 function SearchPostList() {
+  const isMobile = useMobile();
+  const isTabletOrLaptop = useTabletOrLaptop();
+  const isDesktop = useDesktop();
+
   const params = useParams();
   const searchKeyword = params.keyword;
 
@@ -188,26 +216,48 @@ function SearchPostList() {
   const [thirdCol, setThirdCol] = useState<any[]>([]);
 
   useEffect(() => {
-    const firstColImages: string[] = [];
-    const secondColImages: string[] = [];
-    const thirdColImages: string[] = [];
+    const firstColImages: any[] = [];
+    const secondColImages: any[] = [];
+    const thirdColImages: any[] = [];
 
-    if (data?.posts && Array.isArray(data?.posts)) {
-      data?.posts?.forEach((post: any, index: any) => {
-        if (index % 3 === 0) {
+    if (isMobile) {
+      if (data?.posts && Array.isArray(data?.posts)) {
+        data?.posts?.forEach((post: any, index: any) => {
           firstColImages.push(post);
-        } else if (index % 3 === 1) {
-          secondColImages.push(post);
-        } else if (index % 3 === 2) {
-          thirdColImages.push(post);
-        }
-      });
+        });
+      }
+    }
+
+    if (isTabletOrLaptop) {
+      if (data?.posts && Array.isArray(data?.posts)) {
+        data?.posts?.forEach((post: any, index: any) => {
+          if (index % 2 === 0) {
+            firstColImages.push(post);
+          } else if (index % 2 === 1) {
+            secondColImages.push(post);
+          }
+        });
+      }
+    }
+
+    if (isDesktop) {
+      if (data?.posts && Array.isArray(data?.posts)) {
+        data?.posts?.forEach((post: any, index: any) => {
+          if (index % 3 === 0) {
+            firstColImages.push(post);
+          } else if (index % 3 === 1) {
+            secondColImages.push(post);
+          } else if (index % 3 === 2) {
+            thirdColImages.push(post);
+          }
+        });
+      }
     }
 
     setFirstCol(firstColImages);
     setSecondCol(secondColImages);
     setThirdCol(thirdColImages);
-  }, [data]);
+  }, [data, isMobile, isTabletOrLaptop, isDesktop]);
 
   const [scrollY, setScrollY] = useRecoilState(searchPostListScrollYState);
 
@@ -250,110 +300,237 @@ function SearchPostList() {
               </ContentsContainer>
               <SearchWord>{searchKeyword}</SearchWord>
               <PostsBox>
-                <ColumnsContainer>
-                  <ImagesContainer>
-                    {firstCol &&
-                      firstCol.map((post) => (
-                        <PostBox key={post?._id}>
-                          <StyledLink
-                            to={`/post/${post?.title}`}
-                            state={{ postId: post?._id, path }}
-                            onClick={clickedPost}>
-                            <Image
-                              src={`http://localhost:4000/${post.fileUrl[0].path}`}
-                              alt=""
-                            />
-                          </StyledLink>
-                          <PostProfileContainer>
-                            <ProfileBox>
-                              <ProfileLink
-                                to={`/user/${post.owner.username}`}
-                                state={path}
-                                onClick={clickedProfile}>
-                                <PostProfileImg
-                                  src={
-                                    post.owner.profileImage
-                                      ? `http://localhost:4000/${post.owner.profileImage}`
-                                      : defaultUserProfileImg
-                                  }
-                                  alt=""
-                                />
-                                {post.owner.name}
-                              </ProfileLink>
-                            </ProfileBox>
-                          </PostProfileContainer>
-                        </PostBox>
-                      ))}
-                  </ImagesContainer>
-                  <ImagesContainer>
-                    {secondCol &&
-                      secondCol.map((post) => (
-                        <PostBox key={post?._id}>
-                          <StyledLink
-                            to={`/post/${post?.title}`}
-                            state={{ postId: post?._id, path }}
-                            onClick={clickedPost}>
-                            <Image
-                              src={`http://localhost:4000/${post.fileUrl[0].path}`}
-                              alt=""
-                            />
-                          </StyledLink>
-                          <PostProfileContainer>
-                            <ProfileBox>
-                              <ProfileLink
-                                to={`/user/${post.owner.username}`}
-                                state={path}
-                                onClick={clickedProfile}>
-                                <PostProfileImg
-                                  src={
-                                    post.owner.profileImage
-                                      ? `http://localhost:4000/${post.owner.profileImage}`
-                                      : defaultUserProfileImg
-                                  }
-                                  alt=""
-                                />
-                                {post.owner.name}
-                              </ProfileLink>
-                            </ProfileBox>
-                          </PostProfileContainer>
-                        </PostBox>
-                      ))}
-                  </ImagesContainer>
-                  <ImagesContainer>
-                    {thirdCol &&
-                      thirdCol.map((post) => (
-                        <PostBox key={post?._id}>
-                          <StyledLink
-                            to={`/post/${post?.title}`}
-                            state={{ postId: post?._id, path }}
-                            onClick={clickedPost}>
-                            <Image
-                              src={`http://localhost:4000/${post.fileUrl[0].path}`}
-                              alt=""
-                            />
-                          </StyledLink>
-                          <PostProfileContainer>
-                            <ProfileBox>
-                              <ProfileLink
-                                to={`/user/${post.owner.username}`}
-                                state={path}
-                                onClick={clickedProfile}>
-                                <PostProfileImg
-                                  src={
-                                    post.owner.profileImage
-                                      ? `http://localhost:4000/${post.owner.profileImage}`
-                                      : defaultUserProfileImg
-                                  }
-                                  alt=""
-                                />
-                                {post.owner.name}
-                              </ProfileLink>
-                            </ProfileBox>
-                          </PostProfileContainer>
-                        </PostBox>
-                      ))}
-                  </ImagesContainer>
-                </ColumnsContainer>
+                {isMobile && (
+                  <ColumnsContainer
+                    $isMobile={String(isMobile)}
+                    $isTabletOrLaptop={String(isTabletOrLaptop)}
+                    $isDesktop={String(isDesktop)}>
+                    <ImagesContainer>
+                      {firstCol &&
+                        firstCol.map((post) => (
+                          <PostBox key={post?._id} $isMobile={String(isMobile)}>
+                            <ProfileContainer $isMobile={String(isMobile)}>
+                              <ProfileBox $isMobile={String(isMobile)}>
+                                <ProfileLink
+                                  to={`/user/${post.owner.username}`}
+                                  state={path}
+                                  onClick={clickedProfile}
+                                  $isMobile={String(isMobile)}>
+                                  <PostProfileImg
+                                    src={
+                                      post.owner.profileImage
+                                        ? `http://localhost:4000/${post.owner.profileImage}`
+                                        : defaultUserProfileImg
+                                    }
+                                    alt=""
+                                  />
+                                  {post.owner.name}
+                                </ProfileLink>
+                              </ProfileBox>
+                            </ProfileContainer>
+                            <StyledLink
+                              to={`/post/${post?.title}`}
+                              state={{ postId: post?._id, path }}
+                              onClick={clickedPost}>
+                              <Image
+                                src={`http://localhost:4000/${post.fileUrl[0].path}`}
+                                alt=""
+                              />
+                            </StyledLink>
+                          </PostBox>
+                        ))}
+                    </ImagesContainer>
+                  </ColumnsContainer>
+                )}
+                {isTabletOrLaptop && (
+                  <ColumnsContainer
+                    $isMobile={String(isMobile)}
+                    $isTabletOrLaptop={String(isTabletOrLaptop)}
+                    $isDesktop={String(isDesktop)}>
+                    <ImagesContainer>
+                      {firstCol &&
+                        firstCol.map((post) => (
+                          <PostBox key={post?._id} $isMobile={String(isMobile)}>
+                            <StyledLink
+                              to={`/post/${post?.title}`}
+                              state={{ postId: post?._id, path }}
+                              onClick={clickedPost}>
+                              <Image
+                                src={`http://localhost:4000/${post.fileUrl[0].path}`}
+                                alt=""
+                              />
+                            </StyledLink>
+                            <ProfileContainer $isMobile={String(isMobile)}>
+                              <ProfileBox $isMobile={String(isMobile)}>
+                                <ProfileLink
+                                  to={`/user/${post.owner.username}`}
+                                  state={path}
+                                  onClick={clickedProfile}
+                                  $isMobile={String(isMobile)}>
+                                  <PostProfileImg
+                                    src={
+                                      post.owner.profileImage
+                                        ? `http://localhost:4000/${post.owner.profileImage}`
+                                        : defaultUserProfileImg
+                                    }
+                                    alt=""
+                                  />
+                                  {post.owner.name}
+                                </ProfileLink>
+                              </ProfileBox>
+                            </ProfileContainer>
+                          </PostBox>
+                        ))}
+                    </ImagesContainer>
+                    <ImagesContainer>
+                      {secondCol &&
+                        secondCol.map((post) => (
+                          <PostBox key={post?._id} $isMobile={String(isMobile)}>
+                            <StyledLink
+                              to={`/post/${post?.title}`}
+                              state={{ postId: post?._id, path }}
+                              onClick={clickedPost}>
+                              <Image
+                                src={`http://localhost:4000/${post.fileUrl[0].path}`}
+                                alt=""
+                              />
+                            </StyledLink>
+                            <ProfileContainer $isMobile={String(isMobile)}>
+                              <ProfileBox $isMobile={String(isMobile)}>
+                                <ProfileLink
+                                  to={`/user/${post.owner.username}`}
+                                  state={path}
+                                  onClick={clickedProfile}
+                                  $isMobile={String(isMobile)}>
+                                  <PostProfileImg
+                                    src={
+                                      post.owner.profileImage
+                                        ? `http://localhost:4000/${post.owner.profileImage}`
+                                        : defaultUserProfileImg
+                                    }
+                                    alt=""
+                                  />
+                                  {post.owner.name}
+                                </ProfileLink>
+                              </ProfileBox>
+                            </ProfileContainer>
+                          </PostBox>
+                        ))}
+                    </ImagesContainer>
+                  </ColumnsContainer>
+                )}
+                {isDesktop && (
+                  <ColumnsContainer
+                    $isMobile={String(isMobile)}
+                    $isTabletOrLaptop={String(isTabletOrLaptop)}
+                    $isDesktop={String(isDesktop)}>
+                    <ImagesContainer>
+                      {firstCol &&
+                        firstCol.map((post) => (
+                          <PostBox key={post?._id} $isMobile={String(isMobile)}>
+                            <StyledLink
+                              to={`/post/${post?.title}`}
+                              state={{ postId: post?._id, path }}
+                              onClick={clickedPost}>
+                              <Image
+                                src={`http://localhost:4000/${post.fileUrl[0].path}`}
+                                alt=""
+                              />
+                            </StyledLink>
+                            <ProfileContainer $isMobile={String(isMobile)}>
+                              <ProfileBox $isMobile={String(isMobile)}>
+                                <ProfileLink
+                                  to={`/user/${post.owner.username}`}
+                                  state={path}
+                                  onClick={clickedProfile}
+                                  $isMobile={String(isMobile)}>
+                                  <PostProfileImg
+                                    src={
+                                      post.owner.profileImage
+                                        ? `http://localhost:4000/${post.owner.profileImage}`
+                                        : defaultUserProfileImg
+                                    }
+                                    alt=""
+                                  />
+                                  {post.owner.name}
+                                </ProfileLink>
+                              </ProfileBox>
+                            </ProfileContainer>
+                          </PostBox>
+                        ))}
+                    </ImagesContainer>
+                    <ImagesContainer>
+                      {secondCol &&
+                        secondCol.map((post) => (
+                          <PostBox key={post?._id} $isMobile={String(isMobile)}>
+                            <StyledLink
+                              to={`/post/${post?.title}`}
+                              state={{ postId: post?._id, path }}
+                              onClick={clickedPost}>
+                              <Image
+                                src={`http://localhost:4000/${post.fileUrl[0].path}`}
+                                alt=""
+                              />
+                            </StyledLink>
+                            <ProfileContainer $isMobile={String(isMobile)}>
+                              <ProfileBox $isMobile={String(isMobile)}>
+                                <ProfileLink
+                                  to={`/user/${post.owner.username}`}
+                                  state={path}
+                                  onClick={clickedProfile}
+                                  $isMobile={String(isMobile)}>
+                                  <PostProfileImg
+                                    src={
+                                      post.owner.profileImage
+                                        ? `http://localhost:4000/${post.owner.profileImage}`
+                                        : defaultUserProfileImg
+                                    }
+                                    alt=""
+                                  />
+                                  {post.owner.name}
+                                </ProfileLink>
+                              </ProfileBox>
+                            </ProfileContainer>
+                          </PostBox>
+                        ))}
+                    </ImagesContainer>
+                    <ImagesContainer>
+                      {thirdCol &&
+                        thirdCol.map((post) => (
+                          <PostBox key={post?._id} $isMobile={String(isMobile)}>
+                            <StyledLink
+                              to={`/post/${post?.title}`}
+                              state={{ postId: post?._id, path }}
+                              onClick={clickedPost}>
+                              <Image
+                                src={`http://localhost:4000/${post.fileUrl[0].path}`}
+                                alt=""
+                              />
+                            </StyledLink>
+                            <ProfileContainer $isMobile={String(isMobile)}>
+                              <ProfileBox $isMobile={String(isMobile)}>
+                                <ProfileLink
+                                  to={`/user/${post.owner.username}`}
+                                  state={path}
+                                  onClick={clickedProfile}
+                                  $isMobile={String(isMobile)}>
+                                  <PostProfileImg
+                                    src={
+                                      post.owner.profileImage
+                                        ? `http://localhost:4000/${post.owner.profileImage}`
+                                        : defaultUserProfileImg
+                                    }
+                                    alt=""
+                                  />
+                                  {post.owner.name}
+                                </ProfileLink>
+                              </ProfileBox>
+                            </ProfileContainer>
+                          </PostBox>
+                        ))}
+                    </ImagesContainer>
+                  </ColumnsContainer>
+                )}
               </PostsBox>
             </PostsContainer>
           </Box>
