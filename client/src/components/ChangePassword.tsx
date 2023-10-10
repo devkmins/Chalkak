@@ -6,6 +6,7 @@ import AccountMenu from "./AccountMenu";
 import styled from "styled-components";
 import Header from "../pages/Header";
 import NotificationBar from "./NotificationBar";
+import { useMobile } from "../styles/mediaQueries";
 
 interface Error {
   currentPasswordError: string;
@@ -13,16 +14,23 @@ interface Error {
   confirmPasswordError: string;
 }
 
+interface IIsMobile {
+  $isMobile: string;
+}
+
 const Container = styled.div``;
 
-const Box = styled.div`
-  display: grid;
+const Box = styled.div<IIsMobile>`
+  display: ${(props) => (props.$isMobile === "true" ? "flex" : "grid")};
+  flex-direction: column;
   grid-template-columns: 20% 80%;
   padding-top: 100px;
 `;
 
-const ChangePasswordSection = styled.section`
+const ChangePasswordSection = styled.section<IIsMobile>`
   margin-right: 25px;
+  margin-left: ${(props) => (props.$isMobile === "true" ? "22.5px" : "0px")};
+  margin-top: ${(props) => (props.$isMobile === "true" ? "40px" : "0px")};
 `;
 
 const MainTitleBox = styled.div`
@@ -37,7 +45,7 @@ const MainTitle = styled.span`
 
 const ChangePasswordBox = styled.div`
   display: grid;
-  grid-template-rows: repeat(4, 32.5%);
+  grid-template-rows: repeat(4, 26%);
   margin-top: 50px;
   min-height: 50vh;
 `;
@@ -88,6 +96,8 @@ const ErrorMessage = styled.span`
 `;
 
 function ChangePassword() {
+  const isMobile = useMobile();
+
   const [formData, setFormData] = useState({
     currentPassword: "",
     newPassword: "",
@@ -186,9 +196,9 @@ function ChangePassword() {
       {isChanged && <NotificationBar text={changePasswordText} />}
       <Container>
         <Header />
-        <Box>
+        <Box $isMobile={String(isMobile)}>
           <AccountMenu pathname={pathname} />
-          <ChangePasswordSection>
+          <ChangePasswordSection $isMobile={String(isMobile)}>
             <MainTitleBox>
               <MainTitle>비밀번호 변경</MainTitle>
             </MainTitleBox>
