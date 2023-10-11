@@ -29,10 +29,10 @@ const MainImgBox = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  aspect-ratio: 16 / 9;
 `;
 
 const MainImg = styled.img<IMainImg>`
+  aspect-ratio: 16 / 11;
   width: ${(props) =>
     props.$isMobile === "true"
       ? "100%"
@@ -84,6 +84,7 @@ function IntroContent() {
         <MainImg
           src={mainImg}
           alt=""
+          sizes="(max-width: 674px) 100vw, (min-width: 675px) and (max-width: 1169px) 87.5vw, (min-width: 1170px) 75vw"
           $isMobile={String(isMobile)}
           $isTabletOrLaptop={String(isTabletOrLaptop)}
         />
