@@ -21,7 +21,7 @@ export const home = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "서버 오류" });
+    res.status(500).json({ error: "서버에서 오류가 발생했습니다." });
   }
 };
 
@@ -59,9 +59,9 @@ export const postJoin = async (req: Request, res: Response) => {
       email,
       password,
     });
-    return res.status(200).json();
+    return res.status(200).json("회원가입이 완료되었습니다.");
   } catch (error) {
-    return res.status(400).json();
+    return res.status(400).json("에러가 발생하였습니다.");
   }
 };
 
@@ -69,10 +69,14 @@ export const getLogin = (req: Request, res: Response) => {
   const session = req.session as CustomSession;
 
   if (session.loggedIn) {
-    return res.send({
-      loggedIn: session.loggedIn,
-      user: session.user,
-    });
+    return res
+      .send({
+        loggedIn: session.loggedIn,
+        user: session.user,
+      })
+      .json("로그인이 완료되었습니다.");
+  } else {
+    return res.status(400).json("에러가 발생하였습니다.");
   }
 };
 
@@ -155,5 +159,7 @@ export const topViewsPosts = async (req: Request, res: Response) => {
 
   if (top10Posts) {
     return res.json(top10Posts);
+  } else {
+    return res.json("에러가 발생하였습니다.");
   }
 };

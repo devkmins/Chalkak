@@ -42,27 +42,25 @@ export const editProfile = async (req: Request, res: Response) => {
       .json({ usernameError: "이미 존재하는 사용자 이름입니다." });
   }
 
-  try {
-    const updatedUser = await User.findOneAndUpdate(
-      { username },
-      { name: newName, email: newEmail, username: newUsername }
-    );
+  const updatedUser = await User.findOneAndUpdate(
+    { username },
+    { name: newName, email: newEmail, username: newUsername }
+  );
 
-    if (session.user) {
-      const newUserSessionData = {
-        email: newEmail,
-        name: newName,
-        username: newUsername,
-        socialOnly: session.user?.socialOnly,
-        profileImage: session.user?.profileImage,
-        _id: session.user._id,
-      };
+  if (session.user) {
+    const newUserSessionData = {
+      email: newEmail,
+      name: newName,
+      username: newUsername,
+      socialOnly: session.user?.socialOnly,
+      profileImage: session.user?.profileImage,
+      _id: session.user._id,
+    };
 
-      session.user = newUserSessionData;
-    }
+    session.user = newUserSessionData;
+  }
 
-    return res.status(200).json(session.user);
-  } catch {}
+  return res.status(200).json(session.user);
 };
 
 export const editProfileImg = async (req: Request, res: Response) => {
@@ -171,5 +169,5 @@ export const changePassword = async (req: Request, res: Response) => {
       .json({ confirmPasswordError: "비밀번호가 일치하지 않습니다." });
   }
 
-  return res.status(200).send("Good");
+  return res.status(200).send("비밀번호 변경이 완료되었습니다.");
 };

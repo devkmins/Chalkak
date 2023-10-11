@@ -14,7 +14,7 @@ export const watch = async (req: Request, res: Response) => {
   );
 
   if (!post) {
-    return res.status(404).send("404");
+    return res.status(404).json("게시글을 찾을 수 없습니다.");
   }
 
   return res.status(200).json(post);
@@ -46,7 +46,7 @@ export const postUpload = async (req: Request, res: Response) => {
     await user?.save();
   }
 
-  return res.status(200).json();
+  return res.status(200).json("게시글 업로드가 완료되었습니다.");
 };
 
 export const imagesUpload = async (req: Request, res: Response) => {
@@ -92,7 +92,7 @@ export const postViews = async (req: Request, res: Response) => {
     await post?.save();
   }
 
-  return res.status(200).json();
+  return res.status(200).json("조회수 업데이트가 완료되었습니다.");
 };
 
 export const postLikes = async (req: Request, res: Response) => {
@@ -144,7 +144,7 @@ export const postDelete = async (req: Request, res: Response) => {
 
   await Post.findByIdAndDelete(postId);
 
-  return res.status(200).json();
+  return res.status(200).json("게시글 삭제가 완료되었습니다.");
 };
 
 export const similarPosts = async (req: Request, res: Response) => {

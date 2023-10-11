@@ -50,7 +50,7 @@ export const see = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "서버 오류" });
+    res.status(500).json({ error: "서버에서 오류가 발생하였습니다." });
   }
 };
 
