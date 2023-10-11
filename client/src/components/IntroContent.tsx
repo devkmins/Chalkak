@@ -85,6 +85,7 @@ function IntroContent() {
           src={mainImg}
           alt=""
           sizes="(max-width: 674px) 100vw, (min-width: 675px) and (max-width: 1169px) 87.5vw, (min-width: 1170px) 75vw"
+          loading="eager"
           $isMobile={String(isMobile)}
           $isTabletOrLaptop={String(isTabletOrLaptop)}
         />
