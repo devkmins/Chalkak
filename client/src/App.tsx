@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Posts from "./components/Posts";
 import Join from "./pages/User/Join";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/User/Login";
@@ -70,10 +69,6 @@ table {
 	box-sizing: border-box;
 }
 body {
-  font-family: 'NanumGothicLight';
-  font-family: 'NanumGothic';
-  font-family: 'NanumGothicBold';
-  font-family: 'NanumGothicExtraBold';
 }
 a {
 	text-decoration: none;
