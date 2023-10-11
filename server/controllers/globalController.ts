@@ -75,8 +75,6 @@ export const getLogin = (req: Request, res: Response) => {
         user: session.user,
       })
       .json("로그인이 완료되었습니다.");
-  } else {
-    return res.status(400).json("에러가 발생하였습니다.");
   }
 };
 
