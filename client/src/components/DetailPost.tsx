@@ -147,7 +147,6 @@ const Description = styled.span`
   line-height: 1.5;
   font-size: 15px;
   color: #4d4d4d;
-  font-family: "NanumGothic";
 `;
 
 const InfoBox = styled.div`
@@ -208,7 +207,6 @@ const Hashtag = styled.span`
   padding: 10px 20px;
   color: #8c8c8c;
   font-size: 13.5px;
-  font-family: "NanumGothic";
   margin-right: 12.5px;
   cursor: pointer;
 

@@ -31,7 +31,6 @@ const TextBox = styled.div`
 
 const TextSpan = styled.span`
   font-size: 15px;
-  font-family: "NanumGothicBold";
   font-weight: 700;
 `;
 

@@ -178,7 +178,6 @@ const TitleInput = styled.input<IIsMobile>`
   font-size: ${(props) => (props.$isMobile === "true" ? "28px" : "35px")};
   font-weight: 300;
   padding-left: 10px;
-  font-family: "NanumGothic";
 `;
 
 const DescriptionTextArea = styled.textarea<IIsMobile>`
@@ -192,7 +191,6 @@ const DescriptionTextArea = styled.textarea<IIsMobile>`
     props.$isMobile === "true" ? "150px" : "225px"};
   padding-left: 10px;
   line-height: 25px;
-  font-family: "NanumGothic";
 `;
 
 const HashtagsContainer = styled.div``;
@@ -204,7 +202,6 @@ const HashtagsInput = styled.input`
   font-size: 14px;
   padding-left: 10px;
   font-weight: 300;
-  font-family: "NanumGothic";
 `;
 
 const HashtagsBox = styled.div`
@@ -222,7 +219,6 @@ const Hashtag = styled.div`
   margin-right: 15px;
   margin-bottom: 10px;
   color: #8c8c8c;
-  font-family: "NanumGothic";
   font-weight: 300;
 `;
 

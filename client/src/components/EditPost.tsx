@@ -25,7 +25,6 @@ const TitleBox = styled.div`
 const TitleInput = styled.input`
   margin-top: 5px;
   height: 40px;
-  font-family: "NanumGothic";
   font-size: 15px;
 `;
 
@@ -33,7 +32,6 @@ const DescriptionTextArea = styled.textarea`
   margin-top: 5px;
   margin-bottom: 25px;
   height: 120px;
-  font-family: "NanumGothic";
   font-size: 15px;
 `;
 
@@ -41,7 +39,6 @@ const HashtagsInput = styled.input`
   margin-top: 5px;
   margin-bottom: 25px;
   height: 40px;
-  font-family: "NanumGothic";
   font-size: 15px;
 `;
 
@@ -60,8 +57,6 @@ const Hashtag = styled.div`
   margin-right: 15px;
   margin-bottom: 10px;
   color: #8c8c8c;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-weight: 300;
 `;
 

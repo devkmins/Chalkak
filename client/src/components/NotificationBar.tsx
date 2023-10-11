@@ -19,7 +19,6 @@ const Container = styled.div<IContainerProp>`
   width: 100%;
   height: 75px;
   background-color: #767676;
-  font-family: "NanumGothicBold";
   font-weight: 600;
   font-size: 17px;
   color: #e4e3e3;

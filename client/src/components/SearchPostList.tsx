@@ -96,7 +96,6 @@ const PostsBox = styled.div`
 const SearchWord = styled.span`
   font-size: 27px;
   font-weight: 800;
-  font-family: "NanumGothicBold";
   margin-left: 25px;
 `;
 

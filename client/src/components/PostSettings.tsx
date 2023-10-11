@@ -18,7 +18,6 @@ const Container = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
   height: 100vh;
   padding: 100px 75px;
-  font-family: "NanumGothic";
 `;
 
 const Box = styled.div`
