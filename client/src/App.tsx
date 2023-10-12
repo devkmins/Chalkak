@@ -1,7 +1,5 @@
-import React, { useEffect } from "react";
-import Join from "./pages/User/Join";
+import React, { lazy, useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import Login from "./pages/User/Login";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   currentPostState,
@@ -9,16 +7,19 @@ import {
   loggedInState,
   sessionState,
 } from "./atoms";
-import UserPage from "./components/UserPage";
-import Account from "./components/Account";
-import ChangePassword from "./components/ChangePassword";
-import CloseAccount from "./components/CloseAccount";
-import UploadImage from "./components/UploadImage";
 import axios from "axios";
-import DetailPost from "./components/DetailPost";
-import SearchPostList from "./components/SearchPostList";
-import Main from "./pages/Main";
 import { createGlobalStyle } from "styled-components";
+
+const Main = lazy(() => import("./pages/Main"));
+const Login = lazy(() => import("./pages/User/Login"));
+const Join = lazy(() => import("./pages/User/Join"));
+const UserPage = lazy(() => import("./components/UserPage"));
+const Account = lazy(() => import("./components/Account"));
+const DetailPost = lazy(() => import("./components/DetailPost"));
+const UploadImage = lazy(() => import("./components/UploadImage"));
+const SearchPostList = lazy(() => import("./components/SearchPostList"));
+const ChangePassword = lazy(() => import("./components/ChangePassword"));
+const CloseAccount = lazy(() => import("./components/CloseAccount"));
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
