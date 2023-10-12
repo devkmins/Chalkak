@@ -20,6 +20,11 @@ interface IColumnsContainerProps {
   $isDesktop: string;
 }
 
+interface imageComponentProps {
+  $ratioWidth: number;
+  $ratioHeight: number;
+}
+
 const ColumnsContainer = styled.div<IColumnsContainerProps>`
   display: grid;
   grid-template-columns: ${(props) =>
@@ -51,9 +56,11 @@ const StyledLink = styled(Link)`
   width: 100%;
 `;
 
-const Image = styled.img`
+const Image = styled.img<imageComponentProps>`
   width: 100%;
   max-height: max-content;
+  aspect-ratio: ${(props) => props.$ratioWidth} /
+    ${(props) => props.$ratioHeight};
 `;
 
 const ProfileContainer = styled.div<IIsMobile>`
@@ -200,7 +207,7 @@ function UserLikes({ data }: any) {
           $isDesktop={String(isDesktop)}>
           <ImagesContainer>
             {firstCol &&
-              firstCol.map((post) => (
+              firstCol.map((post, index) => (
                 <PostBox key={post?._id} $isMobile={String(isMobile)}>
                   <ProfileContainer $isMobile={String(isMobile)}>
                     <ProfileBox $isMobile={String(isMobile)}>
@@ -228,6 +235,8 @@ function UserLikes({ data }: any) {
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt=""
+                      $ratioWidth={post.ratioWidth[index]}
+                      $ratioHeight={post.ratioHeight[index]}
                     />
                   </StyledLink>
                 </PostBox>
@@ -242,7 +251,7 @@ function UserLikes({ data }: any) {
           $isDesktop={String(isDesktop)}>
           <ImagesContainer>
             {firstCol &&
-              firstCol.map((post) => (
+              firstCol.map((post, index) => (
                 <PostBox key={post?._id} $isMobile={String(isMobile)}>
                   <StyledLink
                     to={`/post/${post?.title}`}
@@ -251,6 +260,8 @@ function UserLikes({ data }: any) {
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt=""
+                      $ratioWidth={post.ratioWidth[index]}
+                      $ratioHeight={post.ratioHeight[index]}
                     />
                   </StyledLink>
                   <ProfileContainer $isMobile={String(isMobile)}>
@@ -277,7 +288,7 @@ function UserLikes({ data }: any) {
           </ImagesContainer>
           <ImagesContainer>
             {secondCol &&
-              secondCol.map((post) => (
+              secondCol.map((post, index) => (
                 <PostBox key={post?._id} $isMobile={String(isMobile)}>
                   <StyledLink
                     to={`/post/${post?.title}`}
@@ -286,6 +297,8 @@ function UserLikes({ data }: any) {
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt=""
+                      $ratioWidth={post.ratioWidth[index]}
+                      $ratioHeight={post.ratioHeight[index]}
                     />
                   </StyledLink>
                   <ProfileContainer $isMobile={String(isMobile)}>
@@ -319,7 +332,7 @@ function UserLikes({ data }: any) {
           $isDesktop={String(isDesktop)}>
           <ImagesContainer>
             {firstCol &&
-              firstCol.map((post) => (
+              firstCol.map((post, index) => (
                 <PostBox key={post?._id} $isMobile={String(isMobile)}>
                   <StyledLink
                     to={`/post/${post?.title}`}
@@ -328,6 +341,8 @@ function UserLikes({ data }: any) {
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt=""
+                      $ratioWidth={post.ratioWidth[index]}
+                      $ratioHeight={post.ratioHeight[index]}
                     />
                   </StyledLink>
                   <ProfileContainer $isMobile={String(isMobile)}>
@@ -354,7 +369,7 @@ function UserLikes({ data }: any) {
           </ImagesContainer>
           <ImagesContainer>
             {secondCol &&
-              secondCol.map((post) => (
+              secondCol.map((post, index) => (
                 <PostBox key={post?._id} $isMobile={String(isMobile)}>
                   <StyledLink
                     to={`/post/${post?.title}`}
@@ -363,6 +378,8 @@ function UserLikes({ data }: any) {
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt=""
+                      $ratioWidth={post.ratioWidth[index]}
+                      $ratioHeight={post.ratioHeight[index]}
                     />
                   </StyledLink>
                   <ProfileContainer $isMobile={String(isMobile)}>
@@ -389,7 +406,7 @@ function UserLikes({ data }: any) {
           </ImagesContainer>
           <ImagesContainer>
             {thirdCol &&
-              thirdCol.map((post) => (
+              thirdCol.map((post, index) => (
                 <PostBox key={post?._id} $isMobile={String(isMobile)}>
                   <StyledLink
                     to={`/post/${post?.title}`}
@@ -398,6 +415,8 @@ function UserLikes({ data }: any) {
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt=""
+                      $ratioWidth={post.ratioWidth[index]}
+                      $ratioHeight={post.ratioHeight[index]}
                     />
                   </StyledLink>
                   <ProfileContainer $isMobile={String(isMobile)}>

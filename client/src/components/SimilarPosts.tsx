@@ -22,6 +22,11 @@ interface IColumnsContainerProps {
   $isDesktop: string;
 }
 
+interface imageComponentProps {
+  $ratioWidth: number;
+  $ratioHeight: number;
+}
+
 const Container = styled.div`
   width: 100%;
 `;
@@ -45,9 +50,11 @@ const StyledLink = styled(Link)`
   width: 100%;
 `;
 
-const Image = styled.img`
+const Image = styled.img<imageComponentProps>`
   width: 100%;
   max-height: max-content;
+  aspect-ratio: ${(props) => props.$ratioWidth} /
+    ${(props) => props.$ratioHeight};
 `;
 
 const ProfileContainer = styled.div`
@@ -212,7 +219,7 @@ function SimilarPosts({ title, postId }: IProp) {
         <ColumnsContainer $isDesktop={String(isDesktop)}>
           <ImagesContainer>
             {firstCol &&
-              firstCol.map((post) => (
+              firstCol.map((post, index) => (
                 <ImagesBox key={post?._id}>
                   <StyledLink
                     to={`/post/${post?.title}`}
@@ -221,6 +228,8 @@ function SimilarPosts({ title, postId }: IProp) {
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt=""
+                      $ratioWidth={post.ratioWidth[index]}
+                      $ratioHeight={post.ratioHeight[index]}
                     />
                   </StyledLink>
                   <ProfileContainer>
@@ -246,7 +255,7 @@ function SimilarPosts({ title, postId }: IProp) {
           </ImagesContainer>
           <ImagesContainer>
             {secondCol &&
-              secondCol.map((post) => (
+              secondCol.map((post, index) => (
                 <ImagesBox key={post?._id}>
                   <StyledLink
                     to={`/post/${post?.title}`}
@@ -255,6 +264,8 @@ function SimilarPosts({ title, postId }: IProp) {
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt=""
+                      $ratioWidth={post.ratioWidth[index]}
+                      $ratioHeight={post.ratioHeight[index]}
                     />
                   </StyledLink>
                   <ProfileContainer>
@@ -284,7 +295,7 @@ function SimilarPosts({ title, postId }: IProp) {
         <ColumnsContainer $isDesktop={String(isDesktop)}>
           <ImagesContainer>
             {firstCol &&
-              firstCol.map((post) => (
+              firstCol.map((post, index) => (
                 <ImagesBox key={post?._id}>
                   <StyledLink
                     to={`/post/${post?.title}`}
@@ -293,6 +304,8 @@ function SimilarPosts({ title, postId }: IProp) {
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt=""
+                      $ratioWidth={post.ratioWidth[index]}
+                      $ratioHeight={post.ratioHeight[index]}
                     />
                   </StyledLink>
                   <ProfileContainer>
@@ -318,7 +331,7 @@ function SimilarPosts({ title, postId }: IProp) {
           </ImagesContainer>
           <ImagesContainer>
             {secondCol &&
-              secondCol.map((post) => (
+              secondCol.map((post, index) => (
                 <ImagesBox key={post?._id}>
                   <StyledLink
                     to={`/post/${post?.title}`}
@@ -327,6 +340,8 @@ function SimilarPosts({ title, postId }: IProp) {
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt=""
+                      $ratioWidth={post.ratioWidth[index]}
+                      $ratioHeight={post.ratioHeight[index]}
                     />
                   </StyledLink>
                   <ProfileContainer>
@@ -352,7 +367,7 @@ function SimilarPosts({ title, postId }: IProp) {
           </ImagesContainer>
           <ImagesContainer>
             {thirdCol &&
-              thirdCol.map((post) => (
+              thirdCol.map((post, index) => (
                 <ImagesBox key={post?._id}>
                   <StyledLink
                     to={`/post/${post?.title}`}
@@ -361,6 +376,8 @@ function SimilarPosts({ title, postId }: IProp) {
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt=""
+                      $ratioWidth={post.ratioWidth[index]}
+                      $ratioHeight={post.ratioHeight[index]}
                     />
                   </StyledLink>
                   <ProfileContainer>

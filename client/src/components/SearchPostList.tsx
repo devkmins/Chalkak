@@ -30,6 +30,11 @@ interface IColumnsContainerProps {
   $isDesktop: string;
 }
 
+interface imageComponentProps {
+  $ratioWidth: number;
+  $ratioHeight: number;
+}
+
 const Container = styled.div``;
 
 const Box = styled.div`
@@ -105,10 +110,12 @@ const StyledLink = styled(Link)`
   width: 100%;
 `;
 
-const Image = styled.img`
+const Image = styled.img<imageComponentProps>`
   width: 100%;
   max-height: max-content;
   object-fit: contain;
+  aspect-ratio: ${(props) => props.$ratioWidth} /
+    ${(props) => props.$ratioHeight};
 `;
 
 const ProfileContainer = styled.div<IIsMobile>`
@@ -307,7 +314,7 @@ function SearchPostList() {
                     $isDesktop={String(isDesktop)}>
                     <ImagesContainer>
                       {firstCol &&
-                        firstCol.map((post) => (
+                        firstCol.map((post, index) => (
                           <PostBox key={post?._id} $isMobile={String(isMobile)}>
                             <ProfileContainer $isMobile={String(isMobile)}>
                               <ProfileBox $isMobile={String(isMobile)}>
@@ -335,6 +342,8 @@ function SearchPostList() {
                               <Image
                                 src={`http://localhost:4000/${post.fileUrl[0].path}`}
                                 alt=""
+                                $ratioWidth={post.ratioWidth[index]}
+                                $ratioHeight={post.ratioHeight[index]}
                               />
                             </StyledLink>
                           </PostBox>
@@ -349,7 +358,7 @@ function SearchPostList() {
                     $isDesktop={String(isDesktop)}>
                     <ImagesContainer>
                       {firstCol &&
-                        firstCol.map((post) => (
+                        firstCol.map((post, index) => (
                           <PostBox key={post?._id} $isMobile={String(isMobile)}>
                             <StyledLink
                               to={`/post/${post?.title}`}
@@ -358,6 +367,8 @@ function SearchPostList() {
                               <Image
                                 src={`http://localhost:4000/${post.fileUrl[0].path}`}
                                 alt=""
+                                $ratioWidth={post.ratioWidth[index]}
+                                $ratioHeight={post.ratioHeight[index]}
                               />
                             </StyledLink>
                             <ProfileContainer $isMobile={String(isMobile)}>
@@ -384,7 +395,7 @@ function SearchPostList() {
                     </ImagesContainer>
                     <ImagesContainer>
                       {secondCol &&
-                        secondCol.map((post) => (
+                        secondCol.map((post, index) => (
                           <PostBox key={post?._id} $isMobile={String(isMobile)}>
                             <StyledLink
                               to={`/post/${post?.title}`}
@@ -393,6 +404,8 @@ function SearchPostList() {
                               <Image
                                 src={`http://localhost:4000/${post.fileUrl[0].path}`}
                                 alt=""
+                                $ratioWidth={post.ratioWidth[index]}
+                                $ratioHeight={post.ratioHeight[index]}
                               />
                             </StyledLink>
                             <ProfileContainer $isMobile={String(isMobile)}>
@@ -426,7 +439,7 @@ function SearchPostList() {
                     $isDesktop={String(isDesktop)}>
                     <ImagesContainer>
                       {firstCol &&
-                        firstCol.map((post) => (
+                        firstCol.map((post, index) => (
                           <PostBox key={post?._id} $isMobile={String(isMobile)}>
                             <StyledLink
                               to={`/post/${post?.title}`}
@@ -435,6 +448,8 @@ function SearchPostList() {
                               <Image
                                 src={`http://localhost:4000/${post.fileUrl[0].path}`}
                                 alt=""
+                                $ratioWidth={post.ratioWidth[index]}
+                                $ratioHeight={post.ratioHeight[index]}
                               />
                             </StyledLink>
                             <ProfileContainer $isMobile={String(isMobile)}>
@@ -461,7 +476,7 @@ function SearchPostList() {
                     </ImagesContainer>
                     <ImagesContainer>
                       {secondCol &&
-                        secondCol.map((post) => (
+                        secondCol.map((post, index) => (
                           <PostBox key={post?._id} $isMobile={String(isMobile)}>
                             <StyledLink
                               to={`/post/${post?.title}`}
@@ -470,6 +485,8 @@ function SearchPostList() {
                               <Image
                                 src={`http://localhost:4000/${post.fileUrl[0].path}`}
                                 alt=""
+                                $ratioWidth={post.ratioWidth[index]}
+                                $ratioHeight={post.ratioHeight[index]}
                               />
                             </StyledLink>
                             <ProfileContainer $isMobile={String(isMobile)}>
@@ -496,7 +513,7 @@ function SearchPostList() {
                     </ImagesContainer>
                     <ImagesContainer>
                       {thirdCol &&
-                        thirdCol.map((post) => (
+                        thirdCol.map((post, index) => (
                           <PostBox key={post?._id} $isMobile={String(isMobile)}>
                             <StyledLink
                               to={`/post/${post?.title}`}
@@ -505,6 +522,8 @@ function SearchPostList() {
                               <Image
                                 src={`http://localhost:4000/${post.fileUrl[0].path}`}
                                 alt=""
+                                $ratioWidth={post.ratioWidth[index]}
+                                $ratioHeight={post.ratioHeight[index]}
                               />
                             </StyledLink>
                             <ProfileContainer $isMobile={String(isMobile)}>

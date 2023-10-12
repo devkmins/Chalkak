@@ -35,6 +35,11 @@ interface StyledAiFillHeartProps {
   clicked: string;
 }
 
+interface imageComponentProps {
+  $ratioWidth: number;
+  $ratioHeight: number;
+}
+
 const Container = styled.div``;
 
 const Box = styled.div`
@@ -120,9 +125,11 @@ const StyledSlider = styled(Slider)`
   width: 90vh;
 `;
 
-const Image = styled.img`
+const Image = styled.img<imageComponentProps>`
   object-fit: contain;
   max-height: 100vh;
+  aspect-ratio: ${(props) => props.$ratioWidth} /
+    ${(props) => props.$ratioHeight};
 `;
 
 const ContentContainer = styled.div`
@@ -488,6 +495,8 @@ function DetailPost() {
                           key={img.path}
                           alt={`Image ${index + 1}`}
                           src={`http://localhost:4000/${img.path}`}
+                          $ratioWidth={data.ratioWidth[index]}
+                          $ratioHeight={data.ratioHeight[index]}
                         />
                       ))}
                     </StyledSlider>
