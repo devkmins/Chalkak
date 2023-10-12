@@ -12,7 +12,7 @@ import {
   loggedInState,
   sessionState,
 } from "../atoms";
-import { useEffect, useState } from "react";
+import { lazy, useEffect, useState } from "react";
 import Header from "../pages/Header";
 import { styled } from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.webp";
@@ -21,14 +21,15 @@ import { BsThreeDots } from "@react-icons/all-files/bs/BsThreeDots";
 import { BsPerson } from "@react-icons/all-files/bs/BsPerson";
 import { MdDateRange } from "@react-icons/all-files/md/MdDateRange";
 import { GrFormClose } from "@react-icons/all-files/gr/GrFormClose";
-import PostSettings from "./PostSettings";
 import ReactModal from "react-modal";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
-import NotificationBar from "./NotificationBar";
-import SimilarPosts from "./SimilarPosts";
+
+const PostSettings = lazy(() => import("./PostSettings"));
+const NotificationBar = lazy(() => import("./NotificationBar"));
+const SimilarPosts = lazy(() => import("./SimilarPosts"));
 
 interface StyledAiFillHeartProps {
   clicked: string;
