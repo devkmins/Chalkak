@@ -338,8 +338,8 @@ function UploadImage() {
 
     if (images.length > 0) {
       const imagesFormData = new FormData();
-      let ratioWidth;
-      let ratioHeight;
+      let ratioWidth = [];
+      let ratioHeight = [];
 
       for (const img of images) {
         try {
@@ -348,8 +348,8 @@ function UploadImage() {
           )) as imgResizeFuncResultType;
           const imgFile = result.blob;
 
-          ratioWidth = result.ratioWidth;
-          ratioHeight = result.ratioHeight;
+          ratioWidth.push(result.ratioWidth);
+          ratioHeight.push(result.ratioHeight);
 
           imagesFormData.append("images", imgFile);
         } catch (error) {
