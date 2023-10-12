@@ -26,10 +26,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
-
-const PostSettings = lazy(() => import("./PostSettings"));
-const NotificationBar = lazy(() => import("./NotificationBar"));
-const SimilarPosts = lazy(() => import("./SimilarPosts"));
+import PostSettings from "./PostSettings";
+import NotificationBar from "./NotificationBar";
+import SimilarPosts from "./SimilarPosts";
 
 interface StyledAiFillHeartProps {
   clicked: string;

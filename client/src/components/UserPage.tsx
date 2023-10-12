@@ -17,16 +17,15 @@ import defaultUserProfileImg from "../assets/User/default-profile.webp";
 import styled from "styled-components";
 import Header from "../pages/Header";
 import { RiImage2Fill } from "@react-icons/all-files/ri/RiImage2Fill";
-import { lazy, useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 import useInitSearch from "../hooks/useInitSearch";
 import { AiFillHeart } from "@react-icons/all-files/ai/AiFillHeart";
 import { BsPersonCheck } from "@react-icons/all-files/bs/BsPersonCheck";
 import { RiHeartsLine } from "@react-icons/all-files/ri/RiHeartsLine";
 import { debounce } from "lodash";
 import { useMobile } from "../styles/mediaQueries";
-
-const UserPosts = lazy(() => import("./UserPosts"));
-const UserLikes = lazy(() => import("./UserLikes"));
+import UserPosts from "./UserPosts";
+import UserLikes from "./UserLikes";
 
 interface IPhotoLi {
   connectphotos: string;

@@ -17,8 +17,7 @@ import {
   useMobile,
   useTabletOrLaptop,
 } from "../styles/mediaQueries";
-
-const NoSearchResults = lazy(() => import("./NoSearchResults"));
+import NoSearchResults from "./NoSearchResults";
 
 interface IIsMobile {
   $isMobile: string;
