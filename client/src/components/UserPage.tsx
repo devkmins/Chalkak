@@ -16,14 +16,14 @@ import { Link } from "react-router-dom";
 import defaultUserProfileImg from "../assets/User/default-profile.webp";
 import styled from "styled-components";
 import Header from "../pages/Header";
-import { RiImage2Fill } from "react-icons/ri";
+import { RiImage2Fill } from "@react-icons/all-files/ri/RiImage2Fill";
 import { useEffect, useState } from "react";
 import useInitSearch from "../hooks/useInitSearch";
-import { AiFillHeart } from "react-icons/ai";
+import { AiFillHeart } from "@react-icons/all-files/ai/AiFillHeart";
 import UserPosts from "./UserPosts";
 import UserLikes from "./UserLikes";
-import { PiPersonArmsSpreadBold } from "react-icons/pi";
-import { RiHeartsLine } from "react-icons/ri";
+import { BsPersonCheck } from "@react-icons/all-files/bs/BsPersonCheck";
+import { RiHeartsLine } from "@react-icons/all-files/ri/RiHeartsLine";
 import { debounce } from "lodash";
 import { useMobile } from "../styles/mediaQueries";
 
@@ -87,7 +87,7 @@ const TotalViews = styled.div<IIsMobile>`
   }
 `;
 
-const StyledPiPersonArmsSpreadBold = styled(PiPersonArmsSpreadBold)`
+const StyledBsPersonCheck = styled(BsPersonCheck)`
   margin-bottom: 5px;
   margin-right: 4px;
 `;
@@ -351,7 +351,7 @@ function UserPage() {
             </ProfileName>
             <TotalBox>
               <TotalViews $isMobile={String(isMobile)}>
-                <StyledPiPersonArmsSpreadBold />
+                <StyledBsPersonCheck />
                 <span>조회 수 {totalViews}</span>
               </TotalViews>
               <TotalLikes $isMobile={String(isMobile)}>

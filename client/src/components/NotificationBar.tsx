@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { GrFormClose } from "react-icons/gr";
+import { GrFormClose } from "@react-icons/all-files/gr/GrFormClose";
 import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { isLoggedOutState } from "../atoms";

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Header from "../pages/Header";
 import defaultUserProfileImg from "../assets/User/default-profile.webp";
 import { useEffect, useState } from "react";
-import { RiImage2Fill } from "react-icons/ri";
+import { RiImage2Fill } from "@react-icons/all-files/ri/RiImage2Fill";
 import NoSearchResults from "./NoSearchResults";
 import { useQuery } from "react-query";
 import axios from "axios";

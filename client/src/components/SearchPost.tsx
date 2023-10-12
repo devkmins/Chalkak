@@ -4,7 +4,7 @@ import RecentSearch from "./RecentSearch";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { currentSearchState, recentSearchState } from "../atoms";
 import { styled } from "styled-components";
-import { BiSearch } from "react-icons/bi";
+import { BiSearch } from "@react-icons/all-files/bi/BiSearch";
 import { useMobile } from "../styles/mediaQueries";
 
 const Box = styled.div``;

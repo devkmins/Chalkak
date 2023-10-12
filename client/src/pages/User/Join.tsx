@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
 import styled from "styled-components";
 import joinImg from "../../assets/Join/join.webp";
-import { RiCameraLensFill } from "react-icons/ri";
-import { BiSolidShow } from "react-icons/bi";
-import { BiSolidHide } from "react-icons/bi";
+import { RiCameraLensFill } from "@react-icons/all-files/ri/RiCameraLensFill";
+import { BiShow } from "@react-icons/all-files/bi/BiShow";
+import { BiHide } from "@react-icons/all-files/bi/BiHide";
 import { Link } from "react-router-dom";
 import { useMobile } from "../../styles/mediaQueries";
 
@@ -371,9 +371,9 @@ function Join() {
                 required
               />
               {showPassword ? (
-                <BiSolidHide onClick={passwordToggle} />
+                <BiHide onClick={passwordToggle} />
               ) : (
-                <BiSolidShow onClick={passwordToggle} />
+                <BiShow onClick={passwordToggle} />
               )}
             </JoinPasswordInputBox>
             {error && error.passwordError && (
@@ -392,9 +392,9 @@ function Join() {
                 required
               />
               {showConfirmPassword ? (
-                <BiSolidHide onClick={confirmPasswordToggle} />
+                <BiHide onClick={confirmPasswordToggle} />
               ) : (
-                <BiSolidShow onClick={confirmPasswordToggle} />
+                <BiShow onClick={confirmPasswordToggle} />
               )}
             </JoinPasswordInputBox>
             {error && error.confirmPasswordError && (

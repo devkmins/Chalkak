@@ -16,11 +16,11 @@ import { useEffect, useState } from "react";
 import Header from "../pages/Header";
 import { styled } from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.webp";
-import { AiFillHeart } from "react-icons/ai";
-import { BsThreeDots, BsPerson } from "react-icons/bs";
-import { MdDateRange } from "react-icons/md";
-import { GrFormClose } from "react-icons/gr";
-import { IconBaseProps } from "react-icons";
+import { AiFillHeart } from "@react-icons/all-files/ai/AiFillHeart";
+import { BsThreeDots } from "@react-icons/all-files/bs/BsThreeDots";
+import { BsPerson } from "@react-icons/all-files/bs/BsPerson";
+import { MdDateRange } from "@react-icons/all-files/md/MdDateRange";
+import { GrFormClose } from "@react-icons/all-files/gr/GrFormClose";
 import PostSettings from "./PostSettings";
 import ReactModal from "react-modal";
 import Slider from "react-slick";
@@ -30,7 +30,7 @@ import { Link } from "react-router-dom";
 import NotificationBar from "./NotificationBar";
 import SimilarPosts from "./SimilarPosts";
 
-interface StyledAiFillHeartProps extends IconBaseProps {
+interface StyledAiFillHeartProps {
   clicked: string;
 }
 

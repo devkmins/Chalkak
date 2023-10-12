@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import SearchPost from "../../components/SearchPost";
-import { RiCameraLensFill } from "react-icons/ri";
+import { RiCameraLensFill } from "@react-icons/all-files/ri/RiCameraLensFill";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   isBackToMainState,
@@ -19,7 +19,7 @@ import {
   useMobile,
   useTabletOrLaptop,
 } from "../../styles/mediaQueries";
-import { FaBars } from "react-icons/fa";
+import { FaBars } from "@react-icons/all-files/fa/FaBars";
 import GuestMenu from "../../components/GuestMenu";
 
 interface IIsMobile {

@@ -2,16 +2,16 @@ import { useEffect, useState } from "react";
 import Dropzone from "react-dropzone";
 import { styled } from "styled-components";
 import Header from "../pages/Header";
-import { PiImageThin } from "react-icons/pi";
 import useInitSearch from "../hooks/useInitSearch";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useRecoilValue } from "recoil";
 import { sessionState } from "../atoms";
-import { TbArrowNarrowLeft } from "react-icons/tb";
-import { MdClear } from "react-icons/md";
+import { BsBoxArrowInLeft } from "@react-icons/all-files/bs/BsBoxArrowInLeft";
+import { MdClear } from "@react-icons/all-files/md/MdClear";
 import { resizeAndConvertToWebP } from "../resizeAndConvertToWebP";
 import { useMobile } from "../styles/mediaQueries";
+import { BsCardImage } from "@react-icons/all-files/bs/BsCardImage";
 
 interface imgResizeFuncResultType {
   blob: File;
@@ -34,7 +34,7 @@ const BackBtnBox = styled.div<IIsMobile>`
     ${(props) => (props.$isMobile === "true" ? "0px" : "15px")};
 `;
 
-const StyledTbArrowNarrowLeft = styled(TbArrowNarrowLeft)`
+const StyledBsBoxArrowInLeft = styled(BsBoxArrowInLeft)`
   cursor: pointer;
   width: 30px;
   height: 30px;
@@ -82,6 +82,10 @@ const DropzoneBox = styled.div`
     font-size: 14px;
     font-weight: 500;
   }
+`;
+
+const StyledBsCardImage = styled(BsCardImage)`
+  color: #383434;
 `;
 
 const DropZoneText = styled.p<IIsMobile>`
@@ -429,7 +433,7 @@ function UploadImage() {
           {isMobile ? (
             <StyledMdClear onClick={handleBackBtn} />
           ) : (
-            <StyledTbArrowNarrowLeft onClick={handleBackBtn} />
+            <StyledBsBoxArrowInLeft onClick={handleBackBtn} />
           )}
         </BackBtnBox>
         <UploadContainer>
@@ -444,7 +448,7 @@ function UploadImage() {
                   <DropzoneSection $isMobile={String(isMobile)}>
                     <DropzoneBox {...getRootProps()}>
                       <input {...getInputProps()} />
-                      <PiImageThin size={100} />
+                      <StyledBsCardImage size={100} />
                       <DropZoneText $isMobile={String(isMobile)}>
                         최대 10개의 이미지를 끌어다 놓거나 찾아보기로 선택해
                         보세요!

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { RiImage2Fill } from "react-icons/ri";
-import { TbPhotoOff } from "react-icons/tb";
+import { RiImage2Fill } from "@react-icons/all-files/ri/RiImage2Fill";
+import { BsQuestionSquare } from "@react-icons/all-files/bs/BsQuestionSquare";
 
 const Box = styled.div`
   display: flex;
@@ -45,11 +45,11 @@ const IconBox = styled.div`
   margin-top: 100px;
 `;
 
-const StyledTbPhotoOff = styled(TbPhotoOff)`
+const StyledBsQuestionSquare = styled(BsQuestionSquare)`
+  margin-top: 5px;
   width: 150px;
   height: 150px;
-  stroke-width: 0.85;
-  stroke: #564f4e;
+  color: #564f4e;
 `;
 
 const SearchWord = styled.span`
@@ -77,7 +77,7 @@ function NoSearchResults({ posts, searchWord }: any) {
         </ContentsContainer>
         <SearchWord>{searchWord}</SearchWord>
         <IconBox>
-          <StyledTbPhotoOff />
+          <StyledBsQuestionSquare />
           <Text>사진을 찾을 수 없습니다.</Text>
         </IconBox>
       </PostsContainer>

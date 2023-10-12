@@ -6,9 +6,9 @@ import { useSetRecoilState } from "recoil";
 import { isLoggedOutState, loggedInState, sessionState } from "../../atoms";
 import { styled } from "styled-components";
 import loginImg from "../../assets/Login/login.webp";
-import { RiCameraLensFill } from "react-icons/ri";
-import { BiSolidShow } from "react-icons/bi";
-import { BiSolidHide } from "react-icons/bi";
+import { RiCameraLensFill } from "@react-icons/all-files/ri/RiCameraLensFill";
+import { BiShow } from "@react-icons/all-files/bi/BiShow";
+import { BiHide } from "@react-icons/all-files/bi/BiHide";
 import { Link } from "react-router-dom";
 import NotificationBar from "../../components/NotificationBar";
 import { useMobile } from "../../styles/mediaQueries";
@@ -310,9 +310,9 @@ function Login() {
                 required
               />
               {showPassword ? (
-                <BiSolidHide onClick={passwordToggle} />
+                <BiHide onClick={passwordToggle} />
               ) : (
-                <BiSolidShow onClick={passwordToggle} />
+                <BiShow onClick={passwordToggle} />
               )}
             </LoginPasswordInputBox>
             {error && error.passwordError && (
