@@ -2,12 +2,12 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../pages/Header";
 import defaultUserProfileImg from "../assets/User/default-profile.webp";
-import { lazy, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { RiImage2Fill } from "@react-icons/all-files/ri/RiImage2Fill";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { debounce } from "lodash";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   isBackToSearchPostListState,
   searchPostListScrollYState,
@@ -184,18 +184,15 @@ function SearchPostList() {
 
   const [page, setPage] = useState(1);
 
-  const { data, refetch, isFetching, isLoading } = useQuery(
-    "getSearchPostList",
-    async () => {
-      const response = await axios.get(
-        `http://localhost:4000/search/${searchKeyword}?page=${page}`,
-        { withCredentials: true }
-      );
-      const responseData = response.data;
+  const { data, refetch } = useQuery("getSearchPostList", async () => {
+    const response = await axios.get(
+      `http://localhost:4000/search/${searchKeyword}?page=${page}`,
+      { withCredentials: true }
+    );
+    const responseData = response.data;
 
-      return responseData;
-    }
-  );
+    return responseData;
+  });
 
   const handleScroll = debounce(() => {
     const windowHeight = window.innerHeight;
@@ -267,9 +264,7 @@ function SearchPostList() {
 
   const [scrollY, setScrollY] = useRecoilState(searchPostListScrollYState);
 
-  const [isBackToSearchPostList, setIsBackToSearchPostList] = useRecoilState(
-    isBackToSearchPostListState
-  );
+  const isBackToSearchPostList = useRecoilValue(isBackToSearchPostListState);
 
   const clickedProfile = () => {
     setScrollY(window.scrollY);

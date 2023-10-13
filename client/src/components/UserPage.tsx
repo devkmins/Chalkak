@@ -17,7 +17,7 @@ import defaultUserProfileImg from "../assets/User/default-profile.webp";
 import styled from "styled-components";
 import Header from "../pages/Header";
 import { RiImage2Fill } from "@react-icons/all-files/ri/RiImage2Fill";
-import { Suspense, lazy, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useInitSearch from "../hooks/useInitSearch";
 import { AiFillHeart } from "@react-icons/all-files/ai/AiFillHeart";
 import { BsPersonCheck } from "@react-icons/all-files/bs/BsPersonCheck";
@@ -227,17 +227,14 @@ function UserPage() {
 
   const [page, setPage] = useRecoilState(currentUserPageScrollState);
 
-  const { data, refetch, isFetching, isLoading } = useQuery(
-    "getAllUserPostsData",
-    async () => {
-      const response = await axios.get(
-        `http://localhost:4000/user/${username}?page=${page}`
-      );
-      const responseData = response.data;
+  const { data, refetch } = useQuery("getAllUserPostsData", async () => {
+    const response = await axios.get(
+      `http://localhost:4000/user/${username}?page=${page}`
+    );
+    const responseData = response.data;
 
-      return responseData;
-    }
-  );
+    return responseData;
+  });
 
   const handleScroll = debounce(() => {
     const windowHeight = window.innerHeight;
@@ -284,11 +281,9 @@ function UserPage() {
   data?.userPosts?.posts?.map((post: any) => (totalViews += post.views - 1));
   data?.userPosts?.posts?.map((post: any) => (totalLikes += post.likes.length));
 
-  const [scrollY, setScrollY] = useRecoilState(userPageScrollYState);
+  const scrollY = useRecoilValue(userPageScrollYState);
 
-  const [isBackToUserPage, setIsBackToUserPage] = useRecoilState(
-    isBackToUserPageState
-  );
+  const isBackToUserPage = useRecoilValue(isBackToUserPageState);
 
   useEffect(() => {
     const handleNavigation = () => {

@@ -12,7 +12,7 @@ import {
   loggedInState,
   sessionState,
 } from "../atoms";
-import { lazy, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../pages/Header";
 import { styled } from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.webp";

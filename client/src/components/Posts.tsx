@@ -1,17 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useInfiniteQuery, useQuery } from "react-query";
+import { useQuery } from "react-query";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.webp";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   currentPostPageScrollState,
   isBackToMainState,
   mainPageScrollYState,
 } from "../atoms";
 import useInitSearch from "../hooks/useInitSearch";
-import React from "react";
 import { debounce } from "lodash";
 import {
   useDesktop,
@@ -132,17 +131,14 @@ function Posts() {
   const location = useLocation();
   const path = location.pathname;
 
-  const { data, refetch, isFetching } = useQuery(
-    "getAllPostsData",
-    async () => {
-      const response = await axios.get(
-        `http://localhost:4000/posts?page=${page}`
-      );
-      const responseData = response.data;
+  const { data, refetch } = useQuery("getAllPostsData", async () => {
+    const response = await axios.get(
+      `http://localhost:4000/posts?page=${page}`
+    );
+    const responseData = response.data;
 
-      return responseData;
-    }
-  );
+    return responseData;
+  });
 
   const handleScroll = debounce(() => {
     const windowHeight = window.innerHeight;
@@ -170,7 +166,7 @@ function Posts() {
 
   const [scrollY, setScrollY] = useRecoilState(mainPageScrollYState);
 
-  const [isBackToMain, setIsBackToMain] = useRecoilState(isBackToMainState);
+  const isBackToMain = useRecoilValue(isBackToMainState);
 
   const clickedProfile = () => {
     setScrollY(window.scrollY);

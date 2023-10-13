@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.webp";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { isBackToUserPageState, userPageScrollYState } from "../atoms";
 import {
   useDesktop,
@@ -127,7 +127,7 @@ function UserLikes({ data }: any) {
 
   const setIsBackToUserPage = useSetRecoilState(isBackToUserPageState);
 
-  const [scrollY, setScrollY] = useRecoilState(userPageScrollYState);
+  const setScrollY = useSetRecoilState(userPageScrollYState);
 
   const clickedProfile = () => {
     setScrollY(window.scrollY);

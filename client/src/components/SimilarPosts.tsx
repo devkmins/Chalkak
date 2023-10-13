@@ -5,7 +5,7 @@ import styled from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.webp";
 import { useEffect, useState } from "react";
 import { debounce } from "lodash";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   currentSimilarPostsPageScrollState,
   isBackToSimilarPostsState,
@@ -114,7 +114,7 @@ function SimilarPosts({ title, postId }: IProp) {
 
   const [page, setPage] = useRecoilState(currentSimilarPostsPageScrollState);
 
-  const { data, refetch, isFetching, isLoading } = useQuery(
+  const { data, refetch } = useQuery(
     ["getSimilarPostsData", title, postId],
     async () => {
       const response = await axios.get(
@@ -189,9 +189,7 @@ function SimilarPosts({ title, postId }: IProp) {
 
   const [scrollY, setScrollY] = useRecoilState(similarPostsScrollYState);
 
-  const [isBackToSimilarPosts, setIsBackToSimilarPosts] = useRecoilState(
-    isBackToSimilarPostsState
-  );
+  const isBackToSimilarPosts = useRecoilValue(isBackToSimilarPostsState);
 
   const clickedProfile = () => {
     setScrollY(window.scrollY);
