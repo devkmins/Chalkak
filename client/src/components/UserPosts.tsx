@@ -207,7 +207,7 @@ function UserPosts({ data }: any) {
           $isDesktop={String(isDesktop)}>
           <ImagesContainer>
             {firstCol &&
-              firstCol.map((post, index) => (
+              firstCol?.map((post, index) => (
                 <PostBox key={post?._id} $isMobile={String(isMobile)}>
                   <ProfileContainer $isMobile={String(isMobile)}>
                     <ProfileBox $isMobile={String(isMobile)}>
@@ -235,8 +235,8 @@ function UserPosts({ data }: any) {
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt=""
-                      $ratioWidth={post.ratioWidth[index]}
-                      $ratioHeight={post.ratioHeight[index]}
+                      $ratioWidth={post.ratioWidth[0]}
+                      $ratioHeight={post.ratioHeight[0]}
                     />
                   </StyledLink>
                 </PostBox>
@@ -251,7 +251,7 @@ function UserPosts({ data }: any) {
           $isDesktop={String(isDesktop)}>
           <ImagesContainer>
             {firstCol &&
-              firstCol.map((post, index) => (
+              firstCol?.map((post, index) => (
                 <PostBox key={post?._id} $isMobile={String(isMobile)}>
                   <StyledLink
                     to={`/post/${post?.title}`}
@@ -260,8 +260,8 @@ function UserPosts({ data }: any) {
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt=""
-                      $ratioWidth={post.ratioWidth[index]}
-                      $ratioHeight={post.ratioHeight[index]}
+                      $ratioWidth={post.ratioWidth[0]}
+                      $ratioHeight={post.ratioHeight[0]}
                     />
                   </StyledLink>
                   <ProfileContainer $isMobile={String(isMobile)}>
@@ -288,7 +288,7 @@ function UserPosts({ data }: any) {
           </ImagesContainer>
           <ImagesContainer>
             {secondCol &&
-              secondCol.map((post, index) => (
+              secondCol?.map((post, index) => (
                 <PostBox key={post?._id} $isMobile={String(isMobile)}>
                   <StyledLink
                     to={`/post/${post?.title}`}
@@ -297,8 +297,8 @@ function UserPosts({ data }: any) {
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt=""
-                      $ratioWidth={post.ratioWidth[index]}
-                      $ratioHeight={post.ratioHeight[index]}
+                      $ratioWidth={post.ratioWidth[0]}
+                      $ratioHeight={post.ratioHeight[0]}
                     />
                   </StyledLink>
                   <ProfileContainer $isMobile={String(isMobile)}>
@@ -332,7 +332,7 @@ function UserPosts({ data }: any) {
           $isDesktop={String(isDesktop)}>
           <ImagesContainer>
             {firstCol &&
-              firstCol.map((post, index) => (
+              firstCol?.map((post, index) => (
                 <PostBox key={post?._id} $isMobile={String(isMobile)}>
                   <StyledLink
                     to={`/post/${post?.title}`}
@@ -341,8 +341,8 @@ function UserPosts({ data }: any) {
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt=""
-                      $ratioWidth={post.ratioWidth[index]}
-                      $ratioHeight={post.ratioHeight[index]}
+                      $ratioWidth={post.ratioWidth[0]}
+                      $ratioHeight={post.ratioHeight[0]}
                     />
                   </StyledLink>
                   <ProfileContainer $isMobile={String(isMobile)}>
@@ -369,7 +369,7 @@ function UserPosts({ data }: any) {
           </ImagesContainer>
           <ImagesContainer>
             {secondCol &&
-              secondCol.map((post, index) => (
+              secondCol?.map((post, index) => (
                 <PostBox key={post?._id} $isMobile={String(isMobile)}>
                   <StyledLink
                     to={`/post/${post?.title}`}
@@ -378,8 +378,8 @@ function UserPosts({ data }: any) {
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt=""
-                      $ratioWidth={post.ratioWidth[index]}
-                      $ratioHeight={post.ratioHeight[index]}
+                      $ratioWidth={post.ratioWidth[0]}
+                      $ratioHeight={post.ratioHeight[0]}
                     />
                   </StyledLink>
                   <ProfileContainer $isMobile={String(isMobile)}>
@@ -406,7 +406,7 @@ function UserPosts({ data }: any) {
           </ImagesContainer>
           <ImagesContainer>
             {thirdCol &&
-              thirdCol.map((post, index) => (
+              thirdCol?.map((post, index) => (
                 <PostBox key={post?._id} $isMobile={String(isMobile)}>
                   <StyledLink
                     to={`/post/${post?.title}`}
@@ -415,8 +415,8 @@ function UserPosts({ data }: any) {
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt=""
-                      $ratioWidth={post.ratioWidth[index]}
-                      $ratioHeight={post.ratioHeight[index]}
+                      $ratioWidth={post.ratioWidth[0]}
+                      $ratioHeight={post.ratioHeight[0]}
                     />
                   </StyledLink>
                   <ProfileContainer $isMobile={String(isMobile)}>

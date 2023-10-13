@@ -228,8 +228,8 @@ function SimilarPosts({ title, postId }: IProp) {
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt=""
-                      $ratioWidth={post.ratioWidth[index]}
-                      $ratioHeight={post.ratioHeight[index]}
+                      $ratioWidth={post.ratioWidth[0]}
+                      $ratioHeight={post.ratioHeight[0]}
                     />
                   </StyledLink>
                   <ProfileContainer>
@@ -264,8 +264,8 @@ function SimilarPosts({ title, postId }: IProp) {
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt=""
-                      $ratioWidth={post.ratioWidth[index]}
-                      $ratioHeight={post.ratioHeight[index]}
+                      $ratioWidth={post.ratioWidth[0]}
+                      $ratioHeight={post.ratioHeight[0]}
                     />
                   </StyledLink>
                   <ProfileContainer>
@@ -304,8 +304,8 @@ function SimilarPosts({ title, postId }: IProp) {
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt=""
-                      $ratioWidth={post.ratioWidth[index]}
-                      $ratioHeight={post.ratioHeight[index]}
+                      $ratioWidth={post.ratioWidth[0]}
+                      $ratioHeight={post.ratioHeight[0]}
                     />
                   </StyledLink>
                   <ProfileContainer>
@@ -340,8 +340,8 @@ function SimilarPosts({ title, postId }: IProp) {
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt=""
-                      $ratioWidth={post.ratioWidth[index]}
-                      $ratioHeight={post.ratioHeight[index]}
+                      $ratioWidth={post.ratioWidth[0]}
+                      $ratioHeight={post.ratioHeight[0]}
                     />
                   </StyledLink>
                   <ProfileContainer>
@@ -376,8 +376,8 @@ function SimilarPosts({ title, postId }: IProp) {
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt=""
-                      $ratioWidth={post.ratioWidth[index]}
-                      $ratioHeight={post.ratioHeight[index]}
+                      $ratioWidth={post.ratioWidth[0]}
+                      $ratioHeight={post.ratioHeight[0]}
                     />
                   </StyledLink>
                   <ProfileContainer>
