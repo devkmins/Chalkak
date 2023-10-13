@@ -432,7 +432,7 @@ function UploadImage() {
           { withCredentials: true }
         );
 
-        setIsSubmitted(false);
+        setTimeout(() => setIsSubmitted(false), 1500);
 
         navigate(`/user/${sessionData.username}`, {
           state: sessionData.username,
