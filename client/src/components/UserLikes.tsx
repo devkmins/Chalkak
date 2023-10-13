@@ -229,8 +229,6 @@ function UserLikes({ data }: { data: IUserData }) {
     setThirdCol(thirdColImages);
   }, [data, isMobile, isTabletOrLaptop, isDesktop]);
 
-  console.log(firstCol);
-
   useEffect(() => {
     const handleNavigation = () => {
       setIsBackToUserPage(true);

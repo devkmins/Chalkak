@@ -221,8 +221,6 @@ function SimilarPosts({ title, postId }: IProp) {
     setThirdCol(thirdColImages);
   }, [data, isDesktop]);
 
-  console.log(firstCol);
-
   const [scrollY, setScrollY] = useRecoilState(similarPostsScrollYState);
 
   const isBackToSimilarPosts = useRecoilValue(isBackToSimilarPostsState);

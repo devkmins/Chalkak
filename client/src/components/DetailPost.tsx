@@ -459,8 +459,6 @@ function DetailPost() {
     window.scrollTo(0, 0);
   }, []);
 
-  console.log(data?.fileUrl);
-
   return (
     <>
       {isEdited && <NotificationBar text={updatedText} />}
