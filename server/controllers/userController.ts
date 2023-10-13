@@ -13,7 +13,8 @@ export const see = async (req: Request, res: Response) => {
       .select("name username profileImage")
       .populate({
         path: "posts",
-        select: "title description fileUrl owner views likes createdAt",
+        select:
+          "title description fileUrl owner views likes createdAt ratioWidth ratioHeight",
         options: {
           limit: perPage * page,
         },
