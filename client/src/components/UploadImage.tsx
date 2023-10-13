@@ -12,6 +12,7 @@ import { MdClear } from "@react-icons/all-files/md/MdClear";
 import { resizeAndConvertToWebP } from "../resizeAndConvertToWebP";
 import { useMobile } from "../styles/mediaQueries";
 import { BsCardImage } from "@react-icons/all-files/bs/BsCardImage";
+import { motion } from "framer-motion";
 
 interface imgResizeFuncResultType {
   blob: File;
@@ -22,6 +23,19 @@ interface imgResizeFuncResultType {
 interface IIsMobile {
   $isMobile: string;
 }
+
+const SubmittedBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const SubmittedText = styled.span`
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 25px;
+`;
 
 const Container = styled.div``;
 
@@ -265,11 +279,56 @@ const Hashtags = styled.div`
   }
 `;
 
+const LoadingDot = {
+  display: "block",
+  width: "2rem",
+  height: "2rem",
+  backgroundColor: "black",
+  borderRadius: "50%",
+};
+
+const LoadingContainer = {
+  width: "10rem",
+  height: "5rem",
+  display: "flex",
+  justifyContent: "space-around",
+};
+
+const ContainerVariants = {
+  initial: {
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+  animate: {
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const DotVariants = {
+  initial: {
+    y: "0%",
+  },
+  animate: {
+    y: "100%",
+  },
+};
+
+const DotTransition = {
+  duration: 0.5,
+  yoyo: Infinity,
+  ease: "easeInOut",
+};
+
 function UploadImage() {
   const isMobile = useMobile();
 
   const [images, setImages] = useState<File[]>([]);
   const [data, setData] = useState<string[]>([]);
+
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const navigate = useNavigate();
 
@@ -334,6 +393,7 @@ function UploadImage() {
   };
 
   const handleSubmit = async (event: any) => {
+    setIsSubmitted(true);
     event.preventDefault();
 
     if (images.length > 0) {
@@ -371,6 +431,8 @@ function UploadImage() {
           { formData, files, ratio: { ratioWidth, ratioHeight } },
           { withCredentials: true }
         );
+
+        setIsSubmitted(false);
 
         navigate(`/user/${sessionData.username}`, {
           state: sessionData.username,
@@ -427,98 +489,141 @@ function UploadImage() {
 
   return (
     <>
-      <Container>
-        <Header />
-        <BackBtnBox $isMobile={String(isMobile)}>
-          {isMobile ? (
-            <StyledMdClear onClick={handleBackBtn} />
-          ) : (
-            <StyledBsBoxArrowInLeft onClick={handleBackBtn} />
-          )}
-        </BackBtnBox>
-        <UploadContainer>
-          <>
-            <UploadBox>
-              <Dropzone
-                maxFiles={10}
-                maxSize={150000000}
-                accept={{ "image/*": [".png", ".jpeg", ".jpg", ".webp"] }}
-                onDrop={onDrop}>
-                {({ getRootProps, getInputProps }) => (
-                  <DropzoneSection $isMobile={String(isMobile)}>
-                    <DropzoneBox {...getRootProps()}>
-                      <input {...getInputProps()} />
-                      <StyledBsCardImage size={100} />
-                      <DropZoneText $isMobile={String(isMobile)}>
-                        최대 10개의 이미지를 끌어다 놓거나 찾아보기로 선택해
-                        보세요!
-                      </DropZoneText>
-                      <span>이미지 최대 {10 - data.length}개 추가 가능</span>
-                    </DropzoneBox>
-                  </DropzoneSection>
-                )}
-              </Dropzone>
-            </UploadBox>
-            <ImagesContainer $isMobile={String(isMobile)}>
-              {data &&
-                data.map((img) => (
-                  <ImagesBox key={img}>
-                    <Image src={img} alt="" />
-                    <RemoveButton onClick={() => removeImgClick(img)}>
-                      X
-                    </RemoveButton>
-                  </ImagesBox>
-                ))}
-            </ImagesContainer>
-          </>
-        </UploadContainer>
-      </Container>
-      {images.length > 0 && (
-        <CreateBox>
-          <CreateForm onSubmit={handleSubmit} $isMobile={String(isMobile)}>
-            <TitleInput
-              type="title"
-              name="title"
-              placeholder="제목"
-              value={formData.title}
-              maxLength={75}
-              required
-              onChange={handleChange}
-              $isMobile={String(isMobile)}
-            />
-            <DescriptionTextArea
-              name="description"
-              placeholder="사진에 대한 설명을 작성해 보세요."
-              value={formData.description}
-              maxLength={150}
-              onChange={handleChange}
-              $isMobile={String(isMobile)}
-            />
-            <HashtagsContainer>
-              <HashtagsInput
-                type="text"
-                name="hashtags"
-                placeholder="추가하고 싶은 해시태그를 입력해 보세요."
-                onKeyDown={handleHashtagsEnter}
+      {isSubmitted && (
+        <SubmittedBox>
+          <div
+            style={{
+              paddingTop: "5rem",
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}>
+            <motion.div
+              style={LoadingContainer}
+              variants={ContainerVariants}
+              initial="initial"
+              animate="animate">
+              <motion.span
+                style={LoadingDot}
+                variants={DotVariants}
+                transition={DotTransition}
               />
-              <HashtagsBox>
-                {formData.hashtags &&
-                  formData.hashtags.map((hashtag) => (
-                    <Hashtags key={hashtag + Math.random()}>
-                      <Hashtag>{hashtag}</Hashtag>
-                      <RemoveHashtagButton
-                        onClick={() => removeHashtagClick(hashtag)}>
-                        X
-                      </RemoveHashtagButton>
-                    </Hashtags>
-                  ))}
-              </HashtagsBox>
-            </HashtagsContainer>
-            <Btn onClick={handleSubmit} type="submit">
-              {data.length} 사진 제출
-            </Btn>
-          </CreateForm>
-        </CreateBox>
+              <motion.span
+                style={LoadingDot}
+                variants={DotVariants}
+                transition={DotTransition}
+              />
+              <motion.span
+                style={LoadingDot}
+                variants={DotVariants}
+                transition={DotTransition}
+              />
+            </motion.div>
+          </div>
+          <SubmittedText>
+            이미지가 업로드 중입니다. 잠시만 기다려 주세요.
+          </SubmittedText>
+        </SubmittedBox>
+      )}
+      {!isSubmitted && (
+        <>
+          <Container>
+            <Header />
+            <BackBtnBox $isMobile={String(isMobile)}>
+              {isMobile ? (
+                <StyledMdClear onClick={handleBackBtn} />
+              ) : (
+                <StyledBsBoxArrowInLeft onClick={handleBackBtn} />
+              )}
+            </BackBtnBox>
+            <UploadContainer>
+              <>
+                <UploadBox>
+                  <Dropzone
+                    maxFiles={10}
+                    maxSize={150000000}
+                    accept={{ "image/*": [".png", ".jpeg", ".jpg", ".webp"] }}
+                    onDrop={onDrop}>
+                    {({ getRootProps, getInputProps }) => (
+                      <DropzoneSection $isMobile={String(isMobile)}>
+                        <DropzoneBox {...getRootProps()}>
+                          <input {...getInputProps()} />
+                          <StyledBsCardImage size={100} />
+                          <DropZoneText $isMobile={String(isMobile)}>
+                            최대 10개의 이미지를 끌어다 놓거나 찾아보기로 선택해
+                            보세요!
+                          </DropZoneText>
+                          <span>
+                            이미지 최대 {10 - data.length}개 추가 가능
+                          </span>
+                        </DropzoneBox>
+                      </DropzoneSection>
+                    )}
+                  </Dropzone>
+                </UploadBox>
+                <ImagesContainer $isMobile={String(isMobile)}>
+                  {data &&
+                    data.map((img) => (
+                      <ImagesBox key={img}>
+                        <Image src={img} alt="" />
+                        <RemoveButton onClick={() => removeImgClick(img)}>
+                          X
+                        </RemoveButton>
+                      </ImagesBox>
+                    ))}
+                </ImagesContainer>
+              </>
+            </UploadContainer>
+          </Container>
+          {images?.length > 0 && (
+            <CreateBox>
+              <CreateForm onSubmit={handleSubmit} $isMobile={String(isMobile)}>
+                <TitleInput
+                  type="title"
+                  name="title"
+                  placeholder="제목"
+                  value={formData.title}
+                  maxLength={75}
+                  required
+                  onChange={handleChange}
+                  $isMobile={String(isMobile)}
+                />
+                <DescriptionTextArea
+                  name="description"
+                  placeholder="사진에 대한 설명을 작성해 보세요."
+                  value={formData.description}
+                  maxLength={150}
+                  onChange={handleChange}
+                  $isMobile={String(isMobile)}
+                />
+                <HashtagsContainer>
+                  <HashtagsInput
+                    type="text"
+                    name="hashtags"
+                    placeholder="추가하고 싶은 해시태그를 입력해 보세요."
+                    onKeyDown={handleHashtagsEnter}
+                  />
+                  <HashtagsBox>
+                    {formData.hashtags &&
+                      formData.hashtags.map((hashtag) => (
+                        <Hashtags key={hashtag + Math.random()}>
+                          <Hashtag>{hashtag}</Hashtag>
+                          <RemoveHashtagButton
+                            onClick={() => removeHashtagClick(hashtag)}>
+                            X
+                          </RemoveHashtagButton>
+                        </Hashtags>
+                      ))}
+                  </HashtagsBox>
+                </HashtagsContainer>
+                <Btn onClick={handleSubmit} type="submit">
+                  {data.length} 사진 제출
+                </Btn>
+              </CreateForm>
+            </CreateBox>
+          )}
+        </>
       )}
     </>
   );
