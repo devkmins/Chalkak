@@ -69,12 +69,10 @@ export const getLogin = (req: Request, res: Response) => {
   const session = req.session as CustomSession;
 
   if (session.loggedIn) {
-    return res
-      .send({
-        loggedIn: session.loggedIn,
-        user: session.user,
-      })
-      .json("로그인이 완료되었습니다.");
+    return res.send({
+      loggedIn: session.loggedIn,
+      user: session.user,
+    });
   }
 };
 
