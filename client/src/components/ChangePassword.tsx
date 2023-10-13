@@ -29,8 +29,13 @@ const Box = styled.div<IIsMobile>`
 
 const ChangePasswordSection = styled.section<IIsMobile>`
   margin-right: 25px;
-  margin-left: ${(props) => (props.$isMobile === "true" ? "22.5px" : "0px")};
-  margin-top: ${(props) => (props.$isMobile === "true" ? "40px" : "0px")};
+
+  ${(props) =>
+    props.$isMobile === "true" &&
+    `
+    margin-left: 22.5px;
+    margin-top: 40px;
+    `}
 `;
 
 const MainTitleBox = styled.div`

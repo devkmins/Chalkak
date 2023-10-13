@@ -41,11 +41,15 @@ const Container = styled.div``;
 
 const BackBtnBox = styled.div<IIsMobile>`
   display: flex;
-  justify-content: ${(props) =>
-    props.$isMobile === "true" ? "flex-end" : "none"};
   padding-top: 75px;
-  margin: 0px ${(props) => (props.$isMobile === "true" ? "10px" : "0px")} 10px
-    ${(props) => (props.$isMobile === "true" ? "0px" : "15px")};
+  margin: 0px 0px 10px 15px;
+
+  ${(props) =>
+    props.$isMobile === "true" &&
+    `
+    justify-content: flex-end;
+    margin: 0px 10px 10px 0px;
+    `}
 `;
 
 const StyledBsBoxArrowInLeft = styled(BsBoxArrowInLeft)`
@@ -79,9 +83,16 @@ const DropzoneSection = styled.section<IIsMobile>`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: ${(props) => (props.$isMobile === "true" ? "95%" : "75%")};
-  height: ${(props) => (props.$isMobile === "true" ? "70vh" : "50vh")};
+  width: 75%;
+  height: 50vh;
   border: 2px dashed #d4d4d4;
+
+  ${(props) =>
+    props.$isMobile === "true" &&
+    `
+    width: 95%;
+    height: 70vh;
+    `}
 `;
 
 const DropzoneBox = styled.div`
@@ -113,17 +124,22 @@ const DropZoneText = styled.p<IIsMobile>`
 
 const ImagesContainer = styled.div<IIsMobile>`
   display: grid;
-  grid-template-columns: ${(props) =>
-    props.$isMobile === "true" ? "repeat(4, 1fr)" : "repeat(5, 1fr)"};
+  grid-template-columns: repeat(5, 1fr);
   grid-auto-rows: auto;
   grid-gap: 15px;
   justify-content: center;
-  width: ${(props) => (props.$isMobile === "true" ? "90%" : "75%")};
+  width: 75%;
   border-top: 1px solid black;
   margin-top: 50px;
-
   padding-top: 50px;
   padding-bottom: 35px;
+
+  ${(props) =>
+    props.$isMobile === "true" &&
+    `
+    width: 90%;
+    grid-template-columns: repeat(4, 1fr);
+    `}
 `;
 
 const ImagesBox = styled.div`
@@ -189,26 +205,40 @@ const CreateForm = styled.form<IIsMobile>`
 `;
 
 const TitleInput = styled.input<IIsMobile>`
-  height: ${(props) => (props.$isMobile === "true" ? "65px" : "75px")};
+  height: 75px;
   border: none;
   border-top: 1px solid #4f4f4f;
   border-bottom: 1px solid #4f4f4f;
-  font-size: ${(props) => (props.$isMobile === "true" ? "28px" : "35px")};
+  font-size: 35px;
   font-weight: 300;
   padding-left: 10px;
+
+  ${(props) =>
+    props.$isMobile === "true" &&
+    `
+    height: 65px;
+    font-size: 28px;
+    `}
 `;
 
 const DescriptionTextArea = styled.textarea<IIsMobile>`
   margin-top: 25px;
-  height: ${(props) => (props.$isMobile === "true" ? "200px" : "275px")};
-  font-size: ${(props) => (props.$isMobile === "true" ? "16px" : "18px")};
+  height: 275px;
+  font-size: 18px;
   font-weight: 300;
   text-align: left;
   padding-top: 10px;
-  padding-bottom: ${(props) =>
-    props.$isMobile === "true" ? "150px" : "225px"};
+  padding-bottom: 225px;
   padding-left: 10px;
   line-height: 25px;
+
+  ${(props) =>
+    props.$isMobile === "true" &&
+    `
+    height: 200px;
+    font-size: 16px;
+    padding-bottom: 150px;
+    `}
 `;
 
 const HashtagsContainer = styled.div``;

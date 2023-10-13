@@ -13,16 +13,21 @@ interface IIsMobile {
 const LinkContainer = styled.div<IIsMobile>`
   display: flex;
   flex-direction: column;
-  margin: 0px ${(props) => (props.$isMobile === "true" ? "22.5px" : "0px")};
+  margin: 0px ${(props) => props.$isMobile === "true" && "22.5px"};
 `;
 
 const Text = styled.span<IIsMobile>`
-  border-bottom: ${(props) =>
-    props.$isMobile === "true" ? "1px solid #dddddd" : "none"};
-  padding-bottom: ${(props) => (props.$isMobile === "true" ? "25px" : "0px")};
-  margin-left: ${(props) => (props.$isMobile === "true" ? "0px" : "22.5px")};
+  margin-left: 22.5px;
   font-size: 18px;
   font-weight: 700;
+
+  ${(props) =>
+    props.$isMobile === "true" &&
+    `
+    border-bottom: 1px solid #dddddd;
+    padding-bottom: 25px;
+    margin-left: 0px;
+    `}
 `;
 
 const LinkUl = styled.ul`

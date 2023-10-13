@@ -30,10 +30,14 @@ const Box = styled.div<IIsMobile>`
 `;
 
 const EditSection = styled.section<IIsMobile>`
-  margin-right: 25px;
+  margin: 0px 25px 0px 0px;
   min-height: 50vh;
-  margin-left: ${(props) => (props.$isMobile === "true" ? "22.5px" : "0px")};
-  margin-top: ${(props) => (props.$isMobile === "true" ? "40px" : "0px")};
+
+  ${(props) =>
+    props.$isMobile === "true" &&
+    `
+    margin: 40px 25px 0px 22.5px
+    `}
 `;
 
 const MainTitleBox = styled.div`
@@ -59,7 +63,7 @@ const ProfileImgBox = styled.div<IIsMobile>`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin-bottom: ${(props) => (props.$isMobile === "true" ? "25px" : "0px")};
+  margin-bottom: ${(props) => props.$isMobile === "true" && "25px"};
 `;
 
 const ProfileImg = styled.img`
@@ -86,7 +90,7 @@ const CustomButton = styled.span`
 
 const EditForm = styled.form<IIsMobile>`
   input {
-    margin-bottom: ${(props) => (props.$isMobile === "true" ? "35px" : "0px")};
+    margin-bottom: ${(props) => props.$isMobile === "true" && "35px"};
   }
 `;
 
@@ -134,7 +138,7 @@ const EditBtn = styled.button<IIsMobile>`
   cursor: pointer;
   border-radius: 5px;
   font-size: 16px;
-  margin-bottom: ${(props) => (props.$isMobile === "true" ? "25px" : "0px")};
+  margin-bottom: ${(props) => props.$isMobile === "true" && "25px"};
 `;
 
 const ErrorMessage = styled.span`

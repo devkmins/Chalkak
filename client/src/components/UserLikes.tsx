@@ -64,13 +64,20 @@ const Image = styled.img<imageComponentProps>`
 `;
 
 const ProfileContainer = styled.div<IIsMobile>`
-  display: ${(props) => (props.$isMobile === "true" ? "flex" : "none")};
-  position: ${(props) => (props.$isMobile === "true" ? "" : "absolute")};
+  display: none;
+  position: absolute;
   bottom: 0;
   width: max-content;
   height: max-content;
-  margin-bottom: ${(props) =>
-    props.$isMobile === "true" ? "12.5px" : "17.5px"};
+  margin-bottom: 17.5px;
+
+  ${(props) =>
+    props.$isMobile === "true" &&
+    `
+    display: flex;
+    position: static;
+    margin-bottom: 12.5px;
+    `}
 `;
 
 const ProfileBox = styled.div<IIsMobile>`

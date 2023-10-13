@@ -58,9 +58,15 @@ const LogoBox = styled.div`
 
 const SearchPostBox = styled.div<IIsMobile>`
   width: 100%;
-  border-right: ${(props) =>
-    props.$isMobile === "true" ? "none" : "1px solid #d1d1d1"};
-  padding-right: ${(props) => (props.$isMobile === "true" ? "10px" : "35px")};
+  border-right: 1px solid #d1d1d1;
+  padding-right: 35px;
+
+  ${(props) =>
+    props.$isMobile === "true" &&
+    `
+    border-right: none;
+    padding-right: 10px;
+    `}
 `;
 
 const AuthBox = styled.div``;

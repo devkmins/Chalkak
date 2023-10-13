@@ -13,12 +13,11 @@ interface IContainer {
 const Container = styled.div<IContainer>`
   position: absolute;
   display: grid;
-  grid-template-rows: ${(props) =>
-    props.$isMobile === "true" ? "repeat(4, 1fr)" : "repeat(2, 1fr)"};
+  grid-template-rows: repeat(2, 1fr);
   justify-content: center;
   align-items: center;
-  width: ${(props) => (props.$isMobile === "true" ? "125px" : "110px")};
-  height: ${(props) => (props.$isMobile === "true" ? "180px" : "80px")};
+  width: 110px;
+  height: 80px;
   background-color: white;
   border: 1px solid lightgray;
   border-bottom-left-radius: 12.5px;
@@ -31,6 +30,14 @@ const Container = styled.div<IContainer>`
   span {
     font-size: 15px;
   }
+
+  ${(props) =>
+    props.$isMobile === "true" &&
+    `
+    grid-template-rows: repeat(4, 1fr);
+    width: 125px;
+    height: 180px;
+    `}
 `;
 
 function LoggedInMenu() {
