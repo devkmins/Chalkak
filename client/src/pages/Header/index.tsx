@@ -51,7 +51,7 @@ const LogoBox = styled.div`
     cursor: pointer;
     font-size: 26px;
     font-weight: 700;
-    margin-top: 10px;
+    margin-top: 7.5px;
     margin-left: 12.5px;
   }
 `;
