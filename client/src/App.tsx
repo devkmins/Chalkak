@@ -1,4 +1,4 @@
-import React, { lazy, useEffect } from "react";
+import React, { Suspense, lazy, useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
@@ -9,8 +9,8 @@ import {
 } from "./atoms";
 import axios from "axios";
 import { createGlobalStyle } from "styled-components";
+import Main from "./pages/Main";
 
-const Main = lazy(() => import("./pages/Main"));
 const Login = lazy(() => import("./pages/User/Login"));
 const Join = lazy(() => import("./pages/User/Join"));
 const UserPage = lazy(() => import("./components/UserPage"));
@@ -69,6 +69,7 @@ table {
 	box-sizing: border-box;
 }
 body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 a {
 	text-decoration: none;
@@ -99,35 +100,40 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <GlobalStyle />
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/user/:id" element={<UserPage key={currentUserPage} />} />
-        <Route path="/user/:id/likes" element={<UserPage />} />
-        <Route path="/post/:id" element={<DetailPost key={currentPost} />} />
-        <Route path="/search/:keyword" element={<SearchPostList />} />
-        {loggedIn ? (
-          <>
-            <Route path="/join" element={<Navigate to="/" />} />
-            <Route path="/login" element={<Navigate to="/" />} />
-            <Route path="/account" element={<Account />} />
-            <Route path="/account/close" element={<CloseAccount />} />
-            <Route path="/account/password" element={<ChangePassword />} />
-            <Route path="/post/upload" element={<UploadImage />} />
-          </>
-        ) : (
-          <>
-            <Route path="/join" element={<Join />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/account" element={<Navigate to="/" />} />
-            <Route path="/account/close" element={<Navigate to="/" />} />
-            <Route path="/account/password" element={<Navigate to="/" />} />
-            <Route path="/post/upload" element={<Navigate to="/" />} />
-          </>
-        )}
-      </Routes>
-    </BrowserRouter>
+    <Suspense fallback={<h1>로딩 중입니다...</h1>}>
+      <BrowserRouter>
+        <GlobalStyle />
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route
+            path="/user/:id"
+            element={<UserPage key={currentUserPage} />}
+          />
+          <Route path="/user/:id/likes" element={<UserPage />} />
+          <Route path="/post/:id" element={<DetailPost key={currentPost} />} />
+          <Route path="/search/:keyword" element={<SearchPostList />} />
+          {loggedIn ? (
+            <>
+              <Route path="/join" element={<Navigate to="/" />} />
+              <Route path="/login" element={<Navigate to="/" />} />
+              <Route path="/account" element={<Account />} />
+              <Route path="/account/close" element={<CloseAccount />} />
+              <Route path="/account/password" element={<ChangePassword />} />
+              <Route path="/post/upload" element={<UploadImage />} />
+            </>
+          ) : (
+            <>
+              <Route path="/join" element={<Join />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/account" element={<Navigate to="/" />} />
+              <Route path="/account/close" element={<Navigate to="/" />} />
+              <Route path="/account/password" element={<Navigate to="/" />} />
+              <Route path="/post/upload" element={<Navigate to="/" />} />
+            </>
+          )}
+        </Routes>
+      </BrowserRouter>
+    </Suspense>
   );
 }
 
