@@ -3,6 +3,10 @@ import EditPost from "./EditPost";
 import DeletePost from "./DeletePost";
 import { useState } from "react";
 
+interface IPostSettingsProp {
+  postId: string;
+}
+
 interface IDetailsLi {
   $showDetails: string;
 }
@@ -68,7 +72,7 @@ const ContentBox = styled.div`
   margin-top: 25px;
 `;
 
-function PostSettings({ postId }: any) {
+function PostSettings({ postId }: IPostSettingsProp) {
   const [showDetails, setShowDetails] = useState(true);
   const [showSettings, setShowSettings] = useState(false);
 

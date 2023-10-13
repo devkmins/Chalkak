@@ -3,6 +3,21 @@ import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 
+interface IDeletePostProp {
+  postId: string;
+}
+
+interface ImageType {
+  fieldname: string;
+  originalname: string;
+  encoding: string;
+  mimetype: string;
+  destination: string;
+  filename: string;
+  path: string;
+  size: number;
+}
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -57,7 +72,7 @@ const RemoveBtn = styled.button`
   }
 `;
 
-function DeletePost({ postId }: any) {
+function DeletePost({ postId }: IDeletePostProp) {
   const navigate = useNavigate();
 
   const { data } = useQuery("getData", () =>
@@ -86,7 +101,7 @@ function DeletePost({ postId }: any) {
   return (
     <Container>
       <ImagesBox>
-        {data?.fileUrl?.map((img: any, index: any) => (
+        {data?.fileUrl?.map((img: ImageType, index: number) => (
           <Image
             key={img.path}
             alt={`Image ${index + 1}`}

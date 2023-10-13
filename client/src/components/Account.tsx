@@ -11,7 +11,7 @@ import useInitSearch from "../hooks/useInitSearch";
 import NotificationBar from "./NotificationBar";
 import { useMobile } from "../styles/mediaQueries";
 
-interface Error {
+interface IError {
   emailError: string;
   usernameError: string;
 }
@@ -164,7 +164,7 @@ function Account() {
   const location = useLocation();
   const pathname = location.pathname;
 
-  const [error, setError] = useState<Error>();
+  const [error, setError] = useState<IError>();
 
   const [isUpdated, setIsUpdated] = useState(false);
 
@@ -179,24 +179,24 @@ function Account() {
     const isValidEmail = emailRegex.test(formData.email);
 
     if (formData.username.length < 3 || formData.username.length > 20) {
-      setError((prevError: any) => ({
-        ...prevError,
+      setError((prevError: IError | undefined) => ({
+        emailError: prevError?.emailError || "",
         usernameError: "사용자 이름은 4자 이상 20자 이하여야 합니다.",
       }));
       return;
     }
 
     if (formData.username !== trimUsername || formData.username.includes(" ")) {
-      setError((prevError: any) => ({
-        ...prevError,
+      setError((prevError: IError | undefined) => ({
+        emailError: prevError?.emailError || "",
         usernameError: "사용자 이름에는 공백이 포함되어서는 안 됩니다.",
       }));
       return;
     }
 
     if (!isValidEmail) {
-      setError((prevError: any) => ({
-        ...prevError,
+      setError((prevError: IError | undefined) => ({
+        usernameError: prevError?.usernameError || "",
         emailError: "이메일이 유효하지 않습니다.",
       }));
       return;
@@ -211,7 +211,7 @@ function Account() {
       .catch((error) => setError(error.response.data));
   };
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -232,11 +232,13 @@ function Account() {
     handleSubmit();
   };
 
-  const imgChange = async (event: any) => {
-    const img = event.target.files[0];
+  const imgChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const img = event.target.files && event.target.files[0];
     const imgData = new FormData();
 
-    imgData.append("profileImg", img);
+    if (img) {
+      imgData.append("profileImg", img);
+    }
 
     const responseImages = await axios.post(
       "http://localhost:4000/account/profileImg",

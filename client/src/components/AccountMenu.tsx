@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useMobile } from "../styles/mediaQueries";
 
-interface AccountMenuProp {
+interface IAccountMenuProp {
   pathname: string;
 }
 
@@ -54,7 +54,7 @@ const ConnectedtLink = styled(Link)`
   color: #060606;
 `;
 
-function AccountMenu({ pathname }: AccountMenuProp) {
+function AccountMenu({ pathname }: IAccountMenuProp) {
   const isMobile = useMobile();
 
   return (

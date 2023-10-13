@@ -39,6 +39,33 @@ interface IIsMobile {
   $isMobile: string;
 }
 
+interface IPost {
+  _id: string;
+  title: string;
+  description: string;
+  fileUrl: {
+    fieldname: string;
+    originalname: string;
+    encoding: string;
+    mimetype: string;
+    destination: string;
+    filename: string;
+    path: string;
+    size: number;
+  }[];
+  owner: {
+    _id: string;
+    name: string;
+    username: string;
+    profileImage: string;
+  };
+  views: number;
+  likes: string[];
+  ratioWidth: number[];
+  ratioHeight: number[];
+  createdAt: string;
+}
+
 const Container = styled.div``;
 
 const ProfileContainer = styled.div`
@@ -278,8 +305,10 @@ function UserPage() {
   let totalViews = 0;
   let totalLikes = 0;
 
-  data?.userPosts?.posts?.map((post: any) => (totalViews += post.views - 1));
-  data?.userPosts?.posts?.map((post: any) => (totalLikes += post.likes.length));
+  data?.userPosts?.posts?.map((post: IPost) => (totalViews += post.views - 1));
+  data?.userPosts?.posts?.map(
+    (post: IPost) => (totalLikes += post.likes.length)
+  );
 
   const scrollY = useRecoilValue(userPageScrollYState);
 

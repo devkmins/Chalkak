@@ -13,6 +13,12 @@ import { Link } from "react-router-dom";
 import NotificationBar from "../../components/NotificationBar";
 import { useMobile } from "../../styles/mediaQueries";
 
+interface IError {
+  passwordError: string;
+  userError: string;
+  loginCountError: string;
+}
+
 interface IIsMobile {
   $isMobile: string;
 }
@@ -154,12 +160,6 @@ const ErrorMessage = styled.span`
   color: #ff6b6b;
 `;
 
-interface Error {
-  passwordError: string;
-  userError: string;
-  loginCountError: string;
-}
-
 function Login() {
   const isMobile = useMobile();
 
@@ -170,7 +170,7 @@ function Login() {
     password: "",
   });
 
-  const [error, setError] = useState<Error>();
+  const [error, setError] = useState<IError>();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -187,7 +187,7 @@ function Login() {
     userName = location.state.name;
   }
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     if (JSON.parse(localStorage.getItem("loginCount") as string) < 10) {
@@ -225,9 +225,10 @@ function Login() {
       setTimeout(() => {
         localStorage.removeItem("loginCount");
       }, 300000);
-      setError((prev: any) => {
+      setError((prev: IError | undefined) => {
         return {
-          ...prev,
+          passwordError: prev?.passwordError || "",
+          userError: prev?.userError || "",
           loginCountError:
             "로그인 실패 횟수가 10회를 초과하였습니다. 5분 후에 다시 시도해주세요.",
         };
@@ -235,7 +236,7 @@ function Login() {
     }
   };
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({
       ...prevFormData,

@@ -68,7 +68,7 @@ function RecentSearch() {
 
   const setCurrentSearch = useSetRecoilState(currentSearchState);
 
-  const onClick = (event: any) => {
+  const onClick = (event: React.MouseEvent<HTMLSpanElement>) => {
     event?.preventDefault();
 
     localStorage.removeItem("keywords");
@@ -95,7 +95,7 @@ function RecentSearch() {
       </Header>
       <SearchList>
         {keywords &&
-          keywords.map((keyword: any) => (
+          keywords.map((keyword: string) => (
             <SearchText
               onClick={() => keywordClicked(keyword)}
               key={keyword + `${Math.random()}`}>

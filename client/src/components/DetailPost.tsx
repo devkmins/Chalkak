@@ -39,6 +39,17 @@ interface imageComponentProps {
   $ratioHeight: number;
 }
 
+interface IImage {
+  fieldname: string;
+  originalname: string;
+  encoding: string;
+  mimetype: string;
+  destination: string;
+  filename: string;
+  path: string;
+  size: number;
+}
+
 const Container = styled.div``;
 
 const Box = styled.div`
@@ -448,6 +459,8 @@ function DetailPost() {
     window.scrollTo(0, 0);
   }, []);
 
+  console.log(data?.fileUrl);
+
   return (
     <>
       {isEdited && <NotificationBar text={updatedText} />}
@@ -489,10 +502,12 @@ function DetailPost() {
                 <ImagesContainer>
                   <ImagesBox>
                     <StyledSlider {...sliderSettings}>
-                      {data?.fileUrl?.map((img: any, index: number) => (
+                      {data?.fileUrl?.map((img: IImage, index: number) => (
                         <Image
                           key={img.path}
-                          alt={`${img.title}-${img.description}-${Date.now()}`}
+                          alt={`${data.title}-${
+                            data.description
+                          }-${Date.now()}`}
                           src={`http://localhost:4000/${img.path}`}
                           $ratioWidth={data.ratioWidth[index]}
                           $ratioHeight={data.ratioHeight[index]}

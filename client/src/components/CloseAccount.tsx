@@ -10,7 +10,7 @@ import styled from "styled-components";
 import Header from "../pages/Header";
 import { useMobile } from "../styles/mediaQueries";
 
-interface Error {
+interface IError {
   passwordError: string;
 }
 
@@ -122,9 +122,9 @@ function CloseAccount() {
   const location = useLocation();
   const pathname = location.pathname;
 
-  const [error, setError] = useState<Error>();
+  const [error, setError] = useState<IError>();
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     const result = window.confirm("계정을 정말 폐쇄하실 건가요?");
@@ -157,7 +157,7 @@ function CloseAccount() {
     }
   };
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({
       ...prevFormData,

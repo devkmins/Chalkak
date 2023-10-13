@@ -25,6 +25,43 @@ interface imageComponentProps {
   $ratioHeight: number;
 }
 
+interface IPost {
+  _id: string;
+  title: string;
+  description: string;
+  fileUrl: {
+    fieldname: string;
+    originalname: string;
+    encoding: string;
+    mimetype: string;
+    destination: string;
+    filename: string;
+    path: string;
+    size: number;
+  }[];
+  hashtags: string[];
+  owner: {
+    _id: string;
+    name: string;
+    username: string;
+    profileImage: string;
+  };
+  views: number;
+  likes: string[];
+  ratioWidth: number[];
+  ratioHeight: number[];
+  createdAt: string;
+  __v: number;
+}
+
+interface IUserData {
+  _id: string;
+  name: string;
+  username: string;
+  profileImage: string;
+  posts: IPost[];
+}
+
 const ColumnsContainer = styled.div<IColumnsContainerProps>`
   display: grid;
   grid-template-columns: ${(props) =>
@@ -124,7 +161,7 @@ const PostBox = styled.div<IIsMobile>`
   }
 `;
 
-function UserLikes({ data }: any) {
+function UserLikes({ data }: { data: IUserData }) {
   const isMobile = useMobile();
   const isTabletOrLaptop = useTabletOrLaptop();
   const isDesktop = useDesktop();
@@ -144,18 +181,18 @@ function UserLikes({ data }: any) {
     setScrollY(window.scrollY);
   };
 
-  const [firstCol, setFirstCol] = useState<any[]>([]);
-  const [secondCol, setSecondCol] = useState<any[]>([]);
-  const [thirdCol, setThirdCol] = useState<any[]>([]);
+  const [firstCol, setFirstCol] = useState<IPost[]>([]);
+  const [secondCol, setSecondCol] = useState<IPost[]>([]);
+  const [thirdCol, setThirdCol] = useState<IPost[]>([]);
 
   useEffect(() => {
-    const firstColImages: any[] = [];
-    const secondColImages: any[] = [];
-    const thirdColImages: any[] = [];
+    const firstColImages: IPost[] = [];
+    const secondColImages: IPost[] = [];
+    const thirdColImages: IPost[] = [];
 
     if (isMobile) {
       if (data && Array.isArray(data)) {
-        data?.forEach((post: any, index: any) => {
+        data?.forEach((post: IPost, index: number) => {
           firstColImages.push(post);
         });
       }
@@ -163,7 +200,7 @@ function UserLikes({ data }: any) {
 
     if (isTabletOrLaptop) {
       if (data && Array.isArray(data)) {
-        data?.forEach((post: any, index: any) => {
+        data?.forEach((post: IPost, index: number) => {
           if (index % 2 === 0) {
             firstColImages.push(post);
           } else if (index % 2 === 1) {
@@ -175,7 +212,7 @@ function UserLikes({ data }: any) {
 
     if (isDesktop) {
       if (data && Array.isArray(data)) {
-        data?.forEach((post: any, index: any) => {
+        data?.forEach((post: IPost, index: number) => {
           if (index % 3 === 0) {
             firstColImages.push(post);
           } else if (index % 3 === 1) {
@@ -191,6 +228,8 @@ function UserLikes({ data }: any) {
     setSecondCol(secondColImages);
     setThirdCol(thirdColImages);
   }, [data, isMobile, isTabletOrLaptop, isDesktop]);
+
+  console.log(firstCol);
 
   useEffect(() => {
     const handleNavigation = () => {

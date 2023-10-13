@@ -5,8 +5,18 @@ import { useSetRecoilState } from "recoil";
 import { styled } from "styled-components";
 import { isEditedState } from "../atoms";
 
-interface Error {
+interface IEditPostProp {
+  postId: string;
+}
+
+interface IError {
   titleError: string;
+}
+
+interface IFormDataProps {
+  title: string;
+  description: string;
+  hashtags: string[];
 }
 
 const Form = styled.form`
@@ -106,7 +116,7 @@ const ErrorMessage = styled.span`
   color: #ff6b6b;
 `;
 
-function EditPost({ postId }: any) {
+function EditPost({ postId }: IEditPostProp) {
   const { data } = useQuery("getPostEditData", () =>
     axios
       .get(`http://localhost:4000/post/${postId}`)
@@ -119,16 +129,15 @@ function EditPost({ postId }: any) {
     hashtags: data?.hashtags || [],
   });
 
-  const [error, setError] = useState<Error>();
+  const [error, setError] = useState<IError>();
 
   const setIsEdited = useSetRecoilState(isEditedState);
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     if (formData.title === "") {
-      setError((prevError: any) => ({
-        ...prevError,
+      setError((prevError) => ({
         titleError: "게시글의 제목이 유효하지 않습니다.",
       }));
 
@@ -148,7 +157,11 @@ function EditPost({ postId }: any) {
     }
   };
 
-  const handleChange = (event: any) => {
+  const handleChange = (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     const { name, value } = event.target;
 
     setFormData((prevFormData) => ({
@@ -169,7 +182,7 @@ function EditPost({ postId }: any) {
 
       if (value !== "" && value.trim()) {
         if (formData.hashtags.length < 5) {
-          setFormData((prev: any) => {
+          setFormData((prev: IFormDataProps) => {
             return { ...prev, hashtags: [...prev.hashtags, value.trim()] };
           });
         }
@@ -222,7 +235,7 @@ function EditPost({ postId }: any) {
         />
         <HashtagsBox>
           {formData.hashtags &&
-            formData.hashtags.map((hashtag: any) => (
+            formData.hashtags.map((hashtag: string) => (
               <Hashtags key={hashtag + Math.random()}>
                 <Hashtag>{hashtag}</Hashtag>
                 <RemoveButton onClick={() => removeClick(hashtag)}>

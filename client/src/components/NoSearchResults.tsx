@@ -2,6 +2,10 @@ import styled from "styled-components";
 import { RiImage2Fill } from "@react-icons/all-files/ri/RiImage2Fill";
 import { BsQuestionSquare } from "@react-icons/all-files/bs/BsQuestionSquare";
 
+interface INoSearchResultsProp {
+  searchWord: string;
+}
+
 const Box = styled.div`
   display: flex;
   flex-direction: column;
@@ -65,14 +69,14 @@ const Text = styled.span`
   color: #6b6565;
 `;
 
-function NoSearchResults({ posts, searchWord }: any) {
+function NoSearchResults({ searchWord }: INoSearchResultsProp) {
   return (
     <Box>
       <PostsContainer>
         <ContentsContainer>
           <PhotoBox>
             <StyledRiImage2Fill />
-            <span>사진 {posts?.length}</span>
+            <span>사진 0</span>
           </PhotoBox>
         </ContentsContainer>
         <SearchWord>{searchWord}</SearchWord>

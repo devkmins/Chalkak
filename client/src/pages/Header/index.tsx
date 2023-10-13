@@ -237,8 +237,9 @@ function Header() {
   };
 
   useEffect(() => {
-    const handleDocumentClick = (event: any) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
+    const handleDocumentClick = (event: MouseEvent) => {
+      const targetNode = event.target as Node;
+      if (menuRef.current && !menuRef.current.contains(targetNode)) {
         setUserImgClicked(false);
       }
     };
@@ -251,11 +252,9 @@ function Header() {
   }, [menuRef]);
 
   useEffect(() => {
-    const handleDocumentClick = (event: any) => {
-      if (
-        guestMenuRef.current &&
-        !guestMenuRef.current.contains(event.target)
-      ) {
+    const handleDocumentClick = (event: MouseEvent) => {
+      const targetNode = event.target as Node;
+      if (guestMenuRef.current && !guestMenuRef.current.contains(targetNode)) {
         setGuestMenuClicked(false);
       }
     };

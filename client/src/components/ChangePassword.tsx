@@ -8,7 +8,7 @@ import Header from "../pages/Header";
 import NotificationBar from "./NotificationBar";
 import { useMobile } from "../styles/mediaQueries";
 
-interface Error {
+interface IError {
   currentPasswordError: string;
   newPasswordError: string;
   confirmPasswordError: string;
@@ -112,11 +112,11 @@ function ChangePassword() {
   const location = useLocation();
   const pathname = location.pathname;
 
-  const [error, setError] = useState<Error>();
+  const [error, setError] = useState<IError>();
 
   const [isChanged, setIsChanged] = useState(false);
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     const trimPassword = formData.newPassword.trim();
@@ -129,24 +129,27 @@ function ChangePassword() {
       formData.newPassword !== trimPassword ||
       formData.newPassword.includes(" ")
     ) {
-      setError((prevError: any) => ({
-        ...prevError,
+      setError((prevError: IError | undefined) => ({
+        currentPasswordError: prevError?.currentPasswordError || "",
+        confirmPasswordError: prevError?.confirmPasswordError || "",
         newPasswordError: "비밀번호에는 공백이 포함되어서는 안 됩니다.",
       }));
       return;
     }
 
     if (formData.newPassword.length < 8 || formData.newPassword.length > 16) {
-      setError((prevError: any) => ({
-        ...prevError,
+      setError((prevError: IError | undefined) => ({
+        currentPasswordError: prevError?.currentPasswordError || "",
+        confirmPasswordError: prevError?.confirmPasswordError || "",
         newPasswordError: "비밀번호는 8자 이상 16자 이하여야 합니다.",
       }));
       return;
     }
 
     if (!isValidPassword) {
-      setError((prevError: any) => ({
-        ...prevError,
+      setError((prevError: IError | undefined) => ({
+        currentPasswordError: prevError?.currentPasswordError || "",
+        confirmPasswordError: prevError?.confirmPasswordError || "",
         newPasswordError:
           "비밀번호는 1개 이상의 숫자, 특수문자가 포함되어야 합니다.",
       }));
@@ -176,7 +179,7 @@ function ChangePassword() {
       .catch((error) => setError(error.response.data));
   };
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({
       ...prevFormData,

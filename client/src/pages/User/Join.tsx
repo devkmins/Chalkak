@@ -10,7 +10,7 @@ import { BiHide } from "@react-icons/all-files/bi/BiHide";
 import { Link } from "react-router-dom";
 import { useMobile } from "../../styles/mediaQueries";
 
-interface Error {
+interface IError {
   nameError: string;
   usernameError: string;
   emailError: string;
@@ -170,12 +170,12 @@ function Join() {
     confirmPassword: "",
   });
 
-  const [error, setError] = useState<Error>();
+  const [error, setError] = useState<IError>();
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     const trimName = formData.name.trim();
@@ -190,16 +190,22 @@ function Join() {
     const isValidPassword = passwordRegex.test(formData.password);
 
     if (formData.name.length < 2 || formData.name.length > 20) {
-      setError((prevError: any) => ({
-        ...prevError,
+      setError((prevError: IError | undefined) => ({
+        usernameError: prevError?.usernameError || "",
+        emailError: prevError?.emailError || "",
+        passwordError: prevError?.passwordError || "",
+        confirmPasswordError: prevError?.confirmPasswordError || "",
         nameError: "이름은 2자 이상 20자 이하여야 합니다.",
       }));
       return;
     }
 
     if (formData.name !== trimName) {
-      setError((prevError: any) => ({
-        ...prevError,
+      setError((prevError: IError | undefined) => ({
+        usernameError: prevError?.usernameError || "",
+        emailError: prevError?.emailError || "",
+        passwordError: prevError?.passwordError || "",
+        confirmPasswordError: prevError?.confirmPasswordError || "",
         nameError:
           "이름의 첫 글자, 마지막 글자에는 공백이 포함 되어서는 안 됩니다.",
       }));
@@ -207,48 +213,66 @@ function Join() {
     }
 
     if (formData.username.length < 3 || formData.username.length > 20) {
-      setError((prevError: any) => ({
-        ...prevError,
+      setError((prevError: IError | undefined) => ({
+        nameError: prevError?.nameError || "",
+        emailError: prevError?.emailError || "",
+        passwordError: prevError?.passwordError || "",
+        confirmPasswordError: prevError?.confirmPasswordError || "",
         usernameError: "사용자 이름은 4자 이상 20자 이하여야 합니다.",
       }));
       return;
     }
 
     if (formData.username !== trimUsername || formData.username.includes(" ")) {
-      setError((prevError: any) => ({
-        ...prevError,
+      setError((prevError: IError | undefined) => ({
+        nameError: prevError?.nameError || "",
+        emailError: prevError?.emailError || "",
+        passwordError: prevError?.passwordError || "",
+        confirmPasswordError: prevError?.confirmPasswordError || "",
         usernameError: "사용자 이름에는 공백이 포함되어서는 안 됩니다.",
       }));
       return;
     }
 
     if (!isValidEmail) {
-      setError((prevError: any) => ({
-        ...prevError,
+      setError((prevError: IError | undefined) => ({
+        nameError: prevError?.nameError || "",
+        usernameError: prevError?.usernameError || "",
+        passwordError: prevError?.passwordError || "",
+        confirmPasswordError: prevError?.confirmPasswordError || "",
         emailError: "이메일이 유효하지 않습니다.",
       }));
       return;
     }
 
     if (formData.password !== trimPassword || formData.password.includes(" ")) {
-      setError((prevError: any) => ({
-        ...prevError,
+      setError((prevError: IError | undefined) => ({
+        nameError: prevError?.nameError || "",
+        usernameError: prevError?.usernameError || "",
+        emailError: prevError?.emailError || "",
+        confirmPasswordError: prevError?.confirmPasswordError || "",
         passwordError: "비밀번호에는 공백이 포함되어서는 안 됩니다.",
       }));
       return;
     }
 
     if (formData.password.length < 8 || formData.password.length > 16) {
-      setError((prevError: any) => ({
-        ...prevError,
+      setError((prevError: IError | undefined) => ({
+        nameError: prevError?.nameError || "",
+        usernameError: prevError?.usernameError || "",
+        emailError: prevError?.emailError || "",
+        confirmPasswordError: prevError?.confirmPasswordError || "",
         passwordError: "비밀번호는 8자 이상 16자 이하여야 합니다.",
       }));
       return;
     }
 
     if (!isValidPassword) {
-      setError((prevError: any) => ({
-        ...prevError,
+      setError((prevError: IError | undefined) => ({
+        nameError: prevError?.nameError || "",
+        usernameError: prevError?.usernameError || "",
+        emailError: prevError?.emailError || "",
+        confirmPasswordError: prevError?.confirmPasswordError || "",
         passwordError:
           "비밀번호는 1개 이상의 숫자, 특수문자가 포함되어야 합니다.",
       }));
@@ -272,7 +296,7 @@ function Join() {
       .catch((error) => setError(error.response.data));
   };
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
     setFormData((prevFormData) => ({

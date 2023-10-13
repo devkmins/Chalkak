@@ -34,6 +34,40 @@ interface imageComponentProps {
   $ratioHeight: number;
 }
 
+interface IPost {
+  _id: string;
+  title: string;
+  description: string;
+  fileUrl: {
+    fieldname: string;
+    originalname: string;
+    encoding: string;
+    mimetype: string;
+    destination: string;
+    filename: string;
+    path: string;
+    size: number;
+  }[];
+  hashtags: string[];
+  owner: {
+    _id: string;
+    name: string;
+    username: string;
+    email: string;
+    password: string;
+    socialOnly: boolean;
+    profileImage: string;
+    posts: string[];
+    __v: number;
+  };
+  views: number;
+  likes: string[];
+  ratioWidth: number[];
+  ratioHeight: number[];
+  createdAt: string;
+  __v: number;
+}
+
 const Container = styled.div``;
 
 const Box = styled.div`
@@ -221,18 +255,18 @@ function SearchPostList() {
     };
   }, []);
 
-  const [firstCol, setFirstCol] = useState<any[]>([]);
-  const [secondCol, setSecondCol] = useState<any[]>([]);
-  const [thirdCol, setThirdCol] = useState<any[]>([]);
+  const [firstCol, setFirstCol] = useState<IPost[]>([]);
+  const [secondCol, setSecondCol] = useState<IPost[]>([]);
+  const [thirdCol, setThirdCol] = useState<IPost[]>([]);
 
   useEffect(() => {
-    const firstColImages: any[] = [];
-    const secondColImages: any[] = [];
-    const thirdColImages: any[] = [];
+    const firstColImages: IPost[] = [];
+    const secondColImages: IPost[] = [];
+    const thirdColImages: IPost[] = [];
 
     if (isMobile) {
       if (data?.posts && Array.isArray(data?.posts)) {
-        data?.posts?.forEach((post: any, index: any) => {
+        data?.posts?.forEach((post: IPost, index: number) => {
           firstColImages.push(post);
         });
       }
@@ -240,7 +274,7 @@ function SearchPostList() {
 
     if (isTabletOrLaptop) {
       if (data?.posts && Array.isArray(data?.posts)) {
-        data?.posts?.forEach((post: any, index: any) => {
+        data?.posts?.forEach((post: IPost, index: number) => {
           if (index % 2 === 0) {
             firstColImages.push(post);
           } else if (index % 2 === 1) {
@@ -252,7 +286,7 @@ function SearchPostList() {
 
     if (isDesktop) {
       if (data?.posts && Array.isArray(data?.posts)) {
-        data?.posts?.forEach((post: any, index: any) => {
+        data?.posts?.forEach((post: IPost, index: number) => {
           if (index % 3 === 0) {
             firstColImages.push(post);
           } else if (index % 3 === 1) {
@@ -570,7 +604,7 @@ function SearchPostList() {
       ) : (
         <Container>
           <Header />
-          <NoSearchResults posts={data} searchWord={searchKeyword} />
+          <NoSearchResults searchWord={searchKeyword || ""} />
         </Container>
       )}
     </>

@@ -402,10 +402,10 @@ function UploadImage() {
     });
   };
 
-  const onDrop = (acceptedFiles: any) => {
+  const onDrop = (acceptedFiles: File[]) => {
     if (images.length < 10) {
-      acceptedFiles.forEach((img: any) => {
-        const url = URL.createObjectURL(img); // 일시적인 URL이라서 서버에 저장 X, 렌더링하는 용
+      acceptedFiles.forEach((img: File) => {
+        const url = URL.createObjectURL(img);
 
         setData((prev) => {
           const newUrls = [...prev, url];
@@ -422,7 +422,7 @@ function UploadImage() {
     }
   };
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     setIsSubmitted(true);
     event.preventDefault();
 
@@ -473,7 +473,11 @@ function UploadImage() {
     }
   };
 
-  const handleChange = (event: any) => {
+  const handleChange = (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({
       ...prevFormData,

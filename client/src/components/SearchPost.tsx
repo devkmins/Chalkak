@@ -60,10 +60,10 @@ function SearchPost() {
   const [focus, setFocus] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    setKeywords((prev: any) => {
+    setKeywords((prev: string[]) => {
       const prevKeywords = [...prev];
 
       if (!prevKeywords?.includes(formData.keyword)) {
@@ -86,7 +86,7 @@ function SearchPost() {
     navigate(`/search/${formData.keyword}`);
   };
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -101,8 +101,9 @@ function SearchPost() {
   };
 
   useEffect(() => {
-    const handleDocumentClick = (event: any) => {
-      if (searchRef.current && !searchRef.current.contains(event.target)) {
+    const handleDocumentClick = (event: MouseEvent) => {
+      const targetNode = event.target as Node;
+      if (searchRef.current && !searchRef.current.contains(targetNode)) {
         setFocus(false);
       }
     };

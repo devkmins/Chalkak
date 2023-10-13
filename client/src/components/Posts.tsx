@@ -33,6 +33,35 @@ interface IColumnsContainerProps {
   $isDesktop: string;
 }
 
+interface IPost {
+  _id: string;
+  title: string;
+  description: string;
+  fileUrl: {
+    fieldname: string;
+    originalname: string;
+    encoding: string;
+    mimetype: string;
+    destination: string;
+    filename: string;
+    path: string;
+    size: number;
+  }[];
+  hashtags: string[];
+  owner: {
+    _id: string;
+    name: string;
+    username: string;
+    profileImage: string;
+  };
+  views: number;
+  likes: string[];
+  ratioWidth: number[];
+  ratioHeight: number[];
+  createdAt: string;
+  __v: number;
+}
+
 const Container = styled.div`
   width: 100%;
 `;
@@ -167,9 +196,9 @@ function Posts() {
     };
   }, []);
 
-  const [firstCol, setFirstCol] = useState<any[]>([]);
-  const [secondCol, setSecondCol] = useState<any[]>([]);
-  const [thirdCol, setThirdCol] = useState<any[]>([]);
+  const [firstCol, setFirstCol] = useState<IPost[]>([]);
+  const [secondCol, setSecondCol] = useState<IPost[]>([]);
+  const [thirdCol, setThirdCol] = useState<IPost[]>([]);
 
   const [scrollY, setScrollY] = useRecoilState(mainPageScrollYState);
 
@@ -184,13 +213,13 @@ function Posts() {
   };
 
   useEffect(() => {
-    const firstColImages: any[] = [];
-    const secondColImages: any[] = [];
-    const thirdColImages: any[] = [];
+    const firstColImages: IPost[] = [];
+    const secondColImages: IPost[] = [];
+    const thirdColImages: IPost[] = [];
 
     if (isMobile) {
       if (data?.postsData && Array.isArray(data?.postsData)) {
-        data?.postsData.forEach((post: any, index: number) => {
+        data?.postsData.forEach((post: IPost, index: number) => {
           firstColImages.push(post);
         });
       }
@@ -198,7 +227,7 @@ function Posts() {
 
     if (isTabletOrLaptop) {
       if (data?.postsData && Array.isArray(data?.postsData)) {
-        data?.postsData.forEach((post: any, index: number) => {
+        data?.postsData.forEach((post: IPost, index: number) => {
           if (index % 2 === 0) {
             firstColImages.push(post);
           } else if (index % 2 === 1) {
@@ -210,7 +239,7 @@ function Posts() {
 
     if (isDesktop) {
       if (data?.postsData && Array.isArray(data?.postsData)) {
-        data?.postsData.forEach((post: any, index: number) => {
+        data?.postsData.forEach((post: IPost, index: number) => {
           if (index % 3 === 0) {
             firstColImages.push(post);
           } else if (index % 3 === 1) {
