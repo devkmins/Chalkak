@@ -184,7 +184,7 @@ function SearchPostList() {
 
   const [page, setPage] = useState(1);
 
-  const { data, refetch } = useQuery("getSearchPostList", async () => {
+  const { data, refetch } = useQuery("getSearchPostListData", async () => {
     const response = await axios.get(
       `http://localhost:4000/search/${searchKeyword}?page=${page}`,
       { withCredentials: true }

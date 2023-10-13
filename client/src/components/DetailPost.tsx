@@ -296,7 +296,7 @@ const sliderSettings = {
 ReactModal.setAppElement("#root");
 
 function DetailPost() {
-  const { data } = useQuery("getPostDataDetail", () =>
+  const { data } = useQuery("getPostDetailData", () =>
     axios
       .get(`http://localhost:4000/post/${postId}`)
       .then((response) => response.data)

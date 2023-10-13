@@ -107,7 +107,7 @@ const ErrorMessage = styled.span`
 `;
 
 function EditPost({ postId }: any) {
-  const { data } = useQuery("getPostDataDetail", () =>
+  const { data } = useQuery("getPostEditData", () =>
     axios
       .get(`http://localhost:4000/post/${postId}`)
       .then((response) => response.data)

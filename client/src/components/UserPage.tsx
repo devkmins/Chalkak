@@ -227,7 +227,7 @@ function UserPage() {
 
   const [page, setPage] = useRecoilState(currentUserPageScrollState);
 
-  const { data, refetch } = useQuery("getAllUserPostsData", async () => {
+  const { data, refetch } = useQuery("getUserProfileData", async () => {
     const response = await axios.get(
       `http://localhost:4000/user/${username}?page=${page}`
     );
