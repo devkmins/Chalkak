@@ -459,7 +459,7 @@ function DetailPost() {
               <ProfileBox>
                 <Link to={`/user/${data?.owner?.username}`}>
                   <ProfileImg
-                    alt=""
+                    alt="유저의 프로필 이미지"
                     src={
                       userProfileImg
                         ? `http://localhost:4000/${userProfileImg}`
@@ -492,7 +492,7 @@ function DetailPost() {
                       {data?.fileUrl?.map((img: any, index: number) => (
                         <Image
                           key={img.path}
-                          alt={`Image ${index + 1}`}
+                          alt={`${img.title}-${img.description}-${Date.now()}`}
                           src={`http://localhost:4000/${img.path}`}
                           $ratioWidth={data.ratioWidth[index]}
                           $ratioHeight={data.ratioHeight[index]}

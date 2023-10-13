@@ -225,7 +225,7 @@ function SimilarPosts({ title, postId }: IProp) {
                     onClick={clickedPost}>
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
-                      alt=""
+                      alt={`${post.title}-${post.description}-${Date.now()}`}
                       $ratioWidth={post.ratioWidth[0]}
                       $ratioHeight={post.ratioHeight[0]}
                     />
@@ -242,7 +242,7 @@ function SimilarPosts({ title, postId }: IProp) {
                               ? `http://localhost:4000/${post.owner.profileImage}`
                               : defaultUserProfileImg
                           }
-                          alt=""
+                          alt="유저의 프로필 이미지"
                         />
                         {post.owner.name}
                       </ProfileLink>
@@ -261,7 +261,7 @@ function SimilarPosts({ title, postId }: IProp) {
                     onClick={clickedPost}>
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
-                      alt=""
+                      alt={`${post.title}-${post.description}-${Date.now()}`}
                       $ratioWidth={post.ratioWidth[0]}
                       $ratioHeight={post.ratioHeight[0]}
                     />
@@ -278,7 +278,7 @@ function SimilarPosts({ title, postId }: IProp) {
                               ? `http://localhost:4000/${post.owner.profileImage}`
                               : defaultUserProfileImg
                           }
-                          alt=""
+                          alt="유저의 프로필 이미지"
                         />
                         {post.owner.name}
                       </ProfileLink>
@@ -301,7 +301,7 @@ function SimilarPosts({ title, postId }: IProp) {
                     onClick={clickedPost}>
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
-                      alt=""
+                      alt={`${post.title}-${post.description}-${Date.now()}`}
                       $ratioWidth={post.ratioWidth[0]}
                       $ratioHeight={post.ratioHeight[0]}
                     />
@@ -318,7 +318,7 @@ function SimilarPosts({ title, postId }: IProp) {
                               ? `http://localhost:4000/${post.owner.profileImage}`
                               : defaultUserProfileImg
                           }
-                          alt=""
+                          alt="유저의 프로필 이미지"
                         />
                         {post.owner.name}
                       </ProfileLink>
@@ -337,7 +337,7 @@ function SimilarPosts({ title, postId }: IProp) {
                     onClick={clickedPost}>
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
-                      alt=""
+                      alt={`${post.title}-${post.description}-${Date.now()}`}
                       $ratioWidth={post.ratioWidth[0]}
                       $ratioHeight={post.ratioHeight[0]}
                     />
@@ -354,7 +354,7 @@ function SimilarPosts({ title, postId }: IProp) {
                               ? `http://localhost:4000/${post.owner.profileImage}`
                               : defaultUserProfileImg
                           }
-                          alt=""
+                          alt="유저의 프로필 이미지"
                         />
                         {post.owner.name}
                       </ProfileLink>
@@ -373,7 +373,7 @@ function SimilarPosts({ title, postId }: IProp) {
                     onClick={clickedPost}>
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
-                      alt=""
+                      alt={`${post.title}-${post.description}-${Date.now()}`}
                       $ratioWidth={post.ratioWidth[0]}
                       $ratioHeight={post.ratioHeight[0]}
                     />
@@ -390,7 +390,7 @@ function SimilarPosts({ title, postId }: IProp) {
                               ? `http://localhost:4000/${post.owner.profileImage}`
                               : defaultUserProfileImg
                           }
-                          alt=""
+                          alt="유저의 프로필 이미지"
                         />
                         {post.owner.name}
                       </ProfileLink>
