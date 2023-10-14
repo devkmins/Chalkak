@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 
 // Constants
-import { photoRemovalConfirmation } from "../constants/confirmationMessages";
+import { PHOTO_REMOVAL_CONFIRMATION } from "../constants/confirmationMessages";
 import { MAIN_PATH } from "../constants/paths";
 
 // Type
@@ -81,7 +81,7 @@ function DeletePost({ postId }: IDeletePostProp) {
   );
 
   const onClick = async () => {
-    const result = window.confirm(photoRemovalConfirmation);
+    const result = window.confirm(PHOTO_REMOVAL_CONFIRMATION);
 
     if (result) {
       try {

@@ -11,14 +11,14 @@ import IntroContent from "../components/IntroContent";
 import NotificationBar from "../components/NotificationBar";
 
 // Constant
-import { logoutSuccessText } from "../constants/notificationMessages";
+import { LOGOUT_SUCCESS_TEXT } from "../constants/notificationMessages";
 
 function Main() {
   const isLoggedOut = useRecoilValue(isLoggedOutState);
 
   return (
     <>
-      {isLoggedOut && <NotificationBar text={logoutSuccessText} />}
+      {isLoggedOut && <NotificationBar text={LOGOUT_SUCCESS_TEXT} />}
       <Header />
       <IntroContent />
       <Posts />

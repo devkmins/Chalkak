@@ -23,7 +23,7 @@ import Header from "./Header";
 import { useMobile } from "../styles/mediaQueries";
 
 // Constants
-import { accountClosureConfirmation } from "../constants/confirmationMessages";
+import { ACCOUNT_CLOSURE_CONFIRMATION } from "../constants/confirmationMessages";
 import { MAIN_PATH } from "../constants/paths";
 
 // Type
@@ -143,7 +143,7 @@ function CloseAccount() {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const result = window.confirm(accountClosureConfirmation);
+    const result = window.confirm(ACCOUNT_CLOSURE_CONFIRMATION);
 
     if (result) {
       const hashedFormData = {

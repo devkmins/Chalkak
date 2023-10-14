@@ -30,7 +30,7 @@ import { BiHide } from "@react-icons/all-files/bi/BiHide";
 
 // Constants
 import { getJoinSuccessText } from "../constants/notificationMessages";
-import { loginFailureLimitExceededError } from "../constants/errorMessages";
+import { LOGIN_FAILURE_LIMIT_EXCEEDED_ERROR } from "../constants/errorMessages";
 import { MAIN_PATH } from "../constants/paths";
 import {
   IS_JOINED_SESSION_KEY,
@@ -257,7 +257,7 @@ function Login() {
         return {
           passwordError: prev?.passwordError || "",
           userError: prev?.userError || "",
-          loginCountError: loginFailureLimitExceededError,
+          loginCountError: LOGIN_FAILURE_LIMIT_EXCEEDED_ERROR,
         };
       });
     }

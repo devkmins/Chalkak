@@ -13,7 +13,7 @@ import { useState } from "react";
 import { isEditedState } from "../atoms/postEditedAtom";
 
 // Constant
-import { postTitleValidityError } from "../constants/errorMessages";
+import { POST_TITLE_VALIDITY_ERROR } from "../constants/errorMessages";
 
 interface IEditPostProp {
   postId: string;
@@ -148,7 +148,7 @@ function EditPost({ postId }: IEditPostProp) {
 
     if (formData.title === "") {
       setError((prevError) => ({
-        titleError: postTitleValidityError,
+        titleError: POST_TITLE_VALIDITY_ERROR,
       }));
 
       return;

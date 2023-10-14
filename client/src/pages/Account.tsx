@@ -25,11 +25,11 @@ import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
 import { useMobile } from "../styles/mediaQueries";
 
 // Constants
-import { accountUpdatedText } from "../constants/notificationMessages";
+import { ACCOUNT_UPDATED_TEXT } from "../constants/notificationMessages";
 import {
-  emailValidityError,
-  usernameLengthError,
-  usernameWhiteSpaceError,
+  EMAIL_VALIDITY_ERROR,
+  USERNAME_LENGTH_ERROR,
+  USERNAME_WHITE_SPACE_ERROR,
 } from "../constants/errorMessages";
 
 // Type
@@ -202,7 +202,7 @@ function Account() {
     if (formData.username.length < 3 || formData.username.length > 20) {
       setError((prevError: IError | undefined) => ({
         emailError: prevError?.emailError || "",
-        usernameError: usernameLengthError,
+        usernameError: USERNAME_LENGTH_ERROR,
       }));
       return;
     }
@@ -210,7 +210,7 @@ function Account() {
     if (formData.username !== trimUsername || formData.username.includes(" ")) {
       setError((prevError: IError | undefined) => ({
         emailError: prevError?.emailError || "",
-        usernameError: usernameWhiteSpaceError,
+        usernameError: USERNAME_WHITE_SPACE_ERROR,
       }));
       return;
     }
@@ -218,7 +218,7 @@ function Account() {
     if (!isValidEmail) {
       setError((prevError: IError | undefined) => ({
         usernameError: prevError?.usernameError || "",
-        emailError: emailValidityError,
+        emailError: EMAIL_VALIDITY_ERROR,
       }));
       return;
     }
@@ -296,7 +296,7 @@ function Account() {
 
   return (
     <>
-      {isUpdated && <NotificationBar text={accountUpdatedText} />}
+      {isUpdated && <NotificationBar text={ACCOUNT_UPDATED_TEXT} />}
       <Container>
         <Header />
         <Box $isMobile={isMobileString}>

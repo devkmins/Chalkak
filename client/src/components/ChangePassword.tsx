@@ -18,11 +18,11 @@ import NotificationBar from "./NotificationBar";
 import { useMobile } from "../styles/mediaQueries";
 
 // Constants
-import { passwordChangedText } from "../constants/notificationMessages";
+import { PASSWORD_CHANGED_TEXT } from "../constants/notificationMessages";
 import {
-  passwordComplexityError,
-  passwordLengthError,
-  passwordWhiteSpaceError,
+  PASSWORD_COMPLEXITY_ERROR,
+  PASSWORD_LENGTH_ERROR,
+  PASSWORD_WHITE_SPACE_ERROR,
 } from "../constants/errorMessages";
 
 // Type
@@ -149,7 +149,7 @@ function ChangePassword() {
       setError((prevError: IError | undefined) => ({
         currentPasswordError: prevError?.currentPasswordError || "",
         confirmPasswordError: prevError?.confirmPasswordError || "",
-        newPasswordError: passwordWhiteSpaceError,
+        newPasswordError: PASSWORD_WHITE_SPACE_ERROR,
       }));
       return;
     }
@@ -158,7 +158,7 @@ function ChangePassword() {
       setError((prevError: IError | undefined) => ({
         currentPasswordError: prevError?.currentPasswordError || "",
         confirmPasswordError: prevError?.confirmPasswordError || "",
-        newPasswordError: passwordLengthError,
+        newPasswordError: PASSWORD_LENGTH_ERROR,
       }));
       return;
     }
@@ -167,7 +167,7 @@ function ChangePassword() {
       setError((prevError: IError | undefined) => ({
         currentPasswordError: prevError?.currentPasswordError || "",
         confirmPasswordError: prevError?.confirmPasswordError || "",
-        newPasswordError: passwordComplexityError,
+        newPasswordError: PASSWORD_COMPLEXITY_ERROR,
       }));
       return;
     }
@@ -215,7 +215,7 @@ function ChangePassword() {
 
   return (
     <>
-      {isChanged && <NotificationBar text={passwordChangedText} />}
+      {isChanged && <NotificationBar text={PASSWORD_CHANGED_TEXT} />}
       <Container>
         <Header />
         <Box $isMobile={isMobileString}>

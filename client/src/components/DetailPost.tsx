@@ -40,7 +40,7 @@ import { IImage } from "../types/detailImageType";
 import { IRatioTypes } from "../types/ratioType";
 
 // Constants
-import { photoUpdateSuccessText } from "../constants/notificationMessages";
+import { PHOTO_UPDATE_SUCCESS_TEXT } from "../constants/notificationMessages";
 import { SEARCH_PATH, USER_PATH } from "../constants/paths";
 
 // React-Icons
@@ -463,7 +463,7 @@ function DetailPost() {
 
   return (
     <>
-      {isEdited && <NotificationBar text={photoUpdateSuccessText} />}
+      {isEdited && <NotificationBar text={PHOTO_UPDATE_SUCCESS_TEXT} />}
       <Container>
         <Header />
         <Box>

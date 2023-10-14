@@ -22,14 +22,14 @@ import { BiHide } from "@react-icons/all-files/bi/BiHide";
 
 // Constants
 import {
-  emailValidityError,
-  nameLengthError,
-  nameWhiteSpaceError,
-  passwordComplexityError,
-  passwordLengthError,
-  passwordWhiteSpaceError,
-  usernameLengthError,
-  usernameWhiteSpaceError,
+  EMAIL_VALIDITY_ERROR,
+  NAME_LENGTH_ERROR,
+  USERNAME_LENGTH_ERROR,
+  NAME_WHITE_SPACE_ERROR,
+  PASSWORD_COMPLEXITY_ERROR,
+  PASSWORD_LENGTH_ERROR,
+  PASSWORD_WHITE_SPACE_ERROR,
+  USERNAME_WHITE_SPACE_ERROR,
 } from "../constants/errorMessages";
 import { LOGIN_PATH, MAIN_PATH } from "../constants/paths";
 
@@ -218,7 +218,7 @@ function Join() {
         emailError: prevError?.emailError || "",
         passwordError: prevError?.passwordError || "",
         confirmPasswordError: prevError?.confirmPasswordError || "",
-        nameError: nameLengthError,
+        nameError: NAME_LENGTH_ERROR,
       }));
       return;
     }
@@ -229,7 +229,7 @@ function Join() {
         emailError: prevError?.emailError || "",
         passwordError: prevError?.passwordError || "",
         confirmPasswordError: prevError?.confirmPasswordError || "",
-        nameError: nameWhiteSpaceError,
+        nameError: NAME_WHITE_SPACE_ERROR,
       }));
       return;
     }
@@ -240,7 +240,7 @@ function Join() {
         emailError: prevError?.emailError || "",
         passwordError: prevError?.passwordError || "",
         confirmPasswordError: prevError?.confirmPasswordError || "",
-        usernameError: usernameLengthError,
+        usernameError: USERNAME_LENGTH_ERROR,
       }));
       return;
     }
@@ -251,7 +251,7 @@ function Join() {
         emailError: prevError?.emailError || "",
         passwordError: prevError?.passwordError || "",
         confirmPasswordError: prevError?.confirmPasswordError || "",
-        usernameError: usernameWhiteSpaceError,
+        usernameError: USERNAME_WHITE_SPACE_ERROR,
       }));
       return;
     }
@@ -262,7 +262,7 @@ function Join() {
         usernameError: prevError?.usernameError || "",
         passwordError: prevError?.passwordError || "",
         confirmPasswordError: prevError?.confirmPasswordError || "",
-        emailError: emailValidityError,
+        emailError: EMAIL_VALIDITY_ERROR,
       }));
       return;
     }
@@ -273,7 +273,7 @@ function Join() {
         usernameError: prevError?.usernameError || "",
         emailError: prevError?.emailError || "",
         confirmPasswordError: prevError?.confirmPasswordError || "",
-        passwordError: passwordWhiteSpaceError,
+        passwordError: PASSWORD_WHITE_SPACE_ERROR,
       }));
       return;
     }
@@ -284,7 +284,7 @@ function Join() {
         usernameError: prevError?.usernameError || "",
         emailError: prevError?.emailError || "",
         confirmPasswordError: prevError?.confirmPasswordError || "",
-        passwordError: passwordLengthError,
+        passwordError: PASSWORD_LENGTH_ERROR,
       }));
       return;
     }
@@ -295,7 +295,7 @@ function Join() {
         usernameError: prevError?.usernameError || "",
         emailError: prevError?.emailError || "",
         confirmPasswordError: prevError?.confirmPasswordError || "",
-        passwordError: passwordComplexityError,
+        passwordError: PASSWORD_COMPLEXITY_ERROR,
       }));
       return;
     }

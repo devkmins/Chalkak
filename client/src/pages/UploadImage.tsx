@@ -37,7 +37,7 @@ import {
 import { resizeAndConvertToWebP } from "../utils/resizeAndConvertToWebP";
 
 // Constant
-import { closeConfirmationMessage } from "../constants/confirmationMessages";
+import { CLOSE_CONFIRMATION_MESSAGE } from "../constants/confirmationMessages";
 import { USER_PATH } from "../constants/paths";
 
 // Type
@@ -370,7 +370,7 @@ function UploadImage() {
 
   const handleBackBtn = () => {
     if (images.length > 0) {
-      const result = window.confirm(closeConfirmationMessage);
+      const result = window.confirm(CLOSE_CONFIRMATION_MESSAGE);
 
       if (result) {
         navigate(-1);
