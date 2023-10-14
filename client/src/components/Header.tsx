@@ -164,6 +164,7 @@ function Header() {
   const isMobile = useMobile();
   const isTabletOrLaptop = useTabletOrLaptop();
   const isDesktop = useDesktop();
+  const isMobileString = String(isMobile);
 
   const loggedIn = useRecoilValue(loggedInState);
   const sessionData = useRecoilValue(sessionState);
@@ -283,20 +284,20 @@ function Header() {
         <RiCameraLensFill size={40} />
         {isDesktop && <span>Chalkak</span>}
       </LogoBox>
-      <SearchPostBox $isMobile={String(isMobile)}>
+      <SearchPostBox $isMobile={isMobileString}>
         <SearchPost />
       </SearchPostBox>
       <AuthBox>
         {loggedIn ? (
           <>
             {(isTabletOrLaptop || isDesktop) && (
-              <LoggedInBox $isMobile={String(isMobile)}>
+              <LoggedInBox $isMobile={isMobileString}>
                 <span onClick={logout}>로그아웃</span>
                 <Link to={"/post/upload"}>업로드</Link>
                 <UserImgBox
                   onFocus={handleUserImgFocus}
                   ref={menuRef}
-                  $isMobile={String(isMobile)}>
+                  $isMobile={isMobileString}>
                   <UserImg
                     key={userProfileImg}
                     alt=""
@@ -312,11 +313,11 @@ function Header() {
               </LoggedInBox>
             )}
             {isMobile && (
-              <LoggedInBox $isMobile={String(isMobile)}>
+              <LoggedInBox $isMobile={isMobileString}>
                 <UserImgBox
                   onFocus={handleUserImgFocus}
                   ref={menuRef}
-                  $isMobile={String(isMobile)}>
+                  $isMobile={isMobileString}>
                   <UserImg
                     key={userProfileImg}
                     alt=""

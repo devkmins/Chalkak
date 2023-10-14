@@ -113,6 +113,7 @@ const ImagesBox = styled.div`
 
 function SimilarPosts({ title, postId }: IProp) {
   const isDesktop = useDesktop();
+  const isDesktopString = String(isDesktop);
 
   const location = useLocation();
   const path = location.pathname;
@@ -219,7 +220,7 @@ function SimilarPosts({ title, postId }: IProp) {
   return (
     <Container>
       {!isDesktop && (
-        <ColumnsContainer $isDesktop={String(isDesktop)}>
+        <ColumnsContainer $isDesktop={isDesktopString}>
           <ImagesContainer>
             {firstCol &&
               firstCol.map((post, index) => (
@@ -295,7 +296,7 @@ function SimilarPosts({ title, postId }: IProp) {
         </ColumnsContainer>
       )}
       {isDesktop && (
-        <ColumnsContainer $isDesktop={String(isDesktop)}>
+        <ColumnsContainer $isDesktop={isDesktopString}>
           <ImagesContainer>
             {firstCol &&
               firstCol.map((post, index) => (

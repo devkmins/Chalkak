@@ -350,6 +350,7 @@ const LoadingContainer = {
 
 function UploadImage() {
   const isMobile = useMobile();
+  const isMobileString = String(isMobile);
 
   const [images, setImages] = useState<File[]>([]);
   const [data, setData] = useState<string[]>([]);
@@ -558,7 +559,7 @@ function UploadImage() {
         <>
           <Container>
             <Header />
-            <BackBtnBox $isMobile={String(isMobile)}>
+            <BackBtnBox $isMobile={isMobileString}>
               {isMobile ? (
                 <StyledMdClear onClick={handleBackBtn} />
               ) : (
@@ -574,11 +575,11 @@ function UploadImage() {
                     accept={{ "image/*": [".png", ".jpeg", ".jpg", ".webp"] }}
                     onDrop={onDrop}>
                     {({ getRootProps, getInputProps }) => (
-                      <DropzoneSection $isMobile={String(isMobile)}>
+                      <DropzoneSection $isMobile={isMobileString}>
                         <DropzoneBox {...getRootProps()}>
                           <input {...getInputProps()} />
                           <StyledBsCardImage size={100} />
-                          <DropZoneText $isMobile={String(isMobile)}>
+                          <DropZoneText $isMobile={isMobileString}>
                             최대 10개의 이미지를 끌어다 놓거나 찾아보기로 선택해
                             보세요!
                           </DropZoneText>
@@ -590,7 +591,7 @@ function UploadImage() {
                     )}
                   </Dropzone>
                 </UploadBox>
-                <ImagesContainer $isMobile={String(isMobile)}>
+                <ImagesContainer $isMobile={isMobileString}>
                   {data &&
                     data.map((img) => (
                       <ImagesBox key={img}>
@@ -606,7 +607,7 @@ function UploadImage() {
           </Container>
           {images?.length > 0 && (
             <CreateBox>
-              <CreateForm onSubmit={handleSubmit} $isMobile={String(isMobile)}>
+              <CreateForm onSubmit={handleSubmit} $isMobile={isMobileString}>
                 <TitleInput
                   type="title"
                   name="title"
@@ -615,7 +616,7 @@ function UploadImage() {
                   maxLength={75}
                   required
                   onChange={handleChange}
-                  $isMobile={String(isMobile)}
+                  $isMobile={isMobileString}
                 />
                 <DescriptionTextArea
                   name="description"
@@ -623,7 +624,7 @@ function UploadImage() {
                   value={formData.description}
                   maxLength={150}
                   onChange={handleChange}
-                  $isMobile={String(isMobile)}
+                  $isMobile={isMobileString}
                 />
                 <HashtagsContainer>
                   <HashtagsInput

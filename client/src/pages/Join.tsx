@@ -180,6 +180,7 @@ const ErrorMessage = styled.span`
 
 function Join() {
   const isMobile = useMobile();
+  const isMobileString = String(isMobile);
 
   const navigate = useNavigate();
 
@@ -345,7 +346,7 @@ function Join() {
   }, []);
 
   return (
-    <Box $isMobile={String(isMobile)}>
+    <Box $isMobile={isMobileString}>
       {!isMobile && (
         <JoinImgContainer>
           <JoinImg />

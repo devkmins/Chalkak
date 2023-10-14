@@ -81,6 +81,9 @@ function IntroContent() {
   const isMobile = useMobile();
   const isTabletOrLaptop = useTabletOrLaptop();
   const isDesktop = useDesktop();
+  const isMobileString = String(isMobile);
+  const isTabletOrLaptopString = String(isTabletOrLaptop);
+  const isDesktopString = String(isDesktop);
 
   return (
     <Container>
@@ -90,14 +93,14 @@ function IntroContent() {
           alt="메인 이미지"
           sizes="(max-width: 674px) 100vw, (min-width: 675px) and (max-width: 1169px) 87.5vw, (min-width: 1170px) 75vw"
           loading="eager"
-          $isMobile={String(isMobile)}
-          $isTabletOrLaptop={String(isTabletOrLaptop)}
+          $isMobile={isMobileString}
+          $isTabletOrLaptop={isTabletOrLaptopString}
         />
       </MainImgBox>
       <MainLine />
       <MainTextBox>
-        <MainTextTop $isDesktop={String(isDesktop)}>찰칵!</MainTextTop>
-        <MainTextBottom $isDesktop={String(isDesktop)}>
+        <MainTextTop $isDesktop={isDesktopString}>찰칵!</MainTextTop>
+        <MainTextBottom $isDesktop={isDesktopString}>
           찰칵은 나의 시선을 타자에게 공유하는 공간입니다. <br />
           세상를 바라보는 시선을 공유하고 타자의 시선을 따라가는 발걸음을 내딛어
           보세요!

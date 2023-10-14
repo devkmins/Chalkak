@@ -118,6 +118,7 @@ const ErrorMessage = styled.span`
 
 function ChangePassword() {
   const isMobile = useMobile();
+  const isMobileString = String(isMobile);
 
   const [formData, setFormData] = useState({
     currentPassword: "",
@@ -217,9 +218,9 @@ function ChangePassword() {
       {isChanged && <NotificationBar text={passwordChangedText} />}
       <Container>
         <Header />
-        <Box $isMobile={String(isMobile)}>
+        <Box $isMobile={isMobileString}>
           <AccountMenu pathname={pathname} />
-          <ChangePasswordSection $isMobile={String(isMobile)}>
+          <ChangePasswordSection $isMobile={isMobileString}>
             <MainTitleBox>
               <MainTitle>비밀번호 변경</MainTitle>
             </MainTitleBox>

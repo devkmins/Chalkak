@@ -169,6 +169,7 @@ const ErrorMessage = styled.span`
 
 function Account() {
   const isMobile = useMobile();
+  const isMobileString = String(isMobile);
 
   const [sessionData, setSessionData] = useRecoilState(sessionState);
   const [formData, setFormData] = useState({
@@ -298,14 +299,14 @@ function Account() {
       {isUpdated && <NotificationBar text={accountUpdatedText} />}
       <Container>
         <Header />
-        <Box $isMobile={String(isMobile)}>
+        <Box $isMobile={isMobileString}>
           <AccountMenu pathname={pathname} />
-          <EditSection $isMobile={String(isMobile)}>
+          <EditSection $isMobile={isMobileString}>
             <MainTitleBox>
               <MainTitle>프로필 편집</MainTitle>
             </MainTitleBox>
-            <EditBox $isMobile={String(isMobile)}>
-              <ProfileImgBox $isMobile={String(isMobile)}>
+            <EditBox $isMobile={isMobileString}>
+              <ProfileImgBox $isMobile={isMobileString}>
                 <ProfileImg
                   key={userProfileImg}
                   alt=""
@@ -325,7 +326,7 @@ function Account() {
                   accept="image/*"
                 />
               </ProfileImgBox>
-              <EditForm ref={formRef} $isMobile={String(isMobile)}>
+              <EditForm ref={formRef} $isMobile={isMobileString}>
                 <EditInputContainer>
                   <EditInputBox>
                     <span>이름</span>
@@ -370,7 +371,7 @@ function Account() {
               </EditForm>
             </EditBox>
             <EditBtnBox>
-              <EditBtn onClick={handleFormClick} $isMobile={String(isMobile)}>
+              <EditBtn onClick={handleFormClick} $isMobile={isMobileString}>
                 계정 업데이트
               </EditBtn>
             </EditBtnBox>

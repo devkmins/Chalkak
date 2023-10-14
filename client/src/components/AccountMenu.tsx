@@ -60,19 +60,20 @@ const ConnectedtLink = styled(Link)`
 
 function AccountMenu({ pathname }: IAccountMenuProp) {
   const isMobile = useMobile();
+  const isMobileString = String(isMobile);
 
   return (
-    <LinkContainer $isMobile={String(isMobile)}>
-      <Text $isMobile={String(isMobile)}>계정 설정</Text>
+    <LinkContainer $isMobile={isMobileString}>
+      <Text $isMobile={isMobileString}>계정 설정</Text>
       <LinkUl>
-        <LinkLi $isMobile={String(isMobile)}>
+        <LinkLi $isMobile={isMobileString}>
           {pathname === "/account" ? (
             <ConnectedtLink to={"/account"}>프로필 편집</ConnectedtLink>
           ) : (
             <StyledLink to={"/account"}>프로필 편집</StyledLink>
           )}
         </LinkLi>
-        <LinkLi $isMobile={String(isMobile)}>
+        <LinkLi $isMobile={isMobileString}>
           {pathname === "/account/password" ? (
             <ConnectedtLink to={"/account/password"}>
               비밀번호 변경
@@ -81,7 +82,7 @@ function AccountMenu({ pathname }: IAccountMenuProp) {
             <StyledLink to={"/account/password"}>비밀번호 변경</StyledLink>
           )}
         </LinkLi>
-        <LinkLi $isMobile={String(isMobile)}>
+        <LinkLi $isMobile={isMobileString}>
           {pathname === "/account/close" ? (
             <ConnectedtLink to={"/account/close"}>계정 폐쇄</ConnectedtLink>
           ) : (

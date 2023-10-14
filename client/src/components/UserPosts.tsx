@@ -130,6 +130,9 @@ function UserPosts({ data }: { data: IUserData }) {
   const isMobile = useMobile();
   const isTabletOrLaptop = useTabletOrLaptop();
   const isDesktop = useDesktop();
+  const isMobileString = String(isMobile);
+  const isTabletOrLaptopString = String(isTabletOrLaptop);
+  const isDesktopString = String(isDesktop);
 
   const location = useLocation();
   const path = location.pathname;
@@ -211,20 +214,20 @@ function UserPosts({ data }: { data: IUserData }) {
     <PostsBox>
       {isMobile && (
         <ColumnsContainer
-          $isMobile={String(isMobile)}
-          $isTabletOrLaptop={String(isTabletOrLaptop)}
-          $isDesktop={String(isDesktop)}>
+          $isMobile={isMobileString}
+          $isTabletOrLaptop={isTabletOrLaptopString}
+          $isDesktop={isDesktopString}>
           <ImagesContainer>
             {firstCol &&
               firstCol?.map((post, index) => (
-                <PostBox key={post?._id} $isMobile={String(isMobile)}>
-                  <ProfileContainer $isMobile={String(isMobile)}>
-                    <ProfileBox $isMobile={String(isMobile)}>
+                <PostBox key={post?._id} $isMobile={isMobileString}>
+                  <ProfileContainer $isMobile={isMobileString}>
+                    <ProfileBox $isMobile={isMobileString}>
                       <ProfileLink
                         to={`/user/${post.owner.username}`}
                         state={path}
                         onClick={clickedProfile}
-                        $isMobile={String(isMobile)}>
+                        $isMobile={isMobileString}>
                         <PostProfileImg
                           src={
                             post.owner.profileImage
@@ -255,13 +258,13 @@ function UserPosts({ data }: { data: IUserData }) {
       )}
       {isTabletOrLaptop && (
         <ColumnsContainer
-          $isMobile={String(isMobile)}
-          $isTabletOrLaptop={String(isTabletOrLaptop)}
-          $isDesktop={String(isDesktop)}>
+          $isMobile={isMobileString}
+          $isTabletOrLaptop={isTabletOrLaptopString}
+          $isDesktop={isDesktopString}>
           <ImagesContainer>
             {firstCol &&
               firstCol?.map((post, index) => (
-                <PostBox key={post?._id} $isMobile={String(isMobile)}>
+                <PostBox key={post?._id} $isMobile={isMobileString}>
                   <StyledLink
                     to={`/post/${post?.title}`}
                     state={{ postId: post?._id, path }}
@@ -273,13 +276,13 @@ function UserPosts({ data }: { data: IUserData }) {
                       $ratioHeight={post.ratioHeight[0]}
                     />
                   </StyledLink>
-                  <ProfileContainer $isMobile={String(isMobile)}>
-                    <ProfileBox $isMobile={String(isMobile)}>
+                  <ProfileContainer $isMobile={isMobileString}>
+                    <ProfileBox $isMobile={isMobileString}>
                       <ProfileLink
                         to={`/user/${post.owner.username}`}
                         state={path}
                         onClick={clickedProfile}
-                        $isMobile={String(isMobile)}>
+                        $isMobile={isMobileString}>
                         <PostProfileImg
                           src={
                             post.owner.profileImage
@@ -298,7 +301,7 @@ function UserPosts({ data }: { data: IUserData }) {
           <ImagesContainer>
             {secondCol &&
               secondCol?.map((post, index) => (
-                <PostBox key={post?._id} $isMobile={String(isMobile)}>
+                <PostBox key={post?._id} $isMobile={isMobileString}>
                   <StyledLink
                     to={`/post/${post?.title}`}
                     state={{ postId: post?._id, path }}
@@ -310,13 +313,13 @@ function UserPosts({ data }: { data: IUserData }) {
                       $ratioHeight={post.ratioHeight[0]}
                     />
                   </StyledLink>
-                  <ProfileContainer $isMobile={String(isMobile)}>
-                    <ProfileBox $isMobile={String(isMobile)}>
+                  <ProfileContainer $isMobile={isMobileString}>
+                    <ProfileBox $isMobile={isMobileString}>
                       <ProfileLink
                         to={`/user/${post.owner.username}`}
                         state={path}
                         onClick={clickedProfile}
-                        $isMobile={String(isMobile)}>
+                        $isMobile={isMobileString}>
                         <PostProfileImg
                           src={
                             post.owner.profileImage
@@ -336,13 +339,13 @@ function UserPosts({ data }: { data: IUserData }) {
       )}
       {isDesktop && (
         <ColumnsContainer
-          $isMobile={String(isMobile)}
-          $isTabletOrLaptop={String(isTabletOrLaptop)}
-          $isDesktop={String(isDesktop)}>
+          $isMobile={isMobileString}
+          $isTabletOrLaptop={isTabletOrLaptopString}
+          $isDesktop={isDesktopString}>
           <ImagesContainer>
             {firstCol &&
               firstCol?.map((post, index) => (
-                <PostBox key={post?._id} $isMobile={String(isMobile)}>
+                <PostBox key={post?._id} $isMobile={isMobileString}>
                   <StyledLink
                     to={`/post/${post?.title}`}
                     state={{ postId: post?._id, path }}
@@ -354,13 +357,13 @@ function UserPosts({ data }: { data: IUserData }) {
                       $ratioHeight={post.ratioHeight[0]}
                     />
                   </StyledLink>
-                  <ProfileContainer $isMobile={String(isMobile)}>
-                    <ProfileBox $isMobile={String(isMobile)}>
+                  <ProfileContainer $isMobile={isMobileString}>
+                    <ProfileBox $isMobile={isMobileString}>
                       <ProfileLink
                         to={`/user/${post.owner.username}`}
                         state={path}
                         onClick={clickedProfile}
-                        $isMobile={String(isMobile)}>
+                        $isMobile={isMobileString}>
                         <PostProfileImg
                           src={
                             post.owner.profileImage
@@ -379,7 +382,7 @@ function UserPosts({ data }: { data: IUserData }) {
           <ImagesContainer>
             {secondCol &&
               secondCol?.map((post, index) => (
-                <PostBox key={post?._id} $isMobile={String(isMobile)}>
+                <PostBox key={post?._id} $isMobile={isMobileString}>
                   <StyledLink
                     to={`/post/${post?.title}`}
                     state={{ postId: post?._id, path }}
@@ -391,13 +394,13 @@ function UserPosts({ data }: { data: IUserData }) {
                       $ratioHeight={post.ratioHeight[0]}
                     />
                   </StyledLink>
-                  <ProfileContainer $isMobile={String(isMobile)}>
-                    <ProfileBox $isMobile={String(isMobile)}>
+                  <ProfileContainer $isMobile={isMobileString}>
+                    <ProfileBox $isMobile={isMobileString}>
                       <ProfileLink
                         to={`/user/${post.owner.username}`}
                         state={path}
                         onClick={clickedProfile}
-                        $isMobile={String(isMobile)}>
+                        $isMobile={isMobileString}>
                         <PostProfileImg
                           src={
                             post.owner.profileImage
@@ -416,7 +419,7 @@ function UserPosts({ data }: { data: IUserData }) {
           <ImagesContainer>
             {thirdCol &&
               thirdCol?.map((post, index) => (
-                <PostBox key={post?._id} $isMobile={String(isMobile)}>
+                <PostBox key={post?._id} $isMobile={isMobileString}>
                   <StyledLink
                     to={`/post/${post?.title}`}
                     state={{ postId: post?._id, path }}
@@ -428,13 +431,13 @@ function UserPosts({ data }: { data: IUserData }) {
                       $ratioHeight={post.ratioHeight[0]}
                     />
                   </StyledLink>
-                  <ProfileContainer $isMobile={String(isMobile)}>
-                    <ProfileBox $isMobile={String(isMobile)}>
+                  <ProfileContainer $isMobile={isMobileString}>
+                    <ProfileBox $isMobile={isMobileString}>
                       <ProfileLink
                         to={`/user/${post.owner.username}`}
                         state={path}
                         onClick={clickedProfile}
-                        $isMobile={String(isMobile)}>
+                        $isMobile={isMobileString}>
                         <PostProfileImg
                           src={
                             post.owner.profileImage

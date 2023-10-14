@@ -122,6 +122,7 @@ const ErrorMessage = styled.span`
 
 function CloseAccount() {
   const isMobile = useMobile();
+  const isMobileString = String(isMobile);
 
   const navigate = useNavigate();
 
@@ -182,9 +183,9 @@ function CloseAccount() {
   return (
     <Container>
       <Header />
-      <Box $isMobile={String(isMobile)}>
+      <Box $isMobile={isMobileString}>
         <AccountMenu pathname={pathname} />
-        <CloseAccountSection $isMobile={String(isMobile)}>
+        <CloseAccountSection $isMobile={isMobileString}>
           <MainTitleBox>
             <MainTitle>계정 폐쇄</MainTitle>
           </MainTitleBox>

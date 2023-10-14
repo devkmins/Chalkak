@@ -49,6 +49,7 @@ const Container = styled.div<IIsMobile>`
 
 function LoggedInMenu() {
   const isMobile = useMobile();
+  const isMobileString = String(isMobile);
 
   const navigate = useNavigate();
 
@@ -79,7 +80,7 @@ function LoggedInMenu() {
   };
 
   return (
-    <Container $isMobile={String(isMobile)}>
+    <Container $isMobile={isMobileString}>
       {isMobile ? (
         <>
           <Link to={`/user/${sessionData.username}`}>프로필 보기</Link>

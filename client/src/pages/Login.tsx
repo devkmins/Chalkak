@@ -180,6 +180,7 @@ const ErrorMessage = styled.span`
 
 function Login() {
   const isMobile = useMobile();
+  const isMobileString = String(isMobile);
 
   const navigate = useNavigate();
 
@@ -284,7 +285,7 @@ function Login() {
   }, []);
 
   return (
-    <Box $isMobile={String(isMobile)}>
+    <Box $isMobile={isMobileString}>
       {isJoined === "true" && (
         <NotificationBar text={getJoinSuccessText(userName)} />
       )}

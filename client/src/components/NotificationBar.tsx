@@ -78,6 +78,8 @@ const StyledGrFormClose = styled(GrFormClose)`
 
 function NotificationBar({ text }: IProp) {
   const [clicked, setClicked] = useState(false);
+  const clickedString = String(clicked);
+
   const setIsLoggedOut = useSetRecoilState(isLoggedOutState);
 
   const handleClick = () => {
@@ -90,7 +92,7 @@ function NotificationBar({ text }: IProp) {
   }, []);
 
   return (
-    <Container $clicked={String(clicked)}>
+    <Container $clicked={clickedString}>
       <Box>
         <span>{text}</span>
       </Box>

@@ -80,6 +80,8 @@ const ContentBox = styled.div`
 function PostSettings({ postId }: IPostSettingsProp) {
   const [showDetails, setShowDetails] = useState(true);
   const [showSettings, setShowSettings] = useState(false);
+  const showDetailsString = String(showDetails);
+  const showSettingsString = String(showSettings);
 
   const clickDetails = () => {
     setShowDetails(true);
@@ -96,14 +98,12 @@ function PostSettings({ postId }: IPostSettingsProp) {
       <Box>
         <UlBox>
           <Ul>
-            <DetailsLi
-              onClick={clickDetails}
-              $showDetails={String(showDetails)}>
+            <DetailsLi onClick={clickDetails} $showDetails={showDetailsString}>
               세부 사항
             </DetailsLi>
             <SettingsLi
               onClick={clickSettings}
-              $showSettings={String(showSettings)}>
+              $showSettings={showSettingsString}>
               설정
             </SettingsLi>
           </Ul>

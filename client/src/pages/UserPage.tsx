@@ -227,6 +227,7 @@ const ContentText = styled.span<IIsMobile>`
 
 function UserPage() {
   const isMobile = useMobile();
+  const isMobileString = String(isMobile);
 
   const location = useLocation();
   const pathname = location.pathname;
@@ -357,41 +358,41 @@ function UserPage() {
                   ? `http://localhost:4000/${userProfileImg}`
                   : defaultUserProfileImg
               }
-              $isMobile={String(isMobile)}
+              $isMobile={isMobileString}
             />
-            <ProfileName $isMobile={String(isMobile)}>
+            <ProfileName $isMobile={isMobileString}>
               {data?.userPosts?.name}
             </ProfileName>
             <TotalBox>
-              <TotalViews $isMobile={String(isMobile)}>
+              <TotalViews $isMobile={isMobileString}>
                 <StyledBsPersonCheck />
                 <span>조회 수 {totalViews}</span>
               </TotalViews>
-              <TotalLikes $isMobile={String(isMobile)}>
+              <TotalLikes $isMobile={isMobileString}>
                 <StyledRiHeartsLine />
                 <span>좋아요 수 {totalLikes}</span>
               </TotalLikes>
             </TotalBox>
             {sessionData.username === username && (
-              <EditProfileLink to={"/account"} $isMobile={String(isMobile)}>
+              <EditProfileLink to={"/account"} $isMobile={isMobileString}>
                 프로필 편집
               </EditProfileLink>
             )}
             <PostsContainer>
-              <ContentsContainer $isMobile={String(isMobile)}>
+              <ContentsContainer $isMobile={isMobileString}>
                 <ContentsUl>
                   <PhotoLi connectphotos={String(connectPhotos)}>
                     <Link to={`/user/${username}`} state={username}>
-                      <StyledRiImage2Fill $isMobile={String(isMobile)} />
-                      <ContentText $isMobile={String(isMobile)}>
+                      <StyledRiImage2Fill $isMobile={isMobileString} />
+                      <ContentText $isMobile={isMobileString}>
                         사진 {data?.length.userPostsLength}
                       </ContentText>
                     </Link>
                   </PhotoLi>
                   <LikesLi connectlikes={String(connectLikes)}>
                     <Link to={`/user/${username}/likes`} state={username}>
-                      <StyledAiFillHeart $isMobile={String(isMobile)} />
-                      <ContentText $isMobile={String(isMobile)}>
+                      <StyledAiFillHeart $isMobile={isMobileString} />
+                      <ContentText $isMobile={isMobileString}>
                         좋아요 {data?.length.userLikedLength}
                       </ContentText>
                     </Link>
