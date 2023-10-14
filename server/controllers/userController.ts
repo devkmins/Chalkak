@@ -35,7 +35,8 @@ export const see = async (req: Request, res: Response) => {
       .populate({
         path: "owner",
         select: "name username profileImage",
-      });
+      })
+      .select("-hashtags");
 
     const userPostsLength = await Post.countDocuments({ owner: userId });
     const userLikedLength = await Post.countDocuments({ likes: userId });
