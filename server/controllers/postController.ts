@@ -166,7 +166,10 @@ export const similarPosts = async (req: Request, res: Response) => {
           },
         ],
       })
-        .populate("owner")
+        .populate({
+          path: "owner",
+          select: "username name _id profileImage",
+        })
         .limit(page * perPage);
 
       return res.status(200).json(posts);

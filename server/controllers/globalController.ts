@@ -129,7 +129,10 @@ export const search = async (req: Request, res: Response) => {
         { hashtags: { $regex: keyword, $options: "i" } },
       ],
     })
-      .populate("owner")
+      .populate({
+        path: "owner",
+        select: "username name _id profileImage",
+      })
       .limit(page * perPage);
 
     const totalPostsLength = await Post.countDocuments({
