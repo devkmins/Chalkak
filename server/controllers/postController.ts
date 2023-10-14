@@ -170,6 +170,7 @@ export const similarPosts = async (req: Request, res: Response) => {
           path: "owner",
           select: "username name _id profileImage",
         })
+        .select("-hashtags")
         .limit(page * perPage);
 
       return res.status(200).json(posts);
