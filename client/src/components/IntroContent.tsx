@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import mainImg from "../assets/Main/main.webp";
+import mainImg from "../assets/Images/main.webp";
 import {
   useDesktop,
   useMobile,

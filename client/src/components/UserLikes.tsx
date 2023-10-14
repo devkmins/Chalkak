@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import defaultUserProfileImg from "../assets/User/default-profile.webp";
+import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
 import { useSetRecoilState } from "recoil";
 import { isBackToUserPageState } from "../atoms/navigationBackAtoms";
 import { userPageScrollYState } from "../atoms/scrollYStateAtoms";

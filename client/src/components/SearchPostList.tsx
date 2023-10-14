@@ -1,7 +1,7 @@
 import { Link, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Header from "./Header";
-import defaultUserProfileImg from "../assets/User/default-profile.webp";
+import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
 import { useEffect, useState } from "react";
 import { RiImage2Fill } from "@react-icons/all-files/ri/RiImage2Fill";
 import { useQuery } from "react-query";

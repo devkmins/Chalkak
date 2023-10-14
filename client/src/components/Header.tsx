@@ -6,7 +6,7 @@ import { isBackToMainState } from "../atoms/navigationBackAtoms";
 import { isLoggedOutState, loggedInState } from "../atoms/authAtoms";
 import { sessionState } from "../atoms/sessionAtom";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import defaultUserProfileImg from "../assets/User/default-profile.webp";
+import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
 import LoggedInMenu from "./LoggedInMenu";
 import { useEffect, useRef, useState } from "react";
 import { useCookies } from "react-cookie";

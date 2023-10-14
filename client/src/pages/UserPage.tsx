@@ -13,7 +13,7 @@ import {
 import { sessionState } from "../atoms/sessionAtom";
 import { userPageScrollYState } from "../atoms/scrollYStateAtoms";
 import { Link } from "react-router-dom";
-import defaultUserProfileImg from "../assets/User/default-profile.webp";
+import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
 import styled from "styled-components";
 import Header from "../components/Header";
 import { RiImage2Fill } from "@react-icons/all-files/ri/RiImage2Fill";

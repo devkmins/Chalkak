@@ -6,7 +6,7 @@ import { useSetRecoilState } from "recoil";
 import { isLoggedOutState, loggedInState } from "../atoms/authAtoms";
 import { sessionState } from "../atoms/sessionAtom";
 import { styled } from "styled-components";
-import loginImg from "../assets/Login/login.webp";
+import loginImg from "../assets/Images/login.webp";
 import { RiCameraLensFill } from "@react-icons/all-files/ri/RiCameraLensFill";
 import { BiShow } from "@react-icons/all-files/bi/BiShow";
 import { BiHide } from "@react-icons/all-files/bi/BiHide";

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import defaultUserProfileImg from "../assets/User/default-profile.webp";
+import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { currentPostPageScrollState } from "../atoms/pageScrollAtoms";
 import { isBackToMainState } from "../atoms/navigationBackAtoms";
