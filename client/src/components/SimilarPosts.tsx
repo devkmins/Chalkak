@@ -6,11 +6,9 @@ import defaultUserProfileImg from "../assets/User/default-profile.webp";
 import { useEffect, useState } from "react";
 import { debounce } from "lodash";
 import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  currentSimilarPostsPageScrollState,
-  isBackToSimilarPostsState,
-  similarPostsScrollYState,
-} from "../atoms";
+import { currentSimilarPostsPageScrollState } from "../atoms/pageScrollAtoms";
+import { isBackToSimilarPostsState } from "../atoms/navigationBackAtoms";
+import { similarPostsScrollYState } from "../atoms/scrollYStateAtoms";
 import { useDesktop } from "../styles/mediaQueries";
 import { IPost } from "../types/postType";
 import { IRatioTypes } from "../types/ratioType";

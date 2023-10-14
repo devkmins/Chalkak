@@ -3,7 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.webp";
 import { useSetRecoilState } from "recoil";
-import { isBackToUserPageState, userPageScrollYState } from "../atoms";
+import { isBackToUserPageState } from "../atoms/navigationBackAtoms";
+import { userPageScrollYState } from "../atoms/scrollYStateAtoms";
 import {
   useDesktop,
   useMobile,

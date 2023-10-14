@@ -2,7 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import RecentSearch from "./RecentSearch";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { currentSearchState, recentSearchState } from "../atoms";
+import {
+  currentSearchState,
+  recentSearchState,
+} from "../atoms/searchStateAtoms";
 import { styled } from "styled-components";
 import { BiSearch } from "@react-icons/all-files/bi/BiSearch";
 import { useMobile } from "../styles/mediaQueries";

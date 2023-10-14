@@ -1,5 +1,8 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { currentSearchState, recentSearchState } from "../atoms";
+import {
+  currentSearchState,
+  recentSearchState,
+} from "../atoms/searchStateAtoms";
 import styled from "styled-components";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";

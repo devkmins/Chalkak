@@ -4,9 +4,9 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   currentPostState,
   currentUserPageState,
-  loggedInState,
-  sessionState,
-} from "./atoms";
+} from "./atoms/currentPostAtoms";
+import { loggedInState } from "./atoms/authAtoms";
+import { sessionState } from "./atoms/sessionAtom";
 import axios from "axios";
 import Main from "./pages/Main";
 import { GlobalStyle } from "./styles/globalStyle";

@@ -1,5 +1,5 @@
 import { useSetRecoilState } from "recoil";
-import { currentSearchState } from "../atoms";
+import { currentSearchState } from "../atoms/searchStateAtoms";
 import { useEffect } from "react";
 
 function useInitSearch() {

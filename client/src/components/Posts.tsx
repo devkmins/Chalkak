@@ -5,11 +5,9 @@ import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.webp";
 import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  currentPostPageScrollState,
-  isBackToMainState,
-  mainPageScrollYState,
-} from "../atoms";
+import { currentPostPageScrollState } from "../atoms/pageScrollAtoms";
+import { isBackToMainState } from "../atoms/navigationBackAtoms";
+import { mainPageScrollYState } from "../atoms/scrollYStateAtoms";
 import useInitSearch from "../hooks/useInitSearch";
 import { debounce } from "lodash";
 import {

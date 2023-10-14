@@ -2,16 +2,16 @@ import axios from "axios";
 import { useQuery, useQueryClient } from "react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { currentPostState } from "../atoms/currentPostAtoms";
+import { currentSearchState } from "../atoms/searchStateAtoms";
 import {
-  currentPostState,
-  currentSearchState,
   isBackToMainState,
   isBackToSearchPostListState,
   isBackToSimilarPostsState,
-  isEditedState,
-  loggedInState,
-  sessionState,
-} from "../atoms";
+} from "../atoms/navigationBackAtoms";
+import { isEditedState } from "../atoms/postEditedAtom";
+import { loggedInState } from "../atoms/authAtoms";
+import { sessionState } from "../atoms/sessionAtom";
 import { useEffect, useState } from "react";
 import Header from "../pages/Header";
 import { styled } from "styled-components";
@@ -427,7 +427,7 @@ function DetailPost() {
 
   useEffect(() => {
     if (isEdited) {
-      queryClient.invalidateQueries("getPostDataDetail");
+      queryClient.invalidateQueries("getPostDetailData");
     }
   }, [isEdited]);
 

@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { sessionState } from "../atoms";
+import { sessionState } from "../atoms/sessionAtom";
 import { styled } from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.webp";
 import Header from "../pages/Header";

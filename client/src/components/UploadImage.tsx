@@ -6,7 +6,7 @@ import useInitSearch from "../hooks/useInitSearch";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useRecoilValue } from "recoil";
-import { sessionState } from "../atoms";
+import { sessionState } from "../atoms/sessionAtom";
 import { BsBoxArrowInLeft } from "@react-icons/all-files/bs/BsBoxArrowInLeft";
 import { MdClear } from "@react-icons/all-files/md/MdClear";
 import { resizeAndConvertToWebP } from "../resizeAndConvertToWebP";

@@ -8,10 +8,8 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import { debounce } from "lodash";
 import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  isBackToSearchPostListState,
-  searchPostListScrollYState,
-} from "../atoms";
+import { isBackToSearchPostListState } from "../atoms/navigationBackAtoms";
+import { searchPostListScrollYState } from "../atoms/scrollYStateAtoms";
 import {
   useDesktop,
   useMobile,

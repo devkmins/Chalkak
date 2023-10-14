@@ -3,7 +3,7 @@ import Header from "../Header";
 import IntroContent from "../../components/IntroContent";
 import NotificationBar from "../../components/NotificationBar";
 import { useRecoilValue } from "recoil";
-import { isLoggedOutState } from "../../atoms";
+import { isLoggedOutState } from "../../atoms/authAtoms";
 
 function Main() {
   const isLoggedOut = useRecoilValue(isLoggedOutState);

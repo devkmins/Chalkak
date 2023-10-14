@@ -1,6 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { isLoggedOutState, loggedInState, sessionState } from "../atoms";
+import { isLoggedOutState } from "../atoms/authAtoms";
+import { loggedInState } from "../atoms/authAtoms";
+import { sessionState } from "../atoms/sessionAtom";
 import styled from "styled-components";
 import { useCookies } from "react-cookie";
 import axios from "axios";

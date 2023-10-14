@@ -2,12 +2,9 @@ import { styled } from "styled-components";
 import SearchPost from "../../components/SearchPost";
 import { RiCameraLensFill } from "@react-icons/all-files/ri/RiCameraLensFill";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import {
-  isBackToMainState,
-  isLoggedOutState,
-  loggedInState,
-  sessionState,
-} from "../../atoms";
+import { isBackToMainState } from "../../atoms/navigationBackAtoms";
+import { isLoggedOutState, loggedInState } from "../../atoms/authAtoms";
+import { sessionState } from "../../atoms/sessionAtom";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import defaultUserProfileImg from "../../assets/User/default-profile.webp";
 import LoggedInMenu from "../../components/LoggedInMenu";

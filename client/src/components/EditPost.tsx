@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import { useSetRecoilState } from "recoil";
 import { styled } from "styled-components";
-import { isEditedState } from "../atoms";
+import { isEditedState } from "../atoms/postEditedAtom";
 
 interface IEditPostProp {
   postId: string;

@@ -2,16 +2,16 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import { useLocation, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { currentUserPageScrollState } from "../atoms/pageScrollAtoms";
+import { currentUserPageState } from "../atoms/currentPostAtoms";
 import {
-  currentUserPageScrollState,
-  currentUserPageState,
   isBackToMainState,
   isBackToSearchPostListState,
   isBackToSimilarPostsState,
   isBackToUserPageState,
-  sessionState,
-  userPageScrollYState,
-} from "../atoms";
+} from "../atoms/navigationBackAtoms";
+import { sessionState } from "../atoms/sessionAtom";
+import { userPageScrollYState } from "../atoms/scrollYStateAtoms";
 import { Link } from "react-router-dom";
 import defaultUserProfileImg from "../assets/User/default-profile.webp";
 import styled from "styled-components";
