@@ -20,6 +20,18 @@ import { RiCameraLensFill } from "@react-icons/all-files/ri/RiCameraLensFill";
 import { BiShow } from "@react-icons/all-files/bi/BiShow";
 import { BiHide } from "@react-icons/all-files/bi/BiHide";
 
+// Constants
+import {
+  emailValidityError,
+  nameLengthError,
+  nameWhiteSpaceError,
+  passwordComplexityError,
+  passwordLengthError,
+  passwordWhiteSpaceError,
+  usernameLengthError,
+  usernameWhiteSpaceError,
+} from "../constants/errorMessages";
+
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
 
@@ -204,7 +216,7 @@ function Join() {
         emailError: prevError?.emailError || "",
         passwordError: prevError?.passwordError || "",
         confirmPasswordError: prevError?.confirmPasswordError || "",
-        nameError: "이름은 2자 이상 20자 이하여야 합니다.",
+        nameError: nameLengthError,
       }));
       return;
     }
@@ -215,8 +227,7 @@ function Join() {
         emailError: prevError?.emailError || "",
         passwordError: prevError?.passwordError || "",
         confirmPasswordError: prevError?.confirmPasswordError || "",
-        nameError:
-          "이름의 첫 글자, 마지막 글자에는 공백이 포함 되어서는 안 됩니다.",
+        nameError: nameWhiteSpaceError,
       }));
       return;
     }
@@ -227,7 +238,7 @@ function Join() {
         emailError: prevError?.emailError || "",
         passwordError: prevError?.passwordError || "",
         confirmPasswordError: prevError?.confirmPasswordError || "",
-        usernameError: "사용자 이름은 4자 이상 20자 이하여야 합니다.",
+        usernameError: usernameLengthError,
       }));
       return;
     }
@@ -238,7 +249,7 @@ function Join() {
         emailError: prevError?.emailError || "",
         passwordError: prevError?.passwordError || "",
         confirmPasswordError: prevError?.confirmPasswordError || "",
-        usernameError: "사용자 이름에는 공백이 포함되어서는 안 됩니다.",
+        usernameError: usernameWhiteSpaceError,
       }));
       return;
     }
@@ -249,7 +260,7 @@ function Join() {
         usernameError: prevError?.usernameError || "",
         passwordError: prevError?.passwordError || "",
         confirmPasswordError: prevError?.confirmPasswordError || "",
-        emailError: "이메일이 유효하지 않습니다.",
+        emailError: emailValidityError,
       }));
       return;
     }
@@ -260,7 +271,7 @@ function Join() {
         usernameError: prevError?.usernameError || "",
         emailError: prevError?.emailError || "",
         confirmPasswordError: prevError?.confirmPasswordError || "",
-        passwordError: "비밀번호에는 공백이 포함되어서는 안 됩니다.",
+        passwordError: passwordWhiteSpaceError,
       }));
       return;
     }
@@ -271,7 +282,7 @@ function Join() {
         usernameError: prevError?.usernameError || "",
         emailError: prevError?.emailError || "",
         confirmPasswordError: prevError?.confirmPasswordError || "",
-        passwordError: "비밀번호는 8자 이상 16자 이하여야 합니다.",
+        passwordError: passwordLengthError,
       }));
       return;
     }
@@ -282,8 +293,7 @@ function Join() {
         usernameError: prevError?.usernameError || "",
         emailError: prevError?.emailError || "",
         confirmPasswordError: prevError?.confirmPasswordError || "",
-        passwordError:
-          "비밀번호는 1개 이상의 숫자, 특수문자가 포함되어야 합니다.",
+        passwordError: passwordComplexityError,
       }));
       return;
     }

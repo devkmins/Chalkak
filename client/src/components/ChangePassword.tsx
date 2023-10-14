@@ -17,8 +17,13 @@ import NotificationBar from "./NotificationBar";
 // MediaQuery
 import { useMobile } from "../styles/mediaQueries";
 
-// Constant
+// Constants
 import { passwordChangedText } from "../constants/notificationMessages";
+import {
+  passwordComplexityError,
+  passwordLengthError,
+  passwordWhiteSpaceError,
+} from "../constants/errorMessages";
 
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
@@ -143,7 +148,7 @@ function ChangePassword() {
       setError((prevError: IError | undefined) => ({
         currentPasswordError: prevError?.currentPasswordError || "",
         confirmPasswordError: prevError?.confirmPasswordError || "",
-        newPasswordError: "비밀번호에는 공백이 포함되어서는 안 됩니다.",
+        newPasswordError: passwordWhiteSpaceError,
       }));
       return;
     }
@@ -152,7 +157,7 @@ function ChangePassword() {
       setError((prevError: IError | undefined) => ({
         currentPasswordError: prevError?.currentPasswordError || "",
         confirmPasswordError: prevError?.confirmPasswordError || "",
-        newPasswordError: "비밀번호는 8자 이상 16자 이하여야 합니다.",
+        newPasswordError: passwordLengthError,
       }));
       return;
     }
@@ -161,8 +166,7 @@ function ChangePassword() {
       setError((prevError: IError | undefined) => ({
         currentPasswordError: prevError?.currentPasswordError || "",
         confirmPasswordError: prevError?.confirmPasswordError || "",
-        newPasswordError:
-          "비밀번호는 1개 이상의 숫자, 특수문자가 포함되어야 합니다.",
+        newPasswordError: passwordComplexityError,
       }));
       return;
     }

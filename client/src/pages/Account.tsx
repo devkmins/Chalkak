@@ -24,8 +24,13 @@ import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
 // Style
 import { useMobile } from "../styles/mediaQueries";
 
-// Constant
+// Constants
 import { accountUpdatedText } from "../constants/notificationMessages";
+import {
+  emailValidityError,
+  usernameLengthError,
+  usernameWhiteSpaceError,
+} from "../constants/errorMessages";
 
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
@@ -196,7 +201,7 @@ function Account() {
     if (formData.username.length < 3 || formData.username.length > 20) {
       setError((prevError: IError | undefined) => ({
         emailError: prevError?.emailError || "",
-        usernameError: "사용자 이름은 4자 이상 20자 이하여야 합니다.",
+        usernameError: usernameLengthError,
       }));
       return;
     }
@@ -204,7 +209,7 @@ function Account() {
     if (formData.username !== trimUsername || formData.username.includes(" ")) {
       setError((prevError: IError | undefined) => ({
         emailError: prevError?.emailError || "",
-        usernameError: "사용자 이름에는 공백이 포함되어서는 안 됩니다.",
+        usernameError: usernameWhiteSpaceError,
       }));
       return;
     }
@@ -212,7 +217,7 @@ function Account() {
     if (!isValidEmail) {
       setError((prevError: IError | undefined) => ({
         usernameError: prevError?.usernameError || "",
-        emailError: "이메일이 유효하지 않습니다.",
+        emailError: emailValidityError,
       }));
       return;
     }

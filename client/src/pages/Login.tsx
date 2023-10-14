@@ -28,8 +28,9 @@ import { RiCameraLensFill } from "@react-icons/all-files/ri/RiCameraLensFill";
 import { BiShow } from "@react-icons/all-files/bi/BiShow";
 import { BiHide } from "@react-icons/all-files/bi/BiHide";
 
-// Constant
+// Constants
 import { getJoinSuccessText } from "../constants/notificationMessages";
+import { loginFailureLimitExceededError } from "../constants/errorMessages";
 
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
@@ -246,8 +247,7 @@ function Login() {
         return {
           passwordError: prev?.passwordError || "",
           userError: prev?.userError || "",
-          loginCountError:
-            "로그인 실패 횟수가 10회를 초과하였습니다. 5분 후에 다시 시도해주세요.",
+          loginCountError: loginFailureLimitExceededError,
         };
       });
     }
