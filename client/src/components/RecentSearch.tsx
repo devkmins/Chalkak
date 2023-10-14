@@ -12,8 +12,9 @@ import {
   recentSearchState,
 } from "../atoms/searchStateAtoms";
 
-// Constant
+// Constants
 import { SEARCH_PATH } from "../constants/paths";
+import { RECENT_SEARCH_KEYWORDS_LOCAL_KEY } from "../constants/storagesKeys";
 
 const RecentSearchBox = styled.div`
   position: absolute;
@@ -82,7 +83,7 @@ function RecentSearch() {
   const onClick = (event: React.MouseEvent<HTMLSpanElement>) => {
     event?.preventDefault();
 
-    localStorage.removeItem("keywords");
+    localStorage.removeItem(RECENT_SEARCH_KEYWORDS_LOCAL_KEY);
 
     setKeywords([]);
   };

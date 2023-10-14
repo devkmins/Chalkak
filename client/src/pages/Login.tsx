@@ -32,6 +32,10 @@ import { BiHide } from "@react-icons/all-files/bi/BiHide";
 import { getJoinSuccessText } from "../constants/notificationMessages";
 import { loginFailureLimitExceededError } from "../constants/errorMessages";
 import { MAIN_PATH } from "../constants/paths";
+import {
+  IS_JOINED_SESSION_KEY,
+  LOGIN_COUNT_LOCAL_KEY,
+} from "../constants/storagesKeys";
 
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
@@ -199,7 +203,7 @@ function Login() {
 
   const setIsLoggedOut = useSetRecoilState(isLoggedOutState);
 
-  const isJoined = sessionStorage.getItem("isJoined");
+  const isJoined = sessionStorage.getItem(IS_JOINED_SESSION_KEY);
   const location = useLocation();
   let userName;
 
@@ -210,7 +214,9 @@ function Login() {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    if (JSON.parse(localStorage.getItem("loginCount") as string) < 10) {
+    if (
+      JSON.parse(localStorage.getItem(LOGIN_COUNT_LOCAL_KEY) as string) < 10
+    ) {
       const hashedFormData = {
         ...formData,
         password: CryptoJS.SHA256(formData.password).toString(),
@@ -224,26 +230,28 @@ function Login() {
           setLoggedIn(true);
           setSessionData(response.data.user);
           setIsLoggedOut(false);
-          localStorage.removeItem("loginCount");
+          localStorage.removeItem(LOGIN_COUNT_LOCAL_KEY);
           navigate("/");
         })
         .catch((error) => {
           setError(error.response.data);
 
-          if (localStorage.getItem("loginCount")) {
+          if (localStorage.getItem(LOGIN_COUNT_LOCAL_KEY)) {
             localStorage.setItem(
-              "loginCount",
+              LOGIN_COUNT_LOCAL_KEY,
               JSON.stringify(
-                JSON.parse(localStorage.getItem("loginCount") as string) + 1
+                JSON.parse(
+                  localStorage.getItem(LOGIN_COUNT_LOCAL_KEY) as string
+                ) + 1
               )
             );
           } else {
-            localStorage.setItem("loginCount", JSON.stringify(1));
+            localStorage.setItem(LOGIN_COUNT_LOCAL_KEY, JSON.stringify(1));
           }
         });
     } else {
       setTimeout(() => {
-        localStorage.removeItem("loginCount");
+        localStorage.removeItem(LOGIN_COUNT_LOCAL_KEY);
       }, 300000);
       setError((prev: IError | undefined) => {
         return {
@@ -274,14 +282,14 @@ function Login() {
   };
 
   useEffect(() => {
-    if (localStorage.getItem("loginCount")) {
-      localStorage.removeItem("loginCount");
+    if (localStorage.getItem(LOGIN_COUNT_LOCAL_KEY)) {
+      localStorage.removeItem(LOGIN_COUNT_LOCAL_KEY);
     }
   }, []);
 
   useEffect(() => {
-    if (sessionStorage.getItem("isJoined")) {
-      sessionStorage.removeItem("isJoined");
+    if (sessionStorage.getItem(IS_JOINED_SESSION_KEY)) {
+      sessionStorage.removeItem(IS_JOINED_SESSION_KEY);
     }
   }, []);
 

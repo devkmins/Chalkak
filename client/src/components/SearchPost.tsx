@@ -20,8 +20,9 @@ import RecentSearch from "./RecentSearch";
 // React-Icons
 import { BiSearch } from "@react-icons/all-files/bi/BiSearch";
 
-// Constant
+// Constants
 import { SEARCH_PATH } from "../constants/paths";
+import { RECENT_SEARCH_KEYWORDS_LOCAL_KEY } from "../constants/storagesKeys";
 
 // Style
 import { useMobile } from "../styles/mediaQueries";
@@ -92,7 +93,10 @@ function SearchPost() {
           newKeywords.pop();
         }
 
-        localStorage.setItem("keywords", JSON.stringify(newKeywords));
+        localStorage.setItem(
+          RECENT_SEARCH_KEYWORDS_LOCAL_KEY,
+          JSON.stringify(newKeywords)
+        );
 
         return newKeywords;
       } else {
