@@ -25,3 +25,7 @@ export interface IPost {
   createdAt: string;
   __v: number;
 }
+
+export interface IPostWithHashtags extends IPost {
+  hashtags: string[];
+}
