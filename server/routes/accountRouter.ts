@@ -1,10 +1,15 @@
+// FrameWork
 import express from "express";
+
+// Controllers
 import {
   changePassword,
   closeAccount,
   editProfile,
   editProfileImg,
 } from "../controllers/accountController";
+
+// Middleware
 import { avatarImgUpload } from "../middlewares";
 
 const accountRouter = express.Router();

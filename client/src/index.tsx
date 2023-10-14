@@ -1,8 +1,13 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
+// Libraries
 import { RecoilRoot } from "recoil";
 import { QueryClient, QueryClientProvider } from "react-query";
+
+// React
+import React from "react";
+import ReactDOM from "react-dom/client";
+
+// App
+import App from "./App";
 
 const queryClient = new QueryClient();
 

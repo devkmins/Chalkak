@@ -1,14 +1,23 @@
-import React, { Suspense, lazy, useEffect } from "react";
+// Libraries
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import axios from "axios";
+
+// React
+import React, { Suspense, lazy, useEffect } from "react";
+
+// Atoms
 import {
   currentPostState,
   currentUserPageState,
 } from "./atoms/currentPostAtoms";
 import { loggedInState } from "./atoms/authAtoms";
 import { sessionState } from "./atoms/sessionAtom";
-import axios from "axios";
+
+// Page
 import Main from "./pages/MainPage";
+
+// Style
 import { GlobalStyle } from "./styles/globalStyle";
 
 const Login = lazy(() => import("./pages/Login"));

@@ -1,4 +1,7 @@
+// Package
 import styled from "styled-components";
+
+// React-Icons
 import { RiImage2Fill } from "@react-icons/all-files/ri/RiImage2Fill";
 import { BsQuestionSquare } from "@react-icons/all-files/bs/BsQuestionSquare";
 

@@ -1,13 +1,26 @@
-import { useEffect, useRef, useState } from "react";
+// Libraries
 import { useNavigate } from "react-router-dom";
-import RecentSearch from "./RecentSearch";
 import { useRecoilState, useSetRecoilState } from "recoil";
+
+// Package
+import { styled } from "styled-components";
+
+// Atoms
 import {
   currentSearchState,
   recentSearchState,
 } from "../atoms/searchStateAtoms";
-import { styled } from "styled-components";
+
+// React
+import { useEffect, useRef, useState } from "react";
+
+// Component
+import RecentSearch from "./RecentSearch";
+
+// React-Icons
 import { BiSearch } from "@react-icons/all-files/bi/BiSearch";
+
+// Style
 import { useMobile } from "../styles/mediaQueries";
 
 const Box = styled.div``;

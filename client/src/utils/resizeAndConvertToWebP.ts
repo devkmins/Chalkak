@@ -1,3 +1,4 @@
+// Library
 import Resizer from "react-image-file-resizer";
 
 function gcd(a: number, b: number): number {

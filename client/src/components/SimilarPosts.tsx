@@ -1,15 +1,28 @@
+// Libraries
 import axios from "axios";
 import { useQuery } from "react-query";
 import { Link, useLocation } from "react-router-dom";
-import styled from "styled-components";
-import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
-import { useEffect, useState } from "react";
 import { debounce } from "lodash";
 import { useRecoilState, useRecoilValue } from "recoil";
+
+// Package
+import styled from "styled-components";
+
+// Atoms
 import { currentSimilarPostsPageScrollState } from "../atoms/pageScrollAtoms";
 import { isBackToSimilarPostsState } from "../atoms/navigationBackAtoms";
 import { similarPostsScrollYState } from "../atoms/scrollYStateAtoms";
+
+// React
+import { useEffect, useState } from "react";
+
+// Asset
+import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
+
+// Style
 import { useDesktop } from "../styles/mediaQueries";
+
+// Types
 import { IPost } from "../types/postType";
 import { IRatioTypes } from "../types/ratioType";
 import { IIsDesktop } from "../types/mediaQueriesType";

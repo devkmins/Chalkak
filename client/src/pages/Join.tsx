@@ -1,14 +1,26 @@
+// Libraries
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import CryptoJS from "crypto-js";
+
+// Package
 import styled from "styled-components";
+
+// React
+import { useEffect, useState } from "react";
+
+// Asset
 import joinImg from "../assets/Images/join.webp";
+
+// Style
+import { useMobile } from "../styles/mediaQueries";
+
+// React-Icons
 import { RiCameraLensFill } from "@react-icons/all-files/ri/RiCameraLensFill";
 import { BiShow } from "@react-icons/all-files/bi/BiShow";
 import { BiHide } from "@react-icons/all-files/bi/BiHide";
-import { Link } from "react-router-dom";
-import { useMobile } from "../styles/mediaQueries";
+
+// Type
 import { IIsMobile } from "../types/mediaQueriesType";
 
 interface IError {

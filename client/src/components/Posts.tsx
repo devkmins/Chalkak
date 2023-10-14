@@ -1,22 +1,36 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+// Libraries
 import { useQuery } from "react-query";
+import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
-import styled from "styled-components";
-import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { debounce } from "lodash";
+
+// Package
+import styled from "styled-components";
+
+// Atoms
 import { currentPostPageScrollState } from "../atoms/pageScrollAtoms";
 import { isBackToMainState } from "../atoms/navigationBackAtoms";
 import { mainPageScrollYState } from "../atoms/scrollYStateAtoms";
+
+// hook
 import useInitSearch from "../hooks/useInitSearch";
-import { debounce } from "lodash";
+
+// React
+import { useEffect, useState } from "react";
+
+// Asset
+import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
+
+// Styles
 import {
   useDesktop,
   useMobile,
   useTabletOrLaptop,
 } from "../styles/mediaQueries";
-import { IIsMobile } from "../types/mediaQueriesType";
-import { IMediaQueriresType } from "../types/mediaQueriesType";
+
+// Types
+import { IIsMobile, IMediaQueriresType } from "../types/mediaQueriesType";
 import { IPostWithHashtags } from "../types/postType";
 import { IRatioTypes } from "../types/ratioType";
 

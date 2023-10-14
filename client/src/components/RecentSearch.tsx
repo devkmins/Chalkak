@@ -1,11 +1,16 @@
+// Libraries
 import { useRecoilState, useSetRecoilState } from "recoil";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+// Package
+import styled from "styled-components";
+
+// Atoms
 import {
   currentSearchState,
   recentSearchState,
 } from "../atoms/searchStateAtoms";
-import styled from "styled-components";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const RecentSearchBox = styled.div`
   position: absolute;

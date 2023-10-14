@@ -1,6 +1,11 @@
+// Library
 import { useSetRecoilState } from "recoil";
-import { currentSearchState } from "../atoms/searchStateAtoms";
+
+// React
 import { useEffect } from "react";
+
+// Atom
+import { currentSearchState } from "../atoms/searchStateAtoms";
 
 function useInitSearch() {
   const setCurrentSearch = useSetRecoilState(currentSearchState);

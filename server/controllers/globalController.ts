@@ -1,7 +1,12 @@
-import { Request, Response } from "express";
+// Library
+import bcrypt from "bcrypt";
+
+// Models
 import Post from "../models/Post";
 import User from "../models/User";
-import bcrypt from "bcrypt";
+
+// Types
+import { Request, Response } from "express";
 import { CustomSession } from "../types/session";
 
 export const home = async (req: Request, res: Response) => {

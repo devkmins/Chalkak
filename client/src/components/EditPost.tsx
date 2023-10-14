@@ -1,8 +1,15 @@
+// Libraries
 import axios from "axios";
-import { useState } from "react";
-import { useQuery } from "react-query";
 import { useSetRecoilState } from "recoil";
+import { useQuery } from "react-query";
+
+// Package
 import { styled } from "styled-components";
+
+// React
+import { useState } from "react";
+
+// Atom
 import { isEditedState } from "../atoms/postEditedAtom";
 
 interface IEditPostProp {

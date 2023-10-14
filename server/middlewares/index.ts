@@ -1,6 +1,9 @@
+// Middleware
+import multer from "multer";
+
+// Types
 import { NextFunction } from "express";
 import { CustomSession } from "../types/session";
-import multer from "multer";
 
 export const protectorMiddleware = (
   req: Express.Request,

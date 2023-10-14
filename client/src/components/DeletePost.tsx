@@ -1,7 +1,12 @@
+// Libraries
 import axios from "axios";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
+
+// Package
 import { styled } from "styled-components";
+
+// Type
 import { IImage } from "../types/detailImageType";
 
 interface IDeletePostProp {

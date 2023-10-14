@@ -1,9 +1,16 @@
-import { Request, Response } from "express";
-import User from "../models/User";
-import { CustomSession } from "../types/session";
+// Library
 import bcrypt from "bcrypt";
-import Post from "../models/Post";
+
+// Module
 import fs from "fs";
+
+// Models
+import User from "../models/User";
+import Post from "../models/Post";
+
+// Types
+import { Request, Response } from "express";
+import { CustomSession } from "../types/session";
 
 export const editProfile = async (req: Request, res: Response) => {
   const { name: newName, email: newEmail, username: newUsername } = req.body;

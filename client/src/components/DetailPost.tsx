@@ -1,7 +1,17 @@
+// Libraries
 import axios from "axios";
 import { useQuery, useQueryClient } from "react-query";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import ReactModal from "react-modal";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+// Package
+import { styled } from "styled-components";
+
+// Atoms
 import { currentPostState } from "../atoms/currentPostAtoms";
 import { currentSearchState } from "../atoms/searchStateAtoms";
 import {
@@ -12,25 +22,29 @@ import {
 import { isEditedState } from "../atoms/postEditedAtom";
 import { loggedInState } from "../atoms/authAtoms";
 import { sessionState } from "../atoms/sessionAtom";
+
+// React
 import { useEffect, useState } from "react";
+
+// Components
 import Header from "./Header";
-import { styled } from "styled-components";
+import PostSettings from "./PostSettings";
+import NotificationBar from "./NotificationBar";
+import SimilarPosts from "./SimilarPosts";
+
+// Asset
 import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
+
+// Types
+import { IImage } from "../types/detailImageType";
+import { IRatioTypes } from "../types/ratioType";
+
+// React-Icons
 import { AiFillHeart } from "@react-icons/all-files/ai/AiFillHeart";
 import { BsThreeDots } from "@react-icons/all-files/bs/BsThreeDots";
 import { BsPerson } from "@react-icons/all-files/bs/BsPerson";
 import { MdDateRange } from "@react-icons/all-files/md/MdDateRange";
 import { GrFormClose } from "@react-icons/all-files/gr/GrFormClose";
-import ReactModal from "react-modal";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { Link } from "react-router-dom";
-import PostSettings from "./PostSettings";
-import NotificationBar from "./NotificationBar";
-import SimilarPosts from "./SimilarPosts";
-import { IImage } from "../types/detailImageType";
-import { IRatioTypes } from "../types/ratioType";
 
 interface StyledAiFillHeartProps {
   clicked: string;

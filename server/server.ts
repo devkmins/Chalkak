@@ -1,13 +1,20 @@
-import "./db";
+// FrameWork
 import express from "express";
+
+// Middlewares
 import morgan from "morgan";
 import cors from "cors";
-import "dotenv/config";
-
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import cookieParser from "cookie-parser";
 
+// Module
+import "dotenv/config";
+
+// File
+import "./db";
+
+// Routers
 import globalRouter from "./routes/globalRouter";
 import userRouter from "./routes/userRouter";
 import postRouter from "./routes/postRouter";

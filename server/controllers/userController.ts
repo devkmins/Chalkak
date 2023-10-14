@@ -1,7 +1,10 @@
-import { Request, Response } from "express";
-import { CustomSession } from "../types/session";
+// Models
 import User from "../models/User";
 import Post from "../models/Post";
+
+// Types
+import { Request, Response } from "express";
+import { CustomSession } from "../types/session";
 
 export const see = async (req: Request, res: Response) => {
   const username = req.params.uid;

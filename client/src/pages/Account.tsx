@@ -1,15 +1,30 @@
+// Libraries
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { sessionState } from "../atoms/sessionAtom";
+
+// Package
 import { styled } from "styled-components";
-import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
+
+// React
+import { useEffect, useRef, useState } from "react";
+
+// Atom
+import { sessionState } from "../atoms/sessionAtom";
+
+// Components
 import Header from "../components/Header";
 import AccountMenu from "../components/AccountMenu";
 import useInitSearch from "../hooks/useInitSearch";
 import NotificationBar from "../components/NotificationBar";
+
+// Asset
+import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
+
+// Style
 import { useMobile } from "../styles/mediaQueries";
+
+// Type
 import { IIsMobile } from "../types/mediaQueriesType";
 
 interface IError {

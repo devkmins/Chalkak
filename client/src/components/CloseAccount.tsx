@@ -1,15 +1,28 @@
+// Libraries
 import axios from "axios";
-import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
 import { useCookies } from "react-cookie";
 import { useSetRecoilState } from "recoil";
+
+// Package
+import styled from "styled-components";
+
+// React
+import { useState } from "react";
+
+// Atoms
 import { loggedInState } from "../atoms/authAtoms";
 import { sessionState } from "../atoms/sessionAtom";
+
+// Components
 import AccountMenu from "./AccountMenu";
-import styled from "styled-components";
 import Header from "./Header";
+
+// MediaQuery
 import { useMobile } from "../styles/mediaQueries";
+
+// Type
 import { IIsMobile } from "../types/mediaQueriesType";
 
 interface IError {

@@ -1,12 +1,23 @@
+// Libraries
 import axios from "axios";
-import { useEffect, useState } from "react";
 import CryptoJS from "crypto-js";
 import { useLocation } from "react-router-dom";
-import AccountMenu from "./AccountMenu";
+
+// Package
 import styled from "styled-components";
+
+// React
+import { useEffect, useState } from "react";
+
+// Components
+import AccountMenu from "./AccountMenu";
 import Header from "./Header";
 import NotificationBar from "./NotificationBar";
+
+// MediaQuery
 import { useMobile } from "../styles/mediaQueries";
+
+// Type
 import { IIsMobile } from "../types/mediaQueriesType";
 
 interface IError {

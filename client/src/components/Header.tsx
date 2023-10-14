@@ -1,23 +1,40 @@
-import { styled } from "styled-components";
-import SearchPost from "./SearchPost";
-import { RiCameraLensFill } from "@react-icons/all-files/ri/RiCameraLensFill";
+// Libraries
 import { useRecoilValue, useSetRecoilState } from "recoil";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import axios from "axios";
+
+// Package
+import { styled } from "styled-components";
+
+// Atoms
 import { isBackToMainState } from "../atoms/navigationBackAtoms";
 import { isLoggedOutState, loggedInState } from "../atoms/authAtoms";
 import { sessionState } from "../atoms/sessionAtom";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
-import LoggedInMenu from "./LoggedInMenu";
+
+// React
 import { useEffect, useRef, useState } from "react";
-import { useCookies } from "react-cookie";
-import axios from "axios";
+
+// Components
+import SearchPost from "./SearchPost";
+import LoggedInMenu from "./LoggedInMenu";
+import GuestMenu from "./GuestMenu";
+
+// Styles
 import {
   useDesktop,
   useMobile,
   useTabletOrLaptop,
 } from "../styles/mediaQueries";
+
+// React-Icons
+import { RiCameraLensFill } from "@react-icons/all-files/ri/RiCameraLensFill";
 import { FaBars } from "@react-icons/all-files/fa/FaBars";
-import GuestMenu from "./GuestMenu";
+
+// Asset
+import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
+
+// Type
 import { IIsMobile } from "../types/mediaQueriesType";
 
 const HeaderContainer = styled.div`

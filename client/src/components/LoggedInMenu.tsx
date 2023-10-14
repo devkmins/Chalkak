@@ -1,12 +1,20 @@
+// Libraries
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { isLoggedOutState } from "../atoms/authAtoms";
-import { loggedInState } from "../atoms/authAtoms";
-import { sessionState } from "../atoms/sessionAtom";
-import styled from "styled-components";
 import { useCookies } from "react-cookie";
 import axios from "axios";
+
+// Package
+import styled from "styled-components";
+
+// Atoms
+import { isLoggedOutState, loggedInState } from "../atoms/authAtoms";
+import { sessionState } from "../atoms/sessionAtom";
+
+// Style
 import { useMobile } from "../styles/mediaQueries";
+
+// Type
 import { IIsMobile } from "../types/mediaQueriesType";
 
 const Container = styled.div<IIsMobile>`

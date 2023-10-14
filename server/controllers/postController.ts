@@ -1,10 +1,19 @@
-import { NextFunction, Request, Response } from "express";
-import Post from "../models/Post";
-import { CustomSession } from "../types/session";
-import User from "../models/User";
-import fs from "fs";
-import multer from "multer";
+// Library
 import path from "path";
+
+// Module
+import fs from "fs";
+
+// Middleware
+import multer from "multer";
+
+// Models
+import Post from "../models/Post";
+import User from "../models/User";
+
+// Types
+import { NextFunction, Request, Response } from "express";
+import { CustomSession } from "../types/session";
 
 export const watch = async (req: Request, res: Response) => {
   const { pid } = req.params;

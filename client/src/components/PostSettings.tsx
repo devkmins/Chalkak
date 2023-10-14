@@ -1,7 +1,12 @@
+// Package
 import { styled } from "styled-components";
+
+// React
+import { useState } from "react";
+
+// Components
 import EditPost from "./EditPost";
 import DeletePost from "./DeletePost";
-import { useState } from "react";
 
 interface IPostSettingsProp {
   postId: string;

@@ -1,8 +1,17 @@
-import styled from "styled-components";
-import { GrFormClose } from "@react-icons/all-files/gr/GrFormClose";
-import { useEffect, useState } from "react";
+// Library
 import { useSetRecoilState } from "recoil";
+
+// Package
+import styled from "styled-components";
+
+// Atom
 import { isLoggedOutState } from "../atoms/authAtoms";
+
+// React
+import { useEffect, useState } from "react";
+
+// React-icons
+import { GrFormClose } from "@react-icons/all-files/gr/GrFormClose";
 
 interface IProp {
   text: string;

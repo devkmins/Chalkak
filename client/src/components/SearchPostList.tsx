@@ -1,21 +1,38 @@
+// Libraries
 import { Link, useLocation, useParams } from "react-router-dom";
-import styled from "styled-components";
-import Header from "./Header";
-import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
-import { useEffect, useState } from "react";
-import { RiImage2Fill } from "@react-icons/all-files/ri/RiImage2Fill";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { debounce } from "lodash";
 import { useRecoilState, useRecoilValue } from "recoil";
+
+// Package
+import styled from "styled-components";
+
+// Atoms
 import { isBackToSearchPostListState } from "../atoms/navigationBackAtoms";
 import { searchPostListScrollYState } from "../atoms/scrollYStateAtoms";
+
+// Components
+import Header from "./Header";
+import NoSearchResults from "./NoSearchResults";
+
+// React
+import { useEffect, useState } from "react";
+
+// Asset
+import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
+
+// Styles
 import {
   useDesktop,
   useMobile,
   useTabletOrLaptop,
 } from "../styles/mediaQueries";
-import NoSearchResults from "./NoSearchResults";
+
+// React-Icons
+import { RiImage2Fill } from "@react-icons/all-files/ri/RiImage2Fill";
+
+// Types
 import { IMediaQueriresType } from "../types/mediaQueriesType";
 import { IIsMobile } from "../types/mediaQueriesType";
 import { IPost } from "../types/postType";

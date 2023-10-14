@@ -1,18 +1,34 @@
+// Libraries
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import CryptoJS from "crypto-js";
 import { useSetRecoilState } from "recoil";
+
+// Package
+import { styled } from "styled-components";
+
+// React
+import { useEffect, useState } from "react";
+
+// Atoms
 import { isLoggedOutState, loggedInState } from "../atoms/authAtoms";
 import { sessionState } from "../atoms/sessionAtom";
-import { styled } from "styled-components";
+
+// Component
+import NotificationBar from "../components/NotificationBar";
+
+// Asset
 import loginImg from "../assets/Images/login.webp";
+
+// Style
+import { useMobile } from "../styles/mediaQueries";
+
+// React-Icons
 import { RiCameraLensFill } from "@react-icons/all-files/ri/RiCameraLensFill";
 import { BiShow } from "@react-icons/all-files/bi/BiShow";
 import { BiHide } from "@react-icons/all-files/bi/BiHide";
-import { Link } from "react-router-dom";
-import NotificationBar from "../components/NotificationBar";
-import { useMobile } from "../styles/mediaQueries";
+
+// Type
 import { IIsMobile } from "../types/mediaQueriesType";
 
 interface IError {

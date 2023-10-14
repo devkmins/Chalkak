@@ -1,7 +1,17 @@
+// Libraries
 import axios from "axios";
 import { useQuery } from "react-query";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, Link } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { debounce } from "lodash";
+
+// Package
+import styled from "styled-components";
+
+// React
+import { useEffect, useState } from "react";
+
+// Atoms
 import { currentUserPageScrollState } from "../atoms/pageScrollAtoms";
 import { currentUserPageState } from "../atoms/currentPostAtoms";
 import {
@@ -12,20 +22,28 @@ import {
 } from "../atoms/navigationBackAtoms";
 import { sessionState } from "../atoms/sessionAtom";
 import { userPageScrollYState } from "../atoms/scrollYStateAtoms";
-import { Link } from "react-router-dom";
-import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
-import styled from "styled-components";
+
+// Components
 import Header from "../components/Header";
-import { RiImage2Fill } from "@react-icons/all-files/ri/RiImage2Fill";
-import { useEffect, useState } from "react";
+import UserPosts from "../components/UserPosts";
+import UserLikes from "../components/UserLikes";
+
+// Hook
 import useInitSearch from "../hooks/useInitSearch";
+
+// Style
+import { useMobile } from "../styles/mediaQueries";
+
+// Asset
+import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
+
+// React-Icons
+import { RiImage2Fill } from "@react-icons/all-files/ri/RiImage2Fill";
 import { AiFillHeart } from "@react-icons/all-files/ai/AiFillHeart";
 import { BsPersonCheck } from "@react-icons/all-files/bs/BsPersonCheck";
 import { RiHeartsLine } from "@react-icons/all-files/ri/RiHeartsLine";
-import { debounce } from "lodash";
-import { useMobile } from "../styles/mediaQueries";
-import UserPosts from "../components/UserPosts";
-import UserLikes from "../components/UserLikes";
+
+// Types
 import { IPost } from "../types/postType";
 import { IIsMobile } from "../types/mediaQueriesType";
 

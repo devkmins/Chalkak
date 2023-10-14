@@ -1,19 +1,31 @@
-import { useEffect, useState } from "react";
+// Libraries
 import { Link, useLocation } from "react-router-dom";
-import styled from "styled-components";
-import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
 import { useSetRecoilState } from "recoil";
+
+// Package
+import styled from "styled-components";
+
+// React
+import { useEffect, useState } from "react";
+
+// Atoms
 import { isBackToUserPageState } from "../atoms/navigationBackAtoms";
 import { userPageScrollYState } from "../atoms/scrollYStateAtoms";
+
+// Asset
+import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
+
+// Styles
 import {
   useDesktop,
   useMobile,
   useTabletOrLaptop,
 } from "../styles/mediaQueries";
+
+// Types
 import { IPost, IUserData } from "../types/postType";
-import { IIsMobile } from "../types/mediaQueriesType";
+import { IIsMobile, IMediaQueriresType } from "../types/mediaQueriesType";
 import { IRatioTypes } from "../types/ratioType";
-import { IMediaQueriresType } from "../types/mediaQueriesType";
 
 const ColumnsContainer = styled.div<IMediaQueriresType>`
   display: grid;

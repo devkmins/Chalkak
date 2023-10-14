@@ -1,10 +1,17 @@
+// Package
 import { styled } from "styled-components";
+
+// Asset
 import mainImg from "../assets/Images/main.webp";
+
+// Styles
 import {
   useDesktop,
   useMobile,
   useTabletOrLaptop,
 } from "../styles/mediaQueries";
+
+// Type
 import { IIsDesktop } from "../types/mediaQueriesType";
 
 interface IMainImg {

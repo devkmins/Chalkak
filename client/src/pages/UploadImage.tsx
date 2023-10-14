@@ -1,24 +1,43 @@
-import { useEffect, useState } from "react";
+// Libraries
 import Dropzone from "react-dropzone";
-import { styled } from "styled-components";
-import Header from "../components/Header";
-import useInitSearch from "../hooks/useInitSearch";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useRecoilValue } from "recoil";
+import { motion } from "framer-motion";
+
+// Package
+import { styled } from "styled-components";
+
+// React
+import { useEffect, useState } from "react";
+
+// Component
+import Header from "../components/Header";
+
+// Atom
 import { sessionState } from "../atoms/sessionAtom";
+
+// Hook
+import useInitSearch from "../hooks/useInitSearch";
+
+// Style
+import { useMobile } from "../styles/mediaQueries";
+
+// React-Icons
 import { BsBoxArrowInLeft } from "@react-icons/all-files/bs/BsBoxArrowInLeft";
 import { MdClear } from "@react-icons/all-files/md/MdClear";
-import { resizeAndConvertToWebP } from "../resizeAndConvertToWebP";
-import { useMobile } from "../styles/mediaQueries";
 import { BsCardImage } from "@react-icons/all-files/bs/BsCardImage";
-import { motion } from "framer-motion";
-import { IIsMobile } from "../types/mediaQueriesType";
+
+// Util
 import {
   ContainerVariants,
   DotTransition,
   DotVariants,
 } from "../utils/framerMotion";
+import { resizeAndConvertToWebP } from "../utils/resizeAndConvertToWebP";
+
+// Type
+import { IIsMobile } from "../types/mediaQueriesType";
 
 interface imgResizeFuncResultType {
   blob: File;

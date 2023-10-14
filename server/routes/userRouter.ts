@@ -1,5 +1,10 @@
+// FrameWork
 import express from "express";
+
+// Controllers
 import { see, logout } from "../controllers/userController";
+
+// Middleware
 import { protectorMiddleware } from "../middlewares";
 
 const userRouter = express.Router();

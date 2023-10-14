@@ -1,4 +1,7 @@
+// FrameWork
 import express from "express";
+
+// Controllers
 import {
   home,
   search,
@@ -7,6 +10,8 @@ import {
   getLogin,
   topViewsPosts,
 } from "../controllers/globalController";
+
+// Middleware
 import { publicOnlyMiddleware } from "../middlewares";
 
 const globalRouter = express.Router();

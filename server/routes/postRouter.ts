@@ -1,4 +1,7 @@
+// FrameWork
 import express from "express";
+
+// Controllers
 import {
   watch,
   postUpload,
@@ -9,6 +12,8 @@ import {
   postLikes,
   similarPosts,
 } from "../controllers/postController";
+
+// Middleware
 import { imageUpload, protectorMiddleware } from "../middlewares";
 
 const postRouter = express.Router();
