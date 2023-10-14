@@ -29,25 +29,11 @@ import { Link } from "react-router-dom";
 import PostSettings from "./PostSettings";
 import NotificationBar from "./NotificationBar";
 import SimilarPosts from "./SimilarPosts";
+import { IImage } from "../types/detailImageType";
+import { IRatioTypes } from "../types/ratioType";
 
 interface StyledAiFillHeartProps {
   clicked: string;
-}
-
-interface imageComponentProps {
-  $ratioWidth: number;
-  $ratioHeight: number;
-}
-
-interface IImage {
-  fieldname: string;
-  originalname: string;
-  encoding: string;
-  mimetype: string;
-  destination: string;
-  filename: string;
-  path: string;
-  size: number;
 }
 
 const Container = styled.div``;
@@ -135,7 +121,7 @@ const StyledSlider = styled(Slider)`
   width: 90vh;
 `;
 
-const Image = styled.img<imageComponentProps>`
+const Image = styled.img<IRatioTypes>`
   object-fit: contain;
   max-height: 100vh;
   aspect-ratio: ${(props) => props.$ratioWidth} /

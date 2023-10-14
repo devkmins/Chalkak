@@ -12,15 +12,12 @@ import { BiHide } from "@react-icons/all-files/bi/BiHide";
 import { Link } from "react-router-dom";
 import NotificationBar from "../../components/NotificationBar";
 import { useMobile } from "../../styles/mediaQueries";
+import { IIsMobile } from "../../types/isMobileType";
 
 interface IError {
   passwordError: string;
   userError: string;
   loginCountError: string;
-}
-
-interface IIsMobile {
-  $isMobile: string;
 }
 
 const Box = styled.div<IIsMobile>`

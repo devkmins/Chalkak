@@ -5,10 +5,7 @@ import {
   useMobile,
   useTabletOrLaptop,
 } from "../styles/mediaQueries";
-
-interface IIsDesktop {
-  $isDesktop: string;
-}
+import { IIsDesktop } from "../types/mediaQueriesType";
 
 interface IMainImg {
   $isMobile: string;

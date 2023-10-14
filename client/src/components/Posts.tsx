@@ -17,56 +17,16 @@ import {
   useMobile,
   useTabletOrLaptop,
 } from "../styles/mediaQueries";
-
-interface imageComponentProps {
-  $ratioWidth: number;
-  $ratioHeight: number;
-}
-
-interface IIsMobile {
-  $isMobile: string;
-}
-
-interface IColumnsContainerProps {
-  $isMobile: string;
-  $isTabletOrLaptop: string;
-  $isDesktop: string;
-}
-
-interface IPost {
-  _id: string;
-  title: string;
-  description: string;
-  fileUrl: {
-    fieldname: string;
-    originalname: string;
-    encoding: string;
-    mimetype: string;
-    destination: string;
-    filename: string;
-    path: string;
-    size: number;
-  }[];
-  hashtags: string[];
-  owner: {
-    _id: string;
-    name: string;
-    username: string;
-    profileImage: string;
-  };
-  views: number;
-  likes: string[];
-  ratioWidth: number[];
-  ratioHeight: number[];
-  createdAt: string;
-  __v: number;
-}
+import { IIsMobile } from "../types/mediaQueriesType";
+import { IMediaQueriresType } from "../types/mediaQueriesType";
+import { IPostWithHashtags } from "../types/postType";
+import { IRatioTypes } from "../types/ratioType";
 
 const Container = styled.div`
   width: 100%;
 `;
 
-const ColumnsContainer = styled.div<IColumnsContainerProps>`
+const ColumnsContainer = styled.div<IMediaQueriresType>`
   display: grid;
   grid-template-columns: ${(props) =>
     props.$isDesktop === "true"
@@ -90,7 +50,7 @@ const StyledLink = styled(Link)`
   width: 100%;
 `;
 
-const Image = styled.img<imageComponentProps>`
+const Image = styled.img<IRatioTypes>`
   width: 100%;
   aspect-ratio: ${(props) => props.$ratioWidth} /
     ${(props) => props.$ratioHeight};
@@ -196,9 +156,9 @@ function Posts() {
     };
   }, []);
 
-  const [firstCol, setFirstCol] = useState<IPost[]>([]);
-  const [secondCol, setSecondCol] = useState<IPost[]>([]);
-  const [thirdCol, setThirdCol] = useState<IPost[]>([]);
+  const [firstCol, setFirstCol] = useState<IPostWithHashtags[]>([]);
+  const [secondCol, setSecondCol] = useState<IPostWithHashtags[]>([]);
+  const [thirdCol, setThirdCol] = useState<IPostWithHashtags[]>([]);
 
   const [scrollY, setScrollY] = useRecoilState(mainPageScrollYState);
 
@@ -213,13 +173,13 @@ function Posts() {
   };
 
   useEffect(() => {
-    const firstColImages: IPost[] = [];
-    const secondColImages: IPost[] = [];
-    const thirdColImages: IPost[] = [];
+    const firstColImages: IPostWithHashtags[] = [];
+    const secondColImages: IPostWithHashtags[] = [];
+    const thirdColImages: IPostWithHashtags[] = [];
 
     if (isMobile) {
       if (data?.postsData && Array.isArray(data?.postsData)) {
-        data?.postsData.forEach((post: IPost, index: number) => {
+        data?.postsData.forEach((post: IPostWithHashtags, index: number) => {
           firstColImages.push(post);
         });
       }
@@ -227,7 +187,7 @@ function Posts() {
 
     if (isTabletOrLaptop) {
       if (data?.postsData && Array.isArray(data?.postsData)) {
-        data?.postsData.forEach((post: IPost, index: number) => {
+        data?.postsData.forEach((post: IPostWithHashtags, index: number) => {
           if (index % 2 === 0) {
             firstColImages.push(post);
           } else if (index % 2 === 1) {
@@ -239,7 +199,7 @@ function Posts() {
 
     if (isDesktop) {
       if (data?.postsData && Array.isArray(data?.postsData)) {
-        data?.postsData.forEach((post: IPost, index: number) => {
+        data?.postsData.forEach((post: IPostWithHashtags, index: number) => {
           if (index % 3 === 0) {
             firstColImages.push(post);
           } else if (index % 3 === 1) {

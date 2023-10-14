@@ -5,12 +5,9 @@ import styled from "styled-components";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { useMobile } from "../styles/mediaQueries";
+import { IIsMobile } from "../types/mediaQueriesType";
 
-interface IContainer {
-  $isMobile: string;
-}
-
-const Container = styled.div<IContainer>`
+const Container = styled.div<IIsMobile>`
   position: absolute;
   display: grid;
   grid-template-rows: repeat(2, 1fr);

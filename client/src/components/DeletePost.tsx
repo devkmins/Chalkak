@@ -2,20 +2,10 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
+import { IImage } from "../types/detailImageType";
 
 interface IDeletePostProp {
   postId: string;
-}
-
-interface ImageType {
-  fieldname: string;
-  originalname: string;
-  encoding: string;
-  mimetype: string;
-  destination: string;
-  filename: string;
-  path: string;
-  size: number;
 }
 
 const Container = styled.div`
@@ -101,7 +91,7 @@ function DeletePost({ postId }: IDeletePostProp) {
   return (
     <Container>
       <ImagesBox>
-        {data?.fileUrl?.map((img: ImageType, index: number) => (
+        {data?.fileUrl?.map((img: IImage, index: number) => (
           <Image
             key={img.path}
             alt={`Image ${index + 1}`}

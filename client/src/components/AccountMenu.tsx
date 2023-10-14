@@ -1,13 +1,10 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useMobile } from "../styles/mediaQueries";
+import { IIsMobile } from "../types/mediaQueriesType";
 
 interface IAccountMenuProp {
   pathname: string;
-}
-
-interface IIsMobile {
-  $isMobile: string;
 }
 
 const LinkContainer = styled.div<IIsMobile>`

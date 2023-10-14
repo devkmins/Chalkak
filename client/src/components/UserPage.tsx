@@ -26,6 +26,8 @@ import { debounce } from "lodash";
 import { useMobile } from "../styles/mediaQueries";
 import UserPosts from "./UserPosts";
 import UserLikes from "./UserLikes";
+import { IPost } from "../types/postType";
+import { IIsMobile } from "../types/mediaQueriesType";
 
 interface IPhotoLi {
   connectphotos: string;
@@ -33,37 +35,6 @@ interface IPhotoLi {
 
 interface ILikesLi {
   connectlikes: string;
-}
-
-interface IIsMobile {
-  $isMobile: string;
-}
-
-interface IPost {
-  _id: string;
-  title: string;
-  description: string;
-  fileUrl: {
-    fieldname: string;
-    originalname: string;
-    encoding: string;
-    mimetype: string;
-    destination: string;
-    filename: string;
-    path: string;
-    size: number;
-  }[];
-  owner: {
-    _id: string;
-    name: string;
-    username: string;
-    profileImage: string;
-  };
-  views: number;
-  likes: string[];
-  ratioWidth: number[];
-  ratioHeight: number[];
-  createdAt: string;
 }
 
 const Container = styled.div``;

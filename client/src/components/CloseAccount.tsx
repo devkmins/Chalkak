@@ -9,13 +9,10 @@ import AccountMenu from "./AccountMenu";
 import styled from "styled-components";
 import Header from "../pages/Header";
 import { useMobile } from "../styles/mediaQueries";
+import { IIsMobile } from "../types/mediaQueriesType";
 
 interface IError {
   passwordError: string;
-}
-
-interface IIsMobile {
-  $isMobile: string;
 }
 
 const Container = styled.div``;

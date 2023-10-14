@@ -7,15 +7,12 @@ import styled from "styled-components";
 import Header from "../pages/Header";
 import NotificationBar from "./NotificationBar";
 import { useMobile } from "../styles/mediaQueries";
+import { IIsMobile } from "../types/mediaQueriesType";
 
 interface IError {
   currentPasswordError: string;
   newPasswordError: string;
   confirmPasswordError: string;
-}
-
-interface IIsMobile {
-  $isMobile: string;
 }
 
 const Container = styled.div``;

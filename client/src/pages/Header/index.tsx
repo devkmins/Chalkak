@@ -21,10 +21,7 @@ import {
 } from "../../styles/mediaQueries";
 import { FaBars } from "@react-icons/all-files/fa/FaBars";
 import GuestMenu from "../../components/GuestMenu";
-
-interface IIsMobile {
-  $isMobile: string;
-}
+import { IIsMobile } from "../../types/mediaQueriesType";
 
 const HeaderContainer = styled.div`
   display: flex;

@@ -9,60 +9,12 @@ import {
   useMobile,
   useTabletOrLaptop,
 } from "../styles/mediaQueries";
+import { IPost, IUserData } from "../types/postType";
+import { IIsMobile } from "../types/mediaQueriesType";
+import { IRatioTypes } from "../types/ratioType";
+import { IMediaQueriresType } from "../types/mediaQueriesType";
 
-interface IIsMobile {
-  $isMobile: string;
-}
-
-interface IColumnsContainerProps {
-  $isMobile: string;
-  $isTabletOrLaptop: string;
-  $isDesktop: string;
-}
-
-interface imageComponentProps {
-  $ratioWidth: number;
-  $ratioHeight: number;
-}
-
-interface IPost {
-  _id: string;
-  title: string;
-  description: string;
-  fileUrl: {
-    fieldname: string;
-    originalname: string;
-    encoding: string;
-    mimetype: string;
-    destination: string;
-    filename: string;
-    path: string;
-    size: number;
-  }[];
-  hashtags: string[];
-  owner: {
-    _id: string;
-    name: string;
-    username: string;
-    profileImage: string;
-  };
-  views: number;
-  likes: string[];
-  ratioWidth: number[];
-  ratioHeight: number[];
-  createdAt: string;
-  __v: number;
-}
-
-interface IUserData {
-  _id: string;
-  name: string;
-  username: string;
-  profileImage: string;
-  posts: IPost[];
-}
-
-const ColumnsContainer = styled.div<IColumnsContainerProps>`
+const ColumnsContainer = styled.div<IMediaQueriresType>`
   display: grid;
   grid-template-columns: ${(props) =>
     props.$isDesktop === "true"
@@ -93,7 +45,7 @@ const StyledLink = styled(Link)`
   width: 100%;
 `;
 
-const Image = styled.img<imageComponentProps>`
+const Image = styled.img<IRatioTypes>`
   width: 100%;
   max-height: max-content;
   aspect-ratio: ${(props) => props.$ratioWidth} /

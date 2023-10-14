@@ -13,15 +13,12 @@ import { resizeAndConvertToWebP } from "../resizeAndConvertToWebP";
 import { useMobile } from "../styles/mediaQueries";
 import { BsCardImage } from "@react-icons/all-files/bs/BsCardImage";
 import { motion } from "framer-motion";
+import { IIsMobile } from "../types/mediaQueriesType";
 
 interface imgResizeFuncResultType {
   blob: File;
   ratioWidth: number;
   ratioHeight: number;
-}
-
-interface IIsMobile {
-  $isMobile: string;
 }
 
 const SubmittedBox = styled.div`

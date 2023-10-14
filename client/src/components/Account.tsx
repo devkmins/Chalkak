@@ -10,14 +10,11 @@ import AccountMenu from "./AccountMenu";
 import useInitSearch from "../hooks/useInitSearch";
 import NotificationBar from "./NotificationBar";
 import { useMobile } from "../styles/mediaQueries";
+import { IIsMobile } from "../types/mediaQueriesType";
 
 interface IError {
   emailError: string;
   usernameError: string;
-}
-
-interface IIsMobile {
-  $isMobile: string;
 }
 
 const Container = styled.div``;
