@@ -16,5 +16,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "session.d.ts", "server", "images.d.ts"]
+  "include": ["src", "session.d.ts", "server", "imagesType.d.ts"]
 }
