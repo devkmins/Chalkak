@@ -39,6 +39,9 @@ import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
 import { IImage } from "../types/detailImageType";
 import { IRatioTypes } from "../types/ratioType";
 
+// Constant
+import { photoUpdateSuccessText } from "../constants/notificationMessages";
+
 // React-Icons
 import { AiFillHeart } from "@react-icons/all-files/ai/AiFillHeart";
 import { BsThreeDots } from "@react-icons/all-files/bs/BsThreeDots";
@@ -445,8 +448,6 @@ function DetailPost() {
     }
   }, [isEdited]);
 
-  const updatedText = "사진이 업데이트 되었습니다.";
-
   useEffect(() => {
     setTimeout(() => setIsEdited(false), 3000);
   }, [isEdited]);
@@ -461,7 +462,7 @@ function DetailPost() {
 
   return (
     <>
-      {isEdited && <NotificationBar text={updatedText} />}
+      {isEdited && <NotificationBar text={photoUpdateSuccessText} />}
       <Container>
         <Header />
         <Box>

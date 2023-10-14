@@ -17,6 +17,9 @@ import NotificationBar from "./NotificationBar";
 // MediaQuery
 import { useMobile } from "../styles/mediaQueries";
 
+// Constant
+import { passwordChangedText } from "../constants/notificationMessages";
+
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
 
@@ -205,11 +208,9 @@ function ChangePassword() {
     setTimeout(() => setIsChanged(false), 3000);
   }, [isChanged]);
 
-  const changePasswordText = "비밀번호가 변경되었습니다.";
-
   return (
     <>
-      {isChanged && <NotificationBar text={changePasswordText} />}
+      {isChanged && <NotificationBar text={passwordChangedText} />}
       <Container>
         <Header />
         <Box $isMobile={String(isMobile)}>

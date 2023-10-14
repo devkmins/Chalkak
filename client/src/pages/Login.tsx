@@ -28,6 +28,9 @@ import { RiCameraLensFill } from "@react-icons/all-files/ri/RiCameraLensFill";
 import { BiShow } from "@react-icons/all-files/bi/BiShow";
 import { BiHide } from "@react-icons/all-files/bi/BiHide";
 
+// Constant
+import { getJoinSuccessText } from "../constants/notificationMessages";
+
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
 
@@ -280,11 +283,11 @@ function Login() {
     }
   }, []);
 
-  const joinText = `안녕하세요 ${userName}님, 회원가입이 완료되었어요!`;
-
   return (
     <Box $isMobile={String(isMobile)}>
-      {isJoined === "true" && <NotificationBar text={joinText} />}
+      {isJoined === "true" && (
+        <NotificationBar text={getJoinSuccessText(userName)} />
+      )}
       {!isMobile && (
         <LoginImgContainer>
           <LoginImg />

@@ -10,14 +10,15 @@ import Header from "../components/Header";
 import IntroContent from "../components/IntroContent";
 import NotificationBar from "../components/NotificationBar";
 
+// Constant
+import { logoutSuccessText } from "../constants/notificationMessages";
+
 function Main() {
   const isLoggedOut = useRecoilValue(isLoggedOutState);
 
-  const logoutText = "로그아웃이 완료되었습니다.";
-
   return (
     <>
-      {isLoggedOut && <NotificationBar text={logoutText} />}
+      {isLoggedOut && <NotificationBar text={logoutSuccessText} />}
       <Header />
       <IntroContent />
       <Posts />

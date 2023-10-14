@@ -24,6 +24,9 @@ import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
 // Style
 import { useMobile } from "../styles/mediaQueries";
 
+// Constant
+import { accountUpdatedText } from "../constants/notificationMessages";
+
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
 
@@ -285,11 +288,9 @@ function Account() {
     setTimeout(() => setIsUpdated(false), 3000);
   }, [isUpdated]);
 
-  const accountText = "계정이 업데이트 되었습니다.";
-
   return (
     <>
-      {isUpdated && <NotificationBar text={accountText} />}
+      {isUpdated && <NotificationBar text={accountUpdatedText} />}
       <Container>
         <Header />
         <Box $isMobile={String(isMobile)}>
