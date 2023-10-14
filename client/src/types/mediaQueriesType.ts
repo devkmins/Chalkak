@@ -7,3 +7,7 @@ export interface IMediaQueriresType {
 export interface IIsDesktop {
   $isDesktop: string;
 }
+
+export interface IIsMobile {
+  $isMobile: string;
+}
