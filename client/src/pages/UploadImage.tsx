@@ -36,6 +36,9 @@ import {
 } from "../utils/framerMotion";
 import { resizeAndConvertToWebP } from "../utils/resizeAndConvertToWebP";
 
+// Constant
+import { closeConfirmationMessage } from "../constants/confirmationMessages";
+
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
 
@@ -365,9 +368,7 @@ function UploadImage() {
 
   const handleBackBtn = () => {
     if (images.length > 0) {
-      const result = window.confirm(
-        "모든 업로드가 취소됩니다. 정말로 닫으시겠습니까?"
-      );
+      const result = window.confirm(closeConfirmationMessage);
 
       if (result) {
         navigate(-1);

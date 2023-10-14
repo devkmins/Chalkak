@@ -6,6 +6,9 @@ import { useNavigate } from "react-router-dom";
 // Package
 import { styled } from "styled-components";
 
+// Constant
+import { photoRemovalConfirmation } from "../constants/confirmationMessages";
+
 // Type
 import { IImage } from "../types/detailImageType";
 
@@ -77,7 +80,7 @@ function DeletePost({ postId }: IDeletePostProp) {
   );
 
   const onClick = async () => {
-    const result = window.confirm("사진을 정말 제거하실 건가요?");
+    const result = window.confirm(photoRemovalConfirmation);
 
     if (result) {
       try {

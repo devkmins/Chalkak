@@ -22,6 +22,9 @@ import Header from "./Header";
 // MediaQuery
 import { useMobile } from "../styles/mediaQueries";
 
+// Constant
+import { accountClosureConfirmation } from "../constants/confirmationMessages";
+
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
 
@@ -138,7 +141,7 @@ function CloseAccount() {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const result = window.confirm("계정을 정말 폐쇄하실 건가요?");
+    const result = window.confirm(accountClosureConfirmation);
 
     if (result) {
       const hashedFormData = {
