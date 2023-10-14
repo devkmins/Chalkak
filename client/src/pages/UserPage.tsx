@@ -43,6 +43,9 @@ import { AiFillHeart } from "@react-icons/all-files/ai/AiFillHeart";
 import { BsPersonCheck } from "@react-icons/all-files/bs/BsPersonCheck";
 import { RiHeartsLine } from "@react-icons/all-files/ri/RiHeartsLine";
 
+// Constants
+import { ACCOUNT_PATH, USER_PATH } from "../constants/paths";
+
 // Types
 import { IPost } from "../types/postType";
 import { IIsMobile } from "../types/mediaQueriesType";
@@ -279,10 +282,10 @@ function UserPage() {
   const setCurrentUserPage = useSetRecoilState(currentUserPageState);
 
   useEffect(() => {
-    if (pathname === `/user/${username}`) {
+    if (pathname === `${USER_PATH}/${username}`) {
       setConnectPhotos(true);
       setConnectLikes(false);
-    } else if (pathname === `/user/${username}/likes`) {
+    } else if (pathname === `${USER_PATH}/${username}/likes`) {
       setConnectPhotos(false);
       setConnectLikes(true);
     }
@@ -374,7 +377,7 @@ function UserPage() {
               </TotalLikes>
             </TotalBox>
             {sessionData.username === username && (
-              <EditProfileLink to={"/account"} $isMobile={isMobileString}>
+              <EditProfileLink to={ACCOUNT_PATH} $isMobile={isMobileString}>
                 프로필 편집
               </EditProfileLink>
             )}
@@ -382,7 +385,7 @@ function UserPage() {
               <ContentsContainer $isMobile={isMobileString}>
                 <ContentsUl>
                   <PhotoLi connectphotos={String(connectPhotos)}>
-                    <Link to={`/user/${username}`} state={username}>
+                    <Link to={`${USER_PATH}/${username}`} state={username}>
                       <StyledRiImage2Fill $isMobile={isMobileString} />
                       <ContentText $isMobile={isMobileString}>
                         사진 {data?.length.userPostsLength}
@@ -390,7 +393,9 @@ function UserPage() {
                     </Link>
                   </PhotoLi>
                   <LikesLi connectlikes={String(connectLikes)}>
-                    <Link to={`/user/${username}/likes`} state={username}>
+                    <Link
+                      to={`${USER_PATH}/${username}/likes`}
+                      state={username}>
                       <StyledAiFillHeart $isMobile={isMobileString} />
                       <ContentText $isMobile={isMobileString}>
                         좋아요 {data?.length.userLikedLength}

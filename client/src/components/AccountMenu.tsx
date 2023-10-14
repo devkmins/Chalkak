@@ -7,6 +7,13 @@ import styled from "styled-components";
 // MediaQuery
 import { useMobile } from "../styles/mediaQueries";
 
+// Constants
+import {
+  ACCOUNT_PATH,
+  CHANGE_PASSWORD_PATH,
+  CLOSE_ACCOUNT_PATH,
+} from "../constants/paths";
+
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
 
@@ -67,26 +74,26 @@ function AccountMenu({ pathname }: IAccountMenuProp) {
       <Text $isMobile={isMobileString}>계정 설정</Text>
       <LinkUl>
         <LinkLi $isMobile={isMobileString}>
-          {pathname === "/account" ? (
-            <ConnectedtLink to={"/account"}>프로필 편집</ConnectedtLink>
+          {pathname === ACCOUNT_PATH ? (
+            <ConnectedtLink to={ACCOUNT_PATH}>프로필 편집</ConnectedtLink>
           ) : (
-            <StyledLink to={"/account"}>프로필 편집</StyledLink>
+            <StyledLink to={ACCOUNT_PATH}>프로필 편집</StyledLink>
           )}
         </LinkLi>
         <LinkLi $isMobile={isMobileString}>
-          {pathname === "/account/password" ? (
-            <ConnectedtLink to={"/account/password"}>
+          {pathname === CHANGE_PASSWORD_PATH ? (
+            <ConnectedtLink to={CHANGE_PASSWORD_PATH}>
               비밀번호 변경
             </ConnectedtLink>
           ) : (
-            <StyledLink to={"/account/password"}>비밀번호 변경</StyledLink>
+            <StyledLink to={CHANGE_PASSWORD_PATH}>비밀번호 변경</StyledLink>
           )}
         </LinkLi>
         <LinkLi $isMobile={isMobileString}>
-          {pathname === "/account/close" ? (
-            <ConnectedtLink to={"/account/close"}>계정 폐쇄</ConnectedtLink>
+          {pathname === CLOSE_ACCOUNT_PATH ? (
+            <ConnectedtLink to={CLOSE_ACCOUNT_PATH}>계정 폐쇄</ConnectedtLink>
           ) : (
-            <StyledLink to={"/account/close"}>계정 폐쇄</StyledLink>
+            <StyledLink to={CLOSE_ACCOUNT_PATH}>계정 폐쇄</StyledLink>
           )}
         </LinkLi>
       </LinkUl>

@@ -29,6 +29,9 @@ import {
   useTabletOrLaptop,
 } from "../styles/mediaQueries";
 
+// Constants
+import { POST_PATH, USER_PATH } from "../constants/paths";
+
 // Types
 import { IIsMobile, IMediaQueriresType } from "../types/mediaQueriesType";
 import { IPostWithHashtags } from "../types/postType";
@@ -259,7 +262,7 @@ function Posts() {
                   <ProfileContainer $isMobile={isMobileString}>
                     <ProfileBox $isMobile={isMobileString}>
                       <ProfileLink
-                        to={`/user/${post.owner.username}`}
+                        to={`${USER_PATH}/${post.owner.username}`}
                         state={path}
                         onClick={clickedProfile}
                         $isMobile={isMobileString}>
@@ -276,7 +279,7 @@ function Posts() {
                     </ProfileBox>
                   </ProfileContainer>
                   <StyledLink
-                    to={`/post/${post?.title}`}
+                    to={`${POST_PATH}/${post?.title}`}
                     state={{ postId: post?._id, path }}
                     onClick={clickedPost}>
                     <Image
@@ -301,7 +304,7 @@ function Posts() {
               firstCol.map((post, index) => (
                 <ImagesBox key={post?._id} $isMobile={isMobileString}>
                   <StyledLink
-                    to={`/post/${post?.title}`}
+                    to={`${POST_PATH}/${post?.title}`}
                     state={{ postId: post?._id, path }}
                     onClick={clickedPost}>
                     <Image
@@ -314,7 +317,7 @@ function Posts() {
                   <ProfileContainer $isMobile={isMobileString}>
                     <ProfileBox $isMobile={isMobileString}>
                       <ProfileLink
-                        to={`/user/${post.owner.username}`}
+                        to={`${USER_PATH}/${post.owner.username}`}
                         state={path}
                         onClick={clickedProfile}
                         $isMobile={isMobileString}>
@@ -338,7 +341,7 @@ function Posts() {
               secondCol.map((post, index) => (
                 <ImagesBox key={post?._id} $isMobile={isMobileString}>
                   <StyledLink
-                    to={`/post/${post?.title}`}
+                    to={`${POST_PATH}/${post?.title}`}
                     state={{ postId: post?._id, path }}
                     onClick={clickedPost}>
                     <Image
@@ -351,7 +354,7 @@ function Posts() {
                   <ProfileContainer $isMobile={isMobileString}>
                     <ProfileBox $isMobile={isMobileString}>
                       <ProfileLink
-                        to={`/user/${post.owner.username}`}
+                        to={`${USER_PATH}/${post.owner.username}`}
                         state={path}
                         onClick={clickedProfile}
                         $isMobile={isMobileString}>
@@ -382,7 +385,7 @@ function Posts() {
               firstCol.map((post, index) => (
                 <ImagesBox key={post?._id} $isMobile={isMobileString}>
                   <StyledLink
-                    to={`/post/${post?.title}`}
+                    to={`${POST_PATH}/${post?.title}`}
                     state={{ postId: post?._id, path }}
                     onClick={clickedPost}>
                     <Image
@@ -395,7 +398,7 @@ function Posts() {
                   <ProfileContainer $isMobile={isMobileString}>
                     <ProfileBox $isMobile={isMobileString}>
                       <ProfileLink
-                        to={`/user/${post.owner.username}`}
+                        to={`${USER_PATH}/${post.owner.username}`}
                         state={path}
                         onClick={clickedProfile}
                         $isMobile={isMobileString}>
@@ -419,7 +422,7 @@ function Posts() {
               secondCol.map((post, index) => (
                 <ImagesBox key={post?._id} $isMobile={isMobileString}>
                   <StyledLink
-                    to={`/post/${post?.title}`}
+                    to={`${POST_PATH}/${post?.title}`}
                     state={{ postId: post?._id, path }}
                     onClick={clickedPost}>
                     <Image
@@ -432,7 +435,7 @@ function Posts() {
                   <ProfileContainer $isMobile={isMobileString}>
                     <ProfileBox $isMobile={isMobileString}>
                       <ProfileLink
-                        to={`/user/${post.owner.username}`}
+                        to={`${USER_PATH}/${post.owner.username}`}
                         state={path}
                         onClick={clickedProfile}
                         $isMobile={isMobileString}>
@@ -456,7 +459,7 @@ function Posts() {
               thirdCol.map((post, index) => (
                 <ImagesBox key={post?._id} $isMobile={isMobileString}>
                   <StyledLink
-                    to={`/post/${post?.title}`}
+                    to={`${POST_PATH}/${post?.title}`}
                     state={{ postId: post?._id, path }}
                     onClick={clickedPost}>
                     <Image
@@ -469,7 +472,7 @@ function Posts() {
                   <ProfileContainer $isMobile={isMobileString}>
                     <ProfileBox $isMobile={isMobileString}>
                       <ProfileLink
-                        to={`/user/${post.owner.username}`}
+                        to={`${USER_PATH}/${post.owner.username}`}
                         state={path}
                         onClick={clickedProfile}
                         $isMobile={isMobileString}>

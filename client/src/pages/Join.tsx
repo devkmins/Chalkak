@@ -31,6 +31,7 @@ import {
   usernameLengthError,
   usernameWhiteSpaceError,
 } from "../constants/errorMessages";
+import { LOGIN_PATH, MAIN_PATH } from "../constants/paths";
 
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
@@ -311,7 +312,7 @@ function Join() {
       })
       .then(() => {
         sessionStorage.setItem("isJoined", "true");
-        navigate("/login", { state: { name: formData.name } });
+        navigate(LOGIN_PATH, { state: { name: formData.name } });
       })
       .catch((error) => setError(error.response.data));
   };
@@ -354,7 +355,7 @@ function Join() {
       )}
       <JoinBox>
         <JoinLogo>
-          <Link to={"/"}>
+          <Link to={MAIN_PATH}>
             <JoinLogoIcon />
           </Link>
           <span>회원가입</span>

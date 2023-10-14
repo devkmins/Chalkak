@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 // Package
 import styled from "styled-components";
 
+// Constants
+import { JOIN_PATH, LOGIN_PATH } from "../constants/paths";
+
 const Container = styled.div`
   position: absolute;
   display: grid;
@@ -28,8 +31,8 @@ const Container = styled.div`
 function GuestMenu() {
   return (
     <Container>
-      <Link to={"/login"}>로그인</Link>
-      <Link to={"/join"}>가입</Link>
+      <Link to={LOGIN_PATH}>로그인</Link>
+      <Link to={JOIN_PATH}>가입</Link>
     </Container>
   );
 }

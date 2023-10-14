@@ -12,6 +12,9 @@ import {
   recentSearchState,
 } from "../atoms/searchStateAtoms";
 
+// Constant
+import { SEARCH_PATH } from "../constants/paths";
+
 const RecentSearchBox = styled.div`
   position: absolute;
   width: 50%;
@@ -92,7 +95,7 @@ function RecentSearch() {
 
     setCurrentSearch(keyword);
 
-    navigate(`/search/${keyword}`, { state: response.data });
+    navigate(`${SEARCH_PATH}/${keyword}`, { state: response.data });
   };
 
   return (

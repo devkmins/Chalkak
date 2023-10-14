@@ -22,6 +22,9 @@ import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
 // Style
 import { useDesktop } from "../styles/mediaQueries";
 
+// Constants
+import { POST_PATH, USER_PATH } from "../constants/paths";
+
 // Types
 import { IPost } from "../types/postType";
 import { IRatioTypes } from "../types/ratioType";
@@ -226,7 +229,7 @@ function SimilarPosts({ title, postId }: IProp) {
               firstCol.map((post, index) => (
                 <ImagesBox key={post?._id}>
                   <StyledLink
-                    to={`/post/${post?.title}`}
+                    to={`${POST_PATH}/${post?.title}`}
                     state={{ postId: post?._id, path }}
                     onClick={clickedPost}>
                     <Image
@@ -239,7 +242,7 @@ function SimilarPosts({ title, postId }: IProp) {
                   <ProfileContainer>
                     <ProfileBox>
                       <ProfileLink
-                        to={`/user/${post.owner.username}`}
+                        to={`${USER_PATH}/${post.owner.username}`}
                         state={path}
                         onClick={clickedProfile}>
                         <ProfileImg
@@ -262,7 +265,7 @@ function SimilarPosts({ title, postId }: IProp) {
               secondCol.map((post, index) => (
                 <ImagesBox key={post?._id}>
                   <StyledLink
-                    to={`/post/${post?.title}`}
+                    to={`${POST_PATH}/${post?.title}`}
                     state={{ postId: post?._id, path }}
                     onClick={clickedPost}>
                     <Image
@@ -275,7 +278,7 @@ function SimilarPosts({ title, postId }: IProp) {
                   <ProfileContainer>
                     <ProfileBox>
                       <ProfileLink
-                        to={`/user/${post.owner.username}`}
+                        to={`${USER_PATH}/${post.owner.username}`}
                         state={path}
                         onClick={clickedProfile}>
                         <ProfileImg
@@ -302,7 +305,7 @@ function SimilarPosts({ title, postId }: IProp) {
               firstCol.map((post, index) => (
                 <ImagesBox key={post?._id}>
                   <StyledLink
-                    to={`/post/${post?.title}`}
+                    to={`${POST_PATH}/${post?.title}`}
                     state={{ postId: post?._id, path }}
                     onClick={clickedPost}>
                     <Image
@@ -315,7 +318,7 @@ function SimilarPosts({ title, postId }: IProp) {
                   <ProfileContainer>
                     <ProfileBox>
                       <ProfileLink
-                        to={`/user/${post.owner.username}`}
+                        to={`${USER_PATH}/${post.owner.username}`}
                         state={path}
                         onClick={clickedProfile}>
                         <ProfileImg
@@ -338,7 +341,7 @@ function SimilarPosts({ title, postId }: IProp) {
               secondCol.map((post, index) => (
                 <ImagesBox key={post?._id}>
                   <StyledLink
-                    to={`/post/${post?.title}`}
+                    to={`${POST_PATH}/${post?.title}`}
                     state={{ postId: post?._id, path }}
                     onClick={clickedPost}>
                     <Image
@@ -351,7 +354,7 @@ function SimilarPosts({ title, postId }: IProp) {
                   <ProfileContainer>
                     <ProfileBox>
                       <ProfileLink
-                        to={`/user/${post.owner.username}`}
+                        to={`${USER_PATH}/${post.owner.username}`}
                         state={path}
                         onClick={clickedProfile}>
                         <ProfileImg
@@ -374,7 +377,7 @@ function SimilarPosts({ title, postId }: IProp) {
               thirdCol.map((post, index) => (
                 <ImagesBox key={post?._id}>
                   <StyledLink
-                    to={`/post/${post?.title}`}
+                    to={`${POST_PATH}/${post?.title}`}
                     state={{ postId: post?._id, path }}
                     onClick={clickedPost}>
                     <Image
@@ -387,7 +390,7 @@ function SimilarPosts({ title, postId }: IProp) {
                   <ProfileContainer>
                     <ProfileBox>
                       <ProfileLink
-                        to={`/user/${post.owner.username}`}
+                        to={`${USER_PATH}/${post.owner.username}`}
                         state={path}
                         onClick={clickedProfile}>
                         <ProfileImg

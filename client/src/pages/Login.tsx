@@ -31,6 +31,7 @@ import { BiHide } from "@react-icons/all-files/bi/BiHide";
 // Constants
 import { getJoinSuccessText } from "../constants/notificationMessages";
 import { loginFailureLimitExceededError } from "../constants/errorMessages";
+import { MAIN_PATH } from "../constants/paths";
 
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
@@ -296,7 +297,7 @@ function Login() {
       )}
       <LoginBox>
         <LoginLogo>
-          <Link to={"/"}>
+          <Link to={MAIN_PATH}>
             <LoginLogoIcon />
           </Link>
           <span>로그인</span>

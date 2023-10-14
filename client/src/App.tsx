@@ -20,6 +20,21 @@ import Main from "./pages/MainPage";
 // Style
 import { GlobalStyle } from "./styles/globalStyle";
 
+// Constants
+import {
+  ACCOUNT_PATH,
+  CHANGE_PASSWORD_PATH,
+  CLOSE_ACCOUNT_PATH,
+  JOIN_PATH,
+  LOGIN_PATH,
+  MAIN_PATH,
+  POST_DETAIL_PATH,
+  POST_UPLOAD_PATH,
+  SEARCH_KEYWORD_PATH,
+  USER_LIKES_PATH,
+  USER_PROFILE_PATH,
+} from "./constants/paths";
+
 const Login = lazy(() => import("./pages/Login"));
 const Join = lazy(() => import("./pages/Join"));
 const UserPage = lazy(() => import("./pages/UserPage"));
@@ -53,31 +68,37 @@ function App() {
       <BrowserRouter>
         <GlobalStyle />
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route path={MAIN_PATH} element={<Main />} />
           <Route
-            path="/user/:id"
+            path={USER_PROFILE_PATH}
             element={<UserPage key={currentUserPage} />}
           />
-          <Route path="/user/:id/likes" element={<UserPage />} />
-          <Route path="/post/:id" element={<DetailPost key={currentPost} />} />
-          <Route path="/search/:keyword" element={<SearchPostList />} />
+          <Route path={USER_LIKES_PATH} element={<UserPage />} />
+          <Route
+            path={POST_DETAIL_PATH}
+            element={<DetailPost key={currentPost} />}
+          />
+          <Route path={SEARCH_KEYWORD_PATH} element={<SearchPostList />} />
           {loggedIn ? (
             <>
-              <Route path="/join" element={<Navigate to="/" />} />
-              <Route path="/login" element={<Navigate to="/" />} />
-              <Route path="/account" element={<Account />} />
-              <Route path="/account/close" element={<CloseAccount />} />
-              <Route path="/account/password" element={<ChangePassword />} />
-              <Route path="/post/upload" element={<UploadImage />} />
+              <Route path={JOIN_PATH} element={<Navigate to="/" />} />
+              <Route path={LOGIN_PATH} element={<Navigate to="/" />} />
+              <Route path={ACCOUNT_PATH} element={<Account />} />
+              <Route path={CLOSE_ACCOUNT_PATH} element={<CloseAccount />} />
+              <Route path={CHANGE_PASSWORD_PATH} element={<ChangePassword />} />
+              <Route path={POST_UPLOAD_PATH} element={<UploadImage />} />
             </>
           ) : (
             <>
-              <Route path="/join" element={<Join />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/account" element={<Navigate to="/" />} />
-              <Route path="/account/close" element={<Navigate to="/" />} />
-              <Route path="/account/password" element={<Navigate to="/" />} />
-              <Route path="/post/upload" element={<Navigate to="/" />} />
+              <Route path={JOIN_PATH} element={<Join />} />
+              <Route path={LOGIN_PATH} element={<Login />} />
+              <Route path={ACCOUNT_PATH} element={<Navigate to="/" />} />
+              <Route path={CLOSE_ACCOUNT_PATH} element={<Navigate to="/" />} />
+              <Route
+                path={CHANGE_PASSWORD_PATH}
+                element={<Navigate to="/" />}
+              />
+              <Route path={POST_UPLOAD_PATH} element={<Navigate to="/" />} />
             </>
           )}
         </Routes>

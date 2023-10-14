@@ -32,6 +32,9 @@ import {
 // React-Icons
 import { RiImage2Fill } from "@react-icons/all-files/ri/RiImage2Fill";
 
+// Constants
+import { POST_PATH, USER_PATH } from "../constants/paths";
+
 // Types
 import { IMediaQueriresType } from "../types/mediaQueriesType";
 import { IIsMobile } from "../types/mediaQueriesType";
@@ -327,7 +330,7 @@ function SearchPostList() {
                             <ProfileContainer $isMobile={isMobileString}>
                               <ProfileBox $isMobile={isMobileString}>
                                 <ProfileLink
-                                  to={`/user/${post.owner.username}`}
+                                  to={`${USER_PATH}/${post.owner.username}`}
                                   state={path}
                                   onClick={clickedProfile}
                                   $isMobile={isMobileString}>
@@ -344,7 +347,7 @@ function SearchPostList() {
                               </ProfileBox>
                             </ProfileContainer>
                             <StyledLink
-                              to={`/post/${post?.title}`}
+                              to={`${POST_PATH}/${post?.title}`}
                               state={{ postId: post?._id, path }}
                               onClick={clickedPost}>
                               <Image
@@ -371,7 +374,7 @@ function SearchPostList() {
                         firstCol.map((post, index) => (
                           <PostBox key={post?._id} $isMobile={isMobileString}>
                             <StyledLink
-                              to={`/post/${post?.title}`}
+                              to={`${POST_PATH}/${post?.title}`}
                               state={{ postId: post?._id, path }}
                               onClick={clickedPost}>
                               <Image
@@ -386,7 +389,7 @@ function SearchPostList() {
                             <ProfileContainer $isMobile={isMobileString}>
                               <ProfileBox $isMobile={isMobileString}>
                                 <ProfileLink
-                                  to={`/user/${post.owner.username}`}
+                                  to={`${USER_PATH}/${post.owner.username}`}
                                   state={path}
                                   onClick={clickedProfile}
                                   $isMobile={isMobileString}>
@@ -410,7 +413,7 @@ function SearchPostList() {
                         secondCol.map((post, index) => (
                           <PostBox key={post?._id} $isMobile={isMobileString}>
                             <StyledLink
-                              to={`/post/${post?.title}`}
+                              to={`${POST_PATH}/${post?.title}`}
                               state={{ postId: post?._id, path }}
                               onClick={clickedPost}>
                               <Image
@@ -425,7 +428,7 @@ function SearchPostList() {
                             <ProfileContainer $isMobile={isMobileString}>
                               <ProfileBox $isMobile={isMobileString}>
                                 <ProfileLink
-                                  to={`/user/${post.owner.username}`}
+                                  to={`${USER_PATH}/${post.owner.username}`}
                                   state={path}
                                   onClick={clickedProfile}
                                   $isMobile={isMobileString}>
@@ -456,7 +459,7 @@ function SearchPostList() {
                         firstCol.map((post, index) => (
                           <PostBox key={post?._id} $isMobile={isMobileString}>
                             <StyledLink
-                              to={`/post/${post?.title}`}
+                              to={`${POST_PATH}/${post?.title}`}
                               state={{ postId: post?._id, path }}
                               onClick={clickedPost}>
                               <Image
@@ -471,7 +474,7 @@ function SearchPostList() {
                             <ProfileContainer $isMobile={isMobileString}>
                               <ProfileBox $isMobile={isMobileString}>
                                 <ProfileLink
-                                  to={`/user/${post.owner.username}`}
+                                  to={`${USER_PATH}/${post.owner.username}`}
                                   state={path}
                                   onClick={clickedProfile}
                                   $isMobile={isMobileString}>
@@ -495,7 +498,7 @@ function SearchPostList() {
                         secondCol.map((post, index) => (
                           <PostBox key={post?._id} $isMobile={isMobileString}>
                             <StyledLink
-                              to={`/post/${post?.title}`}
+                              to={`${POST_PATH}/${post?.title}`}
                               state={{ postId: post?._id, path }}
                               onClick={clickedPost}>
                               <Image
@@ -510,7 +513,7 @@ function SearchPostList() {
                             <ProfileContainer $isMobile={isMobileString}>
                               <ProfileBox $isMobile={isMobileString}>
                                 <ProfileLink
-                                  to={`/user/${post.owner.username}`}
+                                  to={`${USER_PATH}/${post.owner.username}`}
                                   state={path}
                                   onClick={clickedProfile}
                                   $isMobile={isMobileString}>
@@ -534,7 +537,7 @@ function SearchPostList() {
                         thirdCol.map((post, index) => (
                           <PostBox key={post?._id} $isMobile={isMobileString}>
                             <StyledLink
-                              to={`/post/${post?.title}`}
+                              to={`${POST_PATH}/${post?.title}`}
                               state={{ postId: post?._id, path }}
                               onClick={clickedPost}>
                               <Image
@@ -549,7 +552,7 @@ function SearchPostList() {
                             <ProfileContainer $isMobile={isMobileString}>
                               <ProfileBox $isMobile={isMobileString}>
                                 <ProfileLink
-                                  to={`/user/${post.owner.username}`}
+                                  to={`${USER_PATH}/${post.owner.username}`}
                                   state={path}
                                   onClick={clickedProfile}
                                   $isMobile={isMobileString}>

@@ -39,8 +39,9 @@ import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
 import { IImage } from "../types/detailImageType";
 import { IRatioTypes } from "../types/ratioType";
 
-// Constant
+// Constants
 import { photoUpdateSuccessText } from "../constants/notificationMessages";
+import { SEARCH_PATH, USER_PATH } from "../constants/paths";
 
 // React-Icons
 import { AiFillHeart } from "@react-icons/all-files/ai/AiFillHeart";
@@ -418,7 +419,7 @@ function DetailPost() {
 
     setCurrentSearch(hashtag);
 
-    navigate(`/search/${hashtag}`, { state: response.data });
+    navigate(`${SEARCH_PATH}/${hashtag}`, { state: response.data });
   };
 
   useEffect(() => {
@@ -469,7 +470,7 @@ function DetailPost() {
           <NestedBox>
             <ProfileContainer>
               <ProfileBox>
-                <Link to={`/user/${data?.owner?.username}`}>
+                <Link to={`${USER_PATH}/${data?.owner?.username}`}>
                   <ProfileImg
                     alt="유저의 프로필 이미지"
                     src={
@@ -479,7 +480,7 @@ function DetailPost() {
                     }
                   />
                 </Link>
-                <Link to={`/user/${data?.owner?.username}`}>
+                <Link to={`${USER_PATH}/${data?.owner?.username}`}>
                   <ProfileName>{data?.owner?.name}</ProfileName>
                 </Link>
               </ProfileBox>

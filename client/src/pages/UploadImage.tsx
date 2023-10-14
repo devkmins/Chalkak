@@ -38,6 +38,7 @@ import { resizeAndConvertToWebP } from "../utils/resizeAndConvertToWebP";
 
 // Constant
 import { closeConfirmationMessage } from "../constants/confirmationMessages";
+import { USER_PATH } from "../constants/paths";
 
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
@@ -459,7 +460,7 @@ function UploadImage() {
 
         setTimeout(() => setIsSubmitted(false), 1500);
 
-        navigate(`/user/${sessionData.username}`, {
+        navigate(`${USER_PATH}/${sessionData.username}`, {
           state: sessionData.username,
         });
       } catch (error) {

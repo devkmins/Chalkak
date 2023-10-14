@@ -20,6 +20,9 @@ import RecentSearch from "./RecentSearch";
 // React-Icons
 import { BiSearch } from "@react-icons/all-files/bi/BiSearch";
 
+// Constant
+import { SEARCH_PATH } from "../constants/paths";
+
 // Style
 import { useMobile } from "../styles/mediaQueries";
 
@@ -99,7 +102,7 @@ function SearchPost() {
 
     setCurrentSearch(formData.keyword);
 
-    navigate(`/search/${formData.keyword}`);
+    navigate(`${SEARCH_PATH}/${formData.keyword}`);
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

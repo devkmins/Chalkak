@@ -34,6 +34,14 @@ import { FaBars } from "@react-icons/all-files/fa/FaBars";
 // Asset
 import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
 
+// Constants
+import {
+  JOIN_PATH,
+  LOGIN_PATH,
+  MAIN_PATH,
+  POST_UPLOAD_PATH,
+} from "../constants/paths";
+
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
 
@@ -188,7 +196,7 @@ function Header() {
   const setIsLoggedOut = useSetRecoilState(isLoggedOutState);
   const [cookies, , removeCookie] = useCookies(["connect.sid"]);
 
-  const isRoot = path === "/" ? true : false;
+  const isRoot = path === MAIN_PATH ? true : false;
 
   const onUserImgClick = () => {
     setUserImgClicked((prev) => !prev);
@@ -216,7 +224,7 @@ function Header() {
 
   const navigateToRoot = () => {
     setIsBackToMain(false);
-    navigate("/");
+    navigate(MAIN_PATH);
   };
 
   const scrollToTop = () => {
@@ -244,7 +252,7 @@ function Header() {
         });
         removeCookie("connect.sid");
         setIsLoggedOut(true);
-        navigate("/");
+        navigate(MAIN_PATH);
       });
   };
 
@@ -293,7 +301,7 @@ function Header() {
             {(isTabletOrLaptop || isDesktop) && (
               <LoggedInBox $isMobile={isMobileString}>
                 <span onClick={logout}>로그아웃</span>
-                <Link to={"/post/upload"}>업로드</Link>
+                <Link to={POST_UPLOAD_PATH}>업로드</Link>
                 <UserImgBox
                   onFocus={handleUserImgFocus}
                   ref={menuRef}
@@ -337,9 +345,9 @@ function Header() {
           <>
             {(isTabletOrLaptop || isDesktop) && (
               <IsNotLoginBox>
-                <IsNotLoginLink to={"/login"}>로그인</IsNotLoginLink>
-                <IsNotLoginLink to={"/join"}>가입</IsNotLoginLink>
-                <IsNotLoginLink to={"/login"}>업로드</IsNotLoginLink>
+                <IsNotLoginLink to={LOGIN_PATH}>로그인</IsNotLoginLink>
+                <IsNotLoginLink to={JOIN_PATH}>가입</IsNotLoginLink>
+                <IsNotLoginLink to={LOGIN_PATH}>업로드</IsNotLoginLink>
               </IsNotLoginBox>
             )}
             {isMobile && (

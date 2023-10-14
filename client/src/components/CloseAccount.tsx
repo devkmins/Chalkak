@@ -22,8 +22,9 @@ import Header from "./Header";
 // MediaQuery
 import { useMobile } from "../styles/mediaQueries";
 
-// Constant
+// Constants
 import { accountClosureConfirmation } from "../constants/confirmationMessages";
+import { MAIN_PATH } from "../constants/paths";
 
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
@@ -166,7 +167,7 @@ function CloseAccount() {
           });
           removeCookie("connect.sid");
 
-          navigate("/");
+          navigate(MAIN_PATH);
         })
         .catch((error) => setError(error.response.data));
     }

@@ -14,6 +14,14 @@ import { sessionState } from "../atoms/sessionAtom";
 // Style
 import { useMobile } from "../styles/mediaQueries";
 
+// Constants
+import {
+  ACCOUNT_PATH,
+  MAIN_PATH,
+  POST_UPLOAD_PATH,
+  USER_PATH,
+} from "../constants/paths";
+
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
 
@@ -75,7 +83,7 @@ function LoggedInMenu() {
         });
         removeCookie("connect.sid");
         setIsLoggedOut(true);
-        navigate("/");
+        navigate(MAIN_PATH);
       });
   };
 
@@ -83,15 +91,15 @@ function LoggedInMenu() {
     <Container $isMobile={isMobileString}>
       {isMobile ? (
         <>
-          <Link to={`/user/${sessionData.username}`}>프로필 보기</Link>
-          <Link to={"/account"}>계정 설정</Link>
-          <Link to={"/post/upload"}>업로드</Link>
+          <Link to={`${USER_PATH}/${sessionData.username}`}>프로필 보기</Link>
+          <Link to={ACCOUNT_PATH}>계정 설정</Link>
+          <Link to={POST_UPLOAD_PATH}>업로드</Link>
           <span onClick={logout}>로그아웃</span>
         </>
       ) : (
         <>
-          <Link to={`/user/${sessionData.username}`}>프로필 보기</Link>
-          <Link to={"/account"}>계정 설정</Link>
+          <Link to={`${USER_PATH}/${sessionData.username}`}>프로필 보기</Link>
+          <Link to={ACCOUNT_PATH}>계정 설정</Link>
         </>
       )}
     </Container>

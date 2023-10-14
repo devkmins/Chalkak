@@ -6,8 +6,9 @@ import { useNavigate } from "react-router-dom";
 // Package
 import { styled } from "styled-components";
 
-// Constant
+// Constants
 import { photoRemovalConfirmation } from "../constants/confirmationMessages";
+import { MAIN_PATH } from "../constants/paths";
 
 // Type
 import { IImage } from "../types/detailImageType";
@@ -89,7 +90,7 @@ function DeletePost({ postId }: IDeletePostProp) {
           { withCredentials: true }
         );
 
-        navigate("/");
+        navigate(MAIN_PATH);
       } catch (error) {
         console.error("Error:", error);
       }
