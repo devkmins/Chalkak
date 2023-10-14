@@ -3,3 +3,7 @@ export interface IMediaQueriresType {
   $isTabletOrLaptop: string;
   $isDesktop: string;
 }
+
+export interface IIsDesktop {
+  $isDesktop: string;
+}
