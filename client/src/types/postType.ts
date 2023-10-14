@@ -29,3 +29,11 @@ export interface IPost {
 export interface IPostWithHashtags extends IPost {
   hashtags: string[];
 }
+
+export interface IUserData {
+  _id: string;
+  name: string;
+  username: string;
+  profileImage: string;
+  posts: IPost[];
+}
