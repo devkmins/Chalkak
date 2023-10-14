@@ -12,6 +12,8 @@ export const CLOSE_ACCOUNT_PATH = "/account/close";
 
 export const SEARCH_PATH = "/search";
 
+export const SEARCH_KEYWORD_PATH = "/search/:keyword";
+
 export const USER_PATH = "/user";
 
 export const USER_PROFILE_PATH = "/user/:id";
