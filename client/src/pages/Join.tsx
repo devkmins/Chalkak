@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
 import styled from "styled-components";
-import joinImg from "../../assets/Join/join.webp";
+import joinImg from "../assets/Join/join.webp";
 import { RiCameraLensFill } from "@react-icons/all-files/ri/RiCameraLensFill";
 import { BiShow } from "@react-icons/all-files/bi/BiShow";
 import { BiHide } from "@react-icons/all-files/bi/BiHide";
 import { Link } from "react-router-dom";
-import { useMobile } from "../../styles/mediaQueries";
-import { IIsMobile } from "../../types/mediaQueriesType";
+import { useMobile } from "../styles/mediaQueries";
+import { IIsMobile } from "../types/mediaQueriesType";
 
 interface IError {
   nameError: string;

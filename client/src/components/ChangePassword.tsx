@@ -4,7 +4,7 @@ import CryptoJS from "crypto-js";
 import { useLocation } from "react-router-dom";
 import AccountMenu from "./AccountMenu";
 import styled from "styled-components";
-import Header from "../pages/Header";
+import Header from "./Header";
 import NotificationBar from "./NotificationBar";
 import { useMobile } from "../styles/mediaQueries";
 import { IIsMobile } from "../types/mediaQueriesType";

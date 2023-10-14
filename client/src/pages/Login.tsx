@@ -3,17 +3,17 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
 import { useSetRecoilState } from "recoil";
-import { isLoggedOutState, loggedInState } from "../../atoms/authAtoms";
-import { sessionState } from "../../atoms/sessionAtom";
+import { isLoggedOutState, loggedInState } from "../atoms/authAtoms";
+import { sessionState } from "../atoms/sessionAtom";
 import { styled } from "styled-components";
-import loginImg from "../../assets/Login/login.webp";
+import loginImg from "../assets/Login/login.webp";
 import { RiCameraLensFill } from "@react-icons/all-files/ri/RiCameraLensFill";
 import { BiShow } from "@react-icons/all-files/bi/BiShow";
 import { BiHide } from "@react-icons/all-files/bi/BiHide";
 import { Link } from "react-router-dom";
-import NotificationBar from "../../components/NotificationBar";
-import { useMobile } from "../../styles/mediaQueries";
-import { IIsMobile } from "../../types/mediaQueriesType";
+import NotificationBar from "../components/NotificationBar";
+import { useMobile } from "../styles/mediaQueries";
+import { IIsMobile } from "../types/mediaQueriesType";
 
 interface IError {
   passwordError: string;

@@ -8,15 +8,15 @@ import {
 import { loggedInState } from "./atoms/authAtoms";
 import { sessionState } from "./atoms/sessionAtom";
 import axios from "axios";
-import Main from "./pages/Main";
+import Main from "./pages/MainPage";
 import { GlobalStyle } from "./styles/globalStyle";
 
-const Login = lazy(() => import("./pages/User/Login"));
-const Join = lazy(() => import("./pages/User/Join"));
-const UserPage = lazy(() => import("./components/UserPage"));
-const Account = lazy(() => import("./components/Account"));
+const Login = lazy(() => import("./pages/Login"));
+const Join = lazy(() => import("./pages/Join"));
+const UserPage = lazy(() => import("./pages/UserPage"));
+const Account = lazy(() => import("./pages/Account"));
 const DetailPost = lazy(() => import("./components/DetailPost"));
-const UploadImage = lazy(() => import("./components/UploadImage"));
+const UploadImage = lazy(() => import("./pages/UploadImage"));
 const SearchPostList = lazy(() => import("./components/SearchPostList"));
 const ChangePassword = lazy(() => import("./components/ChangePassword"));
 const CloseAccount = lazy(() => import("./components/CloseAccount"));

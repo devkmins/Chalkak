@@ -5,10 +5,10 @@ import { useRecoilState } from "recoil";
 import { sessionState } from "../atoms/sessionAtom";
 import { styled } from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.webp";
-import Header from "../pages/Header";
-import AccountMenu from "./AccountMenu";
+import Header from "../components/Header";
+import AccountMenu from "../components/AccountMenu";
 import useInitSearch from "../hooks/useInitSearch";
-import NotificationBar from "./NotificationBar";
+import NotificationBar from "../components/NotificationBar";
 import { useMobile } from "../styles/mediaQueries";
 import { IIsMobile } from "../types/mediaQueriesType";
 

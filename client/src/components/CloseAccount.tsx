@@ -8,7 +8,7 @@ import { loggedInState } from "../atoms/authAtoms";
 import { sessionState } from "../atoms/sessionAtom";
 import AccountMenu from "./AccountMenu";
 import styled from "styled-components";
-import Header from "../pages/Header";
+import Header from "./Header";
 import { useMobile } from "../styles/mediaQueries";
 import { IIsMobile } from "../types/mediaQueriesType";
 

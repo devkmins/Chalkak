@@ -13,7 +13,7 @@ import { isEditedState } from "../atoms/postEditedAtom";
 import { loggedInState } from "../atoms/authAtoms";
 import { sessionState } from "../atoms/sessionAtom";
 import { useEffect, useState } from "react";
-import Header from "../pages/Header";
+import Header from "./Header";
 import { styled } from "styled-components";
 import defaultUserProfileImg from "../assets/User/default-profile.webp";
 import { AiFillHeart } from "@react-icons/all-files/ai/AiFillHeart";

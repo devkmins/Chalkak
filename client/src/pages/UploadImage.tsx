@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Dropzone from "react-dropzone";
 import { styled } from "styled-components";
-import Header from "../pages/Header";
+import Header from "../components/Header";
 import useInitSearch from "../hooks/useInitSearch";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -14,6 +14,11 @@ import { useMobile } from "../styles/mediaQueries";
 import { BsCardImage } from "@react-icons/all-files/bs/BsCardImage";
 import { motion } from "framer-motion";
 import { IIsMobile } from "../types/mediaQueriesType";
+import {
+  ContainerVariants,
+  DotTransition,
+  DotVariants,
+} from "../utils/framerMotion";
 
 interface imgResizeFuncResultType {
   blob: File;
@@ -319,34 +324,6 @@ const LoadingContainer = {
   height: "5rem",
   display: "flex",
   justifyContent: "space-around",
-};
-
-const ContainerVariants = {
-  initial: {
-    transition: {
-      staggerChildren: 0.2,
-    },
-  },
-  animate: {
-    transition: {
-      staggerChildren: 0.2,
-    },
-  },
-};
-
-const DotVariants = {
-  initial: {
-    y: "0%",
-  },
-  animate: {
-    y: "100%",
-  },
-};
-
-const DotTransition = {
-  duration: 0.5,
-  yoyo: Infinity,
-  ease: "easeInOut",
 };
 
 function UploadImage() {
