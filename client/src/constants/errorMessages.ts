@@ -21,3 +21,5 @@ export const nameWhiteSpaceError =
 
 export const loginFailureLimitExceededError =
   "로그인 실패 횟수가 10회를 초과하였습니다. 5분 후에 다시 시도해주세요.";
+
+export const postTitleValidityError = "게시글의 제목이 유효하지 않습니다.";

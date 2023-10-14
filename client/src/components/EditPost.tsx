@@ -12,6 +12,9 @@ import { useState } from "react";
 // Atom
 import { isEditedState } from "../atoms/postEditedAtom";
 
+// Constant
+import { postTitleValidityError } from "../constants/errorMessages";
+
 interface IEditPostProp {
   postId: string;
 }
@@ -145,7 +148,7 @@ function EditPost({ postId }: IEditPostProp) {
 
     if (formData.title === "") {
       setError((prevError) => ({
-        titleError: "게시글의 제목이 유효하지 않습니다.",
+        titleError: postTitleValidityError,
       }));
 
       return;
