@@ -69,8 +69,8 @@ const LogoBox = styled.div`
   span {
     cursor: pointer;
     font-size: 26px;
-    font-weight: 700;
-    margin-top: 7.5px;
+    font-weight: 550;
+    margin-top: 2.5px;
     margin-left: 12.5px;
   }
 `;
