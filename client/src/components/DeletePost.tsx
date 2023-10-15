@@ -12,6 +12,7 @@ import { MAIN_PATH } from "../constants/paths";
 
 // Type
 import { IImage } from "../types/detailImageType";
+import { IRatioTypes } from "../types/ratioType";
 
 interface IDeletePostProp {
   postId: string;
@@ -25,10 +26,14 @@ const Container = styled.div`
 
 const ImagesBox = styled.div`
   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0px 15px;
 `;
 
-const Image = styled.img`
-  width: 50px;
+const Image = styled.img<IRatioTypes>`
+  aspect-ratio: ${(props) => props.$ratioWidth} /
+    ${(props) => props.$ratioHeight};
   height: 50px;
   object-fit: contain;
 `;
@@ -105,6 +110,8 @@ function DeletePost({ postId }: IDeletePostProp) {
             key={img.path}
             alt={`Image ${index + 1}`}
             src={`http://localhost:4000/${img.path}`}
+            $ratioWidth={data.ratioWidth[index]}
+            $ratioHeight={data.ratioHeight[index]}
           />
         ))}
       </ImagesBox>
