@@ -148,11 +148,7 @@ function UserContents({ data }: { data: IUserData }) {
   const isTabletOrLaptopString = String(isTabletOrLaptop);
   const isDesktopString = String(isDesktop);
 
-  const clickedProfile = () => {
-    setScrollY(window.scrollY);
-  };
-
-  const clickedPost = () => {
+  const handleClickRememberScroll = () => {
     setScrollY(window.scrollY);
   };
 
@@ -229,7 +225,7 @@ function UserContents({ data }: { data: IUserData }) {
                       <ProfileLink
                         to={`${USER_PATH}/${post.owner.username}`}
                         state={path}
-                        onClick={clickedProfile}
+                        onClick={handleClickRememberScroll}
                         $isMobile={isMobileString}>
                         <PostProfileImg
                           src={
@@ -246,7 +242,7 @@ function UserContents({ data }: { data: IUserData }) {
                   <StyledLink
                     to={`${POST_PATH}/${post?.title}`}
                     state={{ postId: post?._id, path }}
-                    onClick={clickedPost}>
+                    onClick={handleClickRememberScroll}>
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt={`${post.title}-${post.description}-${Date.now()}`}
@@ -271,7 +267,7 @@ function UserContents({ data }: { data: IUserData }) {
                   <StyledLink
                     to={`${POST_PATH}/${post?.title}`}
                     state={{ postId: post?._id, path }}
-                    onClick={clickedPost}>
+                    onClick={handleClickRememberScroll}>
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt={`${post.title}-${post.description}-${Date.now()}`}
@@ -284,7 +280,7 @@ function UserContents({ data }: { data: IUserData }) {
                       <ProfileLink
                         to={`${USER_PATH}/${post.owner.username}`}
                         state={path}
-                        onClick={clickedProfile}
+                        onClick={handleClickRememberScroll}
                         $isMobile={isMobileString}>
                         <PostProfileImg
                           src={
@@ -308,7 +304,7 @@ function UserContents({ data }: { data: IUserData }) {
                   <StyledLink
                     to={`${POST_PATH}/${post?.title}`}
                     state={{ postId: post?._id, path }}
-                    onClick={clickedPost}>
+                    onClick={handleClickRememberScroll}>
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt={`${post.title}-${post.description}-${Date.now()}`}
@@ -321,7 +317,7 @@ function UserContents({ data }: { data: IUserData }) {
                       <ProfileLink
                         to={`${USER_PATH}/${post.owner.username}`}
                         state={path}
-                        onClick={clickedProfile}
+                        onClick={handleClickRememberScroll}
                         $isMobile={isMobileString}>
                         <PostProfileImg
                           src={
@@ -352,7 +348,7 @@ function UserContents({ data }: { data: IUserData }) {
                   <StyledLink
                     to={`${POST_PATH}/${post?.title}`}
                     state={{ postId: post?._id, path }}
-                    onClick={clickedPost}>
+                    onClick={handleClickRememberScroll}>
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt={`${post.title}-${post.description}-${Date.now()}`}
@@ -365,7 +361,7 @@ function UserContents({ data }: { data: IUserData }) {
                       <ProfileLink
                         to={`${USER_PATH}/${post.owner.username}`}
                         state={path}
-                        onClick={clickedProfile}
+                        onClick={handleClickRememberScroll}
                         $isMobile={isMobileString}>
                         <PostProfileImg
                           src={
@@ -389,7 +385,7 @@ function UserContents({ data }: { data: IUserData }) {
                   <StyledLink
                     to={`${POST_PATH}/${post?.title}`}
                     state={{ postId: post?._id, path }}
-                    onClick={clickedPost}>
+                    onClick={handleClickRememberScroll}>
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt={`${post.title}-${post.description}-${Date.now()}`}
@@ -402,7 +398,7 @@ function UserContents({ data }: { data: IUserData }) {
                       <ProfileLink
                         to={`${USER_PATH}/${post.owner.username}`}
                         state={path}
-                        onClick={clickedProfile}
+                        onClick={handleClickRememberScroll}
                         $isMobile={isMobileString}>
                         <PostProfileImg
                           src={
@@ -426,7 +422,7 @@ function UserContents({ data }: { data: IUserData }) {
                   <StyledLink
                     to={`${POST_PATH}/${post?.title}`}
                     state={{ postId: post?._id, path }}
-                    onClick={clickedPost}>
+                    onClick={handleClickRememberScroll}>
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt={`${post.title}-${post.description}-${Date.now()}`}
@@ -439,7 +435,7 @@ function UserContents({ data }: { data: IUserData }) {
                       <ProfileLink
                         to={`${USER_PATH}/${post.owner.username}`}
                         state={path}
-                        onClick={clickedProfile}
+                        onClick={handleClickRememberScroll}
                         $isMobile={isMobileString}>
                         <PostProfileImg
                           src={

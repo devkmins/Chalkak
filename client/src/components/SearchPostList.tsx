@@ -232,11 +232,7 @@ function SearchPostList() {
     }
   }, 200);
 
-  const clickedProfile = () => {
-    setScrollY(window.scrollY);
-  };
-
-  const clickedPost = () => {
+  const handleClickRememberScroll = () => {
     setScrollY(window.scrollY);
   };
 
@@ -333,7 +329,7 @@ function SearchPostList() {
                                 <ProfileLink
                                   to={`${USER_PATH}/${post.owner.username}`}
                                   state={path}
-                                  onClick={clickedProfile}
+                                  onClick={handleClickRememberScroll}
                                   $isMobile={isMobileString}>
                                   <PostProfileImg
                                     src={
@@ -350,7 +346,7 @@ function SearchPostList() {
                             <StyledLink
                               to={`${POST_PATH}/${post?.title}`}
                               state={{ postId: post?._id, path }}
-                              onClick={clickedPost}>
+                              onClick={handleClickRememberScroll}>
                               <Image
                                 src={`http://localhost:4000/${post.fileUrl[0].path}`}
                                 alt={`${post.title}-${
@@ -377,7 +373,7 @@ function SearchPostList() {
                             <StyledLink
                               to={`${POST_PATH}/${post?.title}`}
                               state={{ postId: post?._id, path }}
-                              onClick={clickedPost}>
+                              onClick={handleClickRememberScroll}>
                               <Image
                                 src={`http://localhost:4000/${post.fileUrl[0].path}`}
                                 alt={`${post.title}-${
@@ -392,7 +388,7 @@ function SearchPostList() {
                                 <ProfileLink
                                   to={`${USER_PATH}/${post.owner.username}`}
                                   state={path}
-                                  onClick={clickedProfile}
+                                  onClick={handleClickRememberScroll}
                                   $isMobile={isMobileString}>
                                   <PostProfileImg
                                     src={
@@ -416,7 +412,7 @@ function SearchPostList() {
                             <StyledLink
                               to={`${POST_PATH}/${post?.title}`}
                               state={{ postId: post?._id, path }}
-                              onClick={clickedPost}>
+                              onClick={handleClickRememberScroll}>
                               <Image
                                 src={`http://localhost:4000/${post.fileUrl[0].path}`}
                                 alt={`${post.title}-${
@@ -431,7 +427,7 @@ function SearchPostList() {
                                 <ProfileLink
                                   to={`${USER_PATH}/${post.owner.username}`}
                                   state={path}
-                                  onClick={clickedProfile}
+                                  onClick={handleClickRememberScroll}
                                   $isMobile={isMobileString}>
                                   <PostProfileImg
                                     src={
@@ -462,7 +458,7 @@ function SearchPostList() {
                             <StyledLink
                               to={`${POST_PATH}/${post?.title}`}
                               state={{ postId: post?._id, path }}
-                              onClick={clickedPost}>
+                              onClick={handleClickRememberScroll}>
                               <Image
                                 src={`http://localhost:4000/${post.fileUrl[0].path}`}
                                 alt={`${post.title}-${
@@ -477,7 +473,7 @@ function SearchPostList() {
                                 <ProfileLink
                                   to={`${USER_PATH}/${post.owner.username}`}
                                   state={path}
-                                  onClick={clickedProfile}
+                                  onClick={handleClickRememberScroll}
                                   $isMobile={isMobileString}>
                                   <PostProfileImg
                                     src={
@@ -501,7 +497,7 @@ function SearchPostList() {
                             <StyledLink
                               to={`${POST_PATH}/${post?.title}`}
                               state={{ postId: post?._id, path }}
-                              onClick={clickedPost}>
+                              onClick={handleClickRememberScroll}>
                               <Image
                                 src={`http://localhost:4000/${post.fileUrl[0].path}`}
                                 alt={`${post.title}-${
@@ -516,7 +512,7 @@ function SearchPostList() {
                                 <ProfileLink
                                   to={`${USER_PATH}/${post.owner.username}`}
                                   state={path}
-                                  onClick={clickedProfile}
+                                  onClick={handleClickRememberScroll}
                                   $isMobile={isMobileString}>
                                   <PostProfileImg
                                     src={
@@ -540,7 +536,7 @@ function SearchPostList() {
                             <StyledLink
                               to={`${POST_PATH}/${post?.title}`}
                               state={{ postId: post?._id, path }}
-                              onClick={clickedPost}>
+                              onClick={handleClickRememberScroll}>
                               <Image
                                 src={`http://localhost:4000/${post.fileUrl[0].path}`}
                                 alt={`${post.title}-${
@@ -555,7 +551,7 @@ function SearchPostList() {
                                 <ProfileLink
                                   to={`${USER_PATH}/${post.owner.username}`}
                                   state={path}
-                                  onClick={clickedProfile}
+                                  onClick={handleClickRememberScroll}
                                   $isMobile={isMobileString}>
                                   <PostProfileImg
                                     src={

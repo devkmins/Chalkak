@@ -157,11 +157,7 @@ function SimilarPosts({ title, postId }: IProp) {
     }
   }, 200);
 
-  const clickedProfile = () => {
-    setScrollY(window.scrollY);
-  };
-
-  const clickedPost = () => {
+  const handleClickRememberScroll = () => {
     setScrollY(window.scrollY);
   };
 
@@ -232,7 +228,7 @@ function SimilarPosts({ title, postId }: IProp) {
                   <StyledLink
                     to={`${POST_PATH}/${post?.title}`}
                     state={{ postId: post?._id, path }}
-                    onClick={clickedPost}>
+                    onClick={handleClickRememberScroll}>
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt={`${post.title}-${post.description}-${Date.now()}`}
@@ -245,7 +241,7 @@ function SimilarPosts({ title, postId }: IProp) {
                       <ProfileLink
                         to={`${USER_PATH}/${post.owner.username}`}
                         state={path}
-                        onClick={clickedProfile}>
+                        onClick={handleClickRememberScroll}>
                         <ProfileImg
                           src={
                             post.owner.profileImage
@@ -268,7 +264,7 @@ function SimilarPosts({ title, postId }: IProp) {
                   <StyledLink
                     to={`${POST_PATH}/${post?.title}`}
                     state={{ postId: post?._id, path }}
-                    onClick={clickedPost}>
+                    onClick={handleClickRememberScroll}>
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt={`${post.title}-${post.description}-${Date.now()}`}
@@ -281,7 +277,7 @@ function SimilarPosts({ title, postId }: IProp) {
                       <ProfileLink
                         to={`${USER_PATH}/${post.owner.username}`}
                         state={path}
-                        onClick={clickedProfile}>
+                        onClick={handleClickRememberScroll}>
                         <ProfileImg
                           src={
                             post.owner.profileImage
@@ -308,7 +304,7 @@ function SimilarPosts({ title, postId }: IProp) {
                   <StyledLink
                     to={`${POST_PATH}/${post?.title}`}
                     state={{ postId: post?._id, path }}
-                    onClick={clickedPost}>
+                    onClick={handleClickRememberScroll}>
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt={`${post.title}-${post.description}-${Date.now()}`}
@@ -321,7 +317,7 @@ function SimilarPosts({ title, postId }: IProp) {
                       <ProfileLink
                         to={`${USER_PATH}/${post.owner.username}`}
                         state={path}
-                        onClick={clickedProfile}>
+                        onClick={handleClickRememberScroll}>
                         <ProfileImg
                           src={
                             post.owner.profileImage
@@ -344,7 +340,7 @@ function SimilarPosts({ title, postId }: IProp) {
                   <StyledLink
                     to={`${POST_PATH}/${post?.title}`}
                     state={{ postId: post?._id, path }}
-                    onClick={clickedPost}>
+                    onClick={handleClickRememberScroll}>
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt={`${post.title}-${post.description}-${Date.now()}`}
@@ -357,7 +353,7 @@ function SimilarPosts({ title, postId }: IProp) {
                       <ProfileLink
                         to={`${USER_PATH}/${post.owner.username}`}
                         state={path}
-                        onClick={clickedProfile}>
+                        onClick={handleClickRememberScroll}>
                         <ProfileImg
                           src={
                             post.owner.profileImage
@@ -380,7 +376,7 @@ function SimilarPosts({ title, postId }: IProp) {
                   <StyledLink
                     to={`${POST_PATH}/${post?.title}`}
                     state={{ postId: post?._id, path }}
-                    onClick={clickedPost}>
+                    onClick={handleClickRememberScroll}>
                     <Image
                       src={`http://localhost:4000/${post.fileUrl[0].path}`}
                       alt={`${post.title}-${post.description}-${Date.now()}`}
@@ -393,7 +389,7 @@ function SimilarPosts({ title, postId }: IProp) {
                       <ProfileLink
                         to={`${USER_PATH}/${post.owner.username}`}
                         state={path}
-                        onClick={clickedProfile}>
+                        onClick={handleClickRememberScroll}>
                         <ProfileImg
                           src={
                             post.owner.profileImage
