@@ -13,11 +13,12 @@ import { currentPostPageScrollState } from "../atoms/pageScrollAtoms";
 import { isBackToMainState } from "../atoms/navigationBackAtoms";
 import { mainPageScrollYState } from "../atoms/scrollYStateAtoms";
 
-// hook
+// Hooks
 import useSearchClear from "../hooks/useSearchClear";
+import useSplitPosts from "../hooks/useSplitPosts";
 
 // React
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 // Asset
 import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
@@ -34,7 +35,6 @@ import { POST_PATH, USER_PATH } from "../constants/paths";
 
 // Types
 import { IIsMobile, IMediaQueriresType } from "../types/mediaQueriesType";
-import { IPostWithHashtags } from "../types/postType";
 import { IRatioTypes } from "../types/ratioType";
 
 const Container = styled.div`
@@ -144,15 +144,13 @@ function Posts() {
 
   const searchKeywordsClear = useSearchClear();
 
+  const { firstCol, secondCol, thirdCol } = useSplitPosts(data?.postsData);
+
   const [scrollY, setScrollY] = useRecoilState(mainPageScrollYState);
 
   const [page, setPage] = useRecoilState(currentPostPageScrollState);
 
   const isBackToMain = useRecoilValue(isBackToMainState);
-
-  const [firstCol, setFirstCol] = useState<IPostWithHashtags[]>([]);
-  const [secondCol, setSecondCol] = useState<IPostWithHashtags[]>([]);
-  const [thirdCol, setThirdCol] = useState<IPostWithHashtags[]>([]);
 
   const location = useLocation();
   const path = location.pathname;
@@ -188,50 +186,6 @@ function Posts() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-  useEffect(() => {
-    const firstColImages: IPostWithHashtags[] = [];
-    const secondColImages: IPostWithHashtags[] = [];
-    const thirdColImages: IPostWithHashtags[] = [];
-
-    if (isMobile) {
-      if (data?.postsData && Array.isArray(data?.postsData)) {
-        data?.postsData.forEach((post: IPostWithHashtags, index: number) => {
-          firstColImages.push(post);
-        });
-      }
-    }
-
-    if (isTabletOrLaptop) {
-      if (data?.postsData && Array.isArray(data?.postsData)) {
-        data?.postsData.forEach((post: IPostWithHashtags, index: number) => {
-          if (index % 2 === 0) {
-            firstColImages.push(post);
-          } else if (index % 2 === 1) {
-            secondColImages.push(post);
-          }
-        });
-      }
-    }
-
-    if (isDesktop) {
-      if (data?.postsData && Array.isArray(data?.postsData)) {
-        data?.postsData.forEach((post: IPostWithHashtags, index: number) => {
-          if (index % 3 === 0) {
-            firstColImages.push(post);
-          } else if (index % 3 === 1) {
-            secondColImages.push(post);
-          } else if (index % 3 === 2) {
-            thirdColImages.push(post);
-          }
-        });
-      }
-    }
-
-    setFirstCol(firstColImages);
-    setSecondCol(secondColImages);
-    setThirdCol(thirdColImages);
-  }, [data, isMobile, isTabletOrLaptop, isDesktop]);
 
   useEffect(() => {
     if (isBackToMain) {

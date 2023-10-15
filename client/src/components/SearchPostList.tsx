@@ -35,10 +35,12 @@ import { RiImage2Fill } from "@react-icons/all-files/ri/RiImage2Fill";
 // Constants
 import { POST_PATH, USER_PATH } from "../constants/paths";
 
+// Hook
+import useSplitPosts from "../hooks/useSplitPosts";
+
 // Types
 import { IMediaQueriresType } from "../types/mediaQueriesType";
 import { IIsMobile } from "../types/mediaQueriesType";
-import { IPost } from "../types/postType";
 import { IRatioTypes } from "../types/ratioType";
 
 const Container = styled.div``;
@@ -196,13 +198,11 @@ function SearchPostList() {
     return responseData;
   });
 
+  const { firstCol, secondCol, thirdCol } = useSplitPosts(data?.posts);
+
   const [scrollY, setScrollY] = useRecoilState(searchPostListScrollYState);
 
   const isBackToSearchPostList = useRecoilValue(isBackToSearchPostListState);
-
-  const [firstCol, setFirstCol] = useState<IPost[]>([]);
-  const [secondCol, setSecondCol] = useState<IPost[]>([]);
-  const [thirdCol, setThirdCol] = useState<IPost[]>([]);
 
   const [page, setPage] = useState(1);
 
@@ -243,50 +243,6 @@ function SearchPostList() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-  useEffect(() => {
-    const firstColImages: IPost[] = [];
-    const secondColImages: IPost[] = [];
-    const thirdColImages: IPost[] = [];
-
-    if (isMobile) {
-      if (data?.posts && Array.isArray(data?.posts)) {
-        data?.posts?.forEach((post: IPost, index: number) => {
-          firstColImages.push(post);
-        });
-      }
-    }
-
-    if (isTabletOrLaptop) {
-      if (data?.posts && Array.isArray(data?.posts)) {
-        data?.posts?.forEach((post: IPost, index: number) => {
-          if (index % 2 === 0) {
-            firstColImages.push(post);
-          } else if (index % 2 === 1) {
-            secondColImages.push(post);
-          }
-        });
-      }
-    }
-
-    if (isDesktop) {
-      if (data?.posts && Array.isArray(data?.posts)) {
-        data?.posts?.forEach((post: IPost, index: number) => {
-          if (index % 3 === 0) {
-            firstColImages.push(post);
-          } else if (index % 3 === 1) {
-            secondColImages.push(post);
-          } else if (index % 3 === 2) {
-            thirdColImages.push(post);
-          }
-        });
-      }
-    }
-
-    setFirstCol(firstColImages);
-    setSecondCol(secondColImages);
-    setThirdCol(thirdColImages);
-  }, [data, isMobile, isTabletOrLaptop, isDesktop]);
 
   useEffect(() => {
     if (isBackToSearchPostList) {

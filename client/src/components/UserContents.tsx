@@ -10,7 +10,7 @@ import { isBackToUserPageState } from "../atoms/navigationBackAtoms";
 import { userPageScrollYState } from "../atoms/scrollYStateAtoms";
 
 // React
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 // Asset
 import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
@@ -25,8 +25,11 @@ import {
 // Constants
 import { POST_PATH, USER_PATH } from "../constants/paths";
 
+// Hook
+import useSplitPosts from "../hooks/useSplitPosts";
+
 // Types
-import { IPost, IUserData } from "../types/postType";
+import { IUserData } from "../types/postType";
 import { IIsMobile, IMediaQueriresType } from "../types/mediaQueriesType";
 import { IRatioTypes } from "../types/ratioType";
 
@@ -130,13 +133,11 @@ const PostBox = styled.div<IIsMobile>`
 `;
 
 function UserContents({ data }: { data: IUserData }) {
+  const { firstCol, secondCol, thirdCol } = useSplitPosts(data);
+
   const setIsBackToUserPage = useSetRecoilState(isBackToUserPageState);
 
   const setScrollY = useSetRecoilState(userPageScrollYState);
-
-  const [firstCol, setFirstCol] = useState<IPost[]>([]);
-  const [secondCol, setSecondCol] = useState<IPost[]>([]);
-  const [thirdCol, setThirdCol] = useState<IPost[]>([]);
 
   const location = useLocation();
   const path = location.pathname;
@@ -151,50 +152,6 @@ function UserContents({ data }: { data: IUserData }) {
   const handleClickRememberScroll = () => {
     setScrollY(window.scrollY);
   };
-
-  useEffect(() => {
-    const firstColImages: IPost[] = [];
-    const secondColImages: IPost[] = [];
-    const thirdColImages: IPost[] = [];
-
-    if (isMobile) {
-      if (data && Array.isArray(data)) {
-        data?.forEach((post: IPost, index: number) => {
-          firstColImages.push(post);
-        });
-      }
-    }
-
-    if (isTabletOrLaptop) {
-      if (data && Array.isArray(data)) {
-        data?.forEach((post: IPost, index: number) => {
-          if (index % 2 === 0) {
-            firstColImages.push(post);
-          } else if (index % 2 === 1) {
-            secondColImages.push(post);
-          }
-        });
-      }
-    }
-
-    if (isDesktop) {
-      if (data && Array.isArray(data)) {
-        data?.forEach((post: IPost, index: number) => {
-          if (index % 3 === 0) {
-            firstColImages.push(post);
-          } else if (index % 3 === 1) {
-            secondColImages.push(post);
-          } else if (index % 3 === 2) {
-            thirdColImages.push(post);
-          }
-        });
-      }
-    }
-
-    setFirstCol(firstColImages);
-    setSecondCol(secondColImages);
-    setThirdCol(thirdColImages);
-  }, [data, isMobile, isTabletOrLaptop, isDesktop]);
 
   useEffect(() => {
     const handleNavigation = () => {
