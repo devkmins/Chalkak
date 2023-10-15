@@ -7,7 +7,7 @@ import { useEffect } from "react";
 // Atom
 import { currentSearchState } from "../atoms/searchStateAtoms";
 
-function useInitSearch() {
+function useSearchClear() {
   const setCurrentSearch = useSetRecoilState(currentSearchState);
 
   useEffect(() => {
@@ -15,4 +15,4 @@ function useInitSearch() {
   }, []);
 }
 
-export default useInitSearch;
+export default useSearchClear;
