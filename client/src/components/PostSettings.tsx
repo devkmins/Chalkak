@@ -8,6 +8,16 @@ import { useState } from "react";
 import EditPost from "./EditPost";
 import DeletePost from "./DeletePost";
 
+// MediaQuery
+import {
+  useDesktop,
+  useMobile,
+  useTabletOrLaptop,
+} from "../styles/mediaQueries";
+
+// Type
+import { IMediaQueriresType } from "../types/mediaQueriesType";
+
 interface IPostSettingsProp {
   postId: string;
 }
@@ -29,8 +39,13 @@ const Container = styled.div`
   padding: 100px 75px;
 `;
 
-const Box = styled.div`
-  width: 55%;
+const Box = styled.div<IMediaQueriresType>`
+  width: ${(props) =>
+    props.$isMobile === "true"
+      ? "100%"
+      : props.$isTabletOrLaptop === "true"
+      ? "75%"
+      : props.$isDesktop === "true" && "55%"};
   height: min-content;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   background-color: white;
@@ -44,7 +59,6 @@ const UlBox = styled.div`
 
 const Ul = styled.ul`
   display: flex;
-  justify-content: space-between;
   width: 20%;
 `;
 
@@ -53,6 +67,8 @@ const DetailsLi = styled.li<IDetailsLi>`
   font-size: 14px;
   font-weight: 600;
   color: ${(props) => (props.$showDetails === "true" ? "black" : "#999595")};
+  white-space: nowrap;
+  margin-right: 25px;
 
   &:hover {
     color: black;
@@ -64,6 +80,7 @@ const SettingsLi = styled.li<ISettingsLi>`
   font-size: 14px;
   font-weight: 600;
   color: ${(props) => (props.$showSettings === "true" ? "black" : "#999595")};
+  white-space: nowrap;
 
   &:hover {
     color: black;
@@ -78,6 +95,13 @@ const ContentBox = styled.div`
 `;
 
 function PostSettings({ postId }: IPostSettingsProp) {
+  const isMobile = useMobile();
+  const isTabletOrLaptop = useTabletOrLaptop();
+  const isDesktop = useDesktop();
+  const isMobileString = String(isMobile);
+  const isTabletOrLaptopString = String(isTabletOrLaptop);
+  const isDesktopString = String(isDesktop);
+
   const [showDetails, setShowDetails] = useState(true);
   const [showSettings, setShowSettings] = useState(false);
   const showDetailsString = String(showDetails);
@@ -95,7 +119,10 @@ function PostSettings({ postId }: IPostSettingsProp) {
 
   return (
     <Container>
-      <Box>
+      <Box
+        $isMobile={isMobileString}
+        $isTabletOrLaptop={isTabletOrLaptopString}
+        $isDesktop={isDesktopString}>
         <UlBox>
           <Ul>
             <DetailsLi onClick={clickDetails} $showDetails={showDetailsString}>
