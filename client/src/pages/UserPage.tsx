@@ -28,7 +28,7 @@ import Header from "../components/Header";
 import UserContents from "../components/UserContents";
 
 // Hook
-import useInitSearch from "../hooks/useInitSearch";
+import useSearchClear from "../hooks/useSearchClear";
 
 // Style
 import { useMobile } from "../styles/mediaQueries";
@@ -228,24 +228,6 @@ const ContentText = styled.span<IIsMobile>`
 `;
 
 function UserPage() {
-  const isMobile = useMobile();
-  const isMobileString = String(isMobile);
-
-  const location = useLocation();
-  const pathname = location.pathname;
-  const prevPath = location.state;
-
-  const setIsBackToMain = useSetRecoilState(isBackToMainState);
-  const setIsBackToSimilarPosts = useSetRecoilState(isBackToSimilarPostsState);
-  const setIsBackToSearchPostList = useSetRecoilState(
-    isBackToSearchPostListState
-  );
-
-  const params = useParams();
-  const username = params.id;
-
-  const [page, setPage] = useRecoilState(currentUserPageScrollState);
-
   const { data, refetch } = useQuery("getUserProfileData", async () => {
     const response = await axios.get(
       `http://localhost:4000/user/${username}?page=${page}`
@@ -254,6 +236,47 @@ function UserPage() {
 
     return responseData;
   });
+
+  const searchKeywordsClear = useSearchClear();
+
+  const setIsBackToMain = useSetRecoilState(isBackToMainState);
+  const setIsBackToSimilarPosts = useSetRecoilState(isBackToSimilarPostsState);
+  const setIsBackToSearchPostList = useSetRecoilState(
+    isBackToSearchPostListState
+  );
+
+  const [page, setPage] = useRecoilState(currentUserPageScrollState);
+
+  const setCurrentUserPage = useSetRecoilState(currentUserPageState);
+
+  const sessionData = useRecoilValue(sessionState);
+
+  const scrollY = useRecoilValue(userPageScrollYState);
+
+  const isBackToUserPage = useRecoilValue(isBackToUserPageState);
+
+  const [connectPhotos, setConnectPhotos] = useState(true);
+  const [connectLikes, setConnectLikes] = useState(false);
+
+  const location = useLocation();
+  const pathname = location.pathname;
+  const prevPath = location.state;
+
+  const params = useParams();
+  const username = params.id;
+
+  const isMobile = useMobile();
+  const isMobileString = String(isMobile);
+
+  const userProfileImg = data?.profileImg;
+
+  let totalViews = 0;
+  let totalLikes = 0;
+
+  data?.userPosts?.posts?.map((post: IPost) => (totalViews += post.views - 1));
+  data?.userPosts?.posts?.map(
+    (post: IPost) => (totalLikes += post.likes.length)
+  );
 
   const handleScroll = debounce(() => {
     const windowHeight = window.innerHeight;
@@ -270,15 +293,11 @@ function UserPage() {
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-  const [connectPhotos, setConnectPhotos] = useState(true);
-  const [connectLikes, setConnectLikes] = useState(false);
-
-  const setCurrentUserPage = useSetRecoilState(currentUserPageState);
 
   useEffect(() => {
     if (pathname === `${USER_PATH}/${username}`) {
@@ -289,22 +308,6 @@ function UserPage() {
       setConnectLikes(true);
     }
   }, [pathname]);
-
-  const sessionData = useRecoilValue(sessionState);
-
-  const userProfileImg = data?.profileImg;
-
-  let totalViews = 0;
-  let totalLikes = 0;
-
-  data?.userPosts?.posts?.map((post: IPost) => (totalViews += post.views - 1));
-  data?.userPosts?.posts?.map(
-    (post: IPost) => (totalLikes += post.likes.length)
-  );
-
-  const scrollY = useRecoilValue(userPageScrollYState);
-
-  const isBackToUserPage = useRecoilValue(isBackToUserPageState);
 
   useEffect(() => {
     const handleNavigation = () => {
@@ -344,8 +347,6 @@ function UserPage() {
       setCurrentUserPage(username);
     }
   }, [username]);
-
-  useInitSearch();
 
   return (
     <Container>

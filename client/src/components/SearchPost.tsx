@@ -66,10 +66,6 @@ const SearchInput = styled.input`
 `;
 
 function SearchPost() {
-  const isMobile = useMobile();
-
-  const navigate = useNavigate();
-
   const [currentSearch, setCurrentSearch] = useRecoilState(currentSearchState);
   const setKeywords = useSetRecoilState(recentSearchState);
 
@@ -78,7 +74,12 @@ function SearchPost() {
   });
 
   const [focus, setFocus] = useState(false);
+
   const searchRef = useRef<HTMLDivElement>(null);
+
+  const navigate = useNavigate();
+
+  const isMobile = useMobile();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -105,12 +106,12 @@ function SearchPost() {
     });
 
     setCurrentSearch(formData.keyword);
-
     navigate(`${SEARCH_PATH}/${formData.keyword}`);
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,

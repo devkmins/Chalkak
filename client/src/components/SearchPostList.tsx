@@ -186,21 +186,6 @@ const PostBox = styled.div<IIsMobile>`
 `;
 
 function SearchPostList() {
-  const isMobile = useMobile();
-  const isTabletOrLaptop = useTabletOrLaptop();
-  const isDesktop = useDesktop();
-  const isMobileString = String(isMobile);
-  const isTabletOrLaptopString = String(isTabletOrLaptop);
-  const isDesktopString = String(isDesktop);
-
-  const params = useParams();
-  const searchKeyword = params.keyword;
-
-  const location = useLocation();
-  const path = location.pathname;
-
-  const [page, setPage] = useState(1);
-
   const { data, refetch } = useQuery("getSearchPostListData", async () => {
     const response = await axios.get(
       `http://localhost:4000/search/${searchKeyword}?page=${page}`,
@@ -210,6 +195,29 @@ function SearchPostList() {
 
     return responseData;
   });
+
+  const [scrollY, setScrollY] = useRecoilState(searchPostListScrollYState);
+
+  const isBackToSearchPostList = useRecoilValue(isBackToSearchPostListState);
+
+  const [firstCol, setFirstCol] = useState<IPost[]>([]);
+  const [secondCol, setSecondCol] = useState<IPost[]>([]);
+  const [thirdCol, setThirdCol] = useState<IPost[]>([]);
+
+  const [page, setPage] = useState(1);
+
+  const params = useParams();
+  const searchKeyword = params.keyword;
+
+  const location = useLocation();
+  const path = location.pathname;
+
+  const isMobile = useMobile();
+  const isTabletOrLaptop = useTabletOrLaptop();
+  const isDesktop = useDesktop();
+  const isMobileString = String(isMobile);
+  const isTabletOrLaptopString = String(isTabletOrLaptop);
+  const isDesktopString = String(isDesktop);
 
   const handleScroll = debounce(() => {
     const windowHeight = window.innerHeight;
@@ -224,16 +232,21 @@ function SearchPostList() {
     }
   }, 200);
 
+  const clickedProfile = () => {
+    setScrollY(window.scrollY);
+  };
+
+  const clickedPost = () => {
+    setScrollY(window.scrollY);
+  };
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-  const [firstCol, setFirstCol] = useState<IPost[]>([]);
-  const [secondCol, setSecondCol] = useState<IPost[]>([]);
-  const [thirdCol, setThirdCol] = useState<IPost[]>([]);
 
   useEffect(() => {
     const firstColImages: IPost[] = [];
@@ -278,18 +291,6 @@ function SearchPostList() {
     setSecondCol(secondColImages);
     setThirdCol(thirdColImages);
   }, [data, isMobile, isTabletOrLaptop, isDesktop]);
-
-  const [scrollY, setScrollY] = useRecoilState(searchPostListScrollYState);
-
-  const isBackToSearchPostList = useRecoilValue(isBackToSearchPostListState);
-
-  const clickedProfile = () => {
-    setScrollY(window.scrollY);
-  };
-
-  const clickedPost = () => {
-    setScrollY(window.scrollY);
-  };
 
   useEffect(() => {
     if (isBackToSearchPostList) {

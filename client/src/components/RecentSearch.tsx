@@ -74,17 +74,16 @@ const SearchText = styled.span`
 `;
 
 function RecentSearch() {
-  const navigate = useNavigate();
-
   const [keywords, setKeywords] = useRecoilState(recentSearchState);
 
   const setCurrentSearch = useSetRecoilState(currentSearchState);
+
+  const navigate = useNavigate();
 
   const onClick = (event: React.MouseEvent<HTMLSpanElement>) => {
     event?.preventDefault();
 
     localStorage.removeItem(RECENT_SEARCH_KEYWORDS_LOCAL_KEY);
-
     setKeywords([]);
   };
 
@@ -95,7 +94,6 @@ function RecentSearch() {
     );
 
     setCurrentSearch(keyword);
-
     navigate(`${SEARCH_PATH}/${keyword}`, { state: response.data });
   };
 

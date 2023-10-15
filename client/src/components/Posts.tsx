@@ -14,7 +14,7 @@ import { isBackToMainState } from "../atoms/navigationBackAtoms";
 import { mainPageScrollYState } from "../atoms/scrollYStateAtoms";
 
 // hook
-import useInitSearch from "../hooks/useInitSearch";
+import useSearchClear from "../hooks/useSearchClear";
 
 // React
 import { useEffect, useState } from "react";
@@ -133,18 +133,6 @@ const ImagesBox = styled.div<IIsMobile>`
 `;
 
 function Posts() {
-  const isMobile = useMobile();
-  const isTabletOrLaptop = useTabletOrLaptop();
-  const isDesktop = useDesktop();
-  const isMobileString = String(isMobile);
-  const isTabletOrLaptopString = String(isTabletOrLaptop);
-  const isDesktopString = String(isDesktop);
-
-  const [page, setPage] = useRecoilState(currentPostPageScrollState);
-
-  const location = useLocation();
-  const path = location.pathname;
-
   const { data, refetch } = useQuery("getAllPostsData", async () => {
     const response = await axios.get(
       `http://localhost:4000/posts?page=${page}`
@@ -153,6 +141,28 @@ function Posts() {
 
     return responseData;
   });
+
+  const searchKeywordsClear = useSearchClear();
+
+  const [scrollY, setScrollY] = useRecoilState(mainPageScrollYState);
+
+  const [page, setPage] = useRecoilState(currentPostPageScrollState);
+
+  const isBackToMain = useRecoilValue(isBackToMainState);
+
+  const [firstCol, setFirstCol] = useState<IPostWithHashtags[]>([]);
+  const [secondCol, setSecondCol] = useState<IPostWithHashtags[]>([]);
+  const [thirdCol, setThirdCol] = useState<IPostWithHashtags[]>([]);
+
+  const location = useLocation();
+  const path = location.pathname;
+
+  const isMobile = useMobile();
+  const isTabletOrLaptop = useTabletOrLaptop();
+  const isDesktop = useDesktop();
+  const isMobileString = String(isMobile);
+  const isTabletOrLaptopString = String(isTabletOrLaptop);
+  const isDesktopString = String(isDesktop);
 
   const handleScroll = debounce(() => {
     const windowHeight = window.innerHeight;
@@ -167,21 +177,6 @@ function Posts() {
     }
   }, 150);
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const [firstCol, setFirstCol] = useState<IPostWithHashtags[]>([]);
-  const [secondCol, setSecondCol] = useState<IPostWithHashtags[]>([]);
-  const [thirdCol, setThirdCol] = useState<IPostWithHashtags[]>([]);
-
-  const [scrollY, setScrollY] = useRecoilState(mainPageScrollYState);
-
-  const isBackToMain = useRecoilValue(isBackToMainState);
-
   const clickedProfile = () => {
     setScrollY(window.scrollY);
   };
@@ -189,6 +184,14 @@ function Posts() {
   const clickedPost = () => {
     setScrollY(window.scrollY);
   };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     const firstColImages: IPostWithHashtags[] = [];
@@ -245,8 +248,6 @@ function Posts() {
       window.scrollTo(0, 0);
     }
   }, []);
-
-  useInitSearch();
 
   return (
     <Container>

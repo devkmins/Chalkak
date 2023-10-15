@@ -18,7 +18,7 @@ import Header from "../components/Header";
 import { sessionState } from "../atoms/sessionAtom";
 
 // Hook
-import useInitSearch from "../hooks/useInitSearch";
+import useSearchClear from "../hooks/useSearchClear";
 
 // Style
 import { useMobile } from "../styles/mediaQueries";
@@ -350,23 +350,25 @@ const LoadingContainer = {
 };
 
 function UploadImage() {
-  const isMobile = useMobile();
-  const isMobileString = String(isMobile);
+  const searchKeywordsClear = useSearchClear();
+
+  const sessionData = useRecoilValue(sessionState);
 
   const [images, setImages] = useState<File[]>([]);
   const [data, setData] = useState<string[]>([]);
 
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const navigate = useNavigate();
-
-  const sessionData = useRecoilValue(sessionState);
-
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     hashtags: [],
   });
+
+  const navigate = useNavigate();
+
+  const isMobile = useMobile();
+  const isMobileString = String(isMobile);
 
   const handleBackBtn = () => {
     if (images.length > 0) {
@@ -424,6 +426,7 @@ function UploadImage() {
 
     if (images.length > 0) {
       const imagesFormData = new FormData();
+
       let ratioWidth = [];
       let ratioHeight = [];
 
@@ -475,6 +478,7 @@ function UploadImage() {
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
@@ -503,6 +507,7 @@ function UploadImage() {
     setFormData((prev: any) => {
       const newHashtags: string[] = [...prev.hashtags];
       const index = newHashtags.indexOf(hashtag);
+
       newHashtags.splice(index, 1);
 
       const newFormData = { ...prev, hashtags: newHashtags };
@@ -514,8 +519,6 @@ function UploadImage() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  useInitSearch();
 
   return (
     <>

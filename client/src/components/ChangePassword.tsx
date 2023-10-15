@@ -117,21 +117,21 @@ const ErrorMessage = styled.span`
 `;
 
 function ChangePassword() {
-  const isMobile = useMobile();
-  const isMobileString = String(isMobile);
-
   const [formData, setFormData] = useState({
     currentPassword: "",
     newPassword: "",
     newConfirmPassword: "",
   });
 
-  const location = useLocation();
-  const pathname = location.pathname;
+  const [isChanged, setIsChanged] = useState(false);
 
   const [error, setError] = useState<IError>();
 
-  const [isChanged, setIsChanged] = useState(false);
+  const location = useLocation();
+  const pathname = location.pathname;
+
+  const isMobile = useMobile();
+  const isMobileString = String(isMobile);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -151,6 +151,7 @@ function ChangePassword() {
         confirmPasswordError: prevError?.confirmPasswordError || "",
         newPasswordError: PASSWORD_WHITE_SPACE_ERROR,
       }));
+
       return;
     }
 
@@ -160,6 +161,7 @@ function ChangePassword() {
         confirmPasswordError: prevError?.confirmPasswordError || "",
         newPasswordError: PASSWORD_LENGTH_ERROR,
       }));
+
       return;
     }
 
@@ -169,6 +171,7 @@ function ChangePassword() {
         confirmPasswordError: prevError?.confirmPasswordError || "",
         newPasswordError: PASSWORD_COMPLEXITY_ERROR,
       }));
+
       return;
     }
 
@@ -197,6 +200,7 @@ function ChangePassword() {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,

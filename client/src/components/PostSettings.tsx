@@ -95,17 +95,17 @@ const ContentBox = styled.div`
 `;
 
 function PostSettings({ postId }: IPostSettingsProp) {
+  const [showDetails, setShowDetails] = useState(true);
+  const [showSettings, setShowSettings] = useState(false);
+  const showDetailsString = String(showDetails);
+  const showSettingsString = String(showSettings);
+
   const isMobile = useMobile();
   const isTabletOrLaptop = useTabletOrLaptop();
   const isDesktop = useDesktop();
   const isMobileString = String(isMobile);
   const isTabletOrLaptopString = String(isTabletOrLaptop);
   const isDesktopString = String(isDesktop);
-
-  const [showDetails, setShowDetails] = useState(true);
-  const [showSettings, setShowSettings] = useState(false);
-  const showDetailsString = String(showDetails);
-  const showSettingsString = String(showSettings);
 
   const clickDetails = () => {
     setShowDetails(true);

@@ -184,10 +184,10 @@ const ErrorMessage = styled.span`
 `;
 
 function Login() {
-  const isMobile = useMobile();
-  const isMobileString = String(isMobile);
+  const setLoggedIn = useSetRecoilState(loggedInState);
+  const setSessionData = useSetRecoilState(sessionState);
 
-  const navigate = useNavigate();
+  const setIsLoggedOut = useSetRecoilState(isLoggedOutState);
 
   const [formData, setFormData] = useState({
     username: "",
@@ -198,10 +198,10 @@ function Login() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const setLoggedIn = useSetRecoilState(loggedInState);
-  const setSessionData = useSetRecoilState(sessionState);
+  const navigate = useNavigate();
 
-  const setIsLoggedOut = useSetRecoilState(isLoggedOutState);
+  const isMobile = useMobile();
+  const isMobileString = String(isMobile);
 
   const isJoined = sessionStorage.getItem(IS_JOINED_SESSION_KEY);
   const location = useLocation();
@@ -265,6 +265,7 @@ function Login() {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,

@@ -133,6 +133,8 @@ function EditPost({ postId }: IEditPostProp) {
       .then((response) => response.data)
   );
 
+  const setIsEdited = useSetRecoilState(isEditedState);
+
   const [formData, setFormData] = useState({
     title: data?.title.trim() || "",
     description: data?.description.trim() || "",
@@ -140,8 +142,6 @@ function EditPost({ postId }: IEditPostProp) {
   });
 
   const [error, setError] = useState<IError>();
-
-  const setIsEdited = useSetRecoilState(isEditedState);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();

@@ -180,11 +180,6 @@ const ErrorMessage = styled.span`
 `;
 
 function Join() {
-  const isMobile = useMobile();
-  const isMobileString = String(isMobile);
-
-  const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     name: "",
     username: "",
@@ -197,6 +192,11 @@ function Join() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const navigate = useNavigate();
+
+  const isMobile = useMobile();
+  const isMobileString = String(isMobile);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -220,6 +220,7 @@ function Join() {
         confirmPasswordError: prevError?.confirmPasswordError || "",
         nameError: NAME_LENGTH_ERROR,
       }));
+
       return;
     }
 
@@ -231,6 +232,7 @@ function Join() {
         confirmPasswordError: prevError?.confirmPasswordError || "",
         nameError: NAME_WHITE_SPACE_ERROR,
       }));
+
       return;
     }
 
@@ -242,6 +244,7 @@ function Join() {
         confirmPasswordError: prevError?.confirmPasswordError || "",
         usernameError: USERNAME_LENGTH_ERROR,
       }));
+
       return;
     }
 
@@ -253,6 +256,7 @@ function Join() {
         confirmPasswordError: prevError?.confirmPasswordError || "",
         usernameError: USERNAME_WHITE_SPACE_ERROR,
       }));
+
       return;
     }
 
@@ -264,6 +268,7 @@ function Join() {
         confirmPasswordError: prevError?.confirmPasswordError || "",
         emailError: EMAIL_VALIDITY_ERROR,
       }));
+
       return;
     }
 
@@ -275,6 +280,7 @@ function Join() {
         confirmPasswordError: prevError?.confirmPasswordError || "",
         passwordError: PASSWORD_WHITE_SPACE_ERROR,
       }));
+
       return;
     }
 
@@ -286,6 +292,7 @@ function Join() {
         confirmPasswordError: prevError?.confirmPasswordError || "",
         passwordError: PASSWORD_LENGTH_ERROR,
       }));
+
       return;
     }
 
@@ -297,6 +304,7 @@ function Join() {
         confirmPasswordError: prevError?.confirmPasswordError || "",
         passwordError: PASSWORD_COMPLEXITY_ERROR,
       }));
+
       return;
     }
 

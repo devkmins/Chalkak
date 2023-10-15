@@ -56,15 +56,15 @@ const Container = styled.div<IIsMobile>`
 `;
 
 function LoggedInMenu() {
-  const isMobile = useMobile();
-  const isMobileString = String(isMobile);
-
-  const navigate = useNavigate();
-
   const setLoggedIn = useSetRecoilState(loggedInState);
   const [sessionData, setSessionData] = useRecoilState(sessionState);
   const setIsLoggedOut = useSetRecoilState(isLoggedOutState);
   const [cookies, , removeCookie] = useCookies(["connect.sid"]);
+
+  const navigate = useNavigate();
+
+  const isMobile = useMobile();
+  const isMobileString = String(isMobile);
 
   const logout = async () => {
     await axios

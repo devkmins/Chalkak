@@ -115,14 +115,6 @@ const ImagesBox = styled.div`
 `;
 
 function SimilarPosts({ title, postId }: IProp) {
-  const isDesktop = useDesktop();
-  const isDesktopString = String(isDesktop);
-
-  const location = useLocation();
-  const path = location.pathname;
-
-  const [page, setPage] = useRecoilState(currentSimilarPostsPageScrollState);
-
   const { data, refetch } = useQuery(
     ["getSimilarPostsData", title, postId],
     async () => {
@@ -135,6 +127,22 @@ function SimilarPosts({ title, postId }: IProp) {
       return response.data;
     }
   );
+
+  const [page, setPage] = useRecoilState(currentSimilarPostsPageScrollState);
+
+  const [scrollY, setScrollY] = useRecoilState(similarPostsScrollYState);
+
+  const isBackToSimilarPosts = useRecoilValue(isBackToSimilarPostsState);
+
+  const [firstCol, setFirstCol] = useState<IPost[]>([]);
+  const [secondCol, setSecondCol] = useState<IPost[]>([]);
+  const [thirdCol, setThirdCol] = useState<IPost[]>([]);
+
+  const location = useLocation();
+  const path = location.pathname;
+
+  const isDesktop = useDesktop();
+  const isDesktopString = String(isDesktop);
 
   const handleScroll = debounce(() => {
     const windowHeight = window.innerHeight;
@@ -149,16 +157,21 @@ function SimilarPosts({ title, postId }: IProp) {
     }
   }, 200);
 
+  const clickedProfile = () => {
+    setScrollY(window.scrollY);
+  };
+
+  const clickedPost = () => {
+    setScrollY(window.scrollY);
+  };
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-  const [firstCol, setFirstCol] = useState<IPost[]>([]);
-  const [secondCol, setSecondCol] = useState<IPost[]>([]);
-  const [thirdCol, setThirdCol] = useState<IPost[]>([]);
 
   useEffect(() => {
     const firstColImages: IPost[] = [];
@@ -195,18 +208,6 @@ function SimilarPosts({ title, postId }: IProp) {
     setSecondCol(secondColImages);
     setThirdCol(thirdColImages);
   }, [data, isDesktop]);
-
-  const [scrollY, setScrollY] = useRecoilState(similarPostsScrollYState);
-
-  const isBackToSimilarPosts = useRecoilValue(isBackToSimilarPostsState);
-
-  const clickedProfile = () => {
-    setScrollY(window.scrollY);
-  };
-
-  const clickedPost = () => {
-    setScrollY(window.scrollY);
-  };
 
   useEffect(() => {
     if (isBackToSimilarPosts) {

@@ -77,10 +77,10 @@ const StyledGrFormClose = styled(GrFormClose)`
 `;
 
 function NotificationBar({ text }: IProp) {
+  const setIsLoggedOut = useSetRecoilState(isLoggedOutState);
+
   const [clicked, setClicked] = useState(false);
   const clickedString = String(clicked);
-
-  const setIsLoggedOut = useSetRecoilState(isLoggedOutState);
 
   const handleClick = () => {
     setClicked(true);

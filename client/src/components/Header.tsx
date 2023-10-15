@@ -169,14 +169,14 @@ const StyledFaBars = styled(FaBars)`
 `;
 
 function Header() {
-  const isMobile = useMobile();
-  const isTabletOrLaptop = useTabletOrLaptop();
-  const isDesktop = useDesktop();
-  const isMobileString = String(isMobile);
-
   const loggedIn = useRecoilValue(loggedInState);
   const sessionData = useRecoilValue(sessionState);
   const userProfileImg = sessionData.profileImage;
+
+  const setLoggedIn = useSetRecoilState(loggedInState);
+  const setSessionData = useSetRecoilState(sessionState);
+  const setIsLoggedOut = useSetRecoilState(isLoggedOutState);
+  const [cookies, , removeCookie] = useCookies(["connect.sid"]);
 
   const setIsBackToMain = useSetRecoilState(isBackToMainState);
 
@@ -191,10 +191,10 @@ function Header() {
 
   const navigate = useNavigate();
 
-  const setLoggedIn = useSetRecoilState(loggedInState);
-  const setSessionData = useSetRecoilState(sessionState);
-  const setIsLoggedOut = useSetRecoilState(isLoggedOutState);
-  const [cookies, , removeCookie] = useCookies(["connect.sid"]);
+  const isMobile = useMobile();
+  const isTabletOrLaptop = useTabletOrLaptop();
+  const isDesktop = useDesktop();
+  const isMobileString = String(isMobile);
 
   const isRoot = path === MAIN_PATH ? true : false;
 

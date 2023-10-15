@@ -122,11 +122,6 @@ const ErrorMessage = styled.span`
 `;
 
 function CloseAccount() {
-  const isMobile = useMobile();
-  const isMobileString = String(isMobile);
-
-  const navigate = useNavigate();
-
   const setLoggedIn = useSetRecoilState(loggedInState);
   const setSessionData = useSetRecoilState(sessionState);
   const [, , removeCookie] = useCookies(["connect.sid"]);
@@ -135,10 +130,15 @@ function CloseAccount() {
     password: "",
   });
 
+  const [error, setError] = useState<IError>();
+
+  const navigate = useNavigate();
+
   const location = useLocation();
   const pathname = location.pathname;
 
-  const [error, setError] = useState<IError>();
+  const isMobile = useMobile();
+  const isMobileString = String(isMobile);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -166,7 +166,6 @@ function CloseAccount() {
             _id: "",
           });
           removeCookie("connect.sid");
-
           navigate(MAIN_PATH);
         })
         .catch((error) => setError(error.response.data));
@@ -175,6 +174,7 @@ function CloseAccount() {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,

@@ -77,13 +77,13 @@ const RemoveBtn = styled.button`
 `;
 
 function DeletePost({ postId }: IDeletePostProp) {
-  const navigate = useNavigate();
-
   const { data } = useQuery("getData", () =>
     axios
       .get(`http://localhost:4000/post/${postId}`)
       .then((response) => response.data)
   );
+
+  const navigate = useNavigate();
 
   const onClick = async () => {
     const result = window.confirm(PHOTO_REMOVAL_CONFIRMATION);

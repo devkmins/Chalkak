@@ -130,19 +130,23 @@ const PostBox = styled.div<IIsMobile>`
 `;
 
 function UserContents({ data }: { data: IUserData }) {
+  const setIsBackToUserPage = useSetRecoilState(isBackToUserPageState);
+
+  const setScrollY = useSetRecoilState(userPageScrollYState);
+
+  const [firstCol, setFirstCol] = useState<IPost[]>([]);
+  const [secondCol, setSecondCol] = useState<IPost[]>([]);
+  const [thirdCol, setThirdCol] = useState<IPost[]>([]);
+
+  const location = useLocation();
+  const path = location.pathname;
+
   const isMobile = useMobile();
   const isTabletOrLaptop = useTabletOrLaptop();
   const isDesktop = useDesktop();
   const isMobileString = String(isMobile);
   const isTabletOrLaptopString = String(isTabletOrLaptop);
   const isDesktopString = String(isDesktop);
-
-  const location = useLocation();
-  const path = location.pathname;
-
-  const setIsBackToUserPage = useSetRecoilState(isBackToUserPageState);
-
-  const setScrollY = useSetRecoilState(userPageScrollYState);
 
   const clickedProfile = () => {
     setScrollY(window.scrollY);
@@ -151,10 +155,6 @@ function UserContents({ data }: { data: IUserData }) {
   const clickedPost = () => {
     setScrollY(window.scrollY);
   };
-
-  const [firstCol, setFirstCol] = useState<IPost[]>([]);
-  const [secondCol, setSecondCol] = useState<IPost[]>([]);
-  const [thirdCol, setThirdCol] = useState<IPost[]>([]);
 
   useEffect(() => {
     const firstColImages: IPost[] = [];

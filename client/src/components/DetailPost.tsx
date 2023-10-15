@@ -317,9 +317,7 @@ function DetailPost() {
       .then((response) => response.data)
   );
 
-  const location = useLocation();
-  const postId = location.state.postId;
-  const prevPath = location.state.path;
+  const queryClient = useQueryClient();
 
   const setIsBackToMain = useSetRecoilState(isBackToMainState);
   const setIsBackToSimilarPosts = useSetRecoilState(isBackToSimilarPostsState);
@@ -327,30 +325,28 @@ function DetailPost() {
     isBackToSearchPostListState
   );
 
-  const navigate = useNavigate();
-
   const sessionData = useRecoilValue(sessionState);
   const loggedIn = useRecoilValue(loggedInState);
 
   const setCurrentSearch = useSetRecoilState(currentSearchState);
 
-  const [modalIsOpen, setIsOpen] = useState(false);
-
   const [isEdited, setIsEdited] = useRecoilState(isEditedState);
 
   const setCurrentPost = useSetRecoilState(currentPostState);
 
-  const queryClient = useQueryClient();
+  const [modalIsOpen, setIsOpen] = useState(false);
 
-  const openModal = () => {
-    setIsOpen(true);
-  };
+  const [clickLikes, setClickLikes] = useState(
+    data?.likes?.includes(sessionData._id)
+  );
 
-  const afterOpenModal = () => {};
+  const [likes, setLikes] = useState(data?.likes?.length);
 
-  const closeModal = () => {
-    setIsOpen(false);
-  };
+  const location = useLocation();
+  const postId = location.state.postId;
+  const prevPath = location.state.path;
+
+  const navigate = useNavigate();
 
   const userProfileImg = data?.owner?.profileImage;
 
@@ -366,6 +362,14 @@ function DetailPost() {
   );
   const resultDate = combinedArray.join("");
 
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
   const requestViews = async (views: number) => {
     try {
       const response = await axios.put(
@@ -377,19 +381,6 @@ function DetailPost() {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    if (data?.views) {
-      const views = Number(data.views) + 1;
-      requestViews(views);
-    }
-  }, [data?.views]);
-
-  const [clickLikes, setClickLikes] = useState(
-    data?.likes?.includes(sessionData._id)
-  );
-
-  const [likes, setLikes] = useState(data?.likes?.length);
 
   const likesBtn = async () => {
     try {
@@ -406,11 +397,6 @@ function DetailPost() {
     }
   };
 
-  useEffect(() => {
-    setClickLikes(data?.likes?.includes(sessionData._id));
-    setLikes(data?.likes?.length);
-  }, [data]);
-
   const hashtagClicked = async (hashtag: string) => {
     const response = await axios.get(
       `http://localhost:4000/search/${hashtag}`,
@@ -418,9 +404,20 @@ function DetailPost() {
     );
 
     setCurrentSearch(hashtag);
-
     navigate(`${SEARCH_PATH}/${hashtag}`, { state: response.data });
   };
+
+  useEffect(() => {
+    if (data?.views) {
+      const views = Number(data.views) + 1;
+      requestViews(views);
+    }
+  }, [data?.views]);
+
+  useEffect(() => {
+    setClickLikes(data?.likes?.includes(sessionData._id));
+    setLikes(data?.likes?.length);
+  }, [data]);
 
   useEffect(() => {
     const handleNavigation = () => {
@@ -489,7 +486,6 @@ function DetailPost() {
                   <StyledBsThreeDots onClick={openModal} />
                   <StyledReactModal
                     isOpen={modalIsOpen}
-                    onAfterOpen={afterOpenModal}
                     onRequestClose={closeModal}>
                     <StyledGrFormClose onClick={closeModal} />
                     <PostSettings postId={data?._id} />

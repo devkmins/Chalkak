@@ -15,7 +15,7 @@ import { sessionState } from "../atoms/sessionAtom";
 // Components
 import Header from "../components/Header";
 import AccountMenu from "../components/AccountMenu";
-import useInitSearch from "../hooks/useInitSearch";
+import useSearchClear from "../hooks/useSearchClear";
 import NotificationBar from "../components/NotificationBar";
 
 // Asset
@@ -168,8 +168,7 @@ const ErrorMessage = styled.span`
 `;
 
 function Account() {
-  const isMobile = useMobile();
-  const isMobileString = String(isMobile);
+  const searchKeywordsClear = useSearchClear();
 
   const [sessionData, setSessionData] = useRecoilState(sessionState);
   const [formData, setFormData] = useState({
@@ -177,7 +176,10 @@ function Account() {
     email: sessionData.email,
     username: sessionData.username,
   });
-  const userProfileImg = sessionData.profileImage;
+
+  const [error, setError] = useState<IError>();
+
+  const [isUpdated, setIsUpdated] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const formRef = useRef<HTMLFormElement | null>(null);
@@ -185,9 +187,10 @@ function Account() {
   const location = useLocation();
   const pathname = location.pathname;
 
-  const [error, setError] = useState<IError>();
+  const isMobile = useMobile();
+  const isMobileString = String(isMobile);
 
-  const [isUpdated, setIsUpdated] = useState(false);
+  const userProfileImg = sessionData.profileImage;
 
   const handleSubmit = async (event?: React.FormEvent<HTMLFormElement>) => {
     if (event) {
@@ -204,6 +207,7 @@ function Account() {
         emailError: prevError?.emailError || "",
         usernameError: USERNAME_LENGTH_ERROR,
       }));
+
       return;
     }
 
@@ -212,6 +216,7 @@ function Account() {
         emailError: prevError?.emailError || "",
         usernameError: USERNAME_WHITE_SPACE_ERROR,
       }));
+
       return;
     }
 
@@ -220,6 +225,7 @@ function Account() {
         usernameError: prevError?.usernameError || "",
         emailError: EMAIL_VALIDITY_ERROR,
       }));
+
       return;
     }
 
@@ -234,6 +240,7 @@ function Account() {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
@@ -287,8 +294,6 @@ function Account() {
       handleSubmit();
     }
   };
-
-  useInitSearch();
 
   useEffect(() => {
     setTimeout(() => setIsUpdated(false), 3000);
