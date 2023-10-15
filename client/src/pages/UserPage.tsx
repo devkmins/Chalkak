@@ -258,6 +258,9 @@ function UserPage() {
   const [connectPhotos, setConnectPhotos] = useState(true);
   const [connectLikes, setConnectLikes] = useState(false);
 
+  const [totalViews, setTotalViews] = useState(0);
+  const [totalLikes, setTotalLikes] = useState(0);
+
   const location = useLocation();
   const pathname = location.pathname;
   const prevPath = location.state;
@@ -269,14 +272,6 @@ function UserPage() {
   const isMobileString = String(isMobile);
 
   const userProfileImg = data?.profileImg;
-
-  let totalViews = 0;
-  let totalLikes = 0;
-
-  data?.userPosts?.posts?.map((post: IPost) => (totalViews += post.views - 1));
-  data?.userPosts?.posts?.map(
-    (post: IPost) => (totalLikes += post.likes.length)
-  );
 
   const handleScroll = debounce(() => {
     const windowHeight = window.innerHeight;
@@ -290,6 +285,19 @@ function UserPage() {
       }, 0);
     }
   }, 200);
+
+  useEffect(() => {
+    let newTotalViews = 0;
+    let newTotalLikes = 0;
+
+    data?.userPosts?.posts?.forEach((post: IPost) => {
+      newTotalViews += post.views - 1;
+      newTotalLikes += post.likes.length;
+    });
+
+    setTotalViews(newTotalViews);
+    setTotalLikes(newTotalLikes);
+  }, [data]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
