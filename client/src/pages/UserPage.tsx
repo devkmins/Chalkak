@@ -25,8 +25,7 @@ import { userPageScrollYState } from "../atoms/scrollYStateAtoms";
 
 // Components
 import Header from "../components/Header";
-import UserPosts from "../components/UserPosts";
-import UserLikes from "../components/UserLikes";
+import UserContents from "../components/UserContents";
 
 // Hook
 import useInitSearch from "../hooks/useInitSearch";
@@ -404,8 +403,8 @@ function UserPage() {
                   </LikesLi>
                 </ContentsUl>
               </ContentsContainer>
-              {connectPhotos && <UserPosts data={data?.userPosts} />}
-              {connectLikes && <UserLikes data={data?.likedPosts} />}
+              {connectPhotos && <UserContents data={data?.userPosts?.posts} />}
+              {connectLikes && <UserContents data={data?.likedPosts} />}
             </PostsContainer>
           </>
         )}

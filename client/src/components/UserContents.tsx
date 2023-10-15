@@ -129,7 +129,7 @@ const PostBox = styled.div<IIsMobile>`
   }
 `;
 
-function UserLikes({ data }: { data: IUserData }) {
+function UserContents({ data }: { data: IUserData }) {
   const isMobile = useMobile();
   const isTabletOrLaptop = useTabletOrLaptop();
   const isDesktop = useDesktop();
@@ -462,4 +462,4 @@ function UserLikes({ data }: { data: IUserData }) {
   );
 }
 
-export default UserLikes;
+export default UserContents;
