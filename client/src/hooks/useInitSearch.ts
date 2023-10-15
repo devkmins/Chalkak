@@ -13,8 +13,6 @@ function useInitSearch() {
   useEffect(() => {
     setCurrentSearch("");
   }, []);
-
-  return null;
 }
 
 export default useInitSearch;
