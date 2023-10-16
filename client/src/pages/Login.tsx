@@ -231,7 +231,7 @@ function Login() {
           setSessionData(response.data.user);
           setIsLoggedOut(false);
           localStorage.removeItem(LOGIN_COUNT_LOCAL_KEY);
-          navigate("/");
+          navigate(MAIN_PATH);
         })
         .catch((error) => {
           setError(error.response.data);
