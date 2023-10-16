@@ -14,12 +14,7 @@ import { useEffect, useState } from "react";
 // Atoms
 import { currentUserPageScrollState } from "../atoms/pageScrollAtoms";
 import { currentUserPageState } from "../atoms/currentPostAtoms";
-import {
-  isBackToMainState,
-  isBackToSearchPostListState,
-  isBackToSimilarPostsState,
-  isBackToUserPageState,
-} from "../atoms/navigationBackAtoms";
+import { isBackToUserPageState } from "../atoms/navigationBackAtoms";
 import { sessionState } from "../atoms/sessionAtom";
 import { userPageScrollYState } from "../atoms/scrollYStateAtoms";
 
@@ -30,6 +25,7 @@ import UserContents from "../components/UserContents";
 // Hooks
 import useSearchClear from "../hooks/useSearchClear";
 import useScrollEvent from "../hooks/useScrollEvent";
+import usePopStateEvent from "../hooks/usePopStateEvent";
 
 // Style
 import { useMobile } from "../styles/mediaQueries";
@@ -240,12 +236,6 @@ function UserPage() {
 
   const searchKeywordsClear = useSearchClear();
 
-  const setIsBackToMain = useSetRecoilState(isBackToMainState);
-  const setIsBackToSimilarPosts = useSetRecoilState(isBackToSimilarPostsState);
-  const setIsBackToSearchPostList = useSetRecoilState(
-    isBackToSearchPostListState
-  );
-
   const [page, setPage] = useRecoilState(currentUserPageScrollState);
 
   const setCurrentUserPage = useSetRecoilState(currentUserPageState);
@@ -265,6 +255,8 @@ function UserPage() {
   const location = useLocation();
   const pathname = location.pathname;
   const prevPath = location.state;
+
+  const goBack = usePopStateEvent(prevPath);
 
   const params = useParams();
   const username = params.id;
@@ -305,27 +297,6 @@ function UserPage() {
       setConnectLikes(true);
     }
   }, [pathname]);
-
-  useEffect(() => {
-    const handleNavigation = () => {
-      if (prevPath === "/") {
-        setIsBackToMain(true);
-        setTimeout(() => setIsBackToMain(false), 500);
-      } else if (prevPath?.split("/")[1] === "search") {
-        setIsBackToSearchPostList(true);
-        setTimeout(() => setIsBackToSearchPostList(false), 500);
-      } else if (prevPath?.split("/")[1] === "post") {
-        setIsBackToSimilarPosts(true);
-        setTimeout(() => setIsBackToSimilarPosts(false), 500);
-      }
-
-      return () => {
-        window.removeEventListener("popstate", handleNavigation);
-      };
-    };
-
-    window.addEventListener("popstate", handleNavigation);
-  });
 
   useEffect(() => {
     if (isBackToUserPage) {

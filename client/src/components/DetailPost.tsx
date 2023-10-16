@@ -14,11 +14,6 @@ import { styled } from "styled-components";
 // Atoms
 import { currentPostState } from "../atoms/currentPostAtoms";
 import { currentSearchState } from "../atoms/searchStateAtoms";
-import {
-  isBackToMainState,
-  isBackToSearchPostListState,
-  isBackToSimilarPostsState,
-} from "../atoms/navigationBackAtoms";
 import { isEditedState } from "../atoms/postEditedAtom";
 import { loggedInState } from "../atoms/authAtoms";
 import { sessionState } from "../atoms/sessionAtom";
@@ -50,8 +45,9 @@ import { BsPerson } from "@react-icons/all-files/bs/BsPerson";
 import { MdDateRange } from "@react-icons/all-files/md/MdDateRange";
 import { GrFormClose } from "@react-icons/all-files/gr/GrFormClose";
 
-// Hook
+// Hooks
 import useScrollToTop from "../hooks/useScrollToTop";
+import usePopStateEvent from "../hooks/usePopStateEvent";
 
 interface StyledAiFillHeartProps {
   clicked: string;
@@ -324,12 +320,6 @@ function DetailPost() {
 
   const scrollToTop = useScrollToTop();
 
-  const setIsBackToMain = useSetRecoilState(isBackToMainState);
-  const setIsBackToSimilarPosts = useSetRecoilState(isBackToSimilarPostsState);
-  const setIsBackToSearchPostList = useSetRecoilState(
-    isBackToSearchPostListState
-  );
-
   const sessionData = useRecoilValue(sessionState);
   const loggedIn = useRecoilValue(loggedInState);
 
@@ -350,6 +340,8 @@ function DetailPost() {
   const location = useLocation();
   const postId = location.state.postId;
   const prevPath = location.state.path;
+
+  const goBack = usePopStateEvent(prevPath);
 
   const navigate = useNavigate();
 
@@ -423,27 +415,6 @@ function DetailPost() {
     setClickLikes(data?.likes?.includes(sessionData._id));
     setLikes(data?.likes?.length);
   }, [data]);
-
-  useEffect(() => {
-    const handleNavigation = () => {
-      if (prevPath === "/") {
-        setIsBackToMain(true);
-        setTimeout(() => setIsBackToMain(false), 500);
-      } else if (prevPath?.split("/")[1] === "search") {
-        setIsBackToSearchPostList(true);
-        setTimeout(() => setIsBackToSearchPostList(false), 500);
-      } else if (prevPath?.split("/")[1] === "post") {
-        setIsBackToSimilarPosts(true);
-        setTimeout(() => setIsBackToSimilarPosts(false), 500);
-      }
-
-      return () => {
-        window.removeEventListener("popstate", handleNavigation);
-      };
-    };
-
-    window.addEventListener("popstate", handleNavigation);
-  });
 
   useEffect(() => {
     if (isEdited) {
