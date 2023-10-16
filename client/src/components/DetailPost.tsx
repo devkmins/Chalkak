@@ -37,6 +37,7 @@ import { IRatioTypes } from "../types/ratioType";
 // Constants
 import { PHOTO_UPDATE_SUCCESS_TEXT } from "../constants/notificationMessages";
 import { SEARCH_PATH, USER_PATH } from "../constants/paths";
+import { DETAIL_POST_DATA } from "../constants/reactQueryKeys";
 
 // React-Icons
 import { AiFillHeart } from "@react-icons/all-files/ai/AiFillHeart";
@@ -310,7 +311,7 @@ const sliderSettings = {
 ReactModal.setAppElement("#root");
 
 function DetailPost() {
-  const { data } = useQuery("getPostDetailData", () =>
+  const { data } = useQuery(DETAIL_POST_DATA, () =>
     axios
       .get(`http://localhost:4000/post/${postId}`)
       .then((response) => response.data)

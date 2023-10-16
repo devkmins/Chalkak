@@ -41,6 +41,7 @@ import { RiHeartsLine } from "@react-icons/all-files/ri/RiHeartsLine";
 
 // Constants
 import { ACCOUNT_PATH, USER_PATH } from "../constants/paths";
+import { USER_PROFILE_DATA } from "../constants/reactQueryKeys";
 
 // Types
 import { IPost } from "../types/postType";
@@ -225,7 +226,7 @@ const ContentText = styled.span<IIsMobile>`
 `;
 
 function UserPage() {
-  const { data, refetch } = useQuery("getUserProfileData", async () => {
+  const { data, refetch } = useQuery(USER_PROFILE_DATA, async () => {
     const response = await axios.get(
       `http://localhost:4000/user/${username}?page=${page}`
     );

@@ -14,6 +14,7 @@ import { isEditedState } from "../atoms/postEditedAtom";
 
 // Constant
 import { POST_TITLE_VALIDITY_ERROR } from "../constants/errorMessages";
+import { EDIT_POST_DATA } from "../constants/reactQueryKeys";
 
 interface IEditPostProp {
   postId: string;
@@ -127,7 +128,7 @@ const ErrorMessage = styled.span`
 `;
 
 function EditPost({ postId }: IEditPostProp) {
-  const { data } = useQuery("getPostEditData", () =>
+  const { data } = useQuery(EDIT_POST_DATA, () =>
     axios
       .get(`http://localhost:4000/post/${postId}`)
       .then((response) => response.data)

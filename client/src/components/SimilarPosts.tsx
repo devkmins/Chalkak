@@ -24,6 +24,7 @@ import { useDesktop } from "../styles/mediaQueries";
 
 // Constants
 import { POST_PATH, USER_PATH } from "../constants/paths";
+import { SIMILAR_POSTS_DATA } from "../constants/reactQueryKeys";
 
 // Hook
 import useScrollEvent from "../hooks/useScrollEvent";
@@ -119,7 +120,7 @@ const ImagesBox = styled.div`
 
 function SimilarPosts({ title, postId }: IProp) {
   const { data, refetch } = useQuery(
-    ["getSimilarPostsData", title, postId],
+    [SIMILAR_POSTS_DATA, title, postId],
     async () => {
       const response = await axios.get(
         `http://localhost:4000/post/similarPosts?page=${page}`,

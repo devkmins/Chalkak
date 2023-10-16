@@ -33,6 +33,7 @@ import {
 
 // Constants
 import { POST_PATH, USER_PATH } from "../constants/paths";
+import { ALL_POSTS_DATA } from "../constants/reactQueryKeys";
 
 // Types
 import { IIsMobile, IMediaQueriresType } from "../types/mediaQueriesType";
@@ -134,7 +135,7 @@ const ImagesBox = styled.div<IIsMobile>`
 `;
 
 function Posts() {
-  const { data, refetch } = useQuery("getAllPostsData", async () => {
+  const { data, refetch } = useQuery(ALL_POSTS_DATA, async () => {
     const response = await axios.get(
       `http://localhost:4000/posts?page=${page}`
     );
