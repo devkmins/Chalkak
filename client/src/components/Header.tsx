@@ -41,6 +41,7 @@ import {
   MAIN_PATH,
   POST_UPLOAD_PATH,
 } from "../constants/paths";
+import { COOKIE_NAME } from "../constants/cookieName";
 
 // Hook
 import useClickOutside from "../hooks/useClickOutside";
@@ -179,7 +180,7 @@ function Header() {
   const setLoggedIn = useSetRecoilState(loggedInState);
   const setSessionData = useSetRecoilState(sessionState);
   const setIsLoggedOut = useSetRecoilState(isLoggedOutState);
-  const [cookies, , removeCookie] = useCookies(["connect.sid"]);
+  const [cookies, , removeCookie] = useCookies([COOKIE_NAME]);
 
   const setIsBackToMain = useSetRecoilState(isBackToMainState);
 
@@ -261,7 +262,7 @@ function Header() {
           socialOnly: false,
           _id: "",
         });
-        removeCookie("connect.sid");
+        removeCookie(COOKIE_NAME);
         setIsLoggedOut(true);
         navigate(MAIN_PATH);
       });

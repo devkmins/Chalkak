@@ -21,6 +21,7 @@ import {
   POST_UPLOAD_PATH,
   USER_PATH,
 } from "../constants/paths";
+import { COOKIE_NAME } from "../constants/cookieName";
 
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
@@ -59,7 +60,7 @@ function LoggedInMenu() {
   const setLoggedIn = useSetRecoilState(loggedInState);
   const [sessionData, setSessionData] = useRecoilState(sessionState);
   const setIsLoggedOut = useSetRecoilState(isLoggedOutState);
-  const [cookies, , removeCookie] = useCookies(["connect.sid"]);
+  const [cookies, , removeCookie] = useCookies([COOKIE_NAME]);
 
   const navigate = useNavigate();
 
@@ -81,7 +82,7 @@ function LoggedInMenu() {
           socialOnly: false,
           _id: "",
         });
-        removeCookie("connect.sid");
+        removeCookie(COOKIE_NAME);
         setIsLoggedOut(true);
         navigate(MAIN_PATH);
       });

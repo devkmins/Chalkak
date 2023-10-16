@@ -25,6 +25,7 @@ import { useMobile } from "../styles/mediaQueries";
 // Constants
 import { ACCOUNT_CLOSURE_CONFIRMATION } from "../constants/confirmationMessages";
 import { MAIN_PATH } from "../constants/paths";
+import { COOKIE_NAME } from "../constants/cookieName";
 
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
@@ -124,7 +125,7 @@ const ErrorMessage = styled.span`
 function CloseAccount() {
   const setLoggedIn = useSetRecoilState(loggedInState);
   const setSessionData = useSetRecoilState(sessionState);
-  const [, , removeCookie] = useCookies(["connect.sid"]);
+  const [, , removeCookie] = useCookies([COOKIE_NAME]);
 
   const [formData, setFormData] = useState({
     password: "",
@@ -165,7 +166,7 @@ function CloseAccount() {
             socialOnly: false,
             _id: "",
           });
-          removeCookie("connect.sid");
+          removeCookie(COOKIE_NAME);
           navigate(MAIN_PATH);
         })
         .catch((error) => setError(error.response.data));
