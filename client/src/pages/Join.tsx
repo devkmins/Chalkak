@@ -32,6 +32,7 @@ import {
   USERNAME_WHITE_SPACE_ERROR,
 } from "../constants/errorMessages";
 import { LOGIN_PATH, MAIN_PATH } from "../constants/paths";
+import { IS_JOINED_SESSION_KEY } from "../constants/storagesKeys";
 
 // Hook
 import useScrollToTop from "../hooks/useScrollToTop";
@@ -324,7 +325,7 @@ function Join() {
         withCredentials: true,
       })
       .then(() => {
-        sessionStorage.setItem("isJoined", "true");
+        sessionStorage.setItem(IS_JOINED_SESSION_KEY, "true");
         navigate(LOGIN_PATH, { state: { name: formData.name } });
       })
       .catch((error) => setError(error.response.data));
