@@ -12,7 +12,7 @@ import {
 } from "../atoms/searchStateAtoms";
 
 // React
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 // Component
 import RecentSearch from "./RecentSearch";
@@ -26,6 +26,9 @@ import { RECENT_SEARCH_KEYWORDS_LOCAL_KEY } from "../constants/storagesKeys";
 
 // Style
 import { useMobile } from "../styles/mediaQueries";
+
+// Hook
+import useClickOutside from "../hooks/useClickOutside";
 
 const Box = styled.div``;
 
@@ -77,6 +80,8 @@ function SearchPost() {
 
   const searchRef = useRef<HTMLDivElement>(null);
 
+  const clickOutside = useClickOutside(searchRef, () => setFocus(false));
+
   const navigate = useNavigate();
 
   const isMobile = useMobile();
@@ -123,21 +128,6 @@ function SearchPost() {
   const handleFocus = () => {
     setFocus(true);
   };
-
-  useEffect(() => {
-    const handleDocumentClick = (event: MouseEvent) => {
-      const targetNode = event.target as Node;
-      if (searchRef.current && !searchRef.current.contains(targetNode)) {
-        setFocus(false);
-      }
-    };
-
-    document.addEventListener("click", handleDocumentClick);
-
-    return () => {
-      document.removeEventListener("click", handleDocumentClick);
-    };
-  }, []);
 
   return (
     <Box onFocus={handleFocus} ref={searchRef}>

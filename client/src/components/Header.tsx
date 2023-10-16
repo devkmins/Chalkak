@@ -13,7 +13,7 @@ import { isLoggedOutState, loggedInState } from "../atoms/authAtoms";
 import { sessionState } from "../atoms/sessionAtom";
 
 // React
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 // Components
 import SearchPost from "./SearchPost";
@@ -41,6 +41,9 @@ import {
   MAIN_PATH,
   POST_UPLOAD_PATH,
 } from "../constants/paths";
+
+// Hook
+import useClickOutside from "../hooks/useClickOutside";
 
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
@@ -183,8 +186,16 @@ function Header() {
   const [userImgClicked, setUserImgClicked] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
+  const clickUserImgOutside = useClickOutside(menuRef, () =>
+    setUserImgClicked(false)
+  );
+
   const [guestMenuClicked, setGuestMenuClicked] = useState(false);
   const guestMenuRef = useRef<HTMLDivElement>(null);
+
+  const clickGuestMenuOutside = useClickOutside(guestMenuRef, () =>
+    setGuestMenuClicked(false)
+  );
 
   const location = useLocation();
   const path = location.pathname;
@@ -255,36 +266,6 @@ function Header() {
         navigate(MAIN_PATH);
       });
   };
-
-  useEffect(() => {
-    const handleDocumentClick = (event: MouseEvent) => {
-      const targetNode = event.target as Node;
-      if (menuRef.current && !menuRef.current.contains(targetNode)) {
-        setUserImgClicked(false);
-      }
-    };
-
-    document.addEventListener("click", handleDocumentClick);
-
-    return () => {
-      document.removeEventListener("click", handleDocumentClick);
-    };
-  }, [menuRef]);
-
-  useEffect(() => {
-    const handleDocumentClick = (event: MouseEvent) => {
-      const targetNode = event.target as Node;
-      if (guestMenuRef.current && !guestMenuRef.current.contains(targetNode)) {
-        setGuestMenuClicked(false);
-      }
-    };
-
-    document.addEventListener("click", handleDocumentClick);
-
-    return () => {
-      document.removeEventListener("click", handleDocumentClick);
-    };
-  }, [guestMenuRef]);
 
   return (
     <HeaderContainer>
