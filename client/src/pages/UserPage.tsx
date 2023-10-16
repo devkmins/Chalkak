@@ -27,8 +27,9 @@ import { userPageScrollYState } from "../atoms/scrollYStateAtoms";
 import Header from "../components/Header";
 import UserContents from "../components/UserContents";
 
-// Hook
+// Hooks
 import useSearchClear from "../hooks/useSearchClear";
+import useScrollEvent from "../hooks/useScrollEvent";
 
 // Style
 import { useMobile } from "../styles/mediaQueries";
@@ -273,18 +274,14 @@ function UserPage() {
 
   const userProfileImg = data?.profileImg;
 
-  const handleScroll = debounce(() => {
-    const windowHeight = window.innerHeight;
-    const scrollTop = document.documentElement.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight;
+  const loadMoreData = () => {
+    setPage((prev) => prev + 1);
+    setTimeout(() => {
+      refetch();
+    }, 0);
+  };
 
-    if (windowHeight + scrollTop >= scrollHeight - 100) {
-      setPage((prev) => prev + 1);
-      setTimeout(() => {
-        refetch();
-      }, 0);
-    }
-  }, 200);
+  const scrollEvent = useScrollEvent(loadMoreData);
 
   useEffect(() => {
     let newTotalViews = 0;
@@ -298,14 +295,6 @@ function UserPage() {
     setTotalViews(newTotalViews);
     setTotalLikes(newTotalLikes);
   }, [data]);
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   useEffect(() => {
     if (pathname === `${USER_PATH}/${username}`) {

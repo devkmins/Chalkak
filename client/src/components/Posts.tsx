@@ -16,6 +16,7 @@ import { mainPageScrollYState } from "../atoms/scrollYStateAtoms";
 // Hooks
 import useSearchClear from "../hooks/useSearchClear";
 import useSplitPosts from "../hooks/useSplitPosts";
+import useScrollEvent from "../hooks/useScrollEvent";
 
 // React
 import { useEffect } from "react";
@@ -162,30 +163,18 @@ function Posts() {
   const isTabletOrLaptopString = String(isTabletOrLaptop);
   const isDesktopString = String(isDesktop);
 
-  const handleScroll = debounce(() => {
-    const windowHeight = window.innerHeight;
-    const scrollTop = document.documentElement.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight;
+  const loadMoreData = () => {
+    setPage((prev) => prev + 1);
+    setTimeout(() => {
+      refetch();
+    }, 0);
+  };
 
-    if (windowHeight + scrollTop >= scrollHeight - 50) {
-      setPage((prev) => prev + 1);
-      setTimeout(() => {
-        refetch();
-      }, 0);
-    }
-  }, 150);
+  const scrollEvent = useScrollEvent(loadMoreData);
 
   const handleClickRememberScroll = () => {
     setScrollY(window.scrollY);
   };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   useEffect(() => {
     if (isBackToMain) {

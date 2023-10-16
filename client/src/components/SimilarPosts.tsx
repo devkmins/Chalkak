@@ -25,6 +25,9 @@ import { useDesktop } from "../styles/mediaQueries";
 // Constants
 import { POST_PATH, USER_PATH } from "../constants/paths";
 
+// Hook
+import useScrollEvent from "../hooks/useScrollEvent";
+
 // Types
 import { IPost } from "../types/postType";
 import { IRatioTypes } from "../types/ratioType";
@@ -144,30 +147,18 @@ function SimilarPosts({ title, postId }: IProp) {
   const isDesktop = useDesktop();
   const isDesktopString = String(isDesktop);
 
-  const handleScroll = debounce(() => {
-    const windowHeight = window.innerHeight;
-    const scrollTop = document.documentElement.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight;
+  const loadMoreData = () => {
+    setPage((prev) => prev + 1);
+    setTimeout(() => {
+      refetch();
+    }, 0);
+  };
 
-    if (windowHeight + scrollTop >= scrollHeight - 100) {
-      setPage((prev) => prev + 1);
-      setTimeout(() => {
-        refetch();
-      }, 0);
-    }
-  }, 200);
+  const scrollEvent = useScrollEvent(loadMoreData);
 
   const handleClickRememberScroll = () => {
     setScrollY(window.scrollY);
   };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   useEffect(() => {
     const firstColImages: IPost[] = [];

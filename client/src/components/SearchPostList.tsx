@@ -35,8 +35,9 @@ import { RiImage2Fill } from "@react-icons/all-files/ri/RiImage2Fill";
 // Constants
 import { POST_PATH, USER_PATH } from "../constants/paths";
 
-// Hook
+// Hooks
 import useSplitPosts from "../hooks/useSplitPosts";
+import useScrollEvent from "../hooks/useScrollEvent";
 
 // Types
 import { IMediaQueriresType } from "../types/mediaQueriesType";
@@ -219,30 +220,18 @@ function SearchPostList() {
   const isTabletOrLaptopString = String(isTabletOrLaptop);
   const isDesktopString = String(isDesktop);
 
-  const handleScroll = debounce(() => {
-    const windowHeight = window.innerHeight;
-    const scrollTop = document.documentElement.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight;
+  const loadMoreData = () => {
+    setPage((prev) => prev + 1);
+    setTimeout(() => {
+      refetch();
+    }, 0);
+  };
 
-    if (windowHeight + scrollTop >= scrollHeight - 100) {
-      setPage((prev) => prev + 1);
-      setTimeout(() => {
-        refetch();
-      }, 0);
-    }
-  }, 200);
+  const scrollEvent = useScrollEvent(loadMoreData);
 
   const handleClickRememberScroll = () => {
     setScrollY(window.scrollY);
   };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   useEffect(() => {
     if (isBackToSearchPostList) {
