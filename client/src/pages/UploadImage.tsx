@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import { styled } from "styled-components";
 
 // React
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 // Component
 import Header from "../components/Header";
@@ -17,8 +17,9 @@ import Header from "../components/Header";
 // Atom
 import { sessionState } from "../atoms/sessionAtom";
 
-// Hook
+// Hooks
 import useSearchClear from "../hooks/useSearchClear";
+import useScrollToTop from "../hooks/useScrollToTop";
 
 // Style
 import { useMobile } from "../styles/mediaQueries";
@@ -352,6 +353,8 @@ const LoadingContainer = {
 function UploadImage() {
   const searchKeywordsClear = useSearchClear();
 
+  const scrollToTop = useScrollToTop();
+
   const sessionData = useRecoilValue(sessionState);
 
   const [images, setImages] = useState<File[]>([]);
@@ -515,10 +518,6 @@ function UploadImage() {
       return newFormData;
     });
   };
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <>

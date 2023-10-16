@@ -7,7 +7,7 @@ import CryptoJS from "crypto-js";
 import styled from "styled-components";
 
 // React
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 // Asset
 import joinImg from "../assets/Images/join.webp";
@@ -32,6 +32,9 @@ import {
   USERNAME_WHITE_SPACE_ERROR,
 } from "../constants/errorMessages";
 import { LOGIN_PATH, MAIN_PATH } from "../constants/paths";
+
+// Hook
+import useScrollToTop from "../hooks/useScrollToTop";
 
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
@@ -180,6 +183,8 @@ const ErrorMessage = styled.span`
 `;
 
 function Join() {
+  const scrollToTop = useScrollToTop();
+
   const [formData, setFormData] = useState({
     name: "",
     username: "",
@@ -349,10 +354,6 @@ function Join() {
   const confirmPasswordToggle = () => {
     setShowConfirmPassword((prev) => !prev);
   };
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <Box $isMobile={isMobileString}>

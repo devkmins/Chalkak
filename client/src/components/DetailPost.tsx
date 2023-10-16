@@ -50,6 +50,9 @@ import { BsPerson } from "@react-icons/all-files/bs/BsPerson";
 import { MdDateRange } from "@react-icons/all-files/md/MdDateRange";
 import { GrFormClose } from "@react-icons/all-files/gr/GrFormClose";
 
+// Hook
+import useScrollToTop from "../hooks/useScrollToTop";
+
 interface StyledAiFillHeartProps {
   clicked: string;
 }
@@ -319,6 +322,8 @@ function DetailPost() {
 
   const queryClient = useQueryClient();
 
+  const scrollToTop = useScrollToTop();
+
   const setIsBackToMain = useSetRecoilState(isBackToMainState);
   const setIsBackToSimilarPosts = useSetRecoilState(isBackToSimilarPostsState);
   const setIsBackToSearchPostList = useSetRecoilState(
@@ -453,10 +458,6 @@ function DetailPost() {
   useEffect(() => {
     setCurrentPost(postId);
   }, [postId]);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <>
