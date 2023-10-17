@@ -5,6 +5,13 @@ import styled from "styled-components";
 import { RiImage2Fill } from "@react-icons/all-files/ri/RiImage2Fill";
 import { BsQuestionSquare } from "@react-icons/all-files/bs/BsQuestionSquare";
 
+// Styles
+import {
+  A_LITTLE_DARK_GRAY_COLOR,
+  BLACK_COLOR,
+  LIGHT_GRAY_COLOR,
+} from "../constants/colors";
+
 interface INoSearchResultsProp {
   searchWord: string;
 }
@@ -24,10 +31,10 @@ const PostsContainer = styled.div`
 const ContentsContainer = styled.div`
   display: flex;
   align-items: center;
-  color: #000000d5;
+  color: ${BLACK_COLOR};
   font-weight: 600;
   padding-left: 25px;
-  border-bottom: 1px solid #d1d1d1;
+  border-bottom: 1px solid ${LIGHT_GRAY_COLOR};
   margin-bottom: 30px;
 `;
 
@@ -56,7 +63,7 @@ const StyledBsQuestionSquare = styled(BsQuestionSquare)`
   margin-top: 5px;
   width: 150px;
   height: 150px;
-  color: #564f4e;
+  color: ${A_LITTLE_DARK_GRAY_COLOR};
 `;
 
 const SearchWord = styled.span`
@@ -69,7 +76,7 @@ const Text = styled.span`
   margin-top: 15px;
   font-size: 20px;
   font-weight: 600;
-  color: #6b6565;
+  color: ${A_LITTLE_DARK_GRAY_COLOR};
 `;
 
 function NoSearchResults({ searchWord }: INoSearchResultsProp) {

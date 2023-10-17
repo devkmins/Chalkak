@@ -15,6 +15,14 @@ import {
   useTabletOrLaptop,
 } from "../styles/mediaQueries";
 
+// Styles
+import {
+  BLACK_COLOR,
+  LIGHT_GRAY_COLOR,
+  NORMAL_GRAY_COLOR,
+  WHITE_COLOR,
+} from "../constants/colors";
+
 // Type
 import { IMediaQueriresType } from "../types/mediaQueriesType";
 
@@ -48,12 +56,12 @@ const Box = styled.div<IMediaQueriresType>`
       : props.$isDesktop === "true" && "55%"};
   height: min-content;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  background-color: white;
+  background-color: ${WHITE_COLOR};
   padding-bottom: 30px;
 `;
 
 const UlBox = styled.div`
-  border-bottom: 1.25px solid #c9c7c7;
+  border-bottom: 1.25px solid ${LIGHT_GRAY_COLOR};
   padding: 25px 20px;
 `;
 
@@ -66,12 +74,13 @@ const DetailsLi = styled.li<IDetailsLi>`
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
-  color: ${(props) => (props.$showDetails === "true" ? "black" : "#999595")};
+  color: ${(props) =>
+    props.$showDetails === "true" ? "black" : NORMAL_GRAY_COLOR};
   white-space: nowrap;
   margin-right: 25px;
 
   &:hover {
-    color: black;
+    color: ${BLACK_COLOR};
   }
 `;
 
@@ -79,11 +88,12 @@ const SettingsLi = styled.li<ISettingsLi>`
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
-  color: ${(props) => (props.$showSettings === "true" ? "black" : "#999595")};
+  color: ${(props) =>
+    props.$showSettings === "true" ? "black" : NORMAL_GRAY_COLOR};
   white-space: nowrap;
 
   &:hover {
-    color: black;
+    color: ${BLACK_COLOR};
   }
 `;
 

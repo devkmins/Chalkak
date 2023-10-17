@@ -25,6 +25,15 @@ import {
   PASSWORD_WHITE_SPACE_ERROR,
 } from "../constants/errorMessages";
 
+// Styles
+import {
+  BLACK_COLOR,
+  ERROR_MESSAGE_COLOR,
+  INPUT_BOX_FOCUS_COLOR,
+  LIGHT_GRAY_COLOR,
+  WHITE_COLOR,
+} from "../constants/colors";
+
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
 
@@ -56,7 +65,7 @@ const ChangePasswordSection = styled.section<IIsMobile>`
 
 const MainTitleBox = styled.div`
   padding-bottom: 25px;
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid ${LIGHT_GRAY_COLOR};
 `;
 
 const MainTitle = styled.span`
@@ -89,7 +98,7 @@ const InputBox = styled.div`
     font-size: 15px;
 
     &:focus {
-      border: 1.25px solid #111111;
+      border: 1.25px solid ${INPUT_BOX_FOCUS_COLOR};
     }
   }
 `;
@@ -102,8 +111,8 @@ const BtnBox = styled.div`
 const Btn = styled.button`
   width: 100%;
   height: 45px;
-  color: white;
-  background-color: black;
+  color: ${WHITE_COLOR};
+  background-color: ${BLACK_COLOR};
   border: none;
   cursor: pointer;
   border-radius: 5px;
@@ -113,7 +122,7 @@ const Btn = styled.button`
 const ErrorMessage = styled.span`
   margin-top: 7.5px;
   font-size: 13px;
-  color: #ff6b6b;
+  color: ${ERROR_MESSAGE_COLOR};
 `;
 
 function ChangePassword() {

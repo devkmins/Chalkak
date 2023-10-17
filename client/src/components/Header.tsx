@@ -46,6 +46,16 @@ import { COOKIE_NAME } from "../constants/cookieName";
 // Hook
 import useClickOutside from "../hooks/useClickOutside";
 
+// Styles
+import {
+  A_LITTILE_LIGHT_GRAY_COLOR,
+  A_LITTLE_DARK_GRAY_COLOR,
+  BLACK_COLOR,
+  LIGHT_GRAY_COLOR,
+  NORMAL_GRAY_COLOR,
+  WHITE_COLOR,
+} from "../constants/colors";
+
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
 
@@ -56,8 +66,8 @@ const HeaderContainer = styled.div`
   width: 100%;
   height: 65px;
   padding: 10px 15px;
-  border-bottom: 0.5px solid #c8d6e5;
-  background-color: white;
+  border-bottom: 0.5px solid ${A_LITTILE_LIGHT_GRAY_COLOR};
+  background-color: ${WHITE_COLOR};
   z-index: 100;
 `;
 
@@ -81,7 +91,7 @@ const LogoBox = styled.div`
 
 const SearchPostBox = styled.div<IIsMobile>`
   width: 100%;
-  border-right: 1px solid #d1d1d1;
+  border-right: 1px solid ${LIGHT_GRAY_COLOR};
   padding-right: 35px;
 
   ${(props) =>
@@ -104,11 +114,11 @@ const LoggedInBox = styled.div<IIsMobile>`
   a {
     cursor: pointer;
     padding: 7.5px 15px;
-    color: #656f79;
+    color: ${NORMAL_GRAY_COLOR};
     white-space: nowrap;
 
     &:hover {
-      color: black;
+      color: ${BLACK_COLOR};
       transition: color 0.25s;
     }
   }
@@ -138,10 +148,10 @@ const IsNotLoginLink = styled(Link)`
   white-space: nowrap;
   cursor: pointer;
   padding: 7.5px 20px;
-  color: #656f79;
+  color: ${NORMAL_GRAY_COLOR};
 
   &:hover {
-    color: black;
+    color: ${BLACK_COLOR};
     transition: color 0.25s;
   }
 `;
@@ -155,11 +165,11 @@ const GuestMenuBox = styled.div`
   a {
     cursor: pointer;
     padding: 7.5px 20px;
-    color: #656f79;
+    color: ${NORMAL_GRAY_COLOR};
     white-space: nowrap;
 
     &:hover {
-      color: black;
+      color: ${BLACK_COLOR};
       transition: color 0.25s;
     }
   }
@@ -168,7 +178,7 @@ const GuestMenuBox = styled.div`
 const StyledFaBars = styled(FaBars)`
   width: 22.5px;
   height: 22.5px;
-  color: #6b6666;
+  color: ${A_LITTLE_DARK_GRAY_COLOR};
   cursor: pointer;
 `;
 

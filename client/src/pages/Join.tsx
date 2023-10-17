@@ -37,6 +37,14 @@ import { IS_JOINED_SESSION_KEY } from "../constants/storagesKeys";
 // Hook
 import useScrollToTop from "../hooks/useScrollToTop";
 
+// Styles
+import {
+  BLACK_COLOR,
+  ERROR_MESSAGE_COLOR,
+  GRAY_COLOR,
+  WHITE_COLOR,
+} from "../constants/colors";
+
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
 
@@ -126,7 +134,7 @@ const JoinInputBox = styled.div`
     font-size: 15px;
 
     &:focus {
-      border: 1.75px solid #636e72;
+      border: 1.75px solid ${GRAY_COLOR};
     }
   }
 `;
@@ -152,7 +160,7 @@ const JoinPasswordInputBox = styled.div`
   min-width: min-content;
 
   &:focus-within {
-    border: 1.75px solid #636e72;
+    border: 1.75px solid ${GRAY_COLOR};
   }
 
   input {
@@ -166,8 +174,8 @@ const JoinPasswordInputBox = styled.div`
 const JoinBtn = styled.button`
   border-radius: 5px;
   border: 1px solid gray;
-  background-color: black;
-  color: white;
+  background-color: ${BLACK_COLOR};
+  color: ${WHITE_COLOR};
   height: 40%;
   font-weight: 500;
   font-size: 15px;
@@ -180,7 +188,7 @@ const JoinBtn = styled.button`
 const ErrorMessage = styled.span`
   margin-top: 7.5px;
   font-size: 13px;
-  color: #ff6b6b;
+  color: ${ERROR_MESSAGE_COLOR};
 `;
 
 function Join() {

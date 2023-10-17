@@ -7,6 +7,9 @@ import styled from "styled-components";
 // Constants
 import { JOIN_PATH, LOGIN_PATH } from "../constants/paths";
 
+// Style
+import { WHITE_COLOR } from "../constants/colors";
+
 const Container = styled.div`
   position: absolute;
   display: grid;
@@ -15,7 +18,7 @@ const Container = styled.div`
   align-items: center;
   width: 87.5px;
   height: 80px;
-  background-color: white;
+  background-color: ${WHITE_COLOR};
   border: 1px solid lightgray;
   border-bottom-left-radius: 12.5px;
   border-bottom-right-radius: 12.5px;

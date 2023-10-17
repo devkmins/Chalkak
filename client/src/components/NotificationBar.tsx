@@ -13,6 +13,13 @@ import { useEffect, useState } from "react";
 // React-icons
 import { GrFormClose } from "@react-icons/all-files/gr/GrFormClose";
 
+// Styles
+import {
+  A_LITTILE_LIGHT_GRAY_COLOR,
+  NORMAL_GRAY_COLOR,
+  WHITE_COLOR,
+} from "../constants/colors";
+
 interface IProp {
   text: string;
 }
@@ -27,10 +34,10 @@ const Container = styled.div<IContainerProp>`
   z-index: 101;
   width: 100%;
   height: 75px;
-  background-color: #767676;
+  background-color: ${NORMAL_GRAY_COLOR};
   font-weight: 600;
   font-size: 17px;
-  color: #e4e3e3;
+  color: ${A_LITTILE_LIGHT_GRAY_COLOR};
 
   @keyframes slideIn {
     from {
@@ -68,10 +75,10 @@ const StyledGrFormClose = styled(GrFormClose)`
   padding-right: 5px;
 
   path {
-    stroke: #f2efef;
+    stroke: ${A_LITTILE_LIGHT_GRAY_COLOR};
 
     &:hover {
-      stroke: white;
+      stroke: ${WHITE_COLOR};
     }
   }
 `;

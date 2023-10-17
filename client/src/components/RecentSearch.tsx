@@ -16,14 +16,22 @@ import {
 import { SEARCH_PATH } from "../constants/paths";
 import { RECENT_SEARCH_KEYWORDS_LOCAL_KEY } from "../constants/storagesKeys";
 
+// Styles
+import {
+  BLACK_COLOR,
+  LIGHT_GRAY_COLOR,
+  NORMAL_GRAY_COLOR,
+  WHITE_COLOR,
+} from "../constants/colors";
+
 const RecentSearchBox = styled.div`
   position: absolute;
   width: 50%;
   min-height: 100px;
   height: auto;
-  background-color: white;
+  background-color: ${WHITE_COLOR};
   border-radius: 10px;
-  border: 0.5px solid #d1d1d1;
+  border: 0.5px solid ${LIGHT_GRAY_COLOR};
   margin-top: 2.5px;
   padding: 0px 17.5px;
   padding-top: 15px;
@@ -38,12 +46,12 @@ const Header = styled.div`
     font-weight: 500;
 
     &:last-child {
-      color: #767676;
+      color: ${NORMAL_GRAY_COLOR};
     }
 
     &:last-child:hover {
       cursor: pointer;
-      color: #2f3542;
+      color: ${BLACK_COLOR};
     }
   }
 `;
@@ -57,10 +65,10 @@ const SearchList = styled.div`
 
 const SearchText = styled.span`
   width: min-content;
-  border: 1px solid #8c8c8c;
+  border: 1px solid ${NORMAL_GRAY_COLOR};
   border-radius: 7.5px;
   padding: 10px 20px;
-  color: #8c8c8c;
+  color: ${NORMAL_GRAY_COLOR};
   font-size: 13.5px;
 
   margin-bottom: 10px;
@@ -69,7 +77,7 @@ const SearchText = styled.span`
 
   &:hover {
     border: 1px solid black;
-    color: black;
+    color: ${BLACK_COLOR};
   }
 `;
 

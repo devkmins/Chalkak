@@ -18,8 +18,9 @@ import { useEffect, useState } from "react";
 // Asset
 import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
 
-// Style
+// Styles
 import { useDesktop } from "../styles/mediaQueries";
+import { A_LITTILE_LIGHT_GRAY_COLOR, WHITE_COLOR } from "../constants/colors";
 
 // Constants
 import { POST_PATH, USER_PATH } from "../constants/paths";
@@ -86,11 +87,11 @@ const ProfileBox = styled.div`
 const ProfileLink = styled(Link)`
   display: flex;
   align-items: center;
-  color: #e0dfdf;
+  color: ${A_LITTILE_LIGHT_GRAY_COLOR};
   font-size: 16px;
 
   &:hover {
-    color: white;
+    color: ${WHITE_COLOR};
     transition: color 0.25s;
   }
 `;

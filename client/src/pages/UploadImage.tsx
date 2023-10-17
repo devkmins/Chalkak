@@ -21,8 +21,15 @@ import { sessionState } from "../atoms/sessionAtom";
 import useSearchClear from "../hooks/useSearchClear";
 import useScrollToTop from "../hooks/useScrollToTop";
 
-// Style
+// Styles
 import { useMobile } from "../styles/mediaQueries";
+import {
+  A_LITTLE_DARK_GRAY_COLOR,
+  BLACK_COLOR,
+  GRAY_COLOR,
+  LIGHT_GRAY_COLOR,
+  WHITE_COLOR,
+} from "../constants/colors";
 
 // React-Icons
 import { BsBoxArrowInLeft } from "@react-icons/all-files/bs/BsBoxArrowInLeft";
@@ -111,7 +118,7 @@ const DropzoneSection = styled.section<IIsMobile>`
   justify-content: center;
   width: 75%;
   height: 50vh;
-  border: 2px dashed #d4d4d4;
+  border: 2px dashed ${LIGHT_GRAY_COLOR};
 
   ${(props) =>
     props.$isMobile === "true" &&
@@ -129,7 +136,7 @@ const DropzoneBox = styled.div`
   height: 100%;
 
   span {
-    color: #7a7a7a;
+    color: ${GRAY_COLOR};
     font-size: 14px;
     font-weight: 500;
   }
@@ -189,8 +196,8 @@ const RemoveButton = styled.button`
   position: absolute;
   top: 5px;
   right: 5px;
-  background-color: #2b2e2c;
-  color: white;
+  background-color: ${BLACK_COLOR};
+  color: ${WHITE_COLOR};
   border: none;
   border-radius: 50%;
   width: 25px;
@@ -204,7 +211,7 @@ const RemoveButton = styled.button`
 
   &:hover {
     opacity: 1;
-    background-color: black;
+    background-color: ${BLACK_COLOR};
   }
 
   ${ImagesBox}:hover & {
@@ -233,8 +240,8 @@ const CreateForm = styled.form<IIsMobile>`
 const TitleInput = styled.input<IIsMobile>`
   height: 75px;
   border: none;
-  border-top: 1px solid #4f4f4f;
-  border-bottom: 1px solid #4f4f4f;
+  border-top: 1px solid ${A_LITTLE_DARK_GRAY_COLOR};
+  border-bottom: 1px solid ${A_LITTLE_DARK_GRAY_COLOR};
   font-size: 35px;
   font-weight: 300;
   padding-left: 10px;
@@ -288,19 +295,19 @@ const HashtagsBox = styled.div`
 const Hashtag = styled.div`
   padding: 10px 25px;
   border-radius: 7.5px;
-  border: 1px solid #767676;
+  border: 1px solid ${GRAY_COLOR};
   width: min-content;
   margin-right: 15px;
   margin-bottom: 10px;
-  color: #8c8c8c;
+  color: ${GRAY_COLOR};
   font-weight: 300;
 `;
 
 const Btn = styled.button`
   margin-top: 25px;
   height: 50px;
-  color: white;
-  background-color: black;
+  color: ${WHITE_COLOR};
+  background-color: ${BLACK_COLOR};
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -313,7 +320,7 @@ const RemoveHashtagButton = styled.button`
   position: absolute;
   top: 1px;
   right: 15px;
-  color: white;
+  color: ${WHITE_COLOR};
   border: none;
   border-radius: 50%;
   width: 15px;
@@ -331,7 +338,7 @@ const Hashtags = styled.div`
 
   &:hover ${RemoveHashtagButton} {
     opacity: 1;
-    background-color: #8c8c8c;
+    background-color: ${GRAY_COLOR};
   }
 `;
 

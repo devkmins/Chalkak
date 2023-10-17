@@ -21,8 +21,15 @@ import NotificationBar from "../components/NotificationBar";
 // Asset
 import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
 
-// Style
+// Styles
 import { useMobile } from "../styles/mediaQueries";
+import {
+  BLACK_COLOR,
+  ERROR_MESSAGE_COLOR,
+  LIGHT_GRAY_COLOR,
+  NORMAL_GRAY_COLOR,
+  WHITE_COLOR,
+} from "../constants/colors";
 
 // Constants
 import { ACCOUNT_UPDATED_TEXT } from "../constants/notificationMessages";
@@ -62,7 +69,7 @@ const EditSection = styled.section<IIsMobile>`
 
 const MainTitleBox = styled.div`
   padding-bottom: 25px;
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid ${LIGHT_GRAY_COLOR};
 `;
 
 const MainTitle = styled.span`
@@ -100,11 +107,11 @@ const CustomButton = styled.span`
   margin-top: 12.5px;
   font-size: 14px;
   cursor: pointer;
-  color: #767676;
+  color: ${NORMAL_GRAY_COLOR};
   border-bottom: 1px solid currentColor;
 
   &:hover {
-    color: #111111;
+    color: ${BLACK_COLOR};
   }
 `;
 
@@ -137,7 +144,7 @@ const EditInputBox = styled.div`
     font-size: 15px;
 
     &:focus {
-      border: 1.25px solid #111111;
+      border: 1.25px solid ${BLACK_COLOR};
     }
   }
 `;
@@ -152,8 +159,8 @@ const EditBtnBox = styled.div`
 const EditBtn = styled.button<IIsMobile>`
   width: 100%;
   height: 45px;
-  color: white;
-  background-color: black;
+  color: ${WHITE_COLOR};
+  background-color: ${BLACK_COLOR};
   border: none;
   cursor: pointer;
   border-radius: 5px;
@@ -164,7 +171,7 @@ const EditBtn = styled.button<IIsMobile>`
 const ErrorMessage = styled.span`
   margin-top: 7.5px;
   font-size: 13px;
-  color: #ff6b6b;
+  color: ${ERROR_MESSAGE_COLOR};
 `;
 
 function Account() {

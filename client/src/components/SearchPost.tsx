@@ -29,6 +29,7 @@ import { useMobile } from "../styles/mediaQueries";
 
 // Hook
 import useClickOutside from "../hooks/useClickOutside";
+import { GRAY_COLOR, LIGHT_GRAY_COLOR } from "../constants/colors";
 
 const Box = styled.div``;
 
@@ -43,12 +44,12 @@ const SearchForm = styled.form`
   transition: background-color 0.25s;
 
   &:hover {
-    border-color: #cccccc;
+    border-color: ${LIGHT_GRAY_COLOR};
   }
 
   &:focus-within {
     background-color: white;
-    border-color: #cccccc;
+    border-color: ${LIGHT_GRAY_COLOR};
   }
 `;
 
@@ -56,7 +57,7 @@ const SearchIcon = styled(BiSearch)`
   width: 22.5px;
   height: 22.5px;
   margin: 0px 15px 0px 10px;
-  color: gray;
+  color: ${GRAY_COLOR};
 `;
 
 const SearchInput = styled.input`

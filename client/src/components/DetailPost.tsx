@@ -46,6 +46,18 @@ import { BsPerson } from "@react-icons/all-files/bs/BsPerson";
 import { MdDateRange } from "@react-icons/all-files/md/MdDateRange";
 import { GrFormClose } from "@react-icons/all-files/gr/GrFormClose";
 
+// Styles
+import {
+  A_LITTLE_DARK_GRAY_COLOR,
+  BLACK_COLOR,
+  BS_THREE_DOTS_COLOR,
+  GR_FORM_CLOSE_COLOR,
+  HEART_CLICKED_COLOR,
+  HEART_UNCLICKED_COLOR,
+  NORMAL_GRAY_COLOR,
+  WHITE_COLOR,
+} from "../constants/colors";
+
 // Hooks
 import useScrollToTop from "../hooks/useScrollToTop";
 import usePopStateEvent from "../hooks/usePopStateEvent";
@@ -97,10 +109,10 @@ const StyledBsThreeDots = styled(BsThreeDots)`
   cursor: pointer;
   width: 20px;
   height: 20px;
-  color: #8c8888;
+  color: ${BS_THREE_DOTS_COLOR};
 
   &:hover {
-    color: black;
+    color: ${BLACK_COLOR};
   }
 `;
 
@@ -115,10 +127,10 @@ const StyledGrFormClose = styled(GrFormClose)`
   cursor: pointer;
 
   path {
-    stroke: #f2efef;
+    stroke: ${GR_FORM_CLOSE_COLOR};
 
     &:hover {
-      stroke: white;
+      stroke: ${WHITE_COLOR};
     }
   }
 `;
@@ -160,7 +172,7 @@ const Title = styled.span`
   font-size: 21.5px;
   font-weight: 700;
   margin-bottom: 12.5px;
-  color: #4d4d4d;
+  color: ${A_LITTLE_DARK_GRAY_COLOR};
 `;
 
 const Description = styled.span`
@@ -168,7 +180,7 @@ const Description = styled.span`
   line-break: anywhere;
   line-height: 1.5;
   font-size: 15px;
-  color: #4d4d4d;
+  color: ${A_LITTLE_DARK_GRAY_COLOR};
 `;
 
 const InfoBox = styled.div`
@@ -177,7 +189,7 @@ const InfoBox = styled.div`
   margin-bottom: 25px;
 
   span {
-    color: #767676;
+    color: ${NORMAL_GRAY_COLOR};
   }
 `;
 
@@ -195,7 +207,7 @@ const DateBox = styled.div`
 const StyledMdDateRange = styled(MdDateRange)`
   width: 17.5px;
   height: 17.5px;
-  color: #767676;
+  color: ${NORMAL_GRAY_COLOR};
 `;
 
 const ViewsBox = styled.div`
@@ -212,7 +224,7 @@ const ViewsBox = styled.div`
 const StyledBsPerson = styled(BsPerson)`
   width: 17.5px;
   height: 17.5px;
-  color: #767676;
+  color: ${NORMAL_GRAY_COLOR};
 `;
 
 const HashtagsList = styled.div`
@@ -224,10 +236,10 @@ const HashtagsList = styled.div`
 
 const Hashtag = styled.span`
   width: min-content;
-  border: 1px solid #8c8c8c;
+  border: 1px solid ${NORMAL_GRAY_COLOR};
   border-radius: 7.5px;
   padding: 10px 20px;
-  color: #8c8c8c;
+  color: ${NORMAL_GRAY_COLOR};
   font-size: 13.5px;
   margin-right: 12.5px;
   cursor: pointer;
@@ -255,7 +267,8 @@ const StyledAiFillHeart = styled(AiFillHeart)<StyledAiFillHeartProps>`
   height: 25px;
   margin-bottom: 5px;
   cursor: pointer;
-  color: ${(props) => (props.clicked === "true" ? "#ff6b6b" : "#576574")};
+  color: ${(props) =>
+    props.clicked === "true" ? HEART_CLICKED_COLOR : HEART_UNCLICKED_COLOR};
 `;
 
 const SimilarPostsBox = styled.div`

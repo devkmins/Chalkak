@@ -10,6 +10,7 @@ import {
   useMobile,
   useTabletOrLaptop,
 } from "../styles/mediaQueries";
+import { BLACK_COLOR } from "../constants/colors";
 
 // Type
 import { IIsDesktop } from "../types/mediaQueriesType";
@@ -59,7 +60,7 @@ const MainTextBox = styled.div`
   text-align: center;
 
   span {
-    color: #191b26;
+    color: ${BLACK_COLOR};
   }
 `;
 

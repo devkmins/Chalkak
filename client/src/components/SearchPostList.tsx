@@ -25,6 +25,9 @@ import { RiImage2Fill } from "@react-icons/all-files/ri/RiImage2Fill";
 // Hook
 import useScrollEvent from "../hooks/useScrollEvent";
 
+// Styles
+import { BLACK_COLOR, LIGHT_GRAY_COLOR } from "../constants/colors";
+
 const Container = styled.div``;
 
 const Box = styled.div`
@@ -37,10 +40,10 @@ const Box = styled.div`
 const ContentsContainer = styled.div`
   display: flex;
   align-items: center;
-  color: #000000d5;
+  color: ${BLACK_COLOR};
   font-weight: 600;
   padding-left: 25px;
-  border-bottom: 1px solid #d1d1d1;
+  border-bottom: 1px solid ${LIGHT_GRAY_COLOR};
   margin-bottom: 30px;
 `;
 

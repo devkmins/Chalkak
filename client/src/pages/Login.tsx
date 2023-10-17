@@ -20,8 +20,14 @@ import NotificationBar from "../components/NotificationBar";
 // Asset
 import loginImg from "../assets/Images/login.webp";
 
-// Style
+// Styles
 import { useMobile } from "../styles/mediaQueries";
+import {
+  BLACK_COLOR,
+  ERROR_MESSAGE_COLOR,
+  GRAY_COLOR,
+  WHITE_COLOR,
+} from "../constants/colors";
 
 // React-Icons
 import { RiCameraLensFill } from "@react-icons/all-files/ri/RiCameraLensFill";
@@ -121,7 +127,7 @@ const LoginInputBox = styled.div`
     font-size: 15px;
 
     &:focus {
-      border: 1.75px solid #636e72;
+      border: 1.75px solid ${GRAY_COLOR};
     }
   }
 `;
@@ -147,7 +153,7 @@ const LoginPasswordInputBox = styled.div`
   min-width: min-content;
 
   &:focus-within {
-    border: 1.75px solid #636e72;
+    border: 1.75px solid ${GRAY_COLOR};
   }
 
   input {
@@ -166,8 +172,8 @@ const LoginBtnBox = styled.div`
 const LoginBtn = styled.button`
   border-radius: 5px;
   border: 1px solid gray;
-  background-color: black;
-  color: white;
+  background-color: ${BLACK_COLOR};
+  color: ${WHITE_COLOR};
   height: 40%;
   font-weight: 500;
   font-size: 15px;
@@ -180,7 +186,7 @@ const LoginBtn = styled.button`
 const ErrorMessage = styled.span`
   margin-top: 7.5px;
   font-size: 13px;
-  color: #ff6b6b;
+  color: ${ERROR_MESSAGE_COLOR};
 `;
 
 function Login() {

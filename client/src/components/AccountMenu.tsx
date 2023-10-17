@@ -14,6 +14,9 @@ import {
   CLOSE_ACCOUNT_PATH,
 } from "../constants/paths";
 
+// Styles
+import { ACCOUNT_MENU_LINK_COLOR, LIGHT_GRAY_COLOR } from "../constants/colors";
+
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
 
@@ -35,7 +38,7 @@ const Text = styled.span<IIsMobile>`
   ${(props) =>
     props.$isMobile === "true" &&
     `
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid ${LIGHT_GRAY_COLOR};
     padding-bottom: 25px;
     margin-left: 0px;
     `}
@@ -54,7 +57,7 @@ const StyledLink = styled(Link)`
   font-weight: 300;
 
   &:hover {
-    color: #060606;
+    color: ${ACCOUNT_MENU_LINK_COLOR};
     font-weight: 350;
   }
 `;
@@ -62,7 +65,7 @@ const StyledLink = styled(Link)`
 const ConnectedtLink = styled(Link)`
   font-size: 16px;
   font-weight: 350;
-  color: #060606;
+  color: ${ACCOUNT_MENU_LINK_COLOR};
 `;
 
 function AccountMenu({ pathname }: IAccountMenuProp) {

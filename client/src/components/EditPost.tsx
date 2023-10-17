@@ -12,6 +12,14 @@ import { useState } from "react";
 // Atom
 import { isEditedState } from "../atoms/postEditedAtom";
 
+// Styles
+import {
+  BLACK_COLOR,
+  ERROR_MESSAGE_COLOR,
+  NORMAL_GRAY_COLOR,
+  WHITE_COLOR,
+} from "../constants/colors";
+
 // Constant
 import { POST_TITLE_VALIDITY_ERROR } from "../constants/errorMessages";
 import { EDIT_POST_DATA } from "../constants/reactQueryKeys";
@@ -73,11 +81,11 @@ const HashtagsBox = styled.div`
 const Hashtag = styled.div`
   padding: 10px 25px;
   border-radius: 7.5px;
-  border: 1px solid #767676;
+  border: 1px solid ${NORMAL_GRAY_COLOR};
   width: min-content;
   margin-right: 15px;
   margin-bottom: 10px;
-  color: #8c8c8c;
+  color: ${NORMAL_GRAY_COLOR};
   font-weight: 300;
 `;
 
@@ -88,7 +96,7 @@ const RemoveButton = styled.button`
   position: absolute;
   top: 1px;
   right: 15px;
-  color: white;
+  color: ${WHITE_COLOR};
   border: none;
   border-radius: 50%;
   width: 15px;
@@ -106,15 +114,15 @@ const Hashtags = styled.div`
 
   &:hover ${RemoveButton} {
     opacity: 1;
-    background-color: #8c8c8c;
+    background-color: ${NORMAL_GRAY_COLOR};
   }
 `;
 
 const Btn = styled.button`
   width: 100%;
   height: 40px;
-  color: white;
-  background-color: black;
+  color: ${WHITE_COLOR};
+  background-color: ${BLACK_COLOR};
   border: none;
   cursor: pointer;
   border-radius: 5px;
@@ -124,7 +132,7 @@ const Btn = styled.button`
 const ErrorMessage = styled.span`
   margin-top: 7.5px;
   font-size: 13px;
-  color: #ff6b6b;
+  color: ${ERROR_MESSAGE_COLOR};
 `;
 
 function EditPost({ postId }: IEditPostProp) {

@@ -10,6 +10,13 @@ import { styled } from "styled-components";
 import { PHOTO_REMOVAL_CONFIRMATION } from "../constants/confirmationMessages";
 import { MAIN_PATH } from "../constants/paths";
 
+// Style
+import {
+  DELETE_POST_BTN_COLOR,
+  DELETE_POST_TEXT_BOX_COLOR,
+  WHITE_COLOR,
+} from "../constants/colors";
+
 // Type
 import { IImage } from "../types/detailImageType";
 import { IRatioTypes } from "../types/ratioType";
@@ -45,7 +52,7 @@ const TextBox = styled.div`
   height: max-content;
   border-radius: 10px;
   padding: 50px;
-  background-color: #fdf6f4;
+  background-color: ${DELETE_POST_TEXT_BOX_COLOR};
 `;
 
 const TextSpan = styled.span`
@@ -63,16 +70,16 @@ const RemoveBtn = styled.button`
   width: 50%;
   height: 35px;
   border: none;
-  border: 1px solid #df4927;
+  border: 1px solid ${DELETE_POST_BTN_COLOR};
   border-radius: 10px;
-  background-color: white;
-  color: #df4927;
+  background-color: ${WHITE_COLOR};
+  color: ${DELETE_POST_BTN_COLOR};
   font-size: 13px;
   cursor: pointer;
 
   &:hover {
-    background-color: #df4927;
-    color: white;
+    background-color: ${DELETE_POST_BTN_COLOR};
+    color: ${WHITE_COLOR};
   }
 `;
 

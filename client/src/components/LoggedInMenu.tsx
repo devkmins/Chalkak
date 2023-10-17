@@ -11,8 +11,9 @@ import styled from "styled-components";
 import { isLoggedOutState, loggedInState } from "../atoms/authAtoms";
 import { sessionState } from "../atoms/sessionAtom";
 
-// Style
+// Styles
 import { useMobile } from "../styles/mediaQueries";
+import { WHITE_COLOR } from "../constants/colors";
 
 // Constants
 import {
@@ -34,7 +35,7 @@ const Container = styled.div<IIsMobile>`
   align-items: center;
   width: 110px;
   height: 80px;
-  background-color: white;
+  background-color: ${WHITE_COLOR};
   border: 1px solid lightgray;
   border-bottom-left-radius: 12.5px;
   border-bottom-right-radius: 12.5px;

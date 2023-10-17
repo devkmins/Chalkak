@@ -27,8 +27,9 @@ import useSearchClear from "../hooks/useSearchClear";
 import useScrollEvent from "../hooks/useScrollEvent";
 import usePopStateEvent from "../hooks/usePopStateEvent";
 
-// Style
+// Styles
 import { useMobile } from "../styles/mediaQueries";
+import { BLACK_COLOR, GRAY_COLOR, LIGHT_GRAY_COLOR } from "../constants/colors";
 
 // Asset
 import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
@@ -94,7 +95,7 @@ const TotalBox = styled.div`
 const TotalViews = styled.div<IIsMobile>`
   display: flex;
   align-items: center;
-  color: #767676;
+  color: ${GRAY_COLOR};
   margin-right: 25px;
 
   span {
@@ -111,8 +112,7 @@ const StyledBsPersonCheck = styled(BsPersonCheck)`
 const TotalLikes = styled.div<IIsMobile>`
   display: flex;
   align-items: center;
-  color: #767676;
-
+  color: ${GRAY_COLOR};
   span {
     font-size: ${(props) => (props.$isMobile === "true" ? "14px" : "16px")};
     font-weight: 400;
@@ -129,13 +129,13 @@ const EditProfileLink = styled(Link)<IIsMobile>`
   border: 1px solid #a39e9e;
   border-radius: 15px;
   padding: 15px 40px;
-  color: #767676;
+  color: ${GRAY_COLOR};
   font-size: 16px;
   cursor: pointer;
 
   &:hover {
-    color: black;
-    border-color: black;
+    color: ${BLACK_COLOR};
+    border-color: ${BLACK_COLOR};
   }
 
   ${(props) =>
@@ -156,7 +156,7 @@ const ContentsContainer = styled.div<IIsMobile>`
   display: flex;
   font-weight: 600;
   padding-left: ${(props) => (props.$isMobile === "true" ? "10px" : "25px")};
-  border-bottom: 1px solid #d1d1d1;
+  border-bottom: 1px solid ${LIGHT_GRAY_COLOR};
 `;
 
 const ContentsUl = styled.ul`
@@ -174,7 +174,7 @@ const PhotoLi = styled.li<IPhotoLi>`
   color: ${(props) => (props.connectphotos === "true" ? "black" : "#6b6565")};
 
   &:hover {
-    color: black;
+    color: ${BLACK_COLOR};
   }
 `;
 
@@ -201,7 +201,7 @@ const LikesLi = styled.li<ILikesLi>`
   color: ${(props) => (props.connectlikes === "true" ? "black" : "#6b6565")};
 
   &:hover {
-    color: black;
+    color: ${BLACK_COLOR};
   }
 `;
 
