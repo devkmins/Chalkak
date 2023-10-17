@@ -262,6 +262,8 @@ const TitleInput = styled.input<IIsMobile>`
 `;
 
 const DescriptionTextArea = styled.textarea<IIsMobile>`
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   margin-top: 25px;
   height: 275px;
   font-size: 18px;
