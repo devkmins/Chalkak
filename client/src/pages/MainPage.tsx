@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil";
 import { isLoggedOutState } from "../atoms/authAtoms";
 
 // Components
-import Posts from "../components/Posts";
+import MainPosts from "../components/MainPosts";
 import Header from "../components/Header";
 import IntroContent from "../components/IntroContent";
 import NotificationBar from "../components/NotificationBar";
@@ -21,7 +21,7 @@ function Main() {
       {isLoggedOut && <NotificationBar text={LOGOUT_SUCCESS_TEXT} />}
       <Header />
       <IntroContent />
-      <Posts />
+      <MainPosts />
     </>
   );
 }
