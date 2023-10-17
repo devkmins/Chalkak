@@ -17,6 +17,7 @@
     "@types/react-responsive": "^8.0.6",
     "@types/react-router-dom": "^5.3.3",
     "@types/react-slick": "^0.23.10",
+    "aws-sdk": "^2.1474.0",
     "axios": "^1.4.0",
     "crypto-js": "^4.1.1",
     "framer-motion": "^10.16.2",
