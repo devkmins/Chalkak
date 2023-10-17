@@ -2,7 +2,6 @@
 import axios from "axios";
 import { useQuery } from "react-query";
 import { Link, useLocation } from "react-router-dom";
-import { debounce } from "lodash";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 // Package
