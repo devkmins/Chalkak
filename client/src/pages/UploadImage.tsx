@@ -134,12 +134,6 @@ const DropzoneBox = styled.div`
   align-items: center;
   justify-content: center;
   height: 100%;
-
-  span {
-    color: ${GRAY_COLOR};
-    font-size: 14px;
-    font-weight: 500;
-  }
 `;
 
 const StyledBsCardImage = styled(BsCardImage)`
@@ -151,8 +145,21 @@ const DropZoneText = styled.p<IIsMobile>`
   font-weight: 700;
   text-align: center;
   margin-top: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   padding: 0px 25px;
+`;
+
+const InfoText = styled.span`
+  color: ${A_LITTLE_DARK_GRAY_COLOR};
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 10px;
+`;
+
+const ImageLengthText = styled.span`
+  color: ${GRAY_COLOR};
+  font-size: 14px;
+  font-weight: 500;
 `;
 
 const ImagesContainer = styled.div<IIsMobile>`
@@ -593,9 +600,12 @@ function UploadImage() {
                             최대 10개의 이미지를 끌어다 놓거나 찾아보기로 선택해
                             보세요!
                           </DropZoneText>
-                          <span>
+                          <InfoText>
+                            (첫 번째로 선택한 이미지가 메인 이미지가 되어요!)
+                          </InfoText>
+                          <ImageLengthText>
                             이미지 최대 {10 - data.length}개 추가 가능
-                          </span>
+                          </ImageLengthText>
                         </DropzoneBox>
                       </DropzoneSection>
                     )}
