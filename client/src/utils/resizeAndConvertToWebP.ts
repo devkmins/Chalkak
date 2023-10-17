@@ -26,7 +26,7 @@ export async function resizeAndConvertToWebP(imageFile: File) {
         originalWidth,
         originalHeight,
         "WEBP",
-        0.5,
+        1,
         0,
         (blob) => {
           const result = {
