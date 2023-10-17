@@ -25,9 +25,8 @@ export const Image = styled.img<IRatioTypes>`
 export const ProfileContainer = styled.div<IIsMobile>`
   display: none;
   position: absolute;
+  width: 100%;
   bottom: 0;
-  width: max-content;
-  height: max-content;
   margin-bottom: 17.5px;
 
   ${(props) =>
@@ -41,7 +40,9 @@ export const ProfileContainer = styled.div<IIsMobile>`
 
 export const ProfileBox = styled.div<IIsMobile>`
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  width: 100%;
   padding: 0px ${(props) => (props.$isMobile === "true" ? "12.5px" : "20px")};
 `;
 
@@ -68,10 +69,16 @@ export const PostProfileImg = styled.img`
   height: 32.5px;
 `;
 
+export const PostProfileText = styled.span`
+  margin-left: 50px;
+  color: #e0dfdf;
+`;
+
 export const PostBox = styled.div<IIsMobile>`
   display: flex;
   flex-direction: column;
   position: relative;
+  width: 100%;
   margin-bottom: ${(props) => (props.$isMobile === "true" ? "50px" : "25px")};
 
   &:hover {

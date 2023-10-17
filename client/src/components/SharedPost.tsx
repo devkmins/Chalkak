@@ -11,6 +11,7 @@ import {
   ImagesContainer,
   PostBox,
   PostProfileImg,
+  PostProfileText,
   ProfileBox,
   ProfileContainer,
   ProfileLink,
@@ -62,8 +63,11 @@ function SharedPost({
                     }
                     alt="유저의 프로필 이미지"
                   />
-                  {post.owner.name}
+                  <span>{post.owner.name}</span>
                 </ProfileLink>
+                <PostProfileText>
+                  {post.fileUrl.length}개의 이미지
+                </PostProfileText>
               </ProfileBox>
             </ProfileContainer>
           </PostBox>
