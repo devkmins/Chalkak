@@ -37,7 +37,7 @@ const Container = styled.div<IContainerProp>`
   background-color: ${NORMAL_GRAY_COLOR};
   font-weight: 600;
   font-size: 17px;
-  color: ${A_LITTILE_LIGHT_GRAY_COLOR};
+  color: ${WHITE_COLOR};
 
   @keyframes slideIn {
     from {
