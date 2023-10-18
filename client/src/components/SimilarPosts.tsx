@@ -101,6 +101,7 @@ const ProfileImg = styled.img`
   margin-right: 10px;
   width: 32.5px;
   height: 32.5px;
+  object-fit: cover;
 `;
 
 const ImagesBox = styled.div`
