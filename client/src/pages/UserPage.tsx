@@ -70,6 +70,7 @@ const ProfileImg = styled.img<IIsMobile>`
   width: 175px;
   height: 175px;
   border-radius: 50%;
+  object-fit: cover;
 
   ${(props) =>
     props.$isMobile === "true" &&

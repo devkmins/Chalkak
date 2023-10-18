@@ -95,6 +95,7 @@ const ProfileImg = styled.img`
   width: 47.5px;
   height: 47.5px;
   border-radius: 50%;
+  object-fit: cover;
 `;
 
 const ProfileName = styled.span`

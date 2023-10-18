@@ -67,6 +67,7 @@ export const PostProfileImg = styled.img`
   margin-right: 10px;
   width: 32.5px;
   height: 32.5px;
+  object-fit: cover;
 `;
 
 export const PostProfileText = styled.span`
