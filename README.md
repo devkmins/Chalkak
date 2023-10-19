@@ -690,32 +690,32 @@
 
 ## 디렉토리 구조
 
-chalkak
-├── client
-├── ├── src
-├── ├── ├── assets
-├── ├── ├── atoms
-├── ├── ├── components
-├── ├── ├── constants
-├── ├── ├── hooks
-├── ├── ├── pages
-├── ├── ├── styles
-├── ├── ├── types
-├── ├── ├── utils
-├── ├── ├── App.tsx
-├── ├── ├── index.tsx
-├── server
-├── ├── controllers
-├── ├── middlewares
-├── ├── models
-├── ├── routes
-├── ├── types
-├── ├── db.ts
-├── ├── init.ts
-├── ├── server.ts
-├── .gitignore
-├── package.json
-└── README.md
+chalkak<br />
+|-- client<br />
+|-- |-- src<br />
+|-- |-- |-- assets<br />
+|-- |-- |-- atoms<br />
+|-- |-- |-- components<br />
+|-- |-- |-- constants<br />
+|-- |-- |-- hooks<br />
+|-- |-- |-- pages<br />
+|-- |-- |-- styles<br />
+|-- |-- |-- types<br />
+|-- |-- |-- utils<br />
+|-- |-- |-- App.tsx<br />
+|-- |-- |-- index.tsx<br />
+|-- server<br />
+|-- |-- controllers<br />
+|-- |-- middlewares<br />
+|-- |-- models<br />
+|-- |-- routes<br />
+|-- |-- types<br />
+|-- |-- db.ts<br />
+|-- |-- init.ts<br />
+|-- |-- server.ts<br />
+|-- .gitignore<br />
+|-- package.json<br />
+|\_\_ README.md
 
 <br />
 
