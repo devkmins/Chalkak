@@ -106,7 +106,7 @@ const TotalViews = styled.div<IIsMobile>`
 `;
 
 const StyledBsPersonCheck = styled(BsPersonCheck)`
-  margin-bottom: 5px;
+  margin-bottom: 1px;
   margin-right: 4px;
 `;
 
@@ -114,6 +114,7 @@ const TotalLikes = styled.div<IIsMobile>`
   display: flex;
   align-items: center;
   color: ${GRAY_COLOR};
+
   span {
     font-size: ${(props) => (props.$isMobile === "true" ? "14px" : "16px")};
     font-weight: 400;
@@ -121,7 +122,7 @@ const TotalLikes = styled.div<IIsMobile>`
 `;
 
 const StyledRiHeartsLine = styled(RiHeartsLine)`
-  margin-bottom: 4px;
+  margin-bottom: 1px;
   margin-right: 4px;
 `;
 
