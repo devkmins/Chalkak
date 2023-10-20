@@ -1,7 +1,6 @@
 // Libraries
 import axios from "axios";
 import { useSetRecoilState } from "recoil";
-import { useQuery } from "react-query";
 
 // Package
 import { styled } from "styled-components";
@@ -22,10 +21,11 @@ import {
 
 // Constant
 import { POST_TITLE_VALIDITY_ERROR } from "../constants/errorMessages";
-import { EDIT_POST_DATA } from "../constants/reactQueryKeys";
+import { IPostWithHashtags } from "../types/postType";
 
 interface IEditPostProp {
   postId: string;
+  data: IPostWithHashtags;
 }
 
 interface IError {
@@ -135,13 +135,7 @@ const ErrorMessage = styled.span`
   color: ${ERROR_MESSAGE_COLOR};
 `;
 
-function EditPost({ postId }: IEditPostProp) {
-  const { data } = useQuery(EDIT_POST_DATA, () =>
-    axios
-      .get(`http://localhost:4000/post/${postId}`)
-      .then((response) => response.data)
-  );
-
+function EditPost({ postId, data }: IEditPostProp) {
   const setIsEdited = useSetRecoilState(isEditedState);
 
   const [formData, setFormData] = useState({

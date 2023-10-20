@@ -25,9 +25,11 @@ import {
 
 // Type
 import { IMediaQueriresType } from "../types/mediaQueriesType";
+import { IPostWithHashtags } from "../types/postType";
 
 interface IPostSettingsProp {
   postId: string;
+  data: IPostWithHashtags;
 }
 
 interface IDetailsLi {
@@ -104,7 +106,7 @@ const ContentBox = styled.div`
   margin-top: 25px;
 `;
 
-function PostSettings({ postId }: IPostSettingsProp) {
+function PostSettings({ postId, data }: IPostSettingsProp) {
   const [showDetails, setShowDetails] = useState(true);
   const [showSettings, setShowSettings] = useState(false);
   const showDetailsString = String(showDetails);
@@ -146,8 +148,8 @@ function PostSettings({ postId }: IPostSettingsProp) {
           </Ul>
         </UlBox>
         <ContentBox>
-          {showDetails && <EditPost postId={postId} />}
-          {showSettings && <DeletePost postId={postId} />}
+          {showDetails && <EditPost postId={postId} data={data} />}
+          {showSettings && <DeletePost postId={postId} data={data} />}
         </ContentBox>
       </Box>
     </Container>

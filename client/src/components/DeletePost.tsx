@@ -1,6 +1,5 @@
 // Libraries
 import axios from "axios";
-import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 
 // Package
@@ -20,9 +19,11 @@ import {
 // Type
 import { IImage } from "../types/detailImageType";
 import { IRatioTypes } from "../types/ratioType";
+import { IPostWithHashtags } from "../types/postType";
 
 interface IDeletePostProp {
   postId: string;
+  data: IPostWithHashtags;
 }
 
 const Container = styled.div`
@@ -83,13 +84,7 @@ const RemoveBtn = styled.button`
   }
 `;
 
-function DeletePost({ postId }: IDeletePostProp) {
-  const { data } = useQuery("getData", () =>
-    axios
-      .get(`http://localhost:4000/post/${postId}`)
-      .then((response) => response.data)
-  );
-
+function DeletePost({ postId, data }: IDeletePostProp) {
   const navigate = useNavigate();
 
   const onClick = async () => {

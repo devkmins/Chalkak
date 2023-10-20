@@ -475,7 +475,7 @@ function DetailPost() {
                     isOpen={modalIsOpen}
                     onRequestClose={closeModal}>
                     <StyledGrFormClose onClick={closeModal} />
-                    <PostSettings postId={data?._id} />
+                    <PostSettings postId={data?._id} data={data} />
                   </StyledReactModal>
                 </PostSettingsContainer>
               )}
