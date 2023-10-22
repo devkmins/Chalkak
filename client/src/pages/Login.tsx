@@ -43,6 +43,17 @@ import {
   LOGIN_COUNT_LOCAL_KEY,
 } from "../constants/storagesKeys";
 
+// Utils
+import {
+  getLocalStorageItem,
+  removeLocalStorageItem,
+  setLocalStorageItem,
+} from "../utils/localStorage";
+import {
+  getSessionStorageItem,
+  removeSessionStorageItem,
+} from "../utils/sessionStorage";
+
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
 
@@ -205,12 +216,15 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const isMobile = useMobile();
   const isMobileString = String(isMobile);
 
-  const isJoined = sessionStorage.getItem(IS_JOINED_SESSION_KEY);
-  const location = useLocation();
+  const isJoined = getSessionStorageItem(IS_JOINED_SESSION_KEY);
+
+  const loginCount = getLocalStorageItem(LOGIN_COUNT_LOCAL_KEY);
+
   let userName;
 
   if (location.state) {
@@ -220,9 +234,7 @@ function Login() {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    if (
-      JSON.parse(localStorage.getItem(LOGIN_COUNT_LOCAL_KEY) as string) < 10
-    ) {
+    if (JSON.parse(loginCount) < 10) {
       const hashedFormData = {
         ...formData,
         password: CryptoJS.SHA256(formData.password).toString(),
@@ -236,28 +248,24 @@ function Login() {
           setLoggedIn(true);
           setSessionData(response.data.user);
           setIsLoggedOut(false);
-          localStorage.removeItem(LOGIN_COUNT_LOCAL_KEY);
+          removeLocalStorageItem(LOGIN_COUNT_LOCAL_KEY);
           navigate(MAIN_PATH);
         })
         .catch((error) => {
           setError(error.response.data);
 
-          if (localStorage.getItem(LOGIN_COUNT_LOCAL_KEY)) {
-            localStorage.setItem(
+          if (loginCount) {
+            setLocalStorageItem(
               LOGIN_COUNT_LOCAL_KEY,
-              JSON.stringify(
-                JSON.parse(
-                  localStorage.getItem(LOGIN_COUNT_LOCAL_KEY) as string
-                ) + 1
-              )
+              JSON.stringify(loginCount + 1)
             );
           } else {
-            localStorage.setItem(LOGIN_COUNT_LOCAL_KEY, JSON.stringify(1));
+            setLocalStorageItem(LOGIN_COUNT_LOCAL_KEY, JSON.stringify(1));
           }
         });
     } else {
       setTimeout(() => {
-        localStorage.removeItem(LOGIN_COUNT_LOCAL_KEY);
+        removeLocalStorageItem(LOGIN_COUNT_LOCAL_KEY);
       }, 300000);
       setError((prev: IError | undefined) => {
         return {
@@ -289,14 +297,14 @@ function Login() {
   };
 
   useEffect(() => {
-    if (localStorage.getItem(LOGIN_COUNT_LOCAL_KEY)) {
-      localStorage.removeItem(LOGIN_COUNT_LOCAL_KEY);
+    if (loginCount) {
+      removeLocalStorageItem(LOGIN_COUNT_LOCAL_KEY);
     }
   }, []);
 
   useEffect(() => {
-    if (sessionStorage.getItem(IS_JOINED_SESSION_KEY)) {
-      sessionStorage.removeItem(IS_JOINED_SESSION_KEY);
+    if (getSessionStorageItem(IS_JOINED_SESSION_KEY)) {
+      removeSessionStorageItem(IS_JOINED_SESSION_KEY);
     }
   }, []);
 

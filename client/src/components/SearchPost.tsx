@@ -31,6 +31,9 @@ import { useMobile } from "../styles/mediaQueries";
 import useClickOutside from "../hooks/useClickOutside";
 import { GRAY_COLOR, LIGHT_GRAY_COLOR } from "../constants/colors";
 
+// Util
+import { setLocalStorageItem } from "../utils/localStorage";
+
 const Box = styled.div``;
 
 const SearchForm = styled.form`
@@ -100,7 +103,7 @@ function SearchPost() {
           newKeywords.pop();
         }
 
-        localStorage.setItem(
+        setLocalStorageItem(
           RECENT_SEARCH_KEYWORDS_LOCAL_KEY,
           JSON.stringify(newKeywords)
         );

@@ -45,6 +45,9 @@ import {
   WHITE_COLOR,
 } from "../constants/colors";
 
+// Util
+import { setSessionStorageItem } from "../utils/sessionStorage";
+
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
 
@@ -333,7 +336,7 @@ function Join() {
         withCredentials: true,
       })
       .then(() => {
-        sessionStorage.setItem(IS_JOINED_SESSION_KEY, "true");
+        setSessionStorageItem(IS_JOINED_SESSION_KEY, "true");
         navigate(LOGIN_PATH, { state: { name: formData.name } });
       })
       .catch((error) => setError(error.response.data));
