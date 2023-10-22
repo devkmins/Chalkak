@@ -1,5 +1,4 @@
 // Libraries
-import axios from "axios";
 import { useSetRecoilState } from "recoil";
 
 // Package
@@ -22,6 +21,9 @@ import {
 // Constant
 import { POST_TITLE_VALIDITY_ERROR } from "../constants/errorMessages";
 import { IPostWithHashtags } from "../types/postType";
+
+// Api
+import { postApi } from "../apis/post";
 
 interface IEditPostProp {
   postId: string;
@@ -158,11 +160,7 @@ function EditPost({ postId, data }: IEditPostProp) {
     }
 
     try {
-      const response = await axios.put(
-        `http://localhost:4000/post/${postId}/edit`,
-        formData,
-        { withCredentials: true }
-      );
+      const response = await postApi.putEditPost(postId, formData);
 
       setIsEdited(true);
     } catch (error) {

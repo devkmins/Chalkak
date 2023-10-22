@@ -1,5 +1,4 @@
 // Libraries
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 // Package
@@ -15,6 +14,9 @@ import {
   DELETE_POST_TEXT_BOX_COLOR,
   WHITE_COLOR,
 } from "../constants/colors";
+
+// Api
+import { postApi } from "../apis/post";
 
 // Type
 import { IImage } from "../types/detailImageType";
@@ -92,10 +94,7 @@ function DeletePost({ postId, data }: IDeletePostProp) {
 
     if (result) {
       try {
-        const response = await axios.delete(
-          `http://localhost:4000/post/${postId}/delete`,
-          { withCredentials: true }
-        );
+        const response = await postApi.deletePost(postId);
 
         navigate(MAIN_PATH);
       } catch (error) {

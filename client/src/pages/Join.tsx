@@ -1,5 +1,4 @@
 // Libraries
-import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import CryptoJS from "crypto-js";
 
@@ -47,6 +46,9 @@ import {
 
 // Util
 import { setSessionStorageItem } from "../utils/sessionStorage";
+
+// Api
+import { globalApi } from "../apis/global";
 
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
@@ -331,10 +333,8 @@ function Join() {
       confirmPassword: CryptoJS.SHA256(formData.confirmPassword).toString(),
     };
 
-    const join = await axios
-      .post("http://localhost:4000/join", hashedJoinFormData, {
-        withCredentials: true,
-      })
+    const join = await globalApi
+      .postJoin(hashedJoinFormData)
       .then(() => {
         setSessionStorageItem(IS_JOINED_SESSION_KEY, "true");
         navigate(LOGIN_PATH, { state: { name: formData.name } });

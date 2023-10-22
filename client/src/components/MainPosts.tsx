@@ -1,6 +1,5 @@
 // Libraries
 import { useQuery } from "react-query";
-import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 
@@ -22,14 +21,14 @@ import { ALL_POSTS_DATA } from "../constants/reactQueryKeys";
 // Component
 import SharedPostContainer from "./SharedPostContainer";
 
+// Api
+import { postApi } from "../apis/post";
+
 function MainPosts() {
   const { data, refetch } = useQuery(ALL_POSTS_DATA, async () => {
-    const response = await axios.get(
-      `http://localhost:4000/posts?page=${page}`
-    );
-    const responseData = response.data;
+    const response = await postApi.getMainPosts(page);
 
-    return responseData;
+    return response.data;
   });
 
   const searchKeywordsClear = useSearchClear();

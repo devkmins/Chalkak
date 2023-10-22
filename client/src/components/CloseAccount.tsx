@@ -1,5 +1,4 @@
 // Libraries
-import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
 import { useCookies } from "react-cookie";
@@ -35,6 +34,9 @@ import {
   LIGHT_GRAY_COLOR,
   WHITE_COLOR,
 } from "../constants/colors";
+
+// Api
+import { accountApi } from "../apis/account";
 
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
@@ -160,11 +162,8 @@ function CloseAccount() {
         password: CryptoJS.SHA256(formData.password).toString(),
       };
 
-      const response = await axios
-        .delete(`http://localhost:4000/account/close`, {
-          withCredentials: true,
-          data: hashedFormData,
-        })
+      const response = await accountApi
+        .deleteCloseAccount(hashedFormData)
         .then((response) => {
           setLoggedIn(false);
           setSessionData({

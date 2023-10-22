@@ -1,5 +1,4 @@
 // Libraries
-import axios from "axios";
 import { useQuery } from "react-query";
 import { Link, useLocation } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -28,6 +27,9 @@ import { SIMILAR_POSTS_DATA } from "../constants/reactQueryKeys";
 
 // Hook
 import useScrollEvent from "../hooks/useScrollEvent";
+
+// Api
+import { postApi } from "../apis/post";
 
 // Types
 import { IPost } from "../types/postType";
@@ -123,12 +125,8 @@ function SimilarPosts({ title, postId }: IProp) {
   const { data, refetch } = useQuery(
     [SIMILAR_POSTS_DATA, title, postId],
     async () => {
-      const response = await axios.get(
-        `http://localhost:4000/post/similarPosts?page=${page}`,
-        {
-          params: { postTitle: title, postId },
-        }
-      );
+      const response = await postApi.getSimilarPosts(page, title, postId);
+
       return response.data;
     }
   );

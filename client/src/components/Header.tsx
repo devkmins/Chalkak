@@ -2,7 +2,6 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import axios from "axios";
 
 // Package
 import { styled } from "styled-components";
@@ -55,6 +54,9 @@ import {
   NORMAL_GRAY_COLOR,
   WHITE_COLOR,
 } from "../constants/colors";
+
+// Api
+import { userApi } from "../apis/user";
 
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
@@ -259,24 +261,20 @@ function Header() {
   };
 
   const logout = async () => {
-    await axios
-      .post("http://localhost:4000/user/logout", cookies, {
-        withCredentials: true,
-      })
-      .then(() => {
-        setLoggedIn(false);
-        setSessionData({
-          email: "",
-          username: "",
-          name: "",
-          profileImage: "",
-          socialOnly: false,
-          _id: "",
-        });
-        removeCookie(COOKIE_NAME);
-        setIsLoggedOut(true);
-        navigate(MAIN_PATH);
+    await userApi.postUserLogout(cookies).then(() => {
+      setLoggedIn(false);
+      setSessionData({
+        email: "",
+        username: "",
+        name: "",
+        profileImage: "",
+        socialOnly: false,
+        _id: "",
       });
+      removeCookie(COOKIE_NAME);
+      setIsLoggedOut(true);
+      navigate(MAIN_PATH);
+    });
   };
 
   return (

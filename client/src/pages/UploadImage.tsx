@@ -1,7 +1,6 @@
 // Libraries
 import Dropzone from "react-dropzone";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useRecoilValue } from "recoil";
 import { motion } from "framer-motion";
 
@@ -47,6 +46,9 @@ import { resizeAndConvertToWebP } from "../utils/resizeAndConvertToWebP";
 // Constant
 import { CLOSE_CONFIRMATION_MESSAGE } from "../constants/confirmationMessages";
 import { USER_PATH } from "../constants/paths";
+
+// Api
+import { postApi } from "../apis/post";
 
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
@@ -466,18 +468,15 @@ function UploadImage() {
       }
 
       try {
-        const responseImages = await axios.post(
-          "http://localhost:4000/post/upload/images",
-          imagesFormData,
-          { withCredentials: true }
-        );
+        const responseImages = await postApi.postUploadImage(imagesFormData);
 
         const files = responseImages.data;
 
-        const responseForm = await axios.post(
-          "http://localhost:4000/post/upload",
-          { formData, files, ratio: { ratioWidth, ratioHeight } },
-          { withCredentials: true }
+        const responseForm = await postApi.postCreatePost(
+          formData,
+          files,
+          ratioWidth,
+          ratioHeight
         );
 
         setTimeout(() => setIsSubmitted(false), 1500);

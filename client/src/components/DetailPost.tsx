@@ -1,5 +1,4 @@
 // Libraries
-import axios from "axios";
 import { useQuery, useQueryClient } from "react-query";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
@@ -61,6 +60,10 @@ import {
 // Hooks
 import useScrollToTop from "../hooks/useScrollToTop";
 import usePopStateEvent from "../hooks/usePopStateEvent";
+
+// Apis
+import { postApi } from "../apis/post";
+import { globalApi } from "../apis/global";
 
 interface StyledAiFillHeartProps {
   clicked: string;
@@ -325,11 +328,11 @@ const sliderSettings = {
 ReactModal.setAppElement("#root");
 
 function DetailPost() {
-  const { data } = useQuery(DETAIL_POST_DATA, () =>
-    axios
-      .get(`http://localhost:4000/post/${postId}`)
-      .then((response) => response.data)
-  );
+  const { data } = useQuery(DETAIL_POST_DATA, async () => {
+    const response = await postApi.getDetailPost(postId);
+
+    return response.data;
+  });
 
   const queryClient = useQueryClient();
 
@@ -384,11 +387,7 @@ function DetailPost() {
 
   const requestViews = async (views: number) => {
     try {
-      const response = await axios.put(
-        `http://localhost:4000/post/${postId}/views`,
-        { views },
-        { withCredentials: true }
-      );
+      const response = await postApi.putPostView(postId, views);
     } catch (error) {
       console.log(error);
     }
@@ -396,11 +395,7 @@ function DetailPost() {
 
   const likesBtn = async () => {
     try {
-      const response = await axios.put(
-        `http://localhost:4000/post/${postId}/likes`,
-        "",
-        { withCredentials: true }
-      );
+      const response = await postApi.putPostLike(postId);
 
       setClickLikes(!clickLikes);
       setLikes(response.data.length);
@@ -410,10 +405,7 @@ function DetailPost() {
   };
 
   const hashtagClicked = async (hashtag: string) => {
-    const response = await axios.get(
-      `http://localhost:4000/search/${hashtag}`,
-      { withCredentials: true }
-    );
+    const response = await globalApi.getSearchPostsByKeyword(hashtag);
 
     setCurrentSearch(hashtag);
     navigate(`${SEARCH_PATH}/${hashtag}`, { state: response.data });
@@ -433,7 +425,7 @@ function DetailPost() {
 
   useEffect(() => {
     if (isEdited) {
-      queryClient.invalidateQueries("getPostDetailData");
+      queryClient.invalidateQueries(DETAIL_POST_DATA);
     }
   }, [isEdited]);
 

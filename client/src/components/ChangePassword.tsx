@@ -1,5 +1,4 @@
 // Libraries
-import axios from "axios";
 import CryptoJS from "crypto-js";
 import { useLocation } from "react-router-dom";
 
@@ -33,6 +32,9 @@ import {
   LIGHT_GRAY_COLOR,
   WHITE_COLOR,
 } from "../constants/colors";
+
+// Api
+import { accountApi } from "../apis/account";
 
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
@@ -192,10 +194,8 @@ function ChangePassword() {
       ).toString(),
     };
 
-    const response = await axios
-      .patch(`http://localhost:4000/account/password`, hashedFormData, {
-        withCredentials: true,
-      })
+    const response = await accountApi
+      .patchChangePassword(hashedFormData)
       .then((response) => {
         setIsChanged(true);
         setFormData({

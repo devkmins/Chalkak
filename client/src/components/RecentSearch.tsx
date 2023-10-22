@@ -1,6 +1,5 @@
 // Libraries
 import { useRecoilState, useSetRecoilState } from "recoil";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 // Package
@@ -23,6 +22,9 @@ import {
   NORMAL_GRAY_COLOR,
   WHITE_COLOR,
 } from "../constants/colors";
+
+// Api
+import { globalApi } from "../apis/global";
 
 const RecentSearchBox = styled.div`
   position: absolute;
@@ -96,10 +98,7 @@ function RecentSearch() {
   };
 
   const keywordClicked = async (keyword: string) => {
-    const response = await axios.get(
-      `http://localhost:4000/search/${keyword}`,
-      { withCredentials: true }
-    );
+    const response = await globalApi.getSearchPostsByKeyword(keyword);
 
     setCurrentSearch(keyword);
     navigate(`${SEARCH_PATH}/${keyword}`, { state: response.data });

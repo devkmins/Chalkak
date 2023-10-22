@@ -1,7 +1,6 @@
 // Libraries
 import { useLocation, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import axios from "axios";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 // Package
@@ -27,6 +26,12 @@ import useScrollEvent from "../hooks/useScrollEvent";
 
 // Styles
 import { BLACK_COLOR, LIGHT_GRAY_COLOR } from "../constants/colors";
+
+// Api
+import { globalApi } from "../apis/global";
+
+// Constant
+import { SEARCH_POST_LIST_DATA } from "../constants/reactQueryKeys";
 
 const Container = styled.div``;
 
@@ -68,10 +73,10 @@ const SearchWord = styled.span`
 `;
 
 function SearchPostList() {
-  const { data, refetch } = useQuery("getSearchPostListData", async () => {
-    const response = await axios.get(
-      `http://localhost:4000/search/${searchKeyword}?page=${page}`,
-      { withCredentials: true }
+  const { data, refetch } = useQuery(SEARCH_POST_LIST_DATA, async () => {
+    const response = await globalApi.getSearchPostsByPage(
+      searchKeyword as string,
+      page
     );
     const responseData = response.data;
 

@@ -1,5 +1,4 @@
 // Libraries
-import axios from "axios";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import CryptoJS from "crypto-js";
 import { useSetRecoilState } from "recoil";
@@ -53,6 +52,9 @@ import {
   getSessionStorageItem,
   removeSessionStorageItem,
 } from "../utils/sessionStorage";
+
+// Api
+import { globalApi } from "../apis/global";
 
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
@@ -240,10 +242,8 @@ function Login() {
         password: CryptoJS.SHA256(formData.password).toString(),
       };
 
-      await axios
-        .post("http://localhost:4000/login", hashedFormData, {
-          withCredentials: true,
-        })
+      await globalApi
+        .postLogin(hashedFormData)
         .then((response) => {
           setLoggedIn(true);
           setSessionData(response.data.user);

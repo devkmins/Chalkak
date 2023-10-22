@@ -1,5 +1,4 @@
 // Libraries
-import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { useRecoilState } from "recoil";
 
@@ -38,6 +37,9 @@ import {
   USERNAME_LENGTH_ERROR,
   USERNAME_WHITE_SPACE_ERROR,
 } from "../constants/errorMessages";
+
+// Api
+import { accountApi } from "../apis/account";
 
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
@@ -237,8 +239,8 @@ function Account() {
       return;
     }
 
-    const response = await axios
-      .put(`http://localhost:4000/account`, formData, { withCredentials: true })
+    const response = await accountApi
+      .putEditProfile(formData)
       .then((response) => {
         setIsUpdated(true);
         setSessionData(response.data);
@@ -276,16 +278,7 @@ function Account() {
       imgData.append("profileImg", img);
     }
 
-    const responseImages = await axios.post(
-      "http://localhost:4000/account/profileImg",
-      imgData,
-      {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
+    const responseImages = await accountApi.postEditProfileImg(imgData);
 
     setSessionData((prev) => {
       const newSessionData = { ...prev, profileImage: responseImages.data };

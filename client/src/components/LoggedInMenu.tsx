@@ -2,7 +2,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useCookies } from "react-cookie";
-import axios from "axios";
 
 // Package
 import styled from "styled-components";
@@ -23,6 +22,9 @@ import {
   USER_PATH,
 } from "../constants/paths";
 import { COOKIE_NAME } from "../constants/cookieName";
+
+// Api
+import { userApi } from "../apis/user";
 
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
@@ -69,24 +71,20 @@ function LoggedInMenu() {
   const isMobileString = String(isMobile);
 
   const logout = async () => {
-    await axios
-      .post("http://localhost:4000/user/logout", cookies, {
-        withCredentials: true,
-      })
-      .then(() => {
-        setLoggedIn(false);
-        setSessionData({
-          email: "",
-          username: "",
-          name: "",
-          profileImage: "",
-          socialOnly: false,
-          _id: "",
-        });
-        removeCookie(COOKIE_NAME);
-        setIsLoggedOut(true);
-        navigate(MAIN_PATH);
+    await userApi.postUserLogout(cookies).then(() => {
+      setLoggedIn(false);
+      setSessionData({
+        email: "",
+        username: "",
+        name: "",
+        profileImage: "",
+        socialOnly: false,
+        _id: "",
       });
+      removeCookie(COOKIE_NAME);
+      setIsLoggedOut(true);
+      navigate(MAIN_PATH);
+    });
   };
 
   return (
