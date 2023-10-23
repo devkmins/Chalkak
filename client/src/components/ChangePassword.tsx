@@ -23,15 +23,14 @@ import {
   PASSWORD_LENGTH_ERROR,
   PASSWORD_WHITE_SPACE_ERROR,
 } from "../constants/errorMessages";
-
-// Styles
 import {
-  BLACK_COLOR,
   ERROR_MESSAGE_COLOR,
   INPUT_BOX_FOCUS_COLOR,
   LIGHT_GRAY_COLOR,
-  WHITE_COLOR,
 } from "../constants/colors";
+
+// Style
+import { Btn } from "../styles/components/Btn";
 
 // Api
 import { accountApi } from "../apis/account";
@@ -108,17 +107,6 @@ const InputBox = styled.div`
 const BtnBox = styled.div`
   width: 100%;
   margin-top: 22px;
-`;
-
-const Btn = styled.button`
-  width: 100%;
-  height: 45px;
-  color: ${WHITE_COLOR};
-  background-color: ${BLACK_COLOR};
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 16px;
 `;
 
 const ErrorMessage = styled.span`

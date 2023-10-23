@@ -22,13 +22,7 @@ import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
 
 // Styles
 import { useMobile } from "../styles/mediaQueries";
-import {
-  BLACK_COLOR,
-  ERROR_MESSAGE_COLOR,
-  LIGHT_GRAY_COLOR,
-  NORMAL_GRAY_COLOR,
-  WHITE_COLOR,
-} from "../constants/colors";
+import { Btn } from "../styles/components/Btn";
 
 // Constants
 import { ACCOUNT_UPDATED_TEXT } from "../constants/notificationMessages";
@@ -37,6 +31,12 @@ import {
   USERNAME_LENGTH_ERROR,
   USERNAME_WHITE_SPACE_ERROR,
 } from "../constants/errorMessages";
+import {
+  BLACK_COLOR,
+  ERROR_MESSAGE_COLOR,
+  LIGHT_GRAY_COLOR,
+  NORMAL_GRAY_COLOR,
+} from "../constants/colors";
 
 // Api
 import { accountApi } from "../apis/account";
@@ -159,15 +159,7 @@ const EditBtnBox = styled.div`
   margin-top: 15px;
 `;
 
-const EditBtn = styled.button<IIsMobile>`
-  width: 100%;
-  height: 45px;
-  color: ${WHITE_COLOR};
-  background-color: ${BLACK_COLOR};
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 16px;
+const EditBtn = styled(Btn)<IIsMobile>`
   margin-bottom: ${(props) => props.$isMobile === "true" && "25px"};
 `;
 

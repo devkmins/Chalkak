@@ -25,15 +25,14 @@ import { useMobile } from "../styles/mediaQueries";
 import { ACCOUNT_CLOSURE_CONFIRMATION } from "../constants/confirmationMessages";
 import { MAIN_PATH } from "../constants/paths";
 import { COOKIE_NAME } from "../constants/cookieName";
-
-// Styles
 import {
-  BLACK_COLOR,
   ERROR_MESSAGE_COLOR,
   INPUT_BOX_FOCUS_COLOR,
   LIGHT_GRAY_COLOR,
-  WHITE_COLOR,
 } from "../constants/colors";
+
+// Styles
+import { Btn } from "../styles/components/Btn";
 
 // Api
 import { accountApi } from "../apis/account";
@@ -115,16 +114,9 @@ const InputBox = styled.div`
   }
 `;
 
-const Btn = styled.button`
-  margin-top: 50px;
+const BtnBox = styled.div`
   width: 100%;
-  height: 45px;
-  color: ${WHITE_COLOR};
-  background-color: ${BLACK_COLOR};
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 16px;
+  margin-top: 50px;
 `;
 
 const ErrorMessage = styled.span`
@@ -219,7 +211,9 @@ function CloseAccount() {
               {error && error.passwordError && (
                 <ErrorMessage>{error.passwordError}</ErrorMessage>
               )}
-              <Btn type="submit">계정 폐쇄</Btn>
+              <BtnBox>
+                <Btn type="submit">계정 폐쇄</Btn>
+              </BtnBox>
             </InputBox>
           </Form>
         </CloseAccountSection>
