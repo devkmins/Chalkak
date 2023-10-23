@@ -111,6 +111,7 @@ export const postLogin = async (req: Request, res: Response) => {
   };
 
   const session = req.session as CustomSession;
+  const expiresDate = session?.cookie?.expires;
 
   session.loggedIn = true;
   session.user = userSessionData;
@@ -118,6 +119,7 @@ export const postLogin = async (req: Request, res: Response) => {
   return res.status(200).send({
     loggedIn: session.loggedIn,
     user: session.user,
+    expiresDate,
   });
 };
 
