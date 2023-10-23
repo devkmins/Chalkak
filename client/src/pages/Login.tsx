@@ -42,6 +42,9 @@ import {
   LOGIN_COUNT_LOCAL_KEY,
 } from "../constants/storagesKeys";
 
+// Hook
+import useLogout from "../hooks/useLogout";
+
 // Utils
 import {
   getLocalStorageItem,
@@ -203,6 +206,8 @@ const ErrorMessage = styled.span`
 `;
 
 function Login() {
+  const logout = useLogout();
+
   const setLoggedIn = useSetRecoilState(loggedInState);
   const setSessionData = useSetRecoilState(sessionState);
 
@@ -245,6 +250,16 @@ function Login() {
       await globalApi
         .postLogin(hashedFormData)
         .then((response) => {
+          const sessionExpirationTime = new Date(
+            response.data.expiresDate
+          ).getTime();
+          const currentTime = new Date().getTime();
+          const timeoutDuration = sessionExpirationTime - currentTime;
+
+          setTimeout(() => {
+            logout();
+          }, timeoutDuration);
+
           setLoggedIn(true);
           setSessionData(response.data.user);
           setIsLoggedOut(false);
