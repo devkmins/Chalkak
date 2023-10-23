@@ -1,14 +1,13 @@
 // Libraries
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
 
 // Package
 import { styled } from "styled-components";
 
 // Atoms
 import { isBackToMainState } from "../atoms/navigationBackAtoms";
-import { isLoggedOutState, loggedInState } from "../atoms/authAtoms";
+import { loggedInState } from "../atoms/authAtoms";
 import { sessionState } from "../atoms/sessionAtom";
 
 // React
@@ -40,10 +39,10 @@ import {
   MAIN_PATH,
   POST_UPLOAD_PATH,
 } from "../constants/paths";
-import { COOKIE_NAME } from "../constants/cookieName";
 
-// Hook
+// Hooks
 import useClickOutside from "../hooks/useClickOutside";
+import useLogout from "../hooks/useLogout";
 
 // Styles
 import {
@@ -54,9 +53,6 @@ import {
   NORMAL_GRAY_COLOR,
   WHITE_COLOR,
 } from "../constants/colors";
-
-// Api
-import { userApi } from "../apis/user";
 
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
@@ -186,14 +182,11 @@ const StyledFaBars = styled(FaBars)`
 `;
 
 function Header() {
+  const logout = useLogout();
+
   const loggedIn = useRecoilValue(loggedInState);
   const sessionData = useRecoilValue(sessionState);
   const userProfileImg = sessionData.profileImage;
-
-  const setLoggedIn = useSetRecoilState(loggedInState);
-  const setSessionData = useSetRecoilState(sessionState);
-  const setIsLoggedOut = useSetRecoilState(isLoggedOutState);
-  const [cookies, , removeCookie] = useCookies([COOKIE_NAME]);
 
   const setIsBackToMain = useSetRecoilState(isBackToMainState);
 
@@ -260,21 +253,8 @@ function Header() {
     });
   };
 
-  const logout = async () => {
-    await userApi.postUserLogout(cookies).then(() => {
-      setLoggedIn(false);
-      setSessionData({
-        email: "",
-        username: "",
-        name: "",
-        profileImage: "",
-        socialOnly: false,
-        _id: "",
-      });
-      removeCookie(COOKIE_NAME);
-      setIsLoggedOut(true);
-      navigate(MAIN_PATH);
-    });
+  const handleLogout = () => {
+    logout();
   };
 
   return (
@@ -291,7 +271,7 @@ function Header() {
           <>
             {(isTabletOrLaptop || isDesktop) && (
               <LoggedInBox $isMobile={isMobileString}>
-                <span onClick={logout}>로그아웃</span>
+                <span onClick={handleLogout}>로그아웃</span>
                 <Link to={POST_UPLOAD_PATH}>업로드</Link>
                 <UserImgBox
                   onFocus={handleUserImgFocus}

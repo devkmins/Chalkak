@@ -1,13 +1,11 @@
 // Libraries
-import { Link, useNavigate } from "react-router-dom";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { useCookies } from "react-cookie";
+import { Link } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 
 // Package
 import styled from "styled-components";
 
 // Atoms
-import { isLoggedOutState, loggedInState } from "../atoms/authAtoms";
 import { sessionState } from "../atoms/sessionAtom";
 
 // Styles
@@ -15,16 +13,10 @@ import { useMobile } from "../styles/mediaQueries";
 import { WHITE_COLOR } from "../constants/colors";
 
 // Constants
-import {
-  ACCOUNT_PATH,
-  MAIN_PATH,
-  POST_UPLOAD_PATH,
-  USER_PATH,
-} from "../constants/paths";
-import { COOKIE_NAME } from "../constants/cookieName";
+import { ACCOUNT_PATH, POST_UPLOAD_PATH, USER_PATH } from "../constants/paths";
 
-// Api
-import { userApi } from "../apis/user";
+// Hook
+import useLogout from "../hooks/useLogout";
 
 // Type
 import { IIsMobile } from "../types/mediaQueriesType";
@@ -60,31 +52,15 @@ const Container = styled.div<IIsMobile>`
 `;
 
 function LoggedInMenu() {
-  const setLoggedIn = useSetRecoilState(loggedInState);
-  const [sessionData, setSessionData] = useRecoilState(sessionState);
-  const setIsLoggedOut = useSetRecoilState(isLoggedOutState);
-  const [cookies, , removeCookie] = useCookies([COOKIE_NAME]);
+  const logout = useLogout();
 
-  const navigate = useNavigate();
+  const sessionData = useRecoilValue(sessionState);
 
   const isMobile = useMobile();
   const isMobileString = String(isMobile);
 
-  const logout = async () => {
-    await userApi.postUserLogout(cookies).then(() => {
-      setLoggedIn(false);
-      setSessionData({
-        email: "",
-        username: "",
-        name: "",
-        profileImage: "",
-        socialOnly: false,
-        _id: "",
-      });
-      removeCookie(COOKIE_NAME);
-      setIsLoggedOut(true);
-      navigate(MAIN_PATH);
-    });
+  const handleLogout = () => {
+    logout();
   };
 
   return (
@@ -94,7 +70,7 @@ function LoggedInMenu() {
           <Link to={`${USER_PATH}/${sessionData.username}`}>프로필 보기</Link>
           <Link to={ACCOUNT_PATH}>계정 설정</Link>
           <Link to={POST_UPLOAD_PATH}>업로드</Link>
-          <span onClick={logout}>로그아웃</span>
+          <span onClick={handleLogout}>로그아웃</span>
         </>
       ) : (
         <>
