@@ -22,7 +22,7 @@ import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
 
 // Styles
 import { useMobile } from "../styles/mediaQueries";
-import { Btn } from "../styles/components/Btn";
+import { Btn } from "../components/Button/Btn";
 
 // Constants
 import { ACCOUNT_UPDATED_TEXT } from "../constants/notificationMessages";

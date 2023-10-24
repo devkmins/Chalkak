@@ -30,7 +30,7 @@ import {
 } from "../constants/colors";
 
 // Style
-import { Btn } from "../styles/components/Btn";
+import { Btn } from "./Button/Btn";
 
 // Api
 import { accountApi } from "../apis/account";
