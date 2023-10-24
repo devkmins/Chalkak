@@ -44,6 +44,8 @@ import { BsThreeDots } from "@react-icons/all-files/bs/BsThreeDots";
 import { BsPerson } from "@react-icons/all-files/bs/BsPerson";
 import { MdDateRange } from "@react-icons/all-files/md/MdDateRange";
 import { GrFormClose } from "@react-icons/all-files/gr/GrFormClose";
+import { BiLeftArrowCircle } from "@react-icons/all-files/bi/BiLeftArrowCircle";
+import { BiRightArrowCircle } from "@react-icons/all-files/bi/BiRightArrowCircle";
 
 // Styles
 import {
@@ -67,6 +69,11 @@ import { globalApi } from "../apis/global";
 
 interface StyledAiFillHeartProps {
   clicked: string;
+}
+
+interface ArrowImgProp {
+  $currentImgIndex: string;
+  $imagesLength: string;
 }
 
 const Container = styled.div``;
@@ -286,45 +293,6 @@ const SimilarPostsText = styled.span`
   font-weight: 600;
 `;
 
-const CustomArrow = styled.div`
-  display: block;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1;
-  cursor: pointer;
-  border-radius: 50%;
-  font-size: 18px;
-`;
-
-const LeftArrow = ({ currentSlide, slideCount, ...props }: any) => {
-  return <CustomArrow {...props}>{"<"}</CustomArrow>;
-};
-
-const RightArrow = ({ currentSlide, slideCount, ...props }: any) => {
-  return <CustomArrow {...props}>{">"}</CustomArrow>;
-};
-
-const StyledLeftArrow = styled(LeftArrow)`
-  left: 10px;
-`;
-
-const StyledRightArrow = styled(RightArrow)`
-  right: 10px;
-`;
-
-const sliderSettings = {
-  dots: true,
-  infinite: false,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  touchMove: true,
-  adaptiveHeight: true,
-  prevArrow: <StyledLeftArrow>{"<"}</StyledLeftArrow>,
-  nextArrow: <StyledRightArrow>{">"}</StyledRightArrow>,
-};
-
 ReactModal.setAppElement("#root");
 
 function DetailPost() {
@@ -355,6 +323,8 @@ function DetailPost() {
 
   const [likes, setLikes] = useState(data?.likes?.length);
 
+  const [currentImgIndex, setCurrentImgIndex] = useState(0);
+
   const location = useLocation();
   const postId = location.state.postId;
   const prevPath = location.state.path;
@@ -376,6 +346,76 @@ function DetailPost() {
     }
   );
   const resultDate = combinedArray.join("");
+
+  const imagesLength = data?.fileUrl.length - 1;
+
+  const CustomArrowBox = styled.div``;
+
+  const PrevArrowIcon = styled(BiLeftArrowCircle)<ArrowImgProp>`
+    width: 25px;
+    height: 25px;
+    color: #3c3c3c;
+    stroke-width: 0.5;
+    border-radius: 50%;
+
+    ${(props) =>
+      props.$currentImgIndex === "0" &&
+      `
+      background-color: #3c3c3c;
+
+      path:last-child {
+        color: white;
+      }
+    `}
+  `;
+
+  const NextArrowIcon = styled(BiRightArrowCircle)<ArrowImgProp>`
+    width: 25px;
+    height: 25px;
+    color: #3c3c3c;
+    stroke-width: 0.5;
+    border-radius: 50%;
+
+    ${(props) =>
+      props.$currentImgIndex === props.$imagesLength &&
+      `
+      background-color: #3c3c3c;
+
+      path:last-child {
+        color: white;
+      }
+    `}
+  `;
+
+  const sliderSettings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    touchMove: true,
+    adaptiveHeight: true,
+    prevArrow: (
+      <CustomArrowBox>
+        <PrevArrowIcon
+          $currentImgIndex={String(currentImgIndex)}
+          $imagesLength={String(imagesLength)}
+        />
+      </CustomArrowBox>
+    ),
+    nextArrow: (
+      <CustomArrowBox>
+        <NextArrowIcon
+          $currentImgIndex={String(currentImgIndex)}
+          $imagesLength={String(imagesLength)}
+        />
+      </CustomArrowBox>
+    ),
+  };
+
+  const handleBeforeChange = (nextSlide: number) => {
+    setCurrentImgIndex(nextSlide);
+  };
 
   const openModal = () => {
     setIsOpen(true);
@@ -476,7 +516,11 @@ function DetailPost() {
               <div key={data?._id}>
                 <ImagesContainer>
                   <ImagesBox>
-                    <StyledSlider {...sliderSettings}>
+                    <StyledSlider
+                      beforeChange={(currentSlide, nextSlide) =>
+                        handleBeforeChange(nextSlide)
+                      }
+                      {...sliderSettings}>
                       {data?.fileUrl?.map((img: IImage, index: number) => (
                         <Image
                           key={img.path}
