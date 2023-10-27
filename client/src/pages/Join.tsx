@@ -37,12 +37,10 @@ import { IS_JOINED_SESSION_KEY } from "../constants/storagesKeys";
 import useScrollToTop from "../hooks/useScrollToTop";
 
 // Styles
-import {
-  BLACK_COLOR,
-  ERROR_MESSAGE_COLOR,
-  GRAY_COLOR,
-  WHITE_COLOR,
-} from "../constants/colors";
+import { BLACK_COLOR, GRAY_COLOR, WHITE_COLOR } from "../constants/colors";
+
+// Component
+import { ErrorMessage } from "../components/ErrorMessage";
 
 // Util
 import { setSessionStorageItem } from "../utils/sessionStorage";
@@ -188,12 +186,6 @@ const JoinBtn = styled.button`
   &:hover {
     cursor: pointer;
   }
-`;
-
-const ErrorMessage = styled.span`
-  margin-top: 7.5px;
-  font-size: 13px;
-  color: ${ERROR_MESSAGE_COLOR};
 `;
 
 function Join() {

@@ -13,20 +13,16 @@ import { useEffect, useState } from "react";
 import { isLoggedOutState, loggedInState } from "../atoms/authAtoms";
 import { sessionState } from "../atoms/sessionAtom";
 
-// Component
+// Components
 import NotificationBar from "../components/NotificationBar";
+import { ErrorMessage } from "../components/ErrorMessage";
 
 // Asset
 import loginImg from "../assets/Images/login.webp";
 
 // Styles
 import { useMobile } from "../styles/mediaQueries";
-import {
-  BLACK_COLOR,
-  ERROR_MESSAGE_COLOR,
-  GRAY_COLOR,
-  WHITE_COLOR,
-} from "../constants/colors";
+import { BLACK_COLOR, GRAY_COLOR, WHITE_COLOR } from "../constants/colors";
 
 // React-Icons
 import { RiCameraLensFill } from "@react-icons/all-files/ri/RiCameraLensFill";
@@ -197,12 +193,6 @@ const LoginBtn = styled.button`
   &:hover {
     cursor: pointer;
   }
-`;
-
-const ErrorMessage = styled.span`
-  margin-top: 7.5px;
-  font-size: 13px;
-  color: ${ERROR_MESSAGE_COLOR};
 `;
 
 function Login() {

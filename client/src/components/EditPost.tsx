@@ -10,10 +10,12 @@ import { useState } from "react";
 // Atom
 import { isEditedState } from "../atoms/postEditedAtom";
 
+// Component
+import { ErrorMessage } from "./ErrorMessage";
+
 // Styles
 import {
   BLACK_COLOR,
-  ERROR_MESSAGE_COLOR,
   NORMAL_GRAY_COLOR,
   WHITE_COLOR,
 } from "../constants/colors";
@@ -129,12 +131,6 @@ const Btn = styled.button`
   cursor: pointer;
   border-radius: 5px;
   font-size: 16px;
-`;
-
-const ErrorMessage = styled.span`
-  margin-top: 7.5px;
-  font-size: 13px;
-  color: ${ERROR_MESSAGE_COLOR};
 `;
 
 function EditPost({ postId, data }: IEditPostProp) {

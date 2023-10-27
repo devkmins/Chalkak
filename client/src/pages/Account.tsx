@@ -17,6 +17,7 @@ import AccountMenu from "../components/AccountMenu";
 import useSearchClear from "../hooks/useSearchClear";
 import NotificationBar from "../components/NotificationBar";
 import { InputBoxAndSpan } from "../components/AccountInput";
+import { ErrorMessage } from "../components/ErrorMessage";
 
 // Asset
 import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
@@ -34,7 +35,6 @@ import {
 } from "../constants/errorMessages";
 import {
   BLACK_COLOR,
-  ERROR_MESSAGE_COLOR,
   LIGHT_GRAY_COLOR,
   NORMAL_GRAY_COLOR,
 } from "../constants/colors";
@@ -140,12 +140,6 @@ const EditBtnBox = styled.div`
 
 const EditBtn = styled(Btn)<IIsMobile>`
   margin-bottom: ${(props) => props.$isMobile === "true" && "25px"};
-`;
-
-const ErrorMessage = styled.span`
-  margin-top: 7.5px;
-  font-size: 13px;
-  color: ${ERROR_MESSAGE_COLOR};
 `;
 
 function Account() {

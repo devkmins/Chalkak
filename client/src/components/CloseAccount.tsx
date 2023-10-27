@@ -18,6 +18,7 @@ import { sessionState } from "../atoms/sessionAtom";
 import AccountMenu from "./AccountMenu";
 import Header from "./Header";
 import { InputBox } from "./AccountInput";
+import { ErrorMessage } from "./ErrorMessage";
 
 // MediaQuery
 import { useMobile } from "../styles/mediaQueries";
@@ -96,12 +97,6 @@ const Form = styled.form`
 const BtnBox = styled.div`
   width: 100%;
   margin-top: 50px;
-`;
-
-const ErrorMessage = styled.span`
-  margin-top: 7.5px;
-  font-size: 13px;
-  color: ${ERROR_MESSAGE_COLOR};
 `;
 
 function CloseAccount() {

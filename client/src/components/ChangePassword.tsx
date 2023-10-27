@@ -13,6 +13,7 @@ import AccountMenu from "./AccountMenu";
 import Header from "./Header";
 import NotificationBar from "./NotificationBar";
 import { InputBoxAndSpan } from "./AccountInput";
+import { ErrorMessage } from "./ErrorMessage";
 
 // MediaQuery
 import { useMobile } from "../styles/mediaQueries";
@@ -24,7 +25,7 @@ import {
   PASSWORD_LENGTH_ERROR,
   PASSWORD_WHITE_SPACE_ERROR,
 } from "../constants/errorMessages";
-import { ERROR_MESSAGE_COLOR, LIGHT_GRAY_COLOR } from "../constants/colors";
+import { LIGHT_GRAY_COLOR } from "../constants/colors";
 
 // Style
 import { Btn } from "./Button/Btn";
@@ -81,12 +82,6 @@ const ChangePasswordBox = styled.div`
 const BtnBox = styled.div`
   width: 100%;
   margin-top: 22px;
-`;
-
-const ErrorMessage = styled.span`
-  margin-top: 7.5px;
-  font-size: 13px;
-  color: ${ERROR_MESSAGE_COLOR};
 `;
 
 function ChangePassword() {
