@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import AccountMenu from "./AccountMenu";
 import Header from "./Header";
 import NotificationBar from "./NotificationBar";
+import { InputBoxAndSpan } from "./AccountInput";
 
 // MediaQuery
 import { useMobile } from "../styles/mediaQueries";
@@ -23,11 +24,7 @@ import {
   PASSWORD_LENGTH_ERROR,
   PASSWORD_WHITE_SPACE_ERROR,
 } from "../constants/errorMessages";
-import {
-  ERROR_MESSAGE_COLOR,
-  INPUT_BOX_FOCUS_COLOR,
-  LIGHT_GRAY_COLOR,
-} from "../constants/colors";
+import { ERROR_MESSAGE_COLOR, LIGHT_GRAY_COLOR } from "../constants/colors";
 
 // Style
 import { Btn } from "./Button/Btn";
@@ -79,29 +76,6 @@ const ChangePasswordBox = styled.div`
   grid-template-rows: repeat(4, 26%);
   margin-top: 50px;
   min-height: 50vh;
-`;
-
-const InputBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-
-  span {
-    margin-bottom: 5px;
-    font-weight: 500;
-  }
-
-  input {
-    border-radius: 5px;
-    border: 1px solid gray;
-    height: 45px;
-    padding-left: 10px;
-    font-size: 15px;
-
-    &:focus {
-      border: 1.25px solid ${INPUT_BOX_FOCUS_COLOR};
-    }
-  }
 `;
 
 const BtnBox = styled.div`
@@ -227,7 +201,7 @@ function ChangePassword() {
             </MainTitleBox>
             <ChangePasswordBox>
               <form onSubmit={handleSubmit}>
-                <InputBox>
+                <InputBoxAndSpan>
                   <span>현재 비밀번호</span>
                   <input
                     name="currentPassword"
@@ -239,8 +213,8 @@ function ChangePassword() {
                   {error && error.currentPasswordError && (
                     <ErrorMessage>{error.currentPasswordError}</ErrorMessage>
                   )}
-                </InputBox>
-                <InputBox>
+                </InputBoxAndSpan>
+                <InputBoxAndSpan>
                   <span>비밀번호</span>
                   <input
                     name="newPassword"
@@ -252,8 +226,8 @@ function ChangePassword() {
                   {error && error.newPasswordError && (
                     <ErrorMessage>{error.newPasswordError}</ErrorMessage>
                   )}
-                </InputBox>
-                <InputBox>
+                </InputBoxAndSpan>
+                <InputBoxAndSpan>
                   <span>비밀번호 확인</span>
                   <input
                     name="newConfirmPassword"
@@ -265,7 +239,7 @@ function ChangePassword() {
                   {error && error.confirmPasswordError && (
                     <ErrorMessage>{error.confirmPasswordError}</ErrorMessage>
                   )}
-                </InputBox>
+                </InputBoxAndSpan>
                 <BtnBox>
                   <Btn type="submit">비밀번호 변경</Btn>
                 </BtnBox>

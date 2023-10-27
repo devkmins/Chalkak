@@ -16,6 +16,7 @@ import Header from "../components/Header";
 import AccountMenu from "../components/AccountMenu";
 import useSearchClear from "../hooks/useSearchClear";
 import NotificationBar from "../components/NotificationBar";
+import { InputBoxAndSpan } from "../components/AccountInput";
 
 // Asset
 import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
@@ -128,28 +129,6 @@ const EditInputContainer = styled.div`
   display: grid;
   grid-template-columns: auto;
   height: 100%;
-`;
-
-const EditInputBox = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  span {
-    margin-bottom: 5px;
-    font-weight: 500;
-  }
-
-  input {
-    border-radius: 5px;
-    border: 1px solid gray;
-    height: 45px;
-    padding-left: 10px;
-    font-size: 15px;
-
-    &:focus {
-      border: 1.25px solid ${BLACK_COLOR};
-    }
-  }
 `;
 
 const EditBtnBox = styled.div`
@@ -326,7 +305,7 @@ function Account() {
               </ProfileImgBox>
               <EditForm ref={formRef} $isMobile={isMobileString}>
                 <EditInputContainer>
-                  <EditInputBox>
+                  <InputBoxAndSpan>
                     <span>이름</span>
                     <input
                       type="text"
@@ -336,8 +315,8 @@ function Account() {
                       onChange={handleChange}
                       onKeyDown={handleEnterKeyPress}
                     />
-                  </EditInputBox>
-                  <EditInputBox>
+                  </InputBoxAndSpan>
+                  <InputBoxAndSpan>
                     <span>이메일</span>
                     <input
                       type="text"
@@ -350,8 +329,8 @@ function Account() {
                     {error && error.emailError && (
                       <ErrorMessage>{error.emailError}</ErrorMessage>
                     )}
-                  </EditInputBox>
-                  <EditInputBox>
+                  </InputBoxAndSpan>
+                  <InputBoxAndSpan>
                     <span>사용자 이름</span>
                     <input
                       type="text"
@@ -364,7 +343,7 @@ function Account() {
                     {error && error.usernameError && (
                       <ErrorMessage>{error.usernameError}</ErrorMessage>
                     )}
-                  </EditInputBox>
+                  </InputBoxAndSpan>
                 </EditInputContainer>
               </EditForm>
             </EditBox>

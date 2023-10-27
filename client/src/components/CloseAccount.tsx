@@ -17,6 +17,7 @@ import { sessionState } from "../atoms/sessionAtom";
 // Components
 import AccountMenu from "./AccountMenu";
 import Header from "./Header";
+import { InputBox } from "./AccountInput";
 
 // MediaQuery
 import { useMobile } from "../styles/mediaQueries";
@@ -25,11 +26,7 @@ import { useMobile } from "../styles/mediaQueries";
 import { ACCOUNT_CLOSURE_CONFIRMATION } from "../constants/confirmationMessages";
 import { MAIN_PATH } from "../constants/paths";
 import { COOKIE_NAME } from "../constants/cookieName";
-import {
-  ERROR_MESSAGE_COLOR,
-  INPUT_BOX_FOCUS_COLOR,
-  LIGHT_GRAY_COLOR,
-} from "../constants/colors";
+import { ERROR_MESSAGE_COLOR, LIGHT_GRAY_COLOR } from "../constants/colors";
 
 // Styles
 import { Btn } from "./Button/Btn";
@@ -94,24 +91,6 @@ const WarningMessage = styled.span``;
 const Form = styled.form`
   margin-top: 12.5px;
   height: 100%;
-`;
-
-const InputBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-
-  input {
-    border-radius: 5px;
-    border: 1px solid gray;
-    height: 45px;
-    padding-left: 10px;
-    font-size: 15px;
-
-    &:focus {
-      border: 1.25px solid ${INPUT_BOX_FOCUS_COLOR};
-    }
-  }
 `;
 
 const BtnBox = styled.div`
