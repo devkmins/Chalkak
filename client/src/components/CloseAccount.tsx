@@ -17,8 +17,15 @@ import { sessionState } from "../atoms/sessionAtom";
 // Components
 import AccountMenu from "./AccountMenu";
 import Header from "./Header";
-import { InputBox } from "./AccountInput";
+import { InputBox } from "./SettingsInput";
 import { ErrorMessage } from "./ErrorMessage";
+import {
+  DefaultBox,
+  DefaultContainer,
+  DefaultSection,
+  MainTitle,
+  MainTitleBox,
+} from "./SettingsDefaultStyle";
 
 // MediaQuery
 import { useMobile } from "../styles/mediaQueries";
@@ -27,7 +34,7 @@ import { useMobile } from "../styles/mediaQueries";
 import { ACCOUNT_CLOSURE_CONFIRMATION } from "../constants/confirmationMessages";
 import { MAIN_PATH } from "../constants/paths";
 import { COOKIE_NAME } from "../constants/cookieName";
-import { ERROR_MESSAGE_COLOR, LIGHT_GRAY_COLOR } from "../constants/colors";
+import { ERROR_MESSAGE_COLOR } from "../constants/colors";
 
 // Styles
 import { Btn } from "./Button/Btn";
@@ -35,42 +42,15 @@ import { Btn } from "./Button/Btn";
 // Api
 import { accountApi } from "../apis/account";
 
-// Type
-import { IIsMobile } from "../types/mediaQueriesType";
-
 interface IError {
   passwordError: string;
 }
 
-const Container = styled.div``;
+const Container = styled(DefaultContainer)``;
 
-const Box = styled.div<IIsMobile>`
-  display: ${(props) => (props.$isMobile === "true" ? "flex" : "grid")};
-  flex-direction: column;
-  grid-template-columns: 20% 80%;
-  padding-top: 100px;
-`;
+const Box = styled(DefaultBox)``;
 
-const CloseAccountSection = styled.section<IIsMobile>`
-  margin-right: 25px;
-
-  ${(props) =>
-    props.$isMobile === "true" &&
-    `
-    margin-left: 22.5px;
-    margin-top: 40px;
-    `}
-`;
-
-const MainTitleBox = styled.div`
-  padding-bottom: 25px;
-  border-bottom: 1px solid ${LIGHT_GRAY_COLOR};
-`;
-
-const MainTitle = styled.span`
-  font-size: 18px;
-  font-weight: 700;
-`;
+const CloseAccountSection = styled(DefaultSection)``;
 
 const WarningMessagesBox = styled.div`
   margin-top: 47.5px;

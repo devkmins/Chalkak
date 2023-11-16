@@ -12,8 +12,15 @@ import { useEffect, useState } from "react";
 import AccountMenu from "./AccountMenu";
 import Header from "./Header";
 import NotificationBar from "./NotificationBar";
-import { InputBoxAndSpan } from "./AccountInput";
+import { InputBoxAndSpan } from "./SettingsInput";
 import { ErrorMessage } from "./ErrorMessage";
+import {
+  DefaultBox,
+  DefaultContainer,
+  DefaultSection,
+  MainTitle,
+  MainTitleBox,
+} from "./SettingsDefaultStyle";
 
 // MediaQuery
 import { useMobile } from "../styles/mediaQueries";
@@ -25,7 +32,6 @@ import {
   PASSWORD_LENGTH_ERROR,
   PASSWORD_WHITE_SPACE_ERROR,
 } from "../constants/errorMessages";
-import { LIGHT_GRAY_COLOR } from "../constants/colors";
 
 // Style
 import { Btn } from "./Button/Btn";
@@ -33,44 +39,17 @@ import { Btn } from "./Button/Btn";
 // Api
 import { accountApi } from "../apis/account";
 
-// Type
-import { IIsMobile } from "../types/mediaQueriesType";
-
 interface IError {
   currentPasswordError: string;
   newPasswordError: string;
   confirmPasswordError: string;
 }
 
-const Container = styled.div``;
+const Container = styled(DefaultContainer)``;
 
-const Box = styled.div<IIsMobile>`
-  display: ${(props) => (props.$isMobile === "true" ? "flex" : "grid")};
-  flex-direction: column;
-  grid-template-columns: 20% 80%;
-  padding-top: 100px;
-`;
+const Box = styled(DefaultBox)``;
 
-const ChangePasswordSection = styled.section<IIsMobile>`
-  margin-right: 25px;
-
-  ${(props) =>
-    props.$isMobile === "true" &&
-    `
-    margin-left: 22.5px;
-    margin-top: 40px;
-    `}
-`;
-
-const MainTitleBox = styled.div`
-  padding-bottom: 25px;
-  border-bottom: 1px solid ${LIGHT_GRAY_COLOR};
-`;
-
-const MainTitle = styled.span`
-  font-size: 18px;
-  font-weight: 700;
-`;
+const ChangePasswordSection = styled(DefaultSection)``;
 
 const ChangePasswordBox = styled.div`
   display: grid;

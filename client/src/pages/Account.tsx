@@ -16,8 +16,15 @@ import Header from "../components/Header";
 import AccountMenu from "../components/AccountMenu";
 import useSearchClear from "../hooks/useSearchClear";
 import NotificationBar from "../components/NotificationBar";
-import { InputBoxAndSpan } from "../components/AccountInput";
+import { InputBoxAndSpan } from "../components/SettingsInput";
 import { ErrorMessage } from "../components/ErrorMessage";
+import {
+  DefaultBox,
+  DefaultContainer,
+  DefaultSection,
+  MainTitle,
+  MainTitleBox,
+} from "../components/SettingsDefaultStyle";
 
 // Asset
 import defaultUserProfileImg from "../assets/Images/defaultProfile.webp";
@@ -33,11 +40,7 @@ import {
   USERNAME_LENGTH_ERROR,
   USERNAME_WHITE_SPACE_ERROR,
 } from "../constants/errorMessages";
-import {
-  BLACK_COLOR,
-  LIGHT_GRAY_COLOR,
-  NORMAL_GRAY_COLOR,
-} from "../constants/colors";
+import { BLACK_COLOR, NORMAL_GRAY_COLOR } from "../constants/colors";
 
 // Api
 import { accountApi } from "../apis/account";
@@ -50,35 +53,11 @@ interface IError {
   usernameError: string;
 }
 
-const Container = styled.div``;
+const Container = styled(DefaultContainer)``;
 
-const Box = styled.div<IIsMobile>`
-  display: ${(props) => (props.$isMobile === "true" ? "flex" : "grid")};
-  flex-direction: column;
-  grid-template-columns: 20% 80%;
-  padding-top: 100px;
-`;
+const Box = styled(DefaultBox)``;
 
-const EditSection = styled.section<IIsMobile>`
-  margin: 0px 25px 0px 0px;
-  min-height: 50vh;
-
-  ${(props) =>
-    props.$isMobile === "true" &&
-    `
-    margin: 40px 25px 0px 22.5px
-    `}
-`;
-
-const MainTitleBox = styled.div`
-  padding-bottom: 25px;
-  border-bottom: 1px solid ${LIGHT_GRAY_COLOR};
-`;
-
-const MainTitle = styled.span`
-  font-size: 18px;
-  font-weight: 700;
-`;
+const EditSection = styled(DefaultSection)``;
 
 const EditBox = styled.div<IIsMobile>`
   display: ${(props) => (props.$isMobile === "true" ? "flex" : "grid")};
